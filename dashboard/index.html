@@ -625,7 +625,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=14"></script>
+<script src="js/evidence-panel.js?v=15"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -808,7 +808,7 @@
     options: {
       maintainAspectRatio: false,
       interaction: { mode: "nearest", intersect: true },
-      onClick: citeClick((_ds, idx) => `trend.spend.${idx}`),
+      onClick: citeClick((ds, idx) => ds === 0 ? `trend.spend.${idx}` : `inflation.real.${idx}`),
       scales: { y: { ticks: moneyTicks, grid, beginAtZero: false, title: { display: true, text: "Dollars" } },
                 x: { grid: { display: false } } },
       plugins: {

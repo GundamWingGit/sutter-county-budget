@@ -60,6 +60,8 @@ def displayed_ids(budget: dict) -> list[tuple[str, float | None, str]]:
         out.append((f"trend.revenue.{i}", st["revenue"][i], f"trend revenue {fy}"))
         out.append((f"trend.spend.{i}", st["spend"][i], f"trend spend {fy}"))
         out.append((f"trend.surplus.{i}", st["surplus"][i], f"trend surplus {fy}"))
+        if i < len((budget.get("inflation") or {}).get("real2025") or []):
+            out.append((f"inflation.real.{i}", budget["inflation"]["real2025"][i], f"inflation real {fy}"))
 
     k = budget.get("kpis") or {}
     out += [

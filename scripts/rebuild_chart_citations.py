@@ -68,17 +68,17 @@ EXP_CAT_SNAP = [
 CAT_LINE = {
     "Taxes": r"(?i)^(total )?taxes$",
     "Intergovernmental": r"(?i)^(total )?intergovernmental",
-    "Charges for Services": r"(?i)^charges for services$",
-    "Other Financing Sources": r"(?i)other financing sources",
+    "Charges for Services": r"(?i)^(total )?charges for services$",
+    "Other Financing Sources": r"(?i)^(total )?other financing sources|transfers in",
     "Investment & Property": r"(?i)investment|use of money|property",
     "Licenses & Permits": r"(?i)licenses?,?\s*permits",
     "Miscellaneous": r"(?i)^(total )?miscellaneous",
     "Fines & Penalties": r"(?i)fines|forfeitures|penalt",
-    "Salaries & Benefits": r"(?i)^salaries and (employee )?benefits$",
-    "Services & Supplies": r"(?i)^services and supplies$",
-    "Other Charges": r"(?i)^other charges$",
-    "Other Financing Uses": r"(?i)other financing uses",
-    "Capital Assets": r"(?i)^capital assets",
+    "Salaries & Benefits": r"(?i)^(total )?salaries and (employee )?benefit",
+    "Services & Supplies": r"(?i)^(total )?services and supplies$",
+    "Other Charges": r"(?i)^(total )?other charges$",
+    "Other Financing Uses": r"(?i)^(total )?other financing uses|transfers out",
+    "Capital Assets": r"(?i)^(total )?capital assets",
 }
 
 
@@ -277,7 +277,7 @@ def category_children(book: str, fy: str, kind: str, cat: str, rows: list[dict],
         seen.add(key)
         found.append(child_from_line(book, r))
     found.sort(key=lambda x: -abs(x.get("value") or 0))
-    return found[:n]
+    return found[: max(n, 40)]
 
 
 def analysis_cat(analysis: dict, fy: str, side: str, name: str) -> float:
@@ -321,25 +321,24 @@ def build_mix_cites(cites: dict, analysis: dict) -> None:
                 else:
                     v = analysis_cat(analysis, fy, "revenue" if side == "revenue" else "expense", cat)
                     kids = category_children(book, fy, "actual", cat, line_cache[book])
-                first = next((k for k in kids if k.get("page")), None)
                 cites[f"{prefix}.{si}.{yi}"] = {
                     "type": "derived",
                     "label": f"{cat} — {fy} actual",
                     "value": int(round(v)) if v else 0,
                     "formula": (
                         f"{cat} is a county-wide category total for {fy}, taken from unit "
-                        f"lines in the {book} book."
+                        f"lines in the {book} book. Click a unit row to box that printed line."
                     ),
                     "book": book,
-                    "page": (first or {}).get("page"),
-                    "query": (first or {}).get("query"),
+                    "page": None,
+                    "query": None,
                     "children": kids,
                     "fy": fy,
                     "kind": "actual",
                     "metric": "category",
                     "category": cat,
                 }
-                print(f"  {prefix}.{si}.{yi} {cat} {fy}: {len(kids)} sources p{(first or {}).get('page')}", flush=True)
+                print(f"  {prefix}.{si}.{yi} {cat} {fy}: {len(kids)} sources", flush=True)
 
     snap_fy = "FY2023-24"
     book = ACTUAL_BOOK[snap_fy]
@@ -353,22 +352,21 @@ def build_mix_cites(cites: dict, analysis: dict) -> None:
             "label": f"{cat} — {snap_fy} actual revenue",
             "value": int(round(v)) if v else 0,
             "formula": f"Sum of unit “{cat}” lines in the {book} book, {snap_fy} actual column.",
-            "book": book, "page": (first or {}).get("page"),
-            "query": (first or {}).get("query"),
+            "book": book, "page": None,
+            "query": None,
             "children": kids, "fy": snap_fy, "kind": "actual",
             "metric": "category", "category": cat,
         }
     for i, cat in enumerate(EXP_CAT_SNAP):
         v = analysis_cat(analysis, snap_fy, "expense", cat)
         kids = category_children(book, snap_fy, "actual", cat, rows)
-        first = next((k for k in kids if k.get("page")), None)
         cites[f"expcat.{i}"] = {
             "type": "derived",
             "label": f"{cat} — {snap_fy} actual spending",
             "value": int(round(v)) if v else 0,
-            "formula": f"Sum of unit “{cat}” lines in the {book} book, {snap_fy} actual column.",
-            "book": book, "page": (first or {}).get("page"),
-            "query": (first or {}).get("query"),
+            "formula": f"Sum of unit “{cat}” lines in the {book} book, {snap_fy} actual column. Click a unit to box that line.",
+            "book": book, "page": None,
+            "query": None,
             "children": kids, "fy": snap_fy, "kind": "actual",
             "metric": "category", "category": cat,
         }
@@ -628,6 +626,10 @@ def fill_missing_pages(cites: dict) -> None:
             continue
         # Never stamp a feeder page onto a county-wide revenue/spend/surplus parent.
         if c.get("metric") in ("revenue", "spend", "surplus") and c.get("type") == "derived":
+            continue
+        # Never copy a child's page onto a derived parent. That page does not
+        # contain the parent total and produces a red "could not box" miss.
+        if c.get("type") == "derived":
             continue
         kids = [k for k in (c.get("children") or []) if k.get("page")]
         if kids:

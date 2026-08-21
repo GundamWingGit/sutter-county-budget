@@ -246,7 +246,11 @@
     }
     const sources = allSources || [];
     if (!sources.length) {
-      showEmpty("No source rows yet", "The pieces for this total could not be listed.");
+      showEmpty(
+        "This total is not printed as one figure",
+        (cite && cite.formula) || "Open a contributing source from the formula, or look the pieces up in the book."
+      );
+      setPane("compose");
       return;
     }
 
@@ -977,7 +981,12 @@
       if (gen != null && gen !== openGen) return;
       setPane("page");
       if (highlightOn && !lastHighlight && piece.value != null) {
-        showStatus("Opened the page but could not box " + fmtFull(piece.value) + ". The figure is not on this page as a whole number.", true);
+        if (piece.type === "derived") {
+          renderComposition(currentCite || cite);
+          showStatus("This total is not printed as one figure. Click a source row to box that row.");
+        } else {
+          showStatus("Opened the page but could not box " + fmtFull(piece.value) + ". The figure is not on this page as a whole number.", true);
+        }
       } else {
         showStatus("Highlight is " + fmtFull(piece.value) + ". Click the page for a sharper view.");
       }
@@ -1027,11 +1036,15 @@
 
     const clickedQuery = formatQueryFromValue(cite.value);
     const parentQuery = queryMatchesValue(cite.query, cite.value) ? cite.query : clickedQuery;
+    const printedHit = cite.hit && cite.hit.x0 != null && valuesExact(parseMoney(cite.hit.query), cite.value);
     const canHighlightClicked = !!(
-      cite.book && cite.page && cite.value != null && queryMatchesValue(parentQuery, cite.value)
+      cite.type === "printed" &&
+      cite.book && cite.page && cite.value != null &&
+      (printedHit || queryMatchesValue(parentQuery, cite.value))
     );
 
-    // Only highlight when the page figure is the same number the user clicked.
+    // Only open a PDF to box a figure that is printed as that same amount.
+    // Calculated totals stay on the breakdown — never a feeder page and a red miss.
     if (canHighlightClicked) {
       viewingPiece = {
         ...cite,
@@ -1043,9 +1056,10 @@
       return;
     }
 
-    // Calculated figure: show the pieces, never a feeder page as if it were the click.
     renderComposition(cite);
-    showStatus("");
+    showStatus(cite.type === "derived"
+      ? "This total is not a single printed figure. Click a source row to box that row in the book."
+      : "");
     clearCanvas();
     $("evidencePageLabel").textContent = "—";
     $("evidenceDocLink").href = "#";
