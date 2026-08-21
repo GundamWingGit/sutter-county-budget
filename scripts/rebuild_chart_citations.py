@@ -433,72 +433,124 @@ def ensure_position_book(books: dict) -> str:
     return "FY 2025-26 Positions"
 
 
-def index_position_pages(pdf_path: Path, titles: list[str], max_pages=120) -> dict:
-    found = {}
-    if not pdf_path.exists() or not titles:
-        return found
+def _pay_title_needles(title: str) -> list[str]:
+    s = (title or "").lower().replace("–", "-").replace("—", "-")
+    s = re.sub(r"\s*i-i{1,3}\s*$", "", s).strip()
+    out = [s]
+    words = [w for w in re.split(r"[^a-z0-9]+", s) if w]
+    if len(words) >= 2:
+        out.append(" ".join(words[:2]))
+    if len(words) >= 3:
+        out.append(" ".join(words[:3]))
+    return [x for x in out if len(x) >= 5]
+
+
+def _parse_pay_money(text: str):
+    t = str(text).strip().replace("−", "-")
+    if not re.search(r"\d", t):
+        return None
+    neg = t.startswith("(") or t.startswith("-")
+    n = re.sub(r"[^0-9.]", "", t)
+    if n.count(".") > 1:
+        return None
+    try:
+        v = float(n)
+    except ValueError:
+        return None
+    return -v if neg else v
+
+
+def locate_pay_figure(pdf_path: Path, title: str, value: float, kind: str) -> dict | None:
+    """Find the printed salary or FTE token — never the first FTE roster hit for a dollar."""
     try:
         import pdfplumber
     except ImportError:
-        return found
-    def variants(title: str):
-        s = title.lower()
-        out = [s, s.replace("–", "-").replace("—", "-")]
-        out.append(re.sub(r"\s*i[-–]iii\s*$", "", out[-1]).strip())
-        out.append(re.sub(r"\s*i[-–]ii\s*$", "", out[-1]).strip())
-        return [x for x in out if len(x) >= 6]
+        return None
+    if not pdf_path.exists() or value is None:
+        return None
+    needles = _pay_title_needles(title)
+    want = float(value)
+    # Dollars live in the salary resolution (roughly p.16+). Headcount is p.3–14.
+    if kind == "staff":
+        page_range = range(2, 15)
+        tol = 0.05
+    else:
+        page_range = range(15, 101)
+        tol = 1.01  # posted rates print cents (252,977.56 vs $252,978)
 
-    needles = [(t, variants(t)) for t in titles if t]
+    best = None
     with pdfplumber.open(pdf_path) as pdf:
-        for i, page in enumerate(pdf.pages[:max_pages]):
-            t = (page.extract_text() or "").lower()
-            for title, vars_ in needles:
-                if title in found:
-                    continue
-                if any(v in t for v in vars_):
-                    found[title] = i + 1
-            if len(found) == len(needles):
+        for idx in page_range:
+            if idx >= len(pdf.pages):
                 break
-    return found
+            page = pdf.pages[idx]
+            text = (page.extract_text() or "").lower()
+            if not any(n in text for n in needles):
+                continue
+            for w in page.extract_words() or []:
+                n = _parse_pay_money(w.get("text"))
+                if n is None or abs(n - want) > tol:
+                    continue
+                score = 4 if "," in str(w.get("text")) else 2
+                if any(n in str(w.get("text", "")).lower() for n in needles):
+                    score += 1
+                cand = {
+                    "page": idx + 1,
+                    "x0": round(float(w["x0"]), 2),
+                    "top": round(float(w["top"]), 2),
+                    "x1": round(float(w["x1"]), 2),
+                    "bottom": round(float(w["bottom"]), 2),
+                    "query": w["text"],
+                    "pageW": float(page.width),
+                    "pageH": float(page.height),
+                    "printed": n,
+                    "_score": score,
+                }
+                if best is None or cand["_score"] > best["_score"]:
+                    best = cand
+    if not best:
+        return None
+    best.pop("_score", None)
+    return best
 
 
 def build_pay_cites(cites: dict, budget: dict, books: dict) -> None:
     book = ensure_position_book(books)
     pdf = PDFS / books[book]["file"]
     pay = budget.get("pay") or {}
-    titles = []
-    for pack in (pay.get("highestPaid"), pay.get("costliestClasses"), pay.get("mostStaff")):
-        titles.extend((pack or {}).get("labels") or [])
-    pages = index_position_pages(pdf, titles)
-    print(f"  position PDF located {len(pages)}/{len(set(titles))} titles", flush=True)
 
-    def page_for(title: str):
-        return pages.get(title)
-
-    for key, pack in (
-        ("pay.high", pay.get("highestPaid") or {}),
-        ("pay.cost", pay.get("costliestClasses") or {}),
-        ("pay.staff", pay.get("mostStaff") or {}),
+    for key, pack, kind in (
+        ("pay.high", pay.get("highestPaid") or {}, "salary"),
+        ("pay.cost", pay.get("costliestClasses") or {}, "salary"),
+        ("pay.staff", pay.get("mostStaff") or {}, "staff"),
     ):
         labels = pack.get("labels") or []
         for i, title in enumerate(labels):
-            pg = page_for(title)
+            value = (
+                (pack.get("values") or [None])[i]
+                if kind == "staff"
+                else (pack.get("max") or pack.get("values") or [None])[i]
+            )
+            hit = locate_pay_figure(pdf, title, value, kind)
             cites[f"{key}.{i}"] = {
-                "type": "printed" if pg else "derived",
+                "type": "printed" if hit else "derived",
                 "label": title,
-                "value": (pack.get("max") or pack.get("values") or [None])[i]
-                    if key != "pay.staff" else (pack.get("values") or [None])[i],
+                "value": value,
                 "formula": (
-                    f"Posted in the FY 2025-26 Position Allocation Schedule "
-                    f"(Section J), not the Schedule 9 unit totals."
+                    f"Posted top of range in the FY 2025-26 salary resolution "
+                    f"(Section J), not the FTE roster."
+                    if kind != "staff"
+                    else f"Authorized FTE in the FY 2025-26 Position Allocation Schedule."
                 ),
                 "book": book,
-                "page": pg,
-                "query": title,
+                "page": (hit or {}).get("page"),
+                "query": (hit or {}).get("query"),
+                "hit": {k: v for k, v in (hit or {}).items() if k != "printed"} if hit else None,
                 "children": [],
                 "metric": "pay",
+                "unit": title,
             }
-            print(f"  {key}.{i} {title}: p{pg}", flush=True)
+            print(f"  {key}.{i} {title}: p{(hit or {}).get('page')} q={(hit or {}).get('query')}", flush=True)
 
 
 def build_contract_cites(cites: dict, budget: dict) -> None:

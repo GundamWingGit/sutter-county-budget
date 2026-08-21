@@ -44,18 +44,28 @@
     return Math.abs(Number(a) - Number(b)) <= 10;
   }
 
+  function valuesExact(a, b) {
+    if (a == null || b == null) return false;
+    if (Number.isNaN(Number(a)) || Number.isNaN(Number(b))) return false;
+    // Posted salary rates print cents (252,977.56) next to a rounded dashboard dollar.
+    return Math.abs(Math.round(Number(a)) - Math.round(Number(b))) <= 1;
+  }
+
   function parseMoney(s) {
     if (s == null || s === "") return null;
     if (typeof s === "number") return s;
-    const t = String(s).trim().replace(/[−–]/g, "-");
+    const t = String(s).trim().replace(/[−–—]/g, "-");
     const neg = /^\(.*\)$/.test(t) || t.startsWith("-");
-    const n = Number(t.replace(/[^0-9.]/g, ""));
+    let digits = t.replace(/[^0-9.]/g, "");
+    if ((digits.match(/\./g) || []).length > 1) return null;
+    const n = Number(digits);
     if (Number.isNaN(n)) return null;
     return neg ? -n : n;
   }
 
   function looksLikeNumberToken(raw) {
-    return /^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(String(raw || "").replace(/\s+/g, ""));
+    const s = String(raw || "").replace(/\s+/g, "").replace(/[−–—]/g, "-").replace(/^\$/, "");
+    return /^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(s);
   }
 
   function queryMatchesValue(query, value) {
@@ -950,6 +960,9 @@
       currentPdf = doc;
       currentBook = piece.book;
       currentPage = Math.min(Math.max(1, piece.page), currentPdf.numPages);
+      if (highlightOn && piece.value != null) {
+        currentPage = await findPageWithValue(currentPdf, currentPage, piece.value);
+      }
       $("evidencePageLabel").textContent = `p. ${currentPage} of ${currentPdf.numPages}`;
       $("evidenceDocLink").href = viewerUrl(piece.book, currentPage, piece.query || formatQueryFromValue(piece.value));
       $("evidenceDocLink").textContent = "Open page";
@@ -964,7 +977,7 @@
       if (gen != null && gen !== openGen) return;
       setPane("page");
       if (highlightOn && !lastHighlight && piece.value != null) {
-        showStatus("Page opened. Could not mark " + fmtFull(piece.value) + " as a whole number — look for it on the Total Revenues / Expenditures row.", true);
+        showStatus("Opened the page but could not box " + fmtFull(piece.value) + ". The figure is not on this page as a whole number.", true);
       } else {
         showStatus("Highlight is " + fmtFull(piece.value) + ". Click the page for a sharper view.");
       }
@@ -1136,7 +1149,8 @@
 
     lastHighlight = null;
     if (highlightOn) {
-      if (opts.hit && opts.hit.x0 != null && queryMatchesValue(opts.hit.query, opts.value)) {
+      if (opts.hit && opts.hit.x0 != null && valuesExact(parseMoney(opts.hit.query), opts.value)
+          && (!opts.hit.page || opts.hit.page === pageNum)) {
         lastHighlight = drawHitBBox(ctx, viewport, opts.hit, base);
       }
       if (!lastHighlight && (opts.query || opts.value != null)) {
@@ -1222,7 +1236,7 @@
     for (const run of hits) {
       const runText = run.map(it => it.str).join("");
       const parsed = parseMoney(runText);
-      if (target != null && (parsed == null || !valuesClose(parsed, target))) continue;
+      if (target != null && (parsed == null || !valuesExact(parsed, target))) continue;
       const tx = transformItem(viewport, run[0]);
       let score = 20 + runText.length;
       if (anchors.length) {
@@ -1303,18 +1317,125 @@
     return ch >= "0" && ch <= "9";
   }
 
-  function findValueRuns(items, target) {
-    const hits = [];
-    for (let i = 0; i < items.length; i++) {
-      for (let span = 1; span <= 3 && i + span <= items.length; span++) {
-        const run = items.slice(i, i + span);
-        const raw = run.map(it => it.str).join("").replace(/\s+/g, "").replace(/[−–]/g, "-");
-        if (!looksLikeNumberToken(raw)) continue;
-        const n = parseMoney(raw);
-        if (n != null && valuesClose(n, target)) hits.push(run);
+  function itemX(it) { return it.transform ? it.transform[4] : 0; }
+  function itemY(it) { return it.transform ? it.transform[5] : 0; }
+
+  function groupItemsByLine(items) {
+    const rows = [];
+    items.forEach(it => {
+      const y = itemY(it);
+      let row = rows.find(r => Math.abs(r.y - y) <= 4);
+      if (!row) {
+        row = { y, items: [] };
+        rows.push(row);
       }
+      row.items.push(it);
+    });
+    rows.forEach(r => r.items.sort((a, b) => itemX(a) - itemX(b)));
+    return rows;
+  }
+
+  function clusterLineItems(items) {
+    const groups = [];
+    let g = [];
+    let prevRight = -1e9;
+    items.forEach(it => {
+      const x = itemX(it);
+      const w = it.width || 0;
+      if (g.length && x - prevRight > 14) {
+        groups.push(g);
+        g = [];
+      }
+      g.push(it);
+      prevRight = x + w;
+    });
+    if (g.length) groups.push(g);
+    return groups;
+  }
+
+  function parseCluster(run) {
+    const raw = run.map(it => it.str).join("").replace(/\s+/g, "").replace(/[−–—]/g, "-").replace(/^\$/, "");
+    if (!looksLikeNumberToken(raw)) return null;
+    return parseMoney(raw);
+  }
+
+  function commaInt(n) {
+    return String(Math.abs(Math.round(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function findValueRuns(items, target) {
+    if (target == null || Number.isNaN(Number(target))) return [];
+    const want = Math.round(Number(target));
+    const hits = [];
+    const seen = new Set();
+    const add = (run) => {
+      if (!run || !run.length) return;
+      const key = run.map(it => itemX(it) + ":" + itemY(it) + ":" + it.str).join("|");
+      if (seen.has(key)) return;
+      seen.add(key);
+      hits.push(run);
+    };
+
+    groupItemsByLine(items).forEach(row => {
+      clusterLineItems(row.items).forEach(run => {
+        const n = parseCluster(run);
+        if (n != null && Math.abs(Math.round(n) - want) <= 1) add(run);
+      });
+      const line = row.items;
+      for (let i = 0; i < line.length; i++) {
+        for (let j = i + 1; j <= line.length && j - i <= 16; j++) {
+          const n = parseCluster(line.slice(i, j));
+          if (n != null && Math.abs(Math.round(n) - want) <= 1) add(line.slice(i, j));
+        }
+      }
+    });
+
+    if (!hits.length) {
+      let hay = "";
+      const map = [];
+      items.forEach((it, idx) => {
+        const t = String(it.str).replace(/\s+/g, "").replace(/[−–—]/g, "-");
+        for (let k = 0; k < t.length; k++) map.push(idx);
+        hay += t;
+      });
+      const abs = Math.abs(want);
+      const patterns = [commaInt(abs), String(abs)];
+      if (want < 0) {
+        patterns.unshift("-" + commaInt(abs), "(" + commaInt(abs) + ")", "-" + String(abs), "(" + String(abs) + ")");
+      }
+      patterns.forEach(q => {
+        let from = 0;
+        while (from < hay.length) {
+          const at = hay.indexOf(q, from);
+          if (at < 0) break;
+          const before = at > 0 ? hay[at - 1] : "";
+          const after = at + q.length < hay.length ? hay[at + q.length] : "";
+          if (isNumChar(before) || isNumChar(after)) { from = at + 1; continue; }
+          const a = map[at];
+          const b = map[Math.min(at + q.length - 1, map.length - 1)];
+          if (a != null && b != null) add(items.slice(a, b + 1));
+          from = at + q.length;
+        }
+      });
     }
     return hits;
+  }
+
+  async function findPageWithValue(doc, startPage, value) {
+    const pages = [startPage];
+    [1, -1, 2, -2].forEach(d => {
+      const p = startPage + d;
+      if (p >= 1 && p <= doc.numPages && !pages.includes(p)) pages.push(p);
+    });
+    for (const p of pages) {
+      try {
+        const page = await doc.getPage(p);
+        const content = await page.getTextContent();
+        const items = content.items.filter(it => it.str && it.str.trim());
+        if (findValueRuns(items, value).length) return p;
+      } catch (_) { /* keep looking */ }
+    }
+    return startPage;
   }
 
   function findTextRuns(items, query) {

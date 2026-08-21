@@ -148,11 +148,73 @@
 
     function parseMoney(s) {
       if (s == null || s === "") return null;
-      const t = String(s).trim();
+      const t = String(s).trim().replace(/[−–—]/g, "-");
       const neg = /^\(.*\)$/.test(t) || t.startsWith("-");
-      const n = Number(t.replace(/[^0-9.]/g, ""));
+      let digits = t.replace(/[^0-9.]/g, "");
+      if ((digits.match(/\./g) || []).length > 1) return null;
+      const n = Number(digits);
       if (Number.isNaN(n)) return null;
       return neg ? -n : n;
+    }
+
+    function looksLikeNumberToken(raw) {
+      const s = String(raw || "").replace(/\s+/g, "").replace(/[−–—]/g, "-").replace(/^\$/, "");
+      return /^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(s);
+    }
+
+    function itemX(it) { return it.transform ? it.transform[4] : 0; }
+    function itemY(it) { return it.transform ? it.transform[5] : 0; }
+
+    function findValueRuns(items, target) {
+      if (target == null || Number.isNaN(Number(target))) return [];
+      const want = Math.round(Number(target));
+      const hits = [];
+      const rows = [];
+      items.forEach(it => {
+        const y = itemY(it);
+        let row = rows.find(r => Math.abs(r.y - y) <= 4);
+        if (!row) { row = { y, items: [] }; rows.push(row); }
+        row.items.push(it);
+      });
+      rows.forEach(r => r.items.sort((a, b) => itemX(a) - itemX(b)));
+      const parseCluster = (run) => {
+        const raw = run.map(it => it.str).join("").replace(/\s+/g, "").replace(/[−–—]/g, "-").replace(/^\$/, "");
+        if (!looksLikeNumberToken(raw)) return null;
+        return parseMoney(raw);
+      };
+      rows.forEach(row => {
+        const line = row.items;
+        for (let i = 0; i < line.length; i++) {
+          for (let j = i + 1; j <= line.length && j - i <= 16; j++) {
+            const n = parseCluster(line.slice(i, j));
+            if (n != null && Math.round(n) === want) hits.push(line.slice(i, j));
+          }
+        }
+      });
+      if (hits.length) return hits;
+      let hay = "";
+      const map = [];
+      items.forEach((it, idx) => {
+        const t = String(it.str).replace(/\s+/g, "").replace(/[−–—]/g, "-");
+        for (let k = 0; k < t.length; k++) map.push(idx);
+        hay += t;
+      });
+      const q = (want < 0 ? "-" : "") + String(Math.abs(want)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const raw = String(Math.round(target));
+      [q, raw].forEach(needle => {
+        let from = 0;
+        while (from < hay.length) {
+          const at = hay.indexOf(needle, from);
+          if (at < 0) break;
+          const before = at > 0 ? hay[at - 1] : "";
+          const after = at + needle.length < hay.length ? hay[at + needle.length] : "";
+          if (isNumChar(before) || isNumChar(after)) { from = at + 1; continue; }
+          const a = map[at], b = map[Math.min(at + needle.length - 1, map.length - 1)];
+          if (a != null && b != null) hits.push(items.slice(a, b + 1));
+          from = at + needle.length;
+        }
+      });
+      return hits;
     }
 
     function variants(q) {
@@ -219,21 +281,8 @@
             hay += s.toLowerCase();
           });
           const want = parseMoney(query);
-          let run = null;
-          if (want != null) {
-            for (let i = 0; i < items.length && !run; i++) {
-              for (let span = 1; span <= 3 && i + span <= items.length; span++) {
-                const cand = items.slice(i, i + span);
-                const raw = cand.map((it) => it.str).join("").replace(/\s+/g, "").replace(/[−–]/g, "-");
-                if (!/^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(raw)) continue;
-                const parsed = parseMoney(raw);
-                if (parsed != null && Math.abs(parsed - want) <= 10) {
-                  run = cand;
-                  break;
-                }
-              }
-            }
-          }
+          const found = want != null ? findValueRuns(items, want) : [];
+          const run = found[0] || null;
           if (run && run.length) {
             ctx.fillStyle = "rgba(165,129,75,.38)";
             ctx.strokeStyle = "rgba(165,129,75,.95)";

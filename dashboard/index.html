@@ -180,6 +180,9 @@
   .kpi.citeable:hover::after, .finding.citeable:hover::after { opacity: 1; }
   table.data tr.citeable { cursor: pointer; }
   table.data tr.citeable:hover td { background: #faf6ee; }
+  table.data td.citeable { cursor: pointer; position: relative; text-decoration: underline; text-decoration-color: #d4c4a4; text-underline-offset: 3px; }
+  table.data td.citeable::after { display: none; }
+  table.data td.citeable:hover { background: #faf6ee; box-shadow: inset 0 0 0 1px var(--gold); text-decoration-color: var(--gold); }
   .chart-box.citeable-chart { cursor: crosshair; }
   .chart-box.citeable-chart::after {
     content: "Click a point to verify in the source book";
@@ -548,7 +551,7 @@
     </div>
     <div class="card" style="margin-top:16px">
       <h3>Department and fund detail</h3>
-      <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Growth is FY 2016-17 to FY 2024-25.</p>
+      <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Each underlined year is a separate source: FY 16-17, FY 20-21, and FY 24-25 open different books.</p>
       <div id="deptTable"></div>
     </div>
   </section>
@@ -622,7 +625,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=11"></script>
+<script src="js/evidence-panel.js?v=14"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -820,14 +823,14 @@
     `<th>Fiscal year</th><th class="num">Revenue</th><th class="num">Spending</th>` +
     `<th class="num">Surplus</th><th class="num">Figure</th></tr></thead><tbody>` +
     t.years.map((y, i) =>
-      `<tr class="citeable" data-cite="trend.surplus.${i}" title="Click to verify surplus in source book">` +
+      `<tr>` +
       `<td>${y.replace("FY", "FY ")}</td>` +
-      `<td class="num">${fmtFull(t.revenue[i])}</td>` +
-      `<td class="num">${fmtFull(t.spend[i])}</td>` +
-      `<td class="num">${fmtFull(t.surplus[i])}</td>` +
+      `<td class="num citeable" data-cite="trend.revenue.${i}" title="Verify revenue">${fmtFull(t.revenue[i])}</td>` +
+      `<td class="num citeable" data-cite="trend.spend.${i}" title="Verify spending">${fmtFull(t.spend[i])}</td>` +
+      `<td class="num citeable" data-cite="trend.surplus.${i}" title="Verify surplus">${fmtFull(t.surplus[i])}</td>` +
       `<td class="num">Actual</td></tr>`
     ).join("") + `</tbody></table>`;
-  document.querySelectorAll("#trendTable tr.citeable").forEach(el => {
+  document.querySelectorAll("#trendTable td.citeable").forEach(el => {
     EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
   });
 
@@ -1019,22 +1022,22 @@
 
   document.getElementById("deptTable").innerHTML =
     `<table class="data"><thead><tr>` +
-    `<th>Unit</th><th class="num">FY 16-17</th><th class="num">FY 20-21</th>` +
-    `<th class="num">FY 24-25</th><th class="num">Growth</th>` +
-    `<th class="num">Net county cost 24-25</th></tr></thead><tbody>` +
+    `<th>Unit</th><th class="num">FY 16-17 ↗</th><th class="num">FY 20-21 ↗</th>` +
+    `<th class="num">FY 24-25 ↗</th><th class="num">Growth ↗</th>` +
+    `<th class="num">Net county cost 24-25 ↗</th></tr></thead><tbody>` +
     D.departments.map((r, i) => {
       const g = growthPct(r.fy16, r.fy24);
       const gcls = g === "new" ? "" : (g.startsWith("+") ? "up" : "down");
       const ncls = r.net24 < 0 ? "neg" : "";
-      return `<tr class="citeable" data-cite="dept.${i}" title="Click to verify in source book">` +
+      return `<tr>` +
         `<td>${r.name}</td>` +
-        `<td class="num">${fmtCompact(r.fy16)}</td>` +
-        `<td class="num">${fmtCompact(r.fy20)}</td>` +
-        `<td class="num">${fmtCompact(r.fy24)}</td>` +
-        `<td class="num ${gcls}">${g}</td>` +
-        `<td class="num ${ncls}">${fmtCompact(r.net24)}</td></tr>`;
+        `<td class="num citeable" data-cite="dept.${i}.fy16" title="FY 2016-17 actual spending">${fmtCompact(r.fy16)}</td>` +
+        `<td class="num citeable" data-cite="dept.${i}.fy20" title="FY 2020-21 actual spending">${fmtCompact(r.fy20)}</td>` +
+        `<td class="num citeable" data-cite="dept.${i}.fy24" title="FY 2024-25 actual spending">${fmtCompact(r.fy24)}</td>` +
+        `<td class="num citeable ${gcls}" data-cite="dept.${i}.growth" title="Growth from FY 2016-17 to FY 2024-25">${g}</td>` +
+        `<td class="num citeable ${ncls}" data-cite="dept.${i}.net24" title="FY 2024-25 net county cost">${fmtCompact(r.net24)}</td></tr>`;
     }).join("") + `</tbody></table>`;
-  document.querySelectorAll("#deptTable tr.citeable").forEach(el => {
+  document.querySelectorAll("#deptTable td.citeable").forEach(el => {
     EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
   });
 
