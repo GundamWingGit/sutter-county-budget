@@ -239,22 +239,34 @@
         $("loadingText").textContent = params.book ? "Opening the " + params.book + " book…" : "Opening the source book…";
         pdfjsLib = await import(PDFJS + "/pdf.min.mjs");
         pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + "/pdf.worker.min.mjs";
-        const task = pdfjsLib.getDocument({
-          url: file,
-          disableRange: false,
-          disableStream: false,
-          disableAutoFetch: true,
-        });
-        task.onProgress = (ev) => {
-          if (!ev.total) return;
-          const p = Math.min(100, Math.round((ev.loaded / ev.total) * 100));
-          if (loadingBar) {
-            loadingBar.style.animation = "none";
-            loadingBar.style.width = p + "%";
+        const res = await fetch(file);
+        if (!res.ok) throw new Error("PDF HTTP " + res.status);
+        const total = Number(res.headers.get("content-length") || 0);
+        const reader = res.body && res.body.getReader ? res.body.getReader() : null;
+        let data;
+        if (!reader) {
+          data = await res.arrayBuffer();
+        } else {
+          const chunks = [];
+          let loaded = 0;
+          while (true) {
+            const step = await reader.read();
+            if (step.done) break;
+            chunks.push(step.value);
+            loaded += step.value.byteLength;
+            if (total && loadingBar) {
+              const p = Math.min(100, Math.round((loaded / total) * 100));
+              loadingBar.style.animation = "none";
+              loadingBar.style.width = p + "%";
+              if (loadingPct) loadingPct.textContent = p + "% · loaded";
+            }
           }
-          if (loadingPct) loadingPct.textContent = p + "% loaded";
-        };
-        pdf = await task.promise;
+          const out = new Uint8Array(loaded);
+          let offset = 0;
+          chunks.forEach((c) => { out.set(c, offset); offset += c.byteLength; });
+          data = out.buffer;
+        }
+        pdf = await pdfjsLib.getDocument({ data, verbosity: 0 }).promise;
         pageNum = Math.min(Math.max(1, startPage), pdf.numPages);
         await render();
         if (loading) loading.hidden = true;

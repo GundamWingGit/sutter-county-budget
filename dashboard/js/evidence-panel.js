@@ -92,14 +92,22 @@
     return (n / (1024 * 1024)).toFixed(1) + " MB";
   }
 
+  function setPane(mode) {
+    const loading = $("evidenceLoading");
+    const empty = $("evidenceEmpty");
+    const canvas = $("evidenceCanvas");
+    if (loading) loading.classList.toggle("on", mode === "loading");
+    if (empty) empty.classList.toggle("on", mode === "empty");
+    if (canvas) canvas.style.visibility = mode === "page" ? "visible" : "hidden";
+    expectPdf = mode === "loading";
+  }
+
   function showLoading(text, loaded, total) {
-    expectPdf = true;
-    const wrap = $("evidenceLoading");
+    setPane("loading");
     const label = $("evidenceLoadingText");
     const pct = $("evidenceLoadingPct");
     const bar = $("evidenceProgressBar");
     const track = $("evidenceProgress");
-    if (wrap) wrap.hidden = false;
     if (label && text) label.textContent = text;
     if (total > 0 && loaded >= 0) {
       const p = Math.min(100, Math.round((loaded / total) * 100));
@@ -109,14 +117,22 @@
     } else {
       if (track) track.classList.add("indeterminate");
       if (bar) bar.style.width = "40%";
-      if (pct) pct.textContent = "Fetching the page…";
+      if (pct) pct.textContent = "This can take a few seconds on a large book…";
     }
   }
 
+  function showEmpty(title, body) {
+    setPane("empty");
+    const t = $("evidenceEmptyTitle");
+    const b = $("evidenceEmptyBody");
+    if (t) t.textContent = title || "Pick a source below";
+    if (b) b.textContent = body || "This total is a sum of unit lines. Click a row in the list to open that printed page here.";
+  }
+
   function hideLoading() {
+    const loading = $("evidenceLoading");
+    if (loading) loading.classList.remove("on");
     expectPdf = false;
-    const wrap = $("evidenceLoading");
-    if (wrap) wrap.hidden = true;
   }
 
   function touchPdfCache(book) {
@@ -133,6 +149,46 @@
     }
   }
 
+  async function fetchPdfBytes(url, onProgress) {
+    let cache = null;
+    try { cache = await caches.open("sutter-pdfs-v1"); } catch (_) {}
+    if (cache) {
+      const hit = await cache.match(url);
+      if (hit) return await hit.arrayBuffer();
+    }
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 90000);
+    try {
+      const res = await fetch(url, { signal: ctrl.signal });
+      if (!res.ok) throw new Error("PDF HTTP " + res.status);
+      const total = Number(res.headers.get("content-length") || 0);
+      if (!res.body || !res.body.getReader) {
+        const buf = await res.arrayBuffer();
+        if (cache) cache.put(url, new Response(buf, { headers: { "Content-Type": "application/pdf" } })).catch(() => {});
+        return buf;
+      }
+      const reader = res.body.getReader();
+      const chunks = [];
+      let loaded = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        loaded += value.byteLength;
+        if (onProgress) onProgress(loaded, total);
+      }
+      const out = new Uint8Array(loaded);
+      let offset = 0;
+      chunks.forEach((c) => { out.set(c, offset); offset += c.byteLength; });
+      if (cache) {
+        cache.put(url, new Response(out, { headers: { "Content-Type": "application/pdf" } })).catch(() => {});
+      }
+      return out.buffer;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async function prefetchPdf(book) {
     if (!book) return null;
     await Promise.all([loadBooks(), ensurePdfJs()]);
@@ -142,37 +198,23 @@
       touchPdfCache(book);
       return pdfCache.get(book).promise;
     }
-    const task = pdfjsLib.getDocument({
-      url,
-      withCredentials: false,
-      disableRange: false,
-      disableStream: false,
-      disableAutoFetch: true,
-    });
-    task.onProgress = (ev) => {
-      if (!expectPdf) return;
-      if (currentBook && currentBook !== book && currentPdf) return;
-      showLoading("Opening the " + book + " book…", ev.loaded, ev.total);
-    };
-    const promise = task.promise.then((doc) => {
+    const promise = (async () => {
+      const data = await fetchPdfBytes(url, (loaded, total) => {
+        if (!expectPdf) return;
+        if (currentBook && currentBook !== book && currentPdf) return;
+        showLoading("Opening the " + book + " book…", loaded, total);
+      });
+      const task = pdfjsLib.getDocument({ data, verbosity: 0 });
+      const doc = await task.promise;
       const ent = pdfCache.get(book);
       if (ent) ent.doc = doc;
-      warmHttpCache(url);
       return doc;
-    }).catch((err) => {
+    })().catch((err) => {
       pdfCache.delete(book);
       throw err;
     });
     pdfCache.set(book, { promise, doc: null });
     return promise;
-  }
-
-  function warmHttpCache(url) {
-    if (!url || !("caches" in window)) return;
-    caches.open("sutter-pdfs-v1").then(async (cache) => {
-      if (await cache.match(url)) return;
-      await cache.add(url);
-    }).catch(() => {});
   }
 
   function prefetchById(id) {
@@ -735,7 +777,7 @@
     renderSourceList(cite, ($("evidenceSourceQ") || {}).value);
 
     if (!piece || !piece.book || !books[piece.book] || !piece.page) {
-      hideLoading();
+      showEmpty("No page for this row", "Try another source in the list.");
       showStatus("This piece has no page yet. Try another row.", true);
       return;
     }
@@ -761,13 +803,19 @@
         line: piece.line,
       });
       if (gen != null && gen !== openGen) return;
-      hideLoading();
+      setPane("page");
       showStatus("Click the page to open a sharper view. Use Highlight to toggle the box.");
     } catch (e) {
       if (gen != null && gen !== openGen) return;
       console.error(e);
-      hideLoading();
-      showStatus("Could not load that PDF page. Serve this folder over HTTP (npx --yes serve .).", true);
+      const aborted = e && (e.name === "AbortError" || /abort/i.test(String(e.message || "")));
+      showEmpty(
+        aborted ? "The book timed out" : "Could not open this book",
+        "Click a source again, or use Open page to view it in a new tab."
+      );
+      showStatus(aborted
+        ? "The download stalled. Click a source row again, or Open page."
+        : "Could not load that PDF page. Try Open page, or refresh and click again.", true);
     }
   }
 
@@ -781,20 +829,20 @@
     lastHighlight = null;
     setOpen(true);
     renderHeader(cite);
-    showLoading(cite.book ? "Opening the " + cite.book + " book…" : "Opening the source book…");
+    showLoading("Finding the printed page…");
     showStatus("Finding the printed page…");
 
     try {
       await Promise.all([loadBooks(), ensurePdfJs()]);
     } catch (e) {
       if (gen !== openGen) return;
-      hideLoading();
-      showStatus("Could not load PDF.js. Serve this site over HTTP (npx serve dashboard).", true);
+      showEmpty("Could not start the PDF viewer", "Refresh the page and click the number again.");
+      showStatus("Could not load PDF.js. Refresh and try again.", true);
       return;
     }
     if (gen !== openGen) return;
 
-    // Start the book download immediately — don't wait on the source list.
+    // Warm the book in the background so a source click is ready.
     if (cite.book) prefetchPdf(cite.book).catch(() => {});
 
     allSources = await expandSources(cite);
@@ -820,9 +868,12 @@
     }
 
     // Never open a feeder row as if it were the clicked total.
-    hideLoading();
+    showEmpty(
+      "Pick a source below",
+      "You clicked " + fmtFull(cite.value) + ". That county-wide total is not printed as one figure. Click a unit in the list — the page will open here."
+    );
     showStatus(
-      "The number you clicked is not printed as one figure. Sources below add up to it — click a row to highlight that printed line.",
+      "Click a source row below. The printed page will open here.",
       false
     );
     clearCanvas();
@@ -1236,13 +1287,18 @@
         <p id="evidenceStatus" class="evidence-status"></p>
       </div>
       <div id="evidenceBody" class="evidence-body">
-        <div id="evidenceLoading" class="evidence-loading" hidden>
+        <div id="evidenceLoading" class="evidence-pane-msg">
           <div class="evidence-spinner" aria-hidden="true"></div>
           <p id="evidenceLoadingText">Opening the source book…</p>
           <div id="evidenceProgress" class="evidence-progress indeterminate">
             <i id="evidenceProgressBar"></i>
           </div>
-          <p id="evidenceLoadingPct" class="evidence-loading-pct">Fetching the page…</p>
+          <p id="evidenceLoadingPct" class="evidence-loading-pct">This can take a few seconds on a large book…</p>
+        </div>
+        <div id="evidenceEmpty" class="evidence-pane-msg">
+          <div class="evidence-empty-arrow" aria-hidden="true">↓</div>
+          <p id="evidenceEmptyTitle">Pick a source below</p>
+          <p id="evidenceEmptyBody" class="sub">This total is a sum of unit lines. Click a row in the list to open that printed page here.</p>
         </div>
         <canvas id="evidenceCanvas"></canvas>
       </div>
