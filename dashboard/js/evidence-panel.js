@@ -95,11 +95,15 @@
   function setPane(mode) {
     const loading = $("evidenceLoading");
     const empty = $("evidenceEmpty");
+    const compose = $("evidenceCompose");
     const canvas = $("evidenceCanvas");
     if (loading) loading.classList.toggle("on", mode === "loading");
     if (empty) empty.classList.toggle("on", mode === "empty");
+    if (compose) compose.classList.toggle("on", mode === "compose");
     if (canvas) canvas.style.visibility = mode === "page" ? "visible" : "hidden";
     expectPdf = mode === "loading";
+    const back = $("evidenceBack");
+    if (back) back.hidden = mode !== "page" || !currentCite || currentCite.type !== "derived";
   }
 
   function showLoading(text, loaded, total) {
@@ -127,6 +131,190 @@
     const b = $("evidenceEmptyBody");
     if (t) t.textContent = title || "Pick a source below";
     if (b) b.textContent = body || "This total is a sum of unit lines. Click a row in the list to open that printed page here.";
+  }
+
+  function fmtShort(v) {
+    const n = Number(v);
+    if (Number.isNaN(n)) return "—";
+    const sign = n < 0 ? "−" : "";
+    const a = Math.abs(n);
+    if (a >= 1e9) return sign + "$" + (a / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
+    if (a >= 1e6) return sign + "$" + (a / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (a >= 1e3) return sign + "$" + (a / 1e3).toFixed(0) + "K";
+    return fmtFull(n);
+  }
+
+  function shortUnitName(s) {
+    const raw = (s && (s.unit || s.group || (s.label || "").split("—")[0] || s.line)) || "Unit";
+    return String(raw).replace(/\s+/g, " ").trim();
+  }
+
+  const SLICE_COLORS = [
+    "#1f3a5f", "#3d5a80", "#4f6d94", "#6b86a8",
+    "#a5814b", "#c4a574", "#2e7d51", "#4f8a6e",
+    "#6d5a7c", "#8a6d62"
+  ];
+
+  function packSlices(rows, maxNamed) {
+    const sorted = rows
+      .filter(s => s && s.value != null && Math.abs(Number(s.value)) >= 1)
+      .slice()
+      .sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+    const named = sorted.slice(0, maxNamed);
+    const rest = sorted.slice(maxNamed);
+    const slices = named.map((s, i) => ({
+      source: s,
+      label: shortUnitName(s),
+      value: Math.abs(Number(s.value)),
+      signed: Number(s.value),
+      color: SLICE_COLORS[i % SLICE_COLORS.length],
+    }));
+    if (rest.length) {
+      slices.push({
+        source: null,
+        label: rest.length + " other",
+        value: rest.reduce((a, s) => a + Math.abs(Number(s.value) || 0), 0),
+        signed: rest.reduce((a, s) => a + Number(s.value || 0), 0),
+        color: "#b7c0cc",
+        other: true,
+      });
+    }
+    return slices;
+  }
+
+  function mosaicHtml(slices, total, pack) {
+    const denom = slices.reduce((a, s) => a + s.value, 0) || total || 1;
+    const p = pack || "main";
+    return slices.map((s, i) => {
+      const pct = Math.max(0.4, (s.value / denom) * 100);
+      const title = s.label + " · " + fmtFull(s.signed != null ? s.signed : s.value);
+      return `<button type="button" class="ec-slice${s.other ? " other" : ""}" data-pack="${p}" data-i="${i}" ` +
+        `style="flex:${s.value} 1 ${pct}%;background:${s.color}" title="${escapeHtml(title)}"></button>`;
+    }).join("");
+  }
+
+  function rowsHtml(slices, total, pack) {
+    const denom = total || slices.reduce((a, s) => a + s.value, 0) || 1;
+    const p = pack || "main";
+    return slices.map((s, i) => {
+      const pct = (s.value / denom) * 100;
+      const pctLabel = pct >= 10 ? pct.toFixed(0) + "%" : pct.toFixed(1) + "%";
+      return `<button type="button" class="ec-row${s.other ? " other" : ""}" data-pack="${p}" data-i="${i}">` +
+        `<span class="ec-swatch" style="background:${s.color}"></span>` +
+        `<span class="ec-row-main">` +
+          `<span class="ec-row-name">${escapeHtml(s.label)}</span>` +
+          `<span class="ec-row-track"><i style="width:${Math.min(100, pct)}%;background:${s.color}"></i></span>` +
+        `</span>` +
+        `<span class="ec-row-amt">${fmtShort(s.signed != null ? s.signed : s.value)}<em>${pctLabel}</em></span>` +
+      `</button>`;
+    }).join("");
+  }
+
+  function bindComposeClicks(host, packs, cite) {
+    host.querySelectorAll("[data-pack][data-i]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const pack = el.getAttribute("data-pack");
+        const slice = (packs[pack] || [])[Number(el.getAttribute("data-i"))];
+        if (!slice) return;
+        if (slice.other) {
+          const q = $("evidenceSourceQ");
+          if (q) { q.hidden = false; q.focus(); }
+          const wrap = $("evidenceSourceWrap");
+          if (wrap) wrap.scrollTop = 0;
+          return;
+        }
+        if (slice.source && slice.source.page && slice.source.book) {
+          showPiece(cite, slice.source, ++openGen);
+        } else if (slice.source) {
+          openCitation(slice.source);
+        }
+      });
+    });
+  }
+
+  function renderComposition(cite) {
+    const host = $("evidenceCompose");
+    if (!host) {
+      showEmpty("Pick a source below", "Click a unit in the list to open that printed page.");
+      return;
+    }
+    const sources = allSources || [];
+    if (!sources.length) {
+      showEmpty("No source rows yet", "The pieces for this total could not be listed.");
+      return;
+    }
+
+    const label = cite.label || "";
+    const metric = cite.metric || "";
+    const isCompare = metric === "surplus" || /draw|planned/i.test(label);
+    const isYears = /cumulative/i.test(label);
+    const clicked = Number(cite.value) || 0;
+
+    setPane("compose");
+    host.innerHTML = "";
+
+    if (isYears) {
+      const slices = packSlices(sources, 12);
+      const sum = slices.reduce((a, s) => a + s.signed, 0);
+      host.innerHTML =
+        `<div class="ec-kicker">How the years add up</div>` +
+        `<div class="ec-total">${fmtFull(clicked)}</div>` +
+        `<div class="ec-mosaic" role="img" aria-label="Yearly surplus mosaic">${mosaicHtml(slices, Math.abs(clicked) || Math.abs(sum), "main")}</div>` +
+        `<div class="ec-hint">Click a year to open its sources</div>` +
+        `<div class="ec-rows">${rowsHtml(slices, Math.abs(clicked) || slices.reduce((a, s) => a + s.value, 0), "main")}</div>`;
+      bindComposeClicks(host, { main: slices }, cite);
+      return;
+    }
+
+    if (isCompare) {
+      const rev = sources.filter(s => /rev/i.test(s.group || s.metric || s.label || ""));
+      const exp = sources.filter(s => /spend|expend/i.test(s.group || s.metric || s.label || ""));
+      const revN = rev.reduce((a, s) => a + Number(s.value || 0), 0);
+      const expN = exp.reduce((a, s) => a + Number(s.value || 0), 0);
+      const revSlices = packSlices(rev.length ? rev : sources, 8);
+      const expSlices = packSlices(exp.length ? exp : [], 8);
+      const maxBar = Math.max(revN, expN, 1);
+      host.innerHTML =
+        `<div class="ec-kicker">How this difference is built</div>` +
+        `<div class="ec-total">${fmtFull(clicked)}</div>` +
+        `<div class="ec-compare">` +
+          `<div class="ec-compare-row">` +
+            `<div class="ec-compare-lab">Revenue <b>${fmtShort(revN)}</b></div>` +
+            `<div class="ec-mosaic tall" style="width:${Math.max(18, (Math.abs(revN) / maxBar) * 100)}%">${mosaicHtml(revSlices, Math.abs(revN), "rev")}</div>` +
+          `</div>` +
+          `<div class="ec-compare-row">` +
+            `<div class="ec-compare-lab">Spending <b>${fmtShort(expN)}</b></div>` +
+            `<div class="ec-mosaic tall" style="width:${Math.max(18, (Math.abs(expN) / maxBar) * 100)}%">${mosaicHtml(expSlices, Math.abs(expN) || 1, "exp")}</div>` +
+          `</div>` +
+        `</div>` +
+        `<div class="ec-hint">Click a slice to open that unit’s page</div>` +
+        `<div class="ec-rows">` +
+          rowsHtml(revSlices, Math.abs(revN) || 1, "rev") +
+          rowsHtml(expSlices.map(s => ({ ...s, label: "Spend · " + s.label })), Math.abs(expN) || 1, "exp") +
+        `</div>`;
+      bindComposeClicks(host, { rev: revSlices, exp: expSlices }, cite);
+      return;
+    }
+
+    const slices = packSlices(sources, 9);
+    const stack = slices.reduce((a, s) => a + s.value, 0);
+    host.innerHTML =
+      `<div class="ec-kicker">${sources.length} printed lines add to</div>` +
+      `<div class="ec-total">${fmtFull(clicked)}</div>` +
+      `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, stack, "main")}</div>` +
+      `<div class="ec-hint">Click a slice or row to open that printed page</div>` +
+      `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
+    bindComposeClicks(host, { main: slices }, cite);
+  }
+
+  function showBreakdown() {
+    if (!currentCite) return;
+    viewingPiece = null;
+    lastHighlight = null;
+    renderComposition(currentCite);
+    renderHeader(currentCite);
+    renderSourceList(currentCite, ($("evidenceSourceQ") || {}).value);
+    showStatus("");
   }
 
   function hideLoading() {
@@ -312,15 +500,11 @@
       };
     }
 
-    if (metric === "surplus" || /surplus/i.test(label)) {
-      const rev = kids.find(k => /revenue/i.test(k.label || k.metric || "")) || kids[0];
-      const exp = kids.find(k => /spend|expend/i.test(k.label || k.metric || "")) || kids[1];
+    if ((metric === "surplus" || /surplus/i.test(label)) && !/cumulative/i.test(label)) {
       return {
         title: "Revenue minus spending",
-        body: "This surplus is not printed as one line. It is the difference of the two source figures.",
-        equation: (rev && exp)
-          ? `${fmtFull(rev.value)} − ${fmtFull(exp.value)} = ${v}`
-          : cite.formula,
+        body: "Click a slice to open that unit’s printed page.",
+        equation: null,
       };
     }
 
@@ -333,11 +517,8 @@
         };
       }
       return {
-        title: "County-wide total is a sum",
-        body:
-          "You clicked " + v + ". That county-wide revenue total is not printed as one figure in this book. " +
-          "The sources below are each unit’s Total Revenues; they add to the number you clicked. " +
-          "Pick a source to see that unit’s printed line — the highlight will then match that source, not the chart total.",
+        title: "Sum of unit revenue totals",
+        body: "Click a slice to open that unit’s printed page.",
         equation: null,
       };
     }
@@ -351,45 +532,26 @@
         };
       }
       return {
-        title: "County-wide total is a sum",
-        body:
-          "You clicked " + v + ". That county-wide spending total is not printed as one figure in this book. " +
-          "The sources below are each unit’s Total Expenditures; they add to the number you clicked. " +
-          "Pick a source to see that unit’s printed line — the highlight will then match that source, not the chart total.",
+        title: "Sum of unit expenditure totals",
+        body: "Click a slice to open that unit’s printed page.",
         equation: null,
       };
     }
 
     if (metric === "function" || /function/i.test(cite.formula || "")) {
       const fn = cite.function || (label.split("—")[0] || "").trim();
-      const book = cite.book || "";
-      const fy = cite.fy || "";
-      const printed = kids.filter(k => k.page && k.value != null);
-      const eq = printed.length
-        ? printed.slice(0, 6).map(k => fmtFull(k.value)).join(" + ")
-          + (printed.length > 6 ? " + …" : "")
-          + " = " + v
-        : cite.formula;
       return {
-        title: "Sum of units in this function",
-        body:
-          `${fn || "This function"} is a State Controller grouping, not one inked county-wide figure. ` +
-          `${fy} actuals are printed in the ${book} book (closed-year actuals appear two years later). ` +
-          `Each source below is that unit’s Total Expenditures. The highlight is one unit, not the stack total.`,
-        equation: eq,
+        title: "Sum of units in " + (fn || "this function"),
+        body: "Click a slice to open that unit’s printed page.",
+        equation: null,
       };
     }
 
     if (metric === "category") {
       return {
-        title: "Sum of unit category lines",
-        body:
-          `${cite.category || "This category"} is rolled up from unit lines in the ${cite.book || "source"} book. ` +
-          `The highlight is one contributing line, not the chart total.`,
-        equation: kids.length
-          ? kids.slice(0, 6).map(k => fmtFull(k.value)).join(" + ")
-            + (kids.length > 6 ? " + …" : "") + " = " + v
-          : cite.formula,
+        title: "Sum of " + (cite.category || "category") + " lines",
+        body: "Click a slice to open that printed line.",
+        equation: null,
       };
     }
 
@@ -412,22 +574,16 @@
     if (/cumulative/i.test(label)) {
       return {
         title: "Sum of annual surpluses",
-        body: "Each year is revenue minus spending. This figure is those nine results added together.",
-        equation: kids.length
-          ? kids.map(k => fmtFull(k.value)).join(" + ") + " = " + v
-          : cite.formula,
+        body: "Each bar is one closed year. Click a year to open its sources.",
+        equation: null,
       };
     }
 
     if (/draw|planned/i.test(label)) {
-      const rev = kids.find(k => /revenue/i.test(k.label || "")) || kids[0];
-      const exp = kids.find(k => /spend/i.test(k.label || "")) || kids[1];
       return {
         title: "Adopted revenue minus adopted spending",
-        body: "A planned draw, not a closed-year result.",
-        equation: (rev && exp)
-          ? `${fmtFull(rev.value)} − ${fmtFull(exp.value)} = ${v}`
-          : cite.formula,
+        body: "A planned figure, not a closed-year result. Click a slice to open a source page.",
+        equation: null,
       };
     }
 
@@ -524,23 +680,11 @@
     }
 
     const isPieces = cite.type === "derived";
-    const additive = isPieces && (
-      cite.metric === "revenue" || cite.metric === "spend" ||
-      cite.metric === "function" || cite.metric === "category" ||
-      /cumulative/i.test(cite.label || "")
-    );
     labelEl.textContent = isPieces
       ? `Sources (${allSources.length})`
       : "Related rows";
 
-    if (additive && allSources.every(s => s.value != null) && !allSources.some(s => s.group)) {
-      const sum = allSources.reduce((a, s) => a + Number(s.value || 0), 0);
-      sumEl.textContent = valuesClose(sum, cite.value)
-        ? `These unit lines add to ${fmtFull(sum)} — the figure you clicked.`
-        : `These unit lines add to ${fmtFull(sum)} (clicked total: ${fmtFull(cite.value)}).`;
-    } else {
-      sumEl.textContent = "";
-    }
+    sumEl.textContent = "";
 
     list.innerHTML = "";
     sources.forEach((kid) => {
@@ -867,15 +1011,9 @@
       return;
     }
 
-    // Never open a feeder row as if it were the clicked total.
-    showEmpty(
-      "Pick a source below",
-      "You clicked " + fmtFull(cite.value) + ". That county-wide total is not printed as one figure. Click a unit in the list — the page will open here."
-    );
-    showStatus(
-      "Click a source row below. The printed page will open here.",
-      false
-    );
+    // Calculated figure: show the pieces, never a feeder page as if it were the click.
+    renderComposition(cite);
+    showStatus("");
     clearCanvas();
     $("evidencePageLabel").textContent = "—";
     $("evidenceDocLink").href = "#";
@@ -1282,6 +1420,7 @@
           <span id="evidencePageLabel" class="evidence-page">—</span>
           <button type="button" id="evidenceNext" class="evidence-nav">Next →</button>
           <a id="evidenceDocLink" class="evidence-doc" href="#" target="_blank" rel="noopener">Open page</a>
+          <button type="button" id="evidenceBack" class="evidence-nav" hidden>Breakdown</button>
           <button type="button" id="evidenceHlToggle" class="evidence-nav">Hide highlight</button>
         </div>
         <p id="evidenceStatus" class="evidence-status"></p>
@@ -1298,8 +1437,9 @@
         <div id="evidenceEmpty" class="evidence-pane-msg">
           <div class="evidence-empty-arrow" aria-hidden="true">↓</div>
           <p id="evidenceEmptyTitle">Pick a source below</p>
-          <p id="evidenceEmptyBody" class="sub">This total is a sum of unit lines. Click a row in the list to open that printed page here.</p>
+          <p id="evidenceEmptyBody" class="sub">Click a unit in the list to open that printed page.</p>
         </div>
+        <div id="evidenceCompose" class="evidence-compose"></div>
         <canvas id="evidenceCanvas"></canvas>
       </div>
       <div id="evidenceSourceWrap" class="evidence-children-wrap">
@@ -1315,6 +1455,7 @@
     $("evidenceClose").addEventListener("click", () => setOpen(false));
     $("evidencePrev").addEventListener("click", () => stepPage(-1));
     $("evidenceNext").addEventListener("click", () => stepPage(1));
+    $("evidenceBack").addEventListener("click", showBreakdown);
     $("evidenceHlToggle").addEventListener("click", () => {
       highlightOn = !highlightOn;
       syncHighlightButton();
