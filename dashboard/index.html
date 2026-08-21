@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs" />
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs" />
 <style>
   :root {
     --paper: #f7f8fa;
@@ -280,6 +282,35 @@
   .evidence-body {
     flex: 1 1 auto; min-height: 0; overflow: auto; background: #eef1f6; padding: 12px;
     display: flex; justify-content: center; align-items: flex-start;
+    position: relative;
+  }
+  .evidence-loading {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; background: #eef1f6; color: var(--ink-2); text-align: center;
+    padding: 24px;
+  }
+  .evidence-loading[hidden] { display: none; }
+  .evidence-loading p { margin: 0; font-size: 14px; font-weight: 600; color: var(--navy); }
+  .evidence-loading-pct { font-size: 12px !important; font-weight: 500 !important; color: var(--ink-3) !important; }
+  .evidence-spinner {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 3px solid #d8dee8; border-top-color: var(--navy);
+    animation: ev-spin 0.7s linear infinite;
+  }
+  .evidence-progress {
+    width: min(240px, 70%); height: 4px; background: #d8dee8; border-radius: 99px; overflow: hidden;
+  }
+  .evidence-progress > i {
+    display: block; height: 100%; width: 0; background: var(--navy); transition: width 0.2s ease;
+  }
+  .evidence-progress.indeterminate > i {
+    width: 40%; animation: ev-bar 1.1s ease-in-out infinite;
+  }
+  @keyframes ev-spin { to { transform: rotate(360deg); } }
+  @keyframes ev-bar {
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(320%); }
   }
   #evidenceCanvas {
     background: #fff; max-width: 100%; height: auto; cursor: zoom-in;
@@ -513,7 +544,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=5"></script>
+<script src="js/evidence-panel.js?v=6"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -567,11 +598,24 @@
 
   // Click-to-source panel
   if (window.EvidencePanel) EvidencePanel.init();
-  const citeClick = (buildId) => (evt, elements) => {
+  const citeClick = (buildId) => {
+    const onClick = (evt, elements) => {
+      if (!elements || !elements.length || !window.EvidencePanel) return;
+      const el = elements[0];
+      const id = typeof buildId === "function" ? buildId(el.datasetIndex, el.index) : buildId;
+      if (id) EvidencePanel.openById(id);
+    };
+    onClick.buildId = buildId;
+    return onClick;
+  };
+  Chart.defaults.onHover = (evt, elements, chart) => {
     if (!elements || !elements.length || !window.EvidencePanel) return;
+    const buildId = chart && chart.options && chart.options.onClick && chart.options.onClick.buildId;
+    if (!buildId) return;
     const el = elements[0];
     const id = typeof buildId === "function" ? buildId(el.datasetIndex, el.index) : buildId;
-    if (id) EvidencePanel.openById(id);
+    if (id) EvidencePanel.prefetchById(id);
+    if (evt && evt.native && evt.native.target) evt.native.target.style.cursor = "pointer";
   };
   const markChart = (canvasId) => {
     const box = document.getElementById(canvasId)?.closest(".chart-box");

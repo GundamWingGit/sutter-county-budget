@@ -22,7 +22,11 @@
   let lastRenderOpts = null;
   let highlightOn = true;
   let renderToken = 0;
+  let openGen = 0;
+  let expectPdf = false;
   const lineCache = {};
+  const pdfCache = new Map(); // book -> { promise, doc }
+  const MAX_CACHED_PDFS = 4;
   const PANEL_MIN = 360;
   const PANEL_MAX_RATIO = 0.92;
 
@@ -80,6 +84,109 @@
     if (books) return books;
     books = await (await fetch("data/books.json")).json();
     return books;
+  }
+
+  function fmtBytes(n) {
+    if (!n) return "";
+    if (n < 1024 * 1024) return Math.round(n / 1024) + " KB";
+    return (n / (1024 * 1024)).toFixed(1) + " MB";
+  }
+
+  function showLoading(text, loaded, total) {
+    expectPdf = true;
+    const wrap = $("evidenceLoading");
+    const label = $("evidenceLoadingText");
+    const pct = $("evidenceLoadingPct");
+    const bar = $("evidenceProgressBar");
+    const track = $("evidenceProgress");
+    if (wrap) wrap.hidden = false;
+    if (label && text) label.textContent = text;
+    if (total > 0 && loaded >= 0) {
+      const p = Math.min(100, Math.round((loaded / total) * 100));
+      if (track) track.classList.remove("indeterminate");
+      if (bar) bar.style.width = p + "%";
+      if (pct) pct.textContent = p + "% · " + fmtBytes(loaded) + " of " + fmtBytes(total);
+    } else {
+      if (track) track.classList.add("indeterminate");
+      if (bar) bar.style.width = "40%";
+      if (pct) pct.textContent = "Fetching the page…";
+    }
+  }
+
+  function hideLoading() {
+    expectPdf = false;
+    const wrap = $("evidenceLoading");
+    if (wrap) wrap.hidden = true;
+  }
+
+  function touchPdfCache(book) {
+    const ent = pdfCache.get(book);
+    if (!ent) return;
+    pdfCache.delete(book);
+    pdfCache.set(book, ent);
+    while (pdfCache.size > MAX_CACHED_PDFS) {
+      const oldest = pdfCache.keys().next().value;
+      if (oldest === book || oldest === currentBook) break;
+      const evict = pdfCache.get(oldest);
+      pdfCache.delete(oldest);
+      try { evict && evict.doc && evict.doc.destroy(); } catch (_) {}
+    }
+  }
+
+  async function prefetchPdf(book) {
+    if (!book) return null;
+    await Promise.all([loadBooks(), ensurePdfJs()]);
+    const url = pdfUrl(book);
+    if (!url) return null;
+    if (pdfCache.has(book)) {
+      touchPdfCache(book);
+      return pdfCache.get(book).promise;
+    }
+    const task = pdfjsLib.getDocument({
+      url,
+      withCredentials: false,
+      disableRange: false,
+      disableStream: false,
+      disableAutoFetch: true,
+    });
+    task.onProgress = (ev) => {
+      if (!expectPdf) return;
+      if (currentBook && currentBook !== book && currentPdf) return;
+      showLoading("Opening the " + book + " book…", ev.loaded, ev.total);
+    };
+    const promise = task.promise.then((doc) => {
+      const ent = pdfCache.get(book);
+      if (ent) ent.doc = doc;
+      warmHttpCache(url);
+      return doc;
+    }).catch((err) => {
+      pdfCache.delete(book);
+      throw err;
+    });
+    pdfCache.set(book, { promise, doc: null });
+    return promise;
+  }
+
+  function warmHttpCache(url) {
+    if (!url || !("caches" in window)) return;
+    caches.open("sutter-pdfs-v1").then(async (cache) => {
+      if (await cache.match(url)) return;
+      await cache.add(url);
+    }).catch(() => {});
+  }
+
+  function prefetchById(id) {
+    const cite = (global.CITATIONS || {})[id];
+    if (!cite || !cite.book) return;
+    prefetchPdf(cite.book).catch(() => {});
+  }
+
+  function warmLibraries() {
+    const idle = global.requestIdleCallback || ((fn) => setTimeout(fn, 400));
+    idle(() => {
+      ensurePdfJs().catch(() => {});
+      loadBooks().catch(() => {});
+    });
   }
 
   const VIEWER_STORE = "sutterEvidenceViewer";
@@ -405,8 +512,11 @@
         `<span class="ec-label">${escapeHtml(pieceLabel(kid))}</span>` +
         `<span class="ec-meta">${group}${kid.book || ""}${kid.page ? " · p." + kid.page : ""}` +
         `${kid.value != null ? " · " + fmtFull(kid.value) : ""}</span>`;
+      btn.addEventListener("pointerenter", () => {
+        if (kid.book) prefetchPdf(kid.book).catch(() => {});
+      });
       btn.addEventListener("click", () => {
-        if (kid.page && kid.book) showPiece(cite, kid);
+        if (kid.page && kid.book) showPiece(cite, kid, ++openGen);
         else openCitation(kid);
       });
       list.appendChild(btn);
@@ -619,22 +729,26 @@
     return baked;
   }
 
-  async function showPiece(cite, piece) {
+  async function showPiece(cite, piece, gen) {
     viewingPiece = piece;
     renderHeader(cite);
     renderSourceList(cite, ($("evidenceSourceQ") || {}).value);
 
     if (!piece || !piece.book || !books[piece.book] || !piece.page) {
+      hideLoading();
       showStatus("This piece has no page yet. Try another row.", true);
       return;
     }
 
-    const url = pdfUrl(piece.book);
+    const alreadyOpen = currentBook === piece.book && currentPdf;
+    if (!alreadyOpen) {
+      showLoading("Opening the " + piece.book + " book…");
+    }
     try {
-      if (currentBook !== piece.book) {
-        currentPdf = await pdfjsLib.getDocument({ url, withCredentials: false }).promise;
-        currentBook = piece.book;
-      }
+      const doc = alreadyOpen ? currentPdf : await prefetchPdf(piece.book);
+      if (gen != null && gen !== openGen) return;
+      currentPdf = doc;
+      currentBook = piece.book;
       currentPage = Math.min(Math.max(1, piece.page), currentPdf.numPages);
       $("evidencePageLabel").textContent = `p. ${currentPage} of ${currentPdf.numPages}`;
       $("evidenceDocLink").href = viewerUrl(piece.book, currentPage, piece.query || formatQueryFromValue(piece.value));
@@ -646,9 +760,13 @@
         unit: piece.unit,
         line: piece.line,
       });
+      if (gen != null && gen !== openGen) return;
+      hideLoading();
       showStatus("Click the page to open a sharper view. Use Highlight to toggle the box.");
     } catch (e) {
+      if (gen != null && gen !== openGen) return;
       console.error(e);
+      hideLoading();
       showStatus("Could not load that PDF page. Serve this folder over HTTP (npx --yes serve .).", true);
     }
   }
@@ -656,23 +774,31 @@
   async function openCitation(cite) {
     if (!cite) return;
     cite = hydrateCite(cite);
+    const gen = ++openGen;
 
     currentCite = cite;
     viewingPiece = null;
     lastHighlight = null;
     setOpen(true);
     renderHeader(cite);
-    showStatus("Loading sources…");
+    showLoading(cite.book ? "Opening the " + cite.book + " book…" : "Opening the source book…");
+    showStatus("Finding the printed page…");
 
     try {
-      await loadBooks();
-      await ensurePdfJs();
+      await Promise.all([loadBooks(), ensurePdfJs()]);
     } catch (e) {
+      if (gen !== openGen) return;
+      hideLoading();
       showStatus("Could not load PDF.js. Serve this site over HTTP (npx serve dashboard).", true);
       return;
     }
+    if (gen !== openGen) return;
+
+    // Start the book download immediately — don't wait on the source list.
+    if (cite.book) prefetchPdf(cite.book).catch(() => {});
 
     allSources = await expandSources(cite);
+    if (gen !== openGen) return;
     renderSourceList(cite, "");
 
     const clickedQuery = formatQueryFromValue(cite.value);
@@ -689,11 +815,12 @@
         label: cite.label,
         value: cite.value,
       };
-      await showPiece(cite, viewingPiece);
+      await showPiece(cite, viewingPiece, gen);
       return;
     }
 
     // Never open a feeder row as if it were the clicked total.
+    hideLoading();
     showStatus(
       "The number you clicked is not printed as one figure. Sources below add up to it — click a row to highlight that printed line.",
       false
@@ -1076,6 +1203,7 @@
       const saved = parseInt(localStorage.getItem("evidencePanelW"), 10);
       if (saved) applyPanelWidth(saved);
     } catch (_) {}
+    warmLibraries();
   }
 
   function initPanelDom() {
@@ -1108,6 +1236,14 @@
         <p id="evidenceStatus" class="evidence-status"></p>
       </div>
       <div id="evidenceBody" class="evidence-body">
+        <div id="evidenceLoading" class="evidence-loading" hidden>
+          <div class="evidence-spinner" aria-hidden="true"></div>
+          <p id="evidenceLoadingText">Opening the source book…</p>
+          <div id="evidenceProgress" class="evidence-progress indeterminate">
+            <i id="evidenceProgressBar"></i>
+          </div>
+          <p id="evidenceLoadingPct" class="evidence-loading-pct">Fetching the page…</p>
+        </div>
         <canvas id="evidenceCanvas"></canvas>
       </div>
       <div id="evidenceSourceWrap" class="evidence-children-wrap">
@@ -1154,6 +1290,7 @@
     el.classList.add("citeable");
     el.setAttribute("data-cite", citeId);
     el.title = "Click to see how this number was checked";
+    el.addEventListener("pointerenter", () => prefetchById(citeId));
     el.addEventListener("click", (e) => {
       e.stopPropagation();
       openById(citeId);
@@ -1175,6 +1312,7 @@
     openCitation,
     openLine,
     bindCite,
+    prefetchById,
     chartCiteHandler,
     loadBookLines,
     loadBooks,
