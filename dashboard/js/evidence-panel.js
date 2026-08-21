@@ -102,8 +102,15 @@
     if (compose) compose.classList.toggle("on", mode === "compose");
     if (canvas) canvas.style.visibility = mode === "page" ? "visible" : "hidden";
     expectPdf = mode === "loading";
+    const derived = !!(currentCite && currentCite.type === "derived");
+    const showBack = derived && mode !== "compose" && mode !== "empty";
     const back = $("evidenceBack");
-    if (back) back.hidden = mode !== "page" || !currentCite || currentCite.type !== "derived";
+    const pageBack = $("evidencePageBack");
+    if (back) back.hidden = !showBack;
+    if (pageBack) {
+      pageBack.hidden = !showBack;
+      pageBack.classList.toggle("on", showBack);
+    }
   }
 
   function showLoading(text, loaded, total) {
@@ -149,37 +156,25 @@
     return String(raw).replace(/\s+/g, " ").trim();
   }
 
-  const SLICE_COLORS = [
-    "#1f3a5f", "#3d5a80", "#4f6d94", "#6b86a8",
-    "#a5814b", "#c4a574", "#2e7d51", "#4f8a6e",
-    "#6d5a7c", "#8a6d62"
-  ];
+  function sliceColor(i) {
+    const hue = 214 - (i % 16) * 10;
+    const light = 34 + (i % 5) * 4;
+    return "hsl(" + hue + ", 36%, " + light + "%)";
+  }
 
-  function packSlices(rows, maxNamed) {
-    const sorted = rows
+  function packSlices(rows) {
+    return rows
       .filter(s => s && s.value != null && Math.abs(Number(s.value)) >= 1)
       .slice()
-      .sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
-    const named = sorted.slice(0, maxNamed);
-    const rest = sorted.slice(maxNamed);
-    const slices = named.map((s, i) => ({
-      source: s,
-      label: shortUnitName(s),
-      value: Math.abs(Number(s.value)),
-      signed: Number(s.value),
-      color: SLICE_COLORS[i % SLICE_COLORS.length],
-    }));
-    if (rest.length) {
-      slices.push({
-        source: null,
-        label: rest.length + " other",
-        value: rest.reduce((a, s) => a + Math.abs(Number(s.value) || 0), 0),
-        signed: rest.reduce((a, s) => a + Number(s.value || 0), 0),
-        color: "#b7c0cc",
-        other: true,
-      });
-    }
-    return slices;
+      .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
+      .map((s, i) => ({
+        source: s,
+        label: shortUnitName(s),
+        value: Math.abs(Number(s.value)),
+        signed: Number(s.value),
+        color: sliceColor(i),
+        page: s.page || null,
+      }));
   }
 
   function mosaicHtml(slices, total, pack) {
@@ -199,10 +194,11 @@
     return slices.map((s, i) => {
       const pct = (s.value / denom) * 100;
       const pctLabel = pct >= 10 ? pct.toFixed(0) + "%" : pct.toFixed(1) + "%";
+      const page = s.page ? " · p." + s.page : "";
       return `<button type="button" class="ec-row${s.other ? " other" : ""}" data-pack="${p}" data-i="${i}">` +
         `<span class="ec-swatch" style="background:${s.color}"></span>` +
         `<span class="ec-row-main">` +
-          `<span class="ec-row-name">${escapeHtml(s.label)}</span>` +
+          `<span class="ec-row-name">${escapeHtml(s.label)}${page}</span>` +
           `<span class="ec-row-track"><i style="width:${Math.min(100, pct)}%;background:${s.color}"></i></span>` +
         `</span>` +
         `<span class="ec-row-amt">${fmtShort(s.signed != null ? s.signed : s.value)}<em>${pctLabel}</em></span>` +
@@ -216,13 +212,6 @@
         const pack = el.getAttribute("data-pack");
         const slice = (packs[pack] || [])[Number(el.getAttribute("data-i"))];
         if (!slice) return;
-        if (slice.other) {
-          const q = $("evidenceSourceQ");
-          if (q) { q.hidden = false; q.focus(); }
-          const wrap = $("evidenceSourceWrap");
-          if (wrap) wrap.scrollTop = 0;
-          return;
-        }
         if (slice.source && slice.source.page && slice.source.book) {
           showPiece(cite, slice.source, ++openGen);
         } else if (slice.source) {
@@ -254,13 +243,13 @@
     host.innerHTML = "";
 
     if (isYears) {
-      const slices = packSlices(sources, 12);
+      const slices = packSlices(sources);
       const sum = slices.reduce((a, s) => a + s.signed, 0);
       host.innerHTML =
         `<div class="ec-kicker">How the years add up</div>` +
         `<div class="ec-total">${fmtFull(clicked)}</div>` +
         `<div class="ec-mosaic" role="img" aria-label="Yearly surplus mosaic">${mosaicHtml(slices, Math.abs(clicked) || Math.abs(sum), "main")}</div>` +
-        `<div class="ec-hint">Click a year to open its sources</div>` +
+        `<div class="ec-hint">Every closed year, largest first. Click a year to open its sources.</div>` +
         `<div class="ec-rows">${rowsHtml(slices, Math.abs(clicked) || slices.reduce((a, s) => a + s.value, 0), "main")}</div>`;
       bindComposeClicks(host, { main: slices }, cite);
       return;
@@ -271,8 +260,8 @@
       const exp = sources.filter(s => /spend|expend/i.test(s.group || s.metric || s.label || ""));
       const revN = rev.reduce((a, s) => a + Number(s.value || 0), 0);
       const expN = exp.reduce((a, s) => a + Number(s.value || 0), 0);
-      const revSlices = packSlices(rev.length ? rev : sources, 8);
-      const expSlices = packSlices(exp.length ? exp : [], 8);
+      const revSlices = packSlices(rev.length ? rev : sources);
+      const expSlices = packSlices(exp);
       const maxBar = Math.max(revN, expN, 1);
       host.innerHTML =
         `<div class="ec-kicker">How this difference is built</div>` +
@@ -287,24 +276,42 @@
             `<div class="ec-mosaic tall" style="width:${Math.max(18, (Math.abs(expN) / maxBar) * 100)}%">${mosaicHtml(expSlices, Math.abs(expN) || 1, "exp")}</div>` +
           `</div>` +
         `</div>` +
-        `<div class="ec-hint">Click a slice to open that unit’s page</div>` +
+        `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
+        `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Click any row to open that page.</div>` +
         `<div class="ec-rows">` +
+          `<div class="ec-section">Revenue</div>` +
           rowsHtml(revSlices, Math.abs(revN) || 1, "rev") +
-          rowsHtml(expSlices.map(s => ({ ...s, label: "Spend · " + s.label })), Math.abs(expN) || 1, "exp") +
+          `<div class="ec-section">Spending</div>` +
+          rowsHtml(expSlices.map(s => ({ ...s, label: s.label })), Math.abs(expN) || 1, "exp") +
         `</div>`;
       bindComposeClicks(host, { rev: revSlices, exp: expSlices }, cite);
+      bindComposeFilter(host);
       return;
     }
 
-    const slices = packSlices(sources, 9);
+    const slices = packSlices(sources);
     const stack = slices.reduce((a, s) => a + s.value, 0);
     host.innerHTML =
-      `<div class="ec-kicker">${sources.length} printed lines add to</div>` +
+      `<div class="ec-kicker">${slices.length} printed lines add to</div>` +
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
       `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, stack, "main")}</div>` +
-      `<div class="ec-hint">Click a slice or row to open that printed page</div>` +
+      `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
+      `<div class="ec-hint">Every unit, largest first. Click a slice or row to open that printed page.</div>` +
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
+    bindComposeFilter(host);
+  }
+
+  function bindComposeFilter(host) {
+    const input = host.querySelector(".ec-filter");
+    if (!input) return;
+    input.addEventListener("input", () => {
+      const q = input.value.trim().toLowerCase();
+      host.querySelectorAll(".ec-row").forEach((row) => {
+        const name = ((row.querySelector(".ec-row-name") || {}).textContent || "").toLowerCase();
+        row.hidden = !!(q && !name.includes(q));
+      });
+    });
   }
 
   function showBreakdown() {
@@ -1426,6 +1433,7 @@
         <p id="evidenceStatus" class="evidence-status"></p>
       </div>
       <div id="evidenceBody" class="evidence-body">
+        <button type="button" id="evidencePageBack" class="evidence-page-back" hidden>← Back to breakdown</button>
         <div id="evidenceLoading" class="evidence-pane-msg">
           <div class="evidence-spinner" aria-hidden="true"></div>
           <p id="evidenceLoadingText">Opening the source book…</p>
@@ -1456,6 +1464,7 @@
     $("evidencePrev").addEventListener("click", () => stepPage(-1));
     $("evidenceNext").addEventListener("click", () => stepPage(1));
     $("evidenceBack").addEventListener("click", showBreakdown);
+    $("evidencePageBack").addEventListener("click", showBreakdown);
     $("evidenceHlToggle").addEventListener("click", () => {
       highlightOn = !highlightOn;
       syncHighlightButton();
