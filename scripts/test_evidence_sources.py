@@ -416,6 +416,38 @@ def main() -> int:
             else:
                 ok(f"{cid}: derived with no mismatched parent query")
 
+    # 2d) Audit: small negatives must not highlight a larger number (8 ≠ 88)
+    park = [
+        r for r in rows_from_book("FY 2022-23", "FY2020-21", "actual", "revenue")
+        if "PARK&RE" in (r.get("unit") or r.get("u") or "")
+        or "0107" in str(r.get("unitCode") or r.get("c") or "")
+    ]
+    if park and abs(float(park[0]["value"]) + 8) <= 0.5:
+        ok("Unit 0107 FY2020-21 actual Total Revenues is -8")
+    else:
+        fail(f"Unit 0107 park impact fee actual is not -8: {park[:1]}")
+
+    def parse_token(s: str):
+        t = s.strip().replace("−", "-")
+        neg = t.startswith("(") or t.startswith("-")
+        digits = "".join(ch for ch in t if ch.isdigit() or ch == ".")
+        if not digits:
+            return None
+        n = float(digits)
+        return -n if neg else n
+
+    def is_number_token(s: str) -> bool:
+        return bool(re.fullmatch(r"-?\(?\d[\d,]*\)?(?:\.00)?", s.replace(" ", "")))
+
+    if parse_token("88") == -8 or parse_token("8") == -8:
+        fail("88/8 parsed as -8")
+    elif parse_token("-8") != -8 or parse_token("(8)") != -8:
+        fail("-8 / (8) did not parse as -8")
+    elif is_number_token("88") and parse_token("88") == 88 and parse_token("-8") == -8:
+        ok("Number tokens: -8 is -8, 88 is 88")
+    else:
+        fail("Number token parse failed")
+
     # 3) Line-name matcher: FY2025-26 FY2023-24 actual spend
     spend_rows = rows_from_book("FY 2025-26", "FY2023-24", "actual", "spend")
     if len(spend_rows) > 0:
@@ -522,6 +554,7 @@ def main() -> int:
         ("FY 2025-26", 42, "398,114,608"),
         ("FY 2026-27", 512, "50,681,46"),  # Behavioral Health spend prefix
         ("FY 2026-27", 298, "58,783,273"),  # General Revenues Total Revenues
+        ("FY 2022-23", 368, "-8"),  # Park impact fee Total Revenues actual
     ]
     for book, page, query in checks:
         pdf_path = PDFS / books[book]["file"]

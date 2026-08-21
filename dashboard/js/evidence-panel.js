@@ -47,11 +47,15 @@
   function parseMoney(s) {
     if (s == null || s === "") return null;
     if (typeof s === "number") return s;
-    const t = String(s).trim();
+    const t = String(s).trim().replace(/[−–]/g, "-");
     const neg = /^\(.*\)$/.test(t) || t.startsWith("-");
     const n = Number(t.replace(/[^0-9.]/g, ""));
     if (Number.isNaN(n)) return null;
     return neg ? -n : n;
+  }
+
+  function looksLikeNumberToken(raw) {
+    return /^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(String(raw || "").replace(/\s+/g, ""));
   }
 
   function queryMatchesValue(query, value) {
@@ -69,8 +73,11 @@
   function formatQueryFromValue(v) {
     const n = Number(v);
     if (Number.isNaN(n)) return String(v);
-    if (n < 0) return "(" + Math.round(Math.abs(n)).toLocaleString("en-US") + ")";
-    return Math.round(n).toLocaleString("en-US");
+    const abs = Math.round(Math.abs(n)).toLocaleString("en-US");
+    // Books print negatives as -8, not (8). Keep the sign so we never
+    // search for a bare "8" that sits inside 88.
+    if (n < 0) return "-" + abs;
+    return abs;
   }
 
   async function ensurePdfJs() {
@@ -949,13 +956,18 @@
 
       await renderPage(currentPage, {
         query: piece.query || formatQueryFromValue(piece.value),
+        value: piece.value,
         hit: piece.hit,
         unit: piece.unit,
         line: piece.line,
       });
       if (gen != null && gen !== openGen) return;
       setPane("page");
-      showStatus("Click the page to open a sharper view. Use Highlight to toggle the box.");
+      if (highlightOn && !lastHighlight && piece.value != null) {
+        showStatus("Page opened. Could not mark " + fmtFull(piece.value) + " as a whole number — look for it on the Total Revenues / Expenditures row.", true);
+      } else {
+        showStatus("Highlight is " + fmtFull(piece.value) + ". Click the page for a sharper view.");
+      }
     } catch (e) {
       if (gen != null && gen !== openGen) return;
       console.error(e);
@@ -1124,10 +1136,10 @@
 
     lastHighlight = null;
     if (highlightOn) {
-      if (opts.hit && opts.hit.x0 != null) {
+      if (opts.hit && opts.hit.x0 != null && queryMatchesValue(opts.hit.query, opts.value)) {
         lastHighlight = drawHitBBox(ctx, viewport, opts.hit, base);
       }
-      if (!lastHighlight && opts.query) {
+      if (!lastHighlight && (opts.query || opts.value != null)) {
         lastHighlight = await highlightQuery(page, viewport, ctx, opts.query, opts);
       }
     }
@@ -1182,7 +1194,8 @@
   }
 
   async function highlightQuery(page, viewport, ctx, query, opts) {
-    const variants = queryVariants(query);
+    const target = opts && opts.value != null ? Number(opts.value) : parseMoney(query);
+    const variants = queryVariants(query || formatQueryFromValue(target), target);
     let content;
     try {
       content = await page.getTextContent();
@@ -1192,28 +1205,34 @@
     const items = content.items.filter(it => it.str && it.str.trim());
     let bestRun = null;
     let bestScore = -1;
-    let anchorY = null;
-    const near = ((opts && (opts.unit || opts.line)) || "").toLowerCase().slice(0, 16);
-    if (near) {
-      for (const it of items) {
-        if (it.str.toLowerCase().includes(near)) {
-          anchorY = transformItem(viewport, it)[5];
-          break;
-        }
+    const anchors = [];
+    const needles = [];
+    if (opts && opts.line) needles.push(String(opts.line).toLowerCase());
+    if (opts && opts.unit) needles.push(String(opts.unit).toLowerCase().slice(0, 18));
+    needles.push("total revenues", "total expenditures", "total revenues");
+    items.forEach((it) => {
+      const low = it.str.toLowerCase();
+      if (needles.some(n => n && low.includes(n))) {
+        anchors.push(transformItem(viewport, it)[5]);
       }
-    }
-    for (const q of variants) {
-      const hits = findTextRuns(items, q);
-      for (const run of hits) {
-        const tx = transformItem(viewport, run[0]);
-        let score = 10;
-        if (anchorY != null) score += Math.max(0, 50 - Math.abs(tx[5] - anchorY) / 2);
-        if (score > bestScore) {
-          bestScore = score;
-          bestRun = run;
-        }
+    });
+    const hits = target != null
+      ? findValueRuns(items, target)
+      : variants.flatMap(q => findTextRuns(items, q));
+    for (const run of hits) {
+      const runText = run.map(it => it.str).join("");
+      const parsed = parseMoney(runText);
+      if (target != null && (parsed == null || !valuesClose(parsed, target))) continue;
+      const tx = transformItem(viewport, run[0]);
+      let score = 20 + runText.length;
+      if (anchors.length) {
+        const dist = Math.min(...anchors.map(y => Math.abs(tx[5] - y)));
+        score += Math.max(0, 80 - dist / 2);
       }
-      if (bestRun && !near) break;
+      if (score > bestScore) {
+        bestScore = score;
+        bestRun = run;
+      }
     }
     if (!bestRun) return null;
 
@@ -1247,24 +1266,26 @@
       : multiplyTransform(viewport.transform, it.transform);
   }
 
-  function queryVariants(q) {
-    if (!q) return [];
-    const s = String(q).trim();
-    const out = new Set([s]);
-    out.add(s.replace(/[$\s]/g, ""));
-    out.add(s.replace(/,/g, ""));
-    out.add(s.replace(/\.00$/, ""));
-    out.add(s.replace(/\.00$/, "") + ".00");
-    const digits = s.replace(/[^\d().-]/g, "");
-    if (/^-?\d+$/.test(digits)) {
-      out.add(Number(digits).toLocaleString("en-US"));
-      out.add(Number(digits).toLocaleString("en-US") + ".00");
+  function queryVariants(q, value) {
+    if (q == null && value == null) return [];
+    const n = value != null ? Number(value) : parseMoney(q);
+    const out = new Set();
+    if (q) out.add(String(q).trim());
+    if (n == null || Number.isNaN(n)) return [...out].filter(Boolean);
+    const abs = Math.round(Math.abs(n)).toLocaleString("en-US");
+    const raw = String(Math.round(Math.abs(n)));
+    if (n < 0) {
+      out.add("-" + abs);
+      out.add("-" + raw);
+      out.add("(" + abs + ")");
+      out.add("(" + raw + ")");
+      out.add("-" + abs + ".00");
+    } else {
+      out.add(abs);
+      out.add(raw);
+      if (Math.abs(n) >= 1000) out.add(abs + ".00");
     }
-    if (s.startsWith("(") && s.endsWith(")")) {
-      out.add(s.slice(1, -1));
-      out.add("-" + s.slice(1, -1).replace(/,/g, ""));
-    }
-    return [...out].filter(Boolean);
+    return [...out].filter(Boolean).sort((a, b) => b.length - a.length);
   }
 
   function multiplyTransform(m1, m2) {
@@ -1278,8 +1299,26 @@
     ];
   }
 
+  function isNumChar(ch) {
+    return ch >= "0" && ch <= "9";
+  }
+
+  function findValueRuns(items, target) {
+    const hits = [];
+    for (let i = 0; i < items.length; i++) {
+      for (let span = 1; span <= 3 && i + span <= items.length; span++) {
+        const run = items.slice(i, i + span);
+        const raw = run.map(it => it.str).join("").replace(/\s+/g, "").replace(/[−–]/g, "-");
+        if (!looksLikeNumberToken(raw)) continue;
+        const n = parseMoney(raw);
+        if (n != null && valuesClose(n, target)) hits.push(run);
+      }
+    }
+    return hits;
+  }
+
   function findTextRuns(items, query) {
-    const q = query.toLowerCase().replace(/\s+/g, "");
+    const q = String(query).toLowerCase().replace(/\s+/g, "");
     if (!q) return [];
     let hay = "";
     const map = [];
@@ -1293,6 +1332,13 @@
     while (from < hay.length) {
       const at = hay.indexOf(q, from);
       if (at < 0) break;
+      const before = at > 0 ? hay[at - 1] : "";
+      const after = at + q.length < hay.length ? hay[at + q.length] : "";
+      // 8 must not match the 8 inside 88 or 139.
+      if (isNumChar(before) || isNumChar(after)) {
+        from = at + 1;
+        continue;
+      }
       const startItem = map[at];
       const endItem = map[Math.min(at + q.length - 1, map.length - 1)];
       if (startItem != null && endItem != null) {
@@ -1301,7 +1347,7 @@
         hits.push(run);
       }
       from = at + q.length;
-      if (hits.length >= 12) break;
+      if (hits.length >= 20) break;
     }
     return hits;
   }

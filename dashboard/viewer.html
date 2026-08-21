@@ -146,13 +146,46 @@
       return originUrl(path.replace(/^\/+/, ""));
     }
 
+    function parseMoney(s) {
+      if (s == null || s === "") return null;
+      const t = String(s).trim();
+      const neg = /^\(.*\)$/.test(t) || t.startsWith("-");
+      const n = Number(t.replace(/[^0-9.]/g, ""));
+      if (Number.isNaN(n)) return null;
+      return neg ? -n : n;
+    }
+
     function variants(q) {
       if (!q) return [];
       const s = String(q).trim();
-      const out = new Set([s, s.replace(/[$,\s]/g, ""), s.replace(/\.00$/, ""), s + ".00"]);
-      const d = s.replace(/[^\d()-]/g, "");
-      if (/^-?\d+$/.test(d)) out.add(Number(d).toLocaleString("en-US"));
-      return [...out];
+      const n = parseMoney(s);
+      const out = new Set([s]);
+      if (n == null) return [...out];
+      const abs = Math.round(Math.abs(n)).toLocaleString("en-US");
+      const raw = String(Math.round(Math.abs(n)));
+      if (n < 0) {
+        out.add("-" + abs);
+        out.add("-" + raw);
+        out.add("(" + abs + ")");
+        out.add("(" + raw + ")");
+      } else {
+        out.add(abs);
+        out.add(raw);
+      }
+      return [...out].sort((a, b) => b.length - a.length);
+    }
+
+    function isNumChar(ch) {
+      return ch >= "0" && ch <= "9";
+    }
+
+    function wholeNumberIndex(hay, q, from) {
+      const at = hay.indexOf(q, from);
+      if (at < 0) return -1;
+      const before = at > 0 ? hay[at - 1] : "";
+      const after = at + q.length < hay.length ? hay[at + q.length] : "";
+      if (isNumChar(before) || isNumChar(after)) return -2;
+      return at;
     }
 
     async function render() {
@@ -185,13 +218,21 @@
             for (let k = 0; k < s.length; k++) map.push(i);
             hay += s.toLowerCase();
           });
+          const want = parseMoney(query);
           let run = null;
-          for (const q of variants(query)) {
-            const at = hay.indexOf(q.toLowerCase().replace(/\s+/g, ""));
-            if (at < 0) continue;
-            const a = map[at], b = map[Math.min(at + q.length - 1, map.length - 1)];
-            run = items.slice(a, b + 1);
-            break;
+          if (want != null) {
+            for (let i = 0; i < items.length && !run; i++) {
+              for (let span = 1; span <= 3 && i + span <= items.length; span++) {
+                const cand = items.slice(i, i + span);
+                const raw = cand.map((it) => it.str).join("").replace(/\s+/g, "").replace(/[−–]/g, "-");
+                if (!/^-?\(?\d[\d,]*\)?(?:\.00)?$/.test(raw)) continue;
+                const parsed = parseMoney(raw);
+                if (parsed != null && Math.abs(parsed - want) <= 10) {
+                  run = cand;
+                  break;
+                }
+              }
+            }
           }
           if (run && run.length) {
             ctx.fillStyle = "rgba(165,129,75,.38)";
