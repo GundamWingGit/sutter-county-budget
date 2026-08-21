@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sutter County Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper: #f7f8fa;
+    --card: #ffffff;
+    --line: #dfe4ec;
+    --line-soft: #eceff5;
+    --ink: #17253c;
+    --ink-2: #45566e;
+    --ink-3: #74839a;
+    --navy: #1f3a5f;
+    --steel: #4f6d94;
+    --gold: #a5814b;
+    --green: #2e7d51;
+    --red: #a04b52;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px 80px; }
+
+  .masthead { padding: 58px 0 0; }
+  .rule { border: 0; border-top: 3px solid var(--navy); margin-bottom: 26px; }
+  .overline {
+    font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.4vw, 46px);
+    font-weight: 700; letter-spacing: -0.005em; line-height: 1.12;
+    color: var(--ink); margin: 10px 0 12px;
+  }
+  .lede { max-width: 780px; color: var(--ink-2); font-size: 16px; }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px 0; margin: 22px 0 0;
+    padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    font-size: 13px; color: var(--ink-3);
+  }
+  .meta-row b { color: var(--ink); font-weight: 600; }
+  .meta-row span + span::before { content: "·"; margin: 0 14px; color: var(--line); }
+
+  nav.toc {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    margin-top: 22px; padding: 12px 0 4px;
+    font-size: 12.5px;
+  }
+  nav.toc a { color: var(--steel); text-decoration: none; font-weight: 500; }
+  nav.toc a:hover { color: var(--navy); text-decoration: underline; }
+
+  .verdict {
+    margin-top: 34px; background: var(--card); border: 1px solid var(--line);
+    border-left: 4px solid var(--green); padding: 26px 28px 22px;
+  }
+  .verdict.caution { border-left-color: var(--gold); }
+  .verdict h2 { font-family: var(--serif); font-size: 22px; margin-bottom: 10px; }
+  .verdict p { color: var(--ink-2); font-size: 15px; max-width: 860px; }
+  .verdict p + p { margin-top: 10px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+          border: 1px solid var(--line); margin-top: 28px; }
+  .kpi { background: var(--card); padding: 22px 24px; }
+  .kpi .label { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .kpi .value { font-family: var(--serif); font-size: clamp(24px, 2.4vw, 32px); font-weight: 700;
+                color: var(--navy); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .kpi .value.good { color: var(--green); }
+  .kpi .value.warn { color: var(--gold); }
+  .kpi .sub { font-size: 12.5px; color: var(--ink-3); margin-top: 4px; }
+
+  section { margin-top: 64px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line);
+              padding-bottom: 10px; margin-bottom: 6px; }
+  .sec-num { font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--gold); }
+  h2 { font-family: var(--serif); font-size: clamp(21px, 2.6vw, 27px); font-weight: 700; color: var(--ink); }
+  .sec-q { color: var(--ink-2); font-size: 14.5px; max-width: 820px; margin: 12px 0 20px; }
+  .prose { color: var(--ink-2); font-size: 15px; max-width: 820px; margin: 0 0 18px; }
+  .prose + .prose { margin-top: -6px; }
+  .prose b { color: var(--ink); font-weight: 600; }
+
+  .grid { display: grid; gap: 16px; }
+  .grid.two { grid-template-columns: 3fr 2fr; }
+  .grid.halves { grid-template-columns: 1fr 1fr; }
+  .card { background: var(--card); border: 1px solid var(--line); padding: 22px 24px 16px; }
+  .card h3 { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .card .note { font-size: 12px; color: var(--ink-3); margin: 2px 0 14px; }
+  .chart-box { position: relative; height: 350px; }
+  .chart-box.tall { height: 440px; }
+  .chart-box.short { height: 300px; }
+
+  .yr-badge { float: right; font-size: 11px; font-weight: 600; letter-spacing: .06em;
+              color: var(--ink-3); border: 1px solid var(--line); padding: 2px 9px; }
+
+  .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 8px; }
+  .finding { background: var(--card); border: 1px solid var(--line); padding: 18px 20px 16px;
+             border-left: 3px solid var(--navy); }
+  .finding .f-label { font-size: 11.5px; font-weight: 600; letter-spacing: .12em;
+                      text-transform: uppercase; color: var(--ink-3); }
+  .finding .f-value { font-family: var(--serif); font-size: 24px; font-weight: 700;
+                      color: var(--navy); margin: 4px 0 6px; font-variant-numeric: tabular-nums; }
+  .finding .f-detail { font-size: 13px; color: var(--ink-2); }
+
+  table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .08em;
+                  text-transform: uppercase; color: var(--ink-3); padding: 8px 10px;
+                  border-bottom: 1px solid var(--line); }
+  table.data th.num, table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data td { padding: 8px 10px; border-bottom: 1px solid var(--line-soft); color: var(--ink-2); }
+  table.data td:first-child { color: var(--ink); font-weight: 500; }
+  table.data tr:last-child td { border-bottom: 0; }
+  table.data .up { color: var(--red); }
+  table.data .down { color: var(--green); }
+  table.data .neg { color: var(--green); }
+
+  .callout {
+    background: var(--card); border: 1px solid var(--line); padding: 16px 20px;
+    font-size: 14px; color: var(--ink-2); margin: 16px 0 0;
+  }
+  .callout b { color: var(--ink); }
+  .callout.warn { border-left: 3px solid var(--gold); }
+  .callout.ok { border-left: 3px solid var(--green); }
+
+  footer { margin-top: 70px; padding-top: 20px; border-top: 3px solid var(--navy);
+           color: var(--ink-3); font-size: 12.5px; max-width: 920px; }
+  footer p + p { margin-top: 8px; }
+  footer code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px;
+                background: #eef1f6; border: 1px solid var(--line); padding: 1px 6px; color: var(--ink-2); }
+
+  .error-panel { margin: 60px auto; max-width: 620px; text-align: center;
+                 background: var(--card); border: 1px solid var(--line); padding: 48px 40px; }
+
+  @media (max-width: 980px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .grid.two, .grid.halves, .findings { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) { .kpis { grid-template-columns: 1fr; } }
+  @media print {
+    nav.toc { display: none; }
+    .chart-box, .chart-box.tall, .chart-box.short { height: 280px; break-inside: avoid; }
+    section { break-inside: avoid; }
+    #evidencePanel { display: none !important; }
+  }
+
+  /* ---------- click-to-source ---------- */
+  .cite-hint {
+    display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--gold);
+    border: 1px solid #e2d3b8; background: #faf6ee; padding: 1px 7px;
+  }
+  .citeable {
+    cursor: pointer; position: relative;
+  }
+  .kpi.citeable:hover, .finding.citeable:hover {
+    outline: 2px solid var(--gold); outline-offset: -2px;
+  }
+  .citeable::after {
+    content: "source";
+    position: absolute; top: 8px; right: 10px;
+    font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold); opacity: 0; transition: opacity .15s;
+  }
+  .kpi.citeable:hover::after, .finding.citeable:hover::after { opacity: 1; }
+  table.data tr.citeable { cursor: pointer; }
+  table.data tr.citeable:hover td { background: #faf6ee; }
+  .chart-box.citeable-chart { cursor: crosshair; }
+  .chart-box.citeable-chart::after {
+    content: "Click a point to verify in the source book";
+    position: absolute; right: 12px; top: 8px; font-size: 10.5px; color: var(--ink-3);
+  }
+
+  /* explorer */
+  .explorer-controls {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-bottom: 14px;
+  }
+  .explorer-controls label {
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .explorer-controls select, .explorer-controls input {
+    font: 13.5px var(--sans); color: var(--ink); background: #fff;
+    border: 1px solid var(--line); padding: 7px 10px; min-width: 180px;
+  }
+  .explorer-controls input { min-width: 240px; }
+  #explorerMeta { font-size: 12.5px; color: var(--ink-3); margin: 0 0 10px; }
+  #explorerResults { max-height: 420px; overflow: auto; border: 1px solid var(--line); }
+  #explorerResults table.data { margin: 0; }
+  #explorerResults table.data thead th { position: sticky; top: 0; background: #fff; z-index: 1; }
+
+  /* evidence side panel */
+  :root { --evidence-w: min(46vw, 560px); }
+  body.evidence-open .wrap {
+    margin-right: var(--evidence-w);
+    transition: margin-right .2s ease;
+  }
+  body.evidence-resizing .wrap, body.evidence-resizing #evidencePanel {
+    transition: none;
+  }
+  #evidencePanel {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: var(--evidence-w); max-width: 96vw; height: 100vh;
+    background: var(--card); border-left: 1px solid var(--line);
+    z-index: 1000; display: flex; flex-direction: column;
+    overflow: hidden;
+    transform: translateX(100%); transition: transform .2s ease;
+  }
+  body.evidence-open #evidencePanel { transform: translateX(0); }
+  .evidence-resize {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+    cursor: ew-resize; z-index: 2;
+  }
+  .evidence-resize:hover, body.evidence-resizing .evidence-resize { background: rgba(165,129,75,.35); }
+  .evidence-header {
+    padding: 14px 16px 10px; border-bottom: 1px solid var(--line); flex: 0 0 auto;
+    max-height: 46vh; overflow: auto;
+  }
+  .evidence-header-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .evidence-badge {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 8px; border: 1px solid var(--line); color: var(--ink-3);
+  }
+  .evidence-badge.printed { color: var(--green); border-color: #b7d4c2; background: #f1f8f3; }
+  .evidence-badge.derived { color: var(--gold); border-color: #e2d3b8; background: #faf6ee; }
+  .evidence-close {
+    border: 0; background: transparent; font-size: 24px; line-height: 1;
+    color: var(--ink-3); cursor: pointer; padding: 0 4px;
+  }
+  #evidenceTitle {
+    font-family: var(--serif); font-size: 17px; font-weight: 700;
+    margin: 8px 0 4px; color: var(--ink); line-height: 1.25;
+  }
+  .evidence-clicked {
+    font-family: var(--serif); font-size: 22px; font-weight: 700;
+    color: var(--navy); margin: 0 0 8px;
+  }
+  .evidence-explain {
+    background: #f7f8fb; border: 1px solid var(--line); padding: 10px 12px; margin: 0 0 10px;
+  }
+  .evidence-explain h3 {
+    font-size: 13px; font-weight: 700; margin: 0 0 4px; color: var(--ink);
+  }
+  .evidence-explain p { font-size: 13px; color: var(--ink-2); margin: 0; line-height: 1.4; }
+  .evidence-eq {
+    font-size: 13.5px; font-weight: 600; color: var(--navy);
+    background: #fff; border: 1px solid var(--line); padding: 8px 10px; margin: 8px 0 0;
+  }
+  .evidence-caption {
+    font-size: 12.5px; line-height: 1.4; margin: 0 0 8px; color: var(--ink-2);
+  }
+  .evidence-caption strong { color: var(--navy); }
+  .evidence-caption.warn { color: var(--ink); }
+  .evidence-meta { font-size: 12px; color: var(--ink-3); margin: 0 0 8px; }
+  .evidence-toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px;
+  }
+  .evidence-nav, .evidence-doc {
+    font: 12px var(--sans); font-weight: 600; border: 1px solid var(--line);
+    background: #fff; color: var(--navy); padding: 4px 10px; cursor: pointer;
+    text-decoration: none;
+  }
+  .evidence-page { font-size: 12px; color: var(--ink-3); min-width: 90px; text-align: center; }
+  .evidence-status { font-size: 12px; color: var(--ink-3); margin: 0; min-height: 1.2em; }
+  .evidence-status.err { color: var(--red); }
+  .evidence-body {
+    flex: 1 1 auto; min-height: 0; overflow: auto; background: #eef1f6; padding: 12px;
+    display: flex; justify-content: center; align-items: flex-start;
+  }
+  #evidenceCanvas {
+    background: #fff; max-width: 100%; height: auto; cursor: zoom-in;
+  }
+  #evidenceCanvas.hl-off { cursor: zoom-in; }
+  #evidenceSourceWrap, .evidence-children-wrap {
+    flex: 0 0 28vh; min-height: 160px; max-height: 36vh; overflow: auto;
+    border-top: 1px solid var(--line); padding: 10px 14px 14px; background: #fafbfc;
+  }
+  .evidence-children-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 6px;
+  }
+  .evidence-children-sum { font-size: 12px; color: var(--ink-2); margin: 0 0 8px; }
+  #evidenceSourceQ {
+    width: 100%; font: 13px var(--sans); border: 1px solid var(--line);
+    padding: 6px 8px; margin-bottom: 8px;
+  }
+  .evidence-child {
+    display: block; width: 100%; text-align: left; border: 1px solid var(--line);
+    background: #fff; padding: 8px 10px; margin-bottom: 6px; cursor: pointer;
+  }
+  .evidence-child:hover, .evidence-child.active { border-color: var(--gold); background: #faf6ee; }
+  .evidence-child .ec-label { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
+  .evidence-child .ec-meta { display: block; font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+
+  @media (max-width: 900px) {
+    body.evidence-open .wrap { margin-right: 0; }
+    #evidencePanel { width: 100vw; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+
+  <header class="masthead">
+    <hr class="rule" />
+    <div class="overline">Sutter County, California</div>
+    <h1>How the county budget works</h1>
+    <p class="lede">
+      A plain-language look at Sutter County’s published budget books: where the money
+      comes from, where it goes, who is on the payroll, and how to read a planned number
+      versus a closed-year result.
+    </p>
+    <div class="meta-row" id="metaRow"></div>
+    <nav class="toc">
+      <a href="#sec-trend">Revenue and spending</a>
+      <a href="#sec-function">By function</a>
+      <a href="#sec-units">Departments</a>
+      <a href="#sec-pay">Jobs and pay</a>
+      <a href="#sec-contracts">Contracts and aid</a>
+      <a href="#sec-explorer">Look up a line</a>
+    </nav>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section id="sec-trend">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Revenue and spending</h2></div>
+    <p class="sec-q">Closed-year actuals for governmental funds. A budget is a plan. These
+      lines are what the books later said actually came in and went out.</p>
+    <div class="card">
+      <h3>All governmental funds — actual revenue vs actual spending</h3>
+        <p class="note">Governmental funds. Hover a year for the exact figures.</p>
+      <div class="chart-box"><canvas id="chTrend"></canvas></div>
+    </div>
+    <div class="grid halves" style="margin-top:16px">
+      <div class="card">
+        <h3>Annual surplus (actuals)</h3>
+        <p class="note">Revenue minus spending for that year.</p>
+        <div class="chart-box short"><canvas id="chSurplus"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Inflation check — spending in FY 2024-25 dollars</h3>
+        <p class="note">Same spending, adjusted for inflation (FY 2024-25 dollars).</p>
+        <div class="chart-box short"><canvas id="chInflation"></canvas></div>
+      </div>
+    </div>
+    <div id="trendTable" hidden></div>
+  </section>
+
+  <section id="sec-ava">
+    <div class="sec-head"><span class="sec-num">2</span><h2>The plan versus the result</h2></div>
+    <p class="sec-q">Adopted budgets are what the Board approved. Actuals are what closed.
+      Counties often adopt a tight plan and finish differently.</p>
+    <div class="grid halves">
+      <div class="card">
+        <h3>Adopted appropriations vs actual spending</h3>
+        <p class="note">Years where an adopted book is posted on the county archive and later actuals exist.</p>
+        <div class="chart-box short"><canvas id="chAva"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Planned surplus vs actual surplus</h3>
+        <p class="note">Adopted budgets planned roughly $0. Actual results averaged about $10 million better.</p>
+        <div class="chart-box short"><canvas id="chBva"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-function">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Where the money goes</h2></div>
+    <p class="sec-q">Spending grouped the way California counties report it: public protection,
+      health, public assistance, roads, and general government.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Function composition over time <span class="yr-badge">FY 16-17 – FY 24-25</span></h3>
+        <p class="note">Stacked actual spending. The drop in “Other” after FY 2022-23 is a reclassification into named functions.</p>
+        <div class="chart-box"><canvas id="chFuncTrend"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>FY 2024-25 share <span class="yr-badge">actual</span></h3>
+        <p class="note">Percent of governmental-fund spending.</p>
+        <div class="chart-box"><canvas id="chByFunc"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-cats">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Kinds of money</h2></div>
+    <p class="sec-q">Revenue by source, and spending by object. A large share of county financing
+      is state and federal aid, or money moving between funds — not local taxes.</p>
+    <div class="grid halves">
+      <div class="card">
+        <h3>Revenue by source <span class="yr-badge">actuals, consistent window</span></h3>
+        <p class="note">FY 2018-19 – FY 2023-24, after the county’s classification change. Intergovernmental aid is the largest external source.</p>
+        <div class="chart-box"><canvas id="chRevMix"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Spending by object <span class="yr-badge">actuals, same window</span></h3>
+        <p class="note">Salaries &amp; benefits grew from $98.6M to $120.3M (+22%). Capital jumped in FY 2022-23 and FY 2023-24, then receded.</p>
+        <div class="chart-box"><canvas id="chExpMix"></canvas></div>
+      </div>
+    </div>
+    <div class="grid halves" style="margin-top:16px">
+      <div class="card">
+        <h3>FY 2023-24 revenue sources <span class="yr-badge">actual</span></h3>
+        <p class="note">Latest year with a complete, consistent object classification.</p>
+        <div class="chart-box short"><canvas id="chRevCat"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>FY 2023-24 spending objects <span class="yr-badge">actual</span></h3>
+        <p class="note">Transfers sit next to salaries because restricted funds move money between units.</p>
+        <div class="chart-box short"><canvas id="chExpCat"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-units">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Departments</h2></div>
+    <p class="sec-q">Biggest budget units by spending. Net county cost is what is left after
+      that unit’s own program revenue — a better read of local-dollar burden than the
+      headline total.</p>
+    <div class="card">
+      <h3>Largest units by FY 2024-25 actual spending</h3>
+      <p class="note">Governmental funds. Net county cost is local burden after program revenue; negative means the unit generated more than it spent.</p>
+      <div class="chart-box tall"><canvas id="chUnits"></canvas></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Department and fund detail</h3>
+      <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Growth is FY 2016-17 to FY 2024-25.</p>
+      <div id="deptTable"></div>
+    </div>
+  </section>
+
+  <section id="sec-pay">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Jobs and pay</h2></div>
+    <p class="sec-q">Posted salary ranges and authorized positions (1,120.5 FTE, 385 job titles).
+      Class cost is midpoint × seats. Benefits and overtime sit on top of that.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Highest posted salary ranges <span class="yr-badge">FY 2025-26</span></h3>
+        <p class="note">Range for one seat. The number in parentheses is how many seats are authorized.</p>
+        <div class="chart-box tall"><canvas id="chPay"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Costliest classifications <span class="yr-badge">mid-range × FTE</span></h3>
+        <p class="note">Authorized seats × midpoint of the posted range.</p>
+        <div class="chart-box tall"><canvas id="chCostClass"></canvas></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Most authorized positions</h3>
+      <p class="note">Headcount, not dollars. Eligibility workers, jail staff, and clinicians dominate.</p>
+      <div class="chart-box short"><canvas id="chStaff"></canvas></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Job-by-job estimated class payroll</h3>
+      <p class="note">Authorized FTE × midpoint and top of range. Benefits and overtime are not included.</p>
+      <div id="payTable"></div>
+    </div>
+  </section>
+
+  <section id="sec-contracts">
+    <div class="sec-head"><span class="sec-num">7</span><h2>Contracts and aid</h2></div>
+    <p class="sec-q">Large non-salary uses from the last book that still prints this level of
+      detail (FY 2024-25 recommended): professional services, cash aid, overtime, and insurance.</p>
+    <div class="grid halves" id="contractCharts"></div>
+  </section>
+
+  <section id="sec-explorer">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Look up a line</h2></div>
+    <p class="sec-q">Search the extracted budget lines. Click a row to open that page in the
+      source book.</p>
+    <div class="card">
+      <div class="explorer-controls">
+        <label>Budget book
+          <select id="explorerBook"></select>
+        </label>
+        <label>Search unit or account
+          <input id="explorerQ" type="search" placeholder="e.g. County Jail, Total Revenues, Sheriff" />
+        </label>
+        <label>Column
+          <select id="explorerKind">
+            <option value="">All</option>
+            <option value="actual">Actual</option>
+            <option value="adopted">Adopted</option>
+            <option value="recommended">Recommended</option>
+            <option value="actual_estimated">Estimated actual</option>
+            <option value="adjusted">Adjusted</option>
+          </select>
+        </label>
+      </div>
+      <p id="explorerMeta">Pick a book to load its line items.</p>
+      <div id="explorerResults"></div>
+    </div>
+  </section>
+
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="data/budget-data.js"></script>
+<script src="data/citations.js"></script>
+<script src="js/evidence-panel.js?v=5"></script>
+<script>
+(function () {
+  const D = window.BUDGET_DATA;
+  const app = document.getElementById("app");
+  if (!D) {
+    app.innerHTML = '<div class="error-panel"><h2>No data loaded</h2>' +
+      '<p style="color:var(--ink-3);margin-top:12px">Open this file from the dashboard folder so <code>data/budget-data.js</code> can load.</p></div>';
+    return;
+  }
+
+  const fmtFull = v => (v < 0 ? "−" : "") + "$" + Math.round(Math.abs(v)).toLocaleString("en-US");
+  const fmtCompact = v => {
+    const sign = v < 0 ? "−" : "";
+    const a = Math.abs(v);
+    if (a >= 1e9) return sign + "$" + (a / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return sign + "$" + (a / 1e6).toFixed(1) + "M";
+    if (a >= 1e3) return sign + "$" + (a / 1e3).toFixed(0) + "K";
+    return sign + "$" + Math.round(a);
+  };
+  const shortYear = fy => String(fy).replace(/^FY ?20/, "FY ");
+  const growthPct = (a, b) => {
+    if (!a || a < 1e5) return "new";
+    const p = Math.round((b - a) / a * 100);
+    return (p >= 0 ? "+" : "") + p + "%";
+  };
+
+  const NAVY = "#1f3a5f", STEEL = "#4f6d94", LIGHT = "#93a9c4", GOLD = "#a5814b", GREEN = "#2e7d51";
+  const PALETTE = ["#1f3a5f", "#4f6d94", "#8ba3c0", "#a5814b", "#6f8479", "#5c5470",
+                   "#97a3ae", "#c3b48e", "#3d5566", "#7d6b57"];
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.font.size = 11.5;
+  Chart.defaults.color = "#74839a";
+  Chart.defaults.borderColor = "#eceff5";
+  Chart.defaults.plugins.legend.labels.boxWidth = 10;
+  Chart.defaults.plugins.legend.labels.boxHeight = 10;
+  Chart.defaults.plugins.legend.labels.padding = 16;
+  Chart.defaults.plugins.tooltip.backgroundColor = "#17253c";
+  Chart.defaults.plugins.tooltip.titleFont = { weight: "600", size: 12 };
+  Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
+  Chart.defaults.plugins.tooltip.padding = 10;
+  Chart.defaults.plugins.tooltip.cornerRadius = 3;
+  Chart.defaults.plugins.tooltip.displayColors = true;
+  Chart.defaults.plugins.tooltip.boxWidth = 8;
+  Chart.defaults.plugins.tooltip.boxHeight = 8;
+  Chart.defaults.animation.duration = 450;
+  Chart.defaults.animation.easing = "easeOutCubic";
+
+  const moneyTicks = { callback: v => fmtCompact(v), maxTicksLimit: 7 };
+  const grid = { color: "#eceff5" };
+  const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+
+  // Click-to-source panel
+  if (window.EvidencePanel) EvidencePanel.init();
+  const citeClick = (buildId) => (evt, elements) => {
+    if (!elements || !elements.length || !window.EvidencePanel) return;
+    const el = elements[0];
+    const id = typeof buildId === "function" ? buildId(el.datasetIndex, el.index) : buildId;
+    if (id) EvidencePanel.openById(id);
+  };
+  const markChart = (canvasId) => {
+    const box = document.getElementById(canvasId)?.closest(".chart-box");
+    if (box) box.classList.add("citeable-chart");
+  };
+
+  document.getElementById("metaRow").innerHTML = [
+    `<span>Closed actuals <b>FY 2016-17 – FY 2024-25</b></span>`,
+    `<span>Governmental funds</span>`,
+    `<span>Click a number to open the source page</span>`
+  ].join("");
+
+  const K = D.kpis;
+  const kpiDefs = [
+    { label: "Latest closed year", value: fmtCompact(K.lastActualSpend),
+      sub: fmtCompact(K.lastActualRevenue) + " came in · " + fmtCompact(K.lastActualSurplus) + " left over",
+      cite: "kpi.lastActualSurplus" },
+    { label: "Nine-year net", value: fmtCompact(K.cumulativeSurplus),
+      sub: "Sum of closed-year revenue minus spending",
+      cite: "kpi.cumulativeSurplus" },
+    { label: "This year’s adopted plan", value: fmtCompact(K.adoptedDraw2526),
+      sub: "FY 2025-26 planned use of fund balance — not a result yet",
+      cite: "kpi.adoptedDraw2526" },
+    { label: "Authorized jobs", value: K.totalFte.toLocaleString(),
+      sub: K.classifications + " classifications",
+      cite: null }
+  ];
+  document.getElementById("kpis").innerHTML = kpiDefs.map(k =>
+    `<div class="kpi${k.cite ? " citeable" : ""}" ${k.cite ? `data-cite="${k.cite}"` : ""}>` +
+    `<div class="label">${k.label}</div>` +
+    `<div class="value ${k.cls || ""}">${k.value}</div><div class="sub">${k.sub}</div></div>`
+  ).join("");
+  document.querySelectorAll("#kpis .citeable").forEach(el => {
+    EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
+  });
+
+  const t = D.spendTrend;
+  markChart("chTrend");
+  new Chart(document.getElementById("chTrend"), {
+    type: "line",
+    data: {
+      labels: t.labels || t.years.map(shortYear),
+      datasets: [
+        { label: "Actual revenue", data: t.revenue, borderColor: STEEL, backgroundColor: STEEL + "14",
+          fill: true, tension: 0.25, borderWidth: 2, pointRadius: 3, pointHoverRadius: 5,
+          pointBackgroundColor: STEEL },
+        { label: "Actual spending", data: t.spend, borderColor: NAVY, backgroundColor: NAVY + "10",
+          fill: true, tension: 0.25, borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+          pointBackgroundColor: NAVY }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      interaction: { mode: "nearest", intersect: true },
+      onClick: citeClick((ds, idx) => ds === 0 ? `trend.revenue.${idx}` : `trend.spend.${idx}`),
+      scales: { y: { ticks: moneyTicks, grid, title: { display: true, text: "Dollars" } },
+                x: { grid: { display: false }, title: { display: true, text: "Fiscal year (actuals)" } } },
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            title: items => t.years[items[0].dataIndex],
+            label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}`,
+            afterBody: items => {
+              const i = items[0].dataIndex;
+              return [`Surplus: ${fmtFull(t.surplus[i])}`, "Click point to verify in source book"];
+            }
+          }
+        }
+      }
+    }
+  });
+
+  markChart("chSurplus");
+  new Chart(document.getElementById("chSurplus"), {
+    type: "bar",
+    data: {
+      labels: t.labels || t.years.map(shortYear),
+      datasets: [{ label: "Surplus", data: t.surplus, backgroundColor: GREEN, borderWidth: 0 }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      onClick: citeClick((_ds, idx) => `trend.surplus.${idx}`),
+      scales: { y: { ticks: moneyTicks, grid, title: { display: true, text: "Surplus ($)" } },
+                x: { grid: { display: false } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          label: c => " " + fmtFull(c.parsed.y),
+          afterBody: () => "Click bar to verify"
+        } }
+      }
+    }
+  });
+
+  const inf = D.inflation;
+  markChart("chInflation");
+  new Chart(document.getElementById("chInflation"), {
+    type: "line",
+    data: {
+      labels: inf.labels,
+      datasets: [
+        { label: "Nominal spending", data: inf.nominal, borderColor: LIGHT, tension: 0.25,
+          borderWidth: 2, pointRadius: 3, pointBackgroundColor: LIGHT },
+        { label: "Real spending (FY24-25 $)", data: inf.real2025, borderColor: STEEL, tension: 0.25,
+          borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: STEEL }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      interaction: { mode: "nearest", intersect: true },
+      onClick: citeClick((_ds, idx) => `trend.spend.${idx}`),
+      scales: { y: { ticks: moneyTicks, grid, beginAtZero: false, title: { display: true, text: "Dollars" } },
+                x: { grid: { display: false } } },
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+      }
+    }
+  });
+
+  document.getElementById("trendTable").innerHTML =
+    `<table class="data"><thead><tr>` +
+    `<th>Fiscal year</th><th class="num">Revenue</th><th class="num">Spending</th>` +
+    `<th class="num">Surplus</th><th class="num">Figure</th></tr></thead><tbody>` +
+    t.years.map((y, i) =>
+      `<tr class="citeable" data-cite="trend.surplus.${i}" title="Click to verify surplus in source book">` +
+      `<td>${y.replace("FY", "FY ")}</td>` +
+      `<td class="num">${fmtFull(t.revenue[i])}</td>` +
+      `<td class="num">${fmtFull(t.spend[i])}</td>` +
+      `<td class="num">${fmtFull(t.surplus[i])}</td>` +
+      `<td class="num">Actual</td></tr>`
+    ).join("") + `</tbody></table>`;
+  document.querySelectorAll("#trendTable tr.citeable").forEach(el => {
+    EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
+  });
+
+  const a = D.adoptedVsActual;
+  markChart("chAva");
+  new Chart(document.getElementById("chAva"), {
+    type: "bar",
+    data: {
+      labels: a.labels,
+      datasets: [
+        { label: "Adopted budget", data: a.adopted, backgroundColor: LIGHT, borderWidth: 0 },
+        { label: "Actual spending", data: a.actual, backgroundColor: NAVY, borderWidth: 0 }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      onClick: citeClick((ds, idx) => {
+        const fy = a.years[idx];
+        const ti = t.years.indexOf(fy);
+        if (ds === 0) return `adopted.spend.${idx}`;
+        return ti >= 0 ? `trend.spend.${ti}` : null;
+      }),
+      scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}`,
+            afterBody: items => {
+              const i = items[0].dataIndex;
+              const d = a.actual[i] - a.adopted[i];
+              return `${d <= 0 ? "Under" : "Over"} budget by ${fmtCompact(Math.abs(d))} (${(d / a.adopted[i] * 100).toFixed(1)}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  const b = D.surplusPlanVsActual;
+  markChart("chBva");
+  new Chart(document.getElementById("chBva"), {
+    type: "bar",
+    data: {
+      labels: b.labels,
+      datasets: [
+        { label: "Adopted plan", data: b.planned, backgroundColor: LIGHT, borderWidth: 0 },
+        { label: "Actual surplus", data: b.actual, backgroundColor: GREEN, borderWidth: 0 }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      onClick: citeClick((ds, idx) => {
+        const fy = b.years[idx];
+        const ti = t.years.indexOf(fy);
+        if (ds === 0) return `adopted.plan.${idx}`;
+        return ti >= 0 ? `trend.surplus.${ti}` : null;
+      }),
+      scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+      }
+    }
+  });
+
+  const ft = D.functionTrend;
+  markChart("chFuncTrend");
+  new Chart(document.getElementById("chFuncTrend"), {
+    type: "bar",
+    data: {
+      labels: ft.labels,
+      datasets: ft.series.map((s, i) => ({
+        label: s.name, data: s.values,
+        backgroundColor: s.name === "Other" ? "#c9d1dc" : PALETTE[i % PALETTE.length],
+        stack: "s", borderWidth: 0
+      }))
+    },
+    options: {
+      maintainAspectRatio: false,
+      onClick: citeClick((ds, idx) => `function.${ds}.${idx}`),
+      scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, grid: { display: false } } },
+      plugins: {
+        legend: { position: "bottom", labels: { font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+      }
+    }
+  });
+
+  const bf = D.byFunction;
+  const bfTotal = bf.values.reduce((a, b) => a + b, 0);
+  markChart("chByFunc");
+  new Chart(document.getElementById("chByFunc"), {
+    type: "bar",
+    data: {
+      labels: bf.labels,
+      datasets: [{ data: bf.values, backgroundColor: NAVY, barPercentage: 0.62, borderWidth: 0 }]
+    },
+    options: {
+      indexAxis: "y", maintainAspectRatio: false,
+      onClick: citeClick((_ds, idx) => {
+        const name = bf.labels[idx];
+        const si = (D.functionTrend.series || []).findIndex(s => s.name === name);
+        // FY 2024-25 is the last actual year (index 8)
+        return si >= 0 ? `function.${si}.8` : null;
+      }),
+      scales: {
+        x: { ticks: { callback: v => (v / bfTotal * 100).toFixed(0) + "%", maxTicksLimit: 6 }, grid,
+             max: Math.ceil(bf.values[0] / bfTotal * 10) / 10 * bfTotal * 1.08,
+             title: { display: true, text: "Share of FY 2024-25 spending" } },
+        y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / bfTotal * 100).toFixed(1)}% of total` } }
+      }
+    }
+  });
+
+  function stacked(canvasId, pack, prefix) {
+    markChart(canvasId);
+    new Chart(document.getElementById(canvasId), {
+      type: "bar",
+      data: {
+        labels: pack.labels,
+        datasets: pack.series.map((s, i) => ({
+          label: s.name, data: s.values,
+          backgroundColor: PALETTE[i % PALETTE.length], stack: "s", borderWidth: 0
+        }))
+      },
+      options: {
+        maintainAspectRatio: false,
+        onClick: citeClick((ds, idx) => `${prefix}.${ds}.${idx}`),
+        scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, grid: { display: false } } },
+        plugins: {
+          legend: { position: "bottom", labels: { font: { size: 10.5 } } },
+          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+        }
+      }
+    });
+  }
+  stacked("chRevMix", D.revenueMix, "revmix");
+  stacked("chExpMix", D.expenseMix, "expmix");
+
+  function categoryBar(canvasId, cat, color, prefix) {
+    markChart(canvasId);
+    const total = cat.values.reduce((a, b) => a + b, 0);
+    new Chart(document.getElementById(canvasId), {
+      type: "bar",
+      data: { labels: cat.labels, datasets: [{ data: cat.values, backgroundColor: color, barPercentage: 0.6, borderWidth: 0 }] },
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => `${prefix}.${idx}`),
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%` } }
+        }
+      }
+    });
+  }
+  categoryBar("chRevCat", D.revenueCategories, STEEL, "revcat");
+  categoryBar("chExpCat", D.expenseCategories, NAVY, "expcat");
+
+  const u = D.topUnits;
+  markChart("chUnits");
+  new Chart(document.getElementById("chUnits"), {
+    type: "bar",
+    data: {
+      labels: u.labels.map(l => l.length > 42 ? l.slice(0, 40) + "…" : l),
+      datasets: [{ data: u.values, backgroundColor: u.values.map((_, i) => i < 3 ? NAVY : STEEL),
+                   barPercentage: 0.66, borderWidth: 0 }]
+    },
+    options: {
+      indexAxis: "y", maintainAspectRatio: false,
+      onClick: citeClick((_ds, idx) => `dept.${idx}`),
+      scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: "FY 2024-25 actual spending" } },
+                y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: i => u.labels[i[0].dataIndex],
+          label: c => " " + fmtFull(c.parsed.x),
+          afterBody: () => "Click to open source page"
+        } }
+      }
+    }
+  });
+
+  document.getElementById("deptTable").innerHTML =
+    `<table class="data"><thead><tr>` +
+    `<th>Unit</th><th class="num">FY 16-17</th><th class="num">FY 20-21</th>` +
+    `<th class="num">FY 24-25</th><th class="num">Growth</th>` +
+    `<th class="num">Net county cost 24-25</th></tr></thead><tbody>` +
+    D.departments.map((r, i) => {
+      const g = growthPct(r.fy16, r.fy24);
+      const gcls = g === "new" ? "" : (g.startsWith("+") ? "up" : "down");
+      const ncls = r.net24 < 0 ? "neg" : "";
+      return `<tr class="citeable" data-cite="dept.${i}" title="Click to verify in source book">` +
+        `<td>${r.name}</td>` +
+        `<td class="num">${fmtCompact(r.fy16)}</td>` +
+        `<td class="num">${fmtCompact(r.fy20)}</td>` +
+        `<td class="num">${fmtCompact(r.fy24)}</td>` +
+        `<td class="num ${gcls}">${g}</td>` +
+        `<td class="num ${ncls}">${fmtCompact(r.net24)}</td></tr>`;
+    }).join("") + `</tbody></table>`;
+  document.querySelectorAll("#deptTable tr.citeable").forEach(el => {
+    EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
+  });
+
+  /* pay */
+  {
+    const p = D.pay || {};
+    const fteLabel = (name, n) => {
+      const short = name.length > 28 ? name.slice(0, 26) + "…" : name;
+      if (!n) return `${short}  (none authorized)`;
+      const seats = n % 1 ? n.toFixed(1) : String(n);
+      return `${short}  (${seats})`;
+    };
+    markChart("chPay");
+    new Chart(document.getElementById("chPay"), {
+      type: "bar",
+      data: {
+        labels: p.highestPaid.labels.map((l, i) => fteLabel(l, p.highestPaid.fte[i])),
+        datasets: [
+          { label: "Bottom of range", data: p.highestPaid.min, backgroundColor: LIGHT, borderWidth: 0 },
+          { label: "Top of range", data: p.highestPaid.max, backgroundColor: NAVY, borderWidth: 0 }
+        ]
+      },
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => `pay.high.${idx}`),
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: {
+            callbacks: {
+              title: i => {
+                const n = i[0].dataIndex;
+                return `${p.highestPaid.labels[n]}  ·  ${p.highestPaid.fte[n]} authorized`;
+              },
+              label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.x)}`
+            }
+          }
+        }
+      }
+    });
+
+    markChart("chCostClass");
+    new Chart(document.getElementById("chCostClass"), {
+      type: "bar",
+      data: {
+        labels: p.costliestClasses.labels.map((l, i) => fteLabel(l, p.costliestClasses.fte[i])),
+        datasets: [{ data: p.costliestClasses.values, backgroundColor: NAVY, barPercentage: 0.66, borderWidth: 0 }]
+      },
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => `pay.cost.${idx}`),
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: i => p.costliestClasses.labels[i[0].dataIndex],
+              label: c => {
+                const i = c.dataIndex;
+                return ` Mid-range payroll ${fmtFull(c.parsed.x)} · ${p.costliestClasses.fte[i]} FTE`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    markChart("chStaff");
+    new Chart(document.getElementById("chStaff"), {
+      type: "bar",
+      data: {
+        labels: p.mostStaff.labels.map((l, i) => fteLabel(l, p.mostStaff.values[i])),
+        datasets: [{ data: p.mostStaff.values, backgroundColor: STEEL, barPercentage: 0.66, borderWidth: 0 }]
+      },
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => `pay.staff.${idx}`),
+        scales: { x: { ticks: { maxTicksLimit: 6 }, grid, title: { display: true, text: "Authorized FTE" } },
+                  y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { title: i => p.mostStaff.labels[i[0].dataIndex], label: c => ` ${c.parsed.x} FTE` } }
+        }
+      }
+    });
+
+    const jobs = p.jobs || [];
+    const fmtFte = n => (n % 1 ? n.toFixed(1) : String(n));
+    document.getElementById("payTable").innerHTML =
+      `<table class="data"><thead><tr>` +
+      `<th>Classification</th><th class="num">Positions</th>` +
+      `<th class="num">Min pay</th><th class="num">Max pay</th>` +
+      `<th class="num">Est. class (mid)</th><th class="num">Est. class (max)</th>` +
+      `</tr></thead><tbody>` +
+      jobs.map(j =>
+        `<tr><td>${j.title}` +
+        (j.units && j.units.length ? `<div style="font-weight:400;color:var(--ink-3);font-size:11.5px;margin-top:2px">${j.units.slice(0,3).join(" · ")}</div>` : "") +
+        `</td><td class="num"><b>${fmtFte(j.fte)}</b></td>` +
+        `<td class="num">${fmtFull(j.min)}</td>` +
+        `<td class="num">${fmtFull(j.max)}</td>` +
+        `<td class="num">${fmtFull(j.estMid)}</td>` +
+        `<td class="num">${fmtFull(j.estMax)}</td></tr>`
+      ).join("") + `</tbody></table>`;
+  }
+
+  {
+    const c = D.contracts || {};
+    const host = document.getElementById("contractCharts");
+    (c.groups || []).forEach((g, i) => {
+      const id = "chContract" + i;
+      const wrap = document.createElement("div");
+      wrap.className = "card";
+      wrap.innerHTML = `<h3>${g.name} <span class="yr-badge">${fmtCompact(g.total)}</span></h3>` +
+        `<p class="note">Largest budget units. ${c.year || ""} ${c.kind || ""}.</p>` +
+        `<div class="chart-box short"><canvas id="${id}"></canvas></div>`;
+      host.appendChild(wrap);
+      markChart(id);
+      new Chart(document.getElementById(id), {
+        type: "bar",
+        data: { labels: g.labels.map(l => l.length > 34 ? l.slice(0, 32) + "…" : l),
+                datasets: [{ data: g.values, backgroundColor: i % 2 ? STEEL : NAVY, barPercentage: 0.64, borderWidth: 0 }] },
+        options: {
+          indexAxis: "y", maintainAspectRatio: false,
+          onClick: citeClick((_ds, idx) => `contract.${i}.${idx}`),
+          scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { title: items => g.labels[items[0].dataIndex], label: x => " " + fmtFull(x.parsed.x) } }
+          }
+        }
+      });
+    });
+  }
+
+  /* ---------- line-item explorer ---------- */
+  (async function initExplorer() {
+    const bookSel = document.getElementById("explorerBook");
+    const qInput = document.getElementById("explorerQ");
+    const kindSel = document.getElementById("explorerKind");
+    const meta = document.getElementById("explorerMeta");
+    const results = document.getElementById("explorerResults");
+    if (!bookSel) return;
+
+    let catalog = null;
+    let currentBook = null;
+    let currentRows = [];
+    let debounce = null;
+
+    try {
+      catalog = await fetch("data/lines-index.json").then(r => r.json());
+    } catch (e) {
+      meta.textContent = "Could not load line-item catalog. Serve the dashboard over HTTP.";
+      return;
+    }
+
+    bookSel.innerHTML = catalog.books.map(b =>
+      `<option value="${b.book}">${b.title} (${b.rows.toLocaleString()} rows)</option>`
+    ).join("");
+
+    async function loadBook(label) {
+      meta.textContent = "Loading " + label + "…";
+      results.innerHTML = "";
+      try {
+        const data = await EvidencePanel.loadBookLines(label);
+        currentBook = label;
+        currentRows = data.rows || [];
+        meta.textContent = `${data.title}: ${currentRows.length.toLocaleString()} extracted values. ` +
+          `Search and click a row to open that page.`;
+        render();
+      } catch (e) {
+        meta.textContent = "Failed to load " + label + ". Open via a local server.";
+      }
+    }
+
+    function render() {
+      const q = (qInput.value || "").trim().toLowerCase();
+      const kind = kindSel.value;
+      let hits = currentRows;
+      if (kind) hits = hits.filter(r => r.k === kind);
+      if (q) {
+        const parts = q.split(/\s+/).filter(Boolean);
+        hits = hits.filter(r => {
+          const hay = ((r.u || "") + " " + (r.l || "") + " " + (r.c || "")).toLowerCase();
+          return parts.every(p => hay.includes(p));
+        });
+      }
+      // Prefer summary rows when searching broadly
+      const shown = hits.slice(0, 200);
+      meta.textContent =
+        `${currentBook}: showing ${shown.length.toLocaleString()} of ` +
+        `${hits.length.toLocaleString()} matches` +
+        (hits.length > 200 ? " (refine search to see more)" : "") +
+        `. Click a row to verify.`;
+
+      if (!shown.length) {
+        results.innerHTML = `<p style="padding:16px;color:var(--ink-3);font-size:13px">No matching rows.</p>`;
+        return;
+      }
+      results.innerHTML =
+        `<table class="data"><thead><tr>` +
+        `<th>Unit</th><th>Line</th><th>FY</th><th>Kind</th>` +
+        `<th class="num">Value</th><th class="num">Page</th></tr></thead><tbody>` +
+        shown.map((r, i) =>
+          `<tr class="citeable" data-idx="${i}">` +
+          `<td>${r.u || r.c || "—"}</td>` +
+          `<td>${r.l}</td>` +
+          `<td>${r.f}</td>` +
+          `<td>${r.k}</td>` +
+          `<td class="num">${fmtFull(r.v)}</td>` +
+          `<td class="num">${r.p}</td></tr>`
+        ).join("") + `</tbody></table>`;
+
+      results.querySelectorAll("tr.citeable").forEach(tr => {
+        tr.addEventListener("click", () => {
+          const idx = +tr.getAttribute("data-idx");
+          EvidencePanel.openLine(currentBook, shown[idx]);
+        });
+      });
+    }
+
+    bookSel.addEventListener("change", () => loadBook(bookSel.value));
+    kindSel.addEventListener("change", render);
+    qInput.addEventListener("input", () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(render, 180);
+    });
+
+    // Default to the FY 2025-26 adopted book (has Schedule 1/5/8 rollups)
+    const prefer = catalog.books.find(b => b.book === "FY 2025-26") || catalog.books[catalog.books.length - 2];
+    if (prefer) {
+      bookSel.value = prefer.book;
+      loadBook(prefer.book);
+    }
+  })();
+
+  document.getElementById("foot").innerHTML =
+    `<p>Source: Sutter County published budget books. Governmental-fund actuals from the ` +
+    `unit-detail schedules. Pay and headcount from the FY 2025-26 position allocation and ` +
+    `May 1, 2025 salary resolution. Click a figure to open the page it came from.</p>` +
+    `<p>These are budget-document figures, not the audited annual financial report. ` +
+    `Internal service funds and special districts are not included.</p>`;
+})();
+</script>
+</body>
+</html>

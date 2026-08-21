@@ -1,0 +1,6 @@
+.venv/
+documents/
+documents-yuba-city/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Source page</title>
+  <style>
+    :root { --navy: #1f3a5f; --ink: #1c2430; --ink-3: #74839a; --line: #d8dee8; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font: 14px/1.4 Inter, system-ui, sans-serif; color: var(--ink); }
+    header {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 10px 14px; background: #fff; border-bottom: 1px solid var(--line);
+    }
+    button, a.btn {
+      font: inherit; font-weight: 600; border: 1px solid var(--line);
+      background: #fff; color: var(--navy); padding: 6px 10px; cursor: pointer;
+      text-decoration: none;
+    }
+    #status { color: var(--ink-3); margin-left: auto; }
+    #status.err { color: #b42318; }
+    #body { overflow: auto; background: #eef1f6; height: calc(100% - 52px);
+            display: flex; justify-content: center; padding: 16px; }
+    canvas { background: #fff; box-shadow: 0 1px 8px rgba(0,0,0,.08); }
+  </style>
+</head>
+<body>
+  <header>
+    <button type="button" id="prev">← Prev</button>
+    <span id="pageLabel">—</span>
+    <button type="button" id="next">Next →</button>
+    <button type="button" id="hl">Hide highlight</button>
+    <a id="raw" class="btn" href="#" target="_blank" rel="noopener">Download PDF</a>
+    <span id="status">Loading…</span>
+  </header>
+  <div id="body"><canvas id="cv"></canvas></div>
+  <script type="module">
+    const PDFJS = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build";
+    const STORE_KEY = "sutterEvidenceViewer";
+    const $ = (id) => document.getElementById(id);
+
+    function setStatus(msg, isErr) {
+      const el = $("status");
+      el.textContent = msg || "";
+      el.classList.toggle("err", !!isErr);
+    }
+
+    function readStore() {
+      try {
+        const o = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+        if (!o || !o.t || Date.now() - o.t > 30 * 60 * 1000) return {};
+        return o;
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function readParams() {
+      const search = new URLSearchParams(location.search);
+      const hash = new URLSearchParams(String(location.hash || "").replace(/^#/, ""));
+      const store = readStore();
+      const get = (k) => search.get(k) || hash.get(k) || store[k] || "";
+      return {
+        book: get("book"),
+        pdf: get("pdf") || get("file"),
+        page: get("page"),
+        q: get("q"),
+        hl: get("hl"),
+      };
+    }
+
+    const params = readParams();
+    const startPage = Math.max(1, parseInt(params.page || "1", 10) || 1);
+    const query = params.q || "";
+    let highlightOn = params.hl !== "0";
+    let pdf, pageNum = startPage, token = 0, pdfjsLib = null;
+
+    function originUrl(rel) {
+      // Resolve from this page's folder so project-site hosts
+      // (user.github.io/repo/…) find data/ and pdfs/.
+      const base = new URL(".", location.href);
+      return new URL(String(rel || "").replace(/^\//, ""), base).href;
+    }
+
+    function multiplyTransform(m1, m2) {
+      return [
+        m1[0] * m2[0] + m1[2] * m2[1],
+        m1[1] * m2[0] + m1[3] * m2[1],
+        m1[0] * m2[2] + m1[2] * m2[3],
+        m1[1] * m2[2] + m1[3] * m2[3],
+        m1[0] * m2[4] + m1[2] * m2[5] + m1[4],
+        m1[1] * m2[4] + m1[3] * m2[5] + m1[5],
+      ];
+    }
+
+    function transformItem(viewport, it) {
+      if (pdfjsLib && pdfjsLib.Util && pdfjsLib.Util.transform) {
+        return pdfjsLib.Util.transform(viewport.transform, it.transform);
+      }
+      return multiplyTransform(viewport.transform, it.transform);
+    }
+
+    async function resolvePdfUrl() {
+      const book = params.book;
+      let path = params.pdf;
+      if (book) {
+        try {
+          const books = await fetch(originUrl("data/books.json")).then((r) => {
+            if (!r.ok) throw new Error("books.json " + r.status);
+            return r.json();
+          });
+          const rec = books[book];
+          if (rec && rec.file) return originUrl("pdfs/" + rec.file);
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+      if (!path) return null;
+      if (/^https?:/i.test(path)) return path;
+      return originUrl(path.replace(/^\/+/, ""));
+    }
+
+    function variants(q) {
+      if (!q) return [];
+      const s = String(q).trim();
+      const out = new Set([s, s.replace(/[$,\s]/g, ""), s.replace(/\.00$/, ""), s + ".00"]);
+      const d = s.replace(/[^\d()-]/g, "");
+      if (/^-?\d+$/.test(d)) out.add(Number(d).toLocaleString("en-US"));
+      return [...out];
+    }
+
+    async function render() {
+      if (!pdf) return;
+      const t = ++token;
+      try {
+        const page = await pdf.getPage(pageNum);
+        if (t !== token) return;
+        const canvas = $("cv");
+        const ctx = canvas.getContext("2d");
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+        const maxW = Math.max(640, $("body").clientWidth - 32);
+        const base = page.getViewport({ scale: 1 });
+        const cssScale = maxW / base.width;
+        const vp = page.getViewport({ scale: cssScale * dpr });
+        canvas.width = Math.floor(vp.width);
+        canvas.height = Math.floor(vp.height);
+        canvas.style.width = Math.floor(vp.width / dpr) + "px";
+        canvas.style.height = Math.floor(vp.height / dpr) + "px";
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+        if (t !== token) return;
+        $("pageLabel").textContent = `p. ${pageNum} of ${pdf.numPages}`;
+        $("hl").textContent = highlightOn ? "Hide highlight" : "Show highlight";
+        if (highlightOn && query) {
+          const content = await page.getTextContent();
+          const items = content.items.filter((it) => it.str && it.str.trim());
+          let hay = "", map = [];
+          items.forEach((it, i) => {
+            const s = it.str.replace(/\s+/g, "");
+            for (let k = 0; k < s.length; k++) map.push(i);
+            hay += s.toLowerCase();
+          });
+          let run = null;
+          for (const q of variants(query)) {
+            const at = hay.indexOf(q.toLowerCase().replace(/\s+/g, ""));
+            if (at < 0) continue;
+            const a = map[at], b = map[Math.min(at + q.length - 1, map.length - 1)];
+            run = items.slice(a, b + 1);
+            break;
+          }
+          if (run && run.length) {
+            ctx.fillStyle = "rgba(165,129,75,.38)";
+            ctx.strokeStyle = "rgba(165,129,75,.95)";
+            ctx.lineWidth = 2;
+            run.forEach((it) => {
+              const m = transformItem(vp, it);
+              const x = m[4], y = m[5], h = Math.hypot(m[2], m[3]);
+              const w = (it.width || 0) * vp.scale;
+              ctx.fillRect(x, y - h * 0.85, Math.max(w, 8), h * 1.15);
+              ctx.strokeRect(x, y - h * 0.85, Math.max(w, 8), h * 1.15);
+            });
+            const firstY = transformItem(vp, run[0])[5] / dpr;
+            $("body").scrollTop = Math.max(0, firstY - 120);
+            setStatus("Highlight: " + query);
+          } else {
+            setStatus("Page loaded — figure not found on this page.");
+          }
+        } else {
+          setStatus(highlightOn ? "Page loaded." : "Highlight off.");
+        }
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not render this page.", true);
+      }
+    }
+
+    async function main() {
+      try {
+        if (!params.book && !params.pdf) {
+          setStatus("No source selected. Close this tab and click Open page on the dashboard.", true);
+          return;
+        }
+        const file = await resolvePdfUrl();
+        if (!file) {
+          setStatus("Could not find that budget book. Close this tab and click Open page again.", true);
+          return;
+        }
+        $("raw").href = file;
+        pdfjsLib = await import(PDFJS + "/pdf.min.mjs");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + "/pdf.worker.min.mjs";
+        pdf = await pdfjsLib.getDocument({ url: file }).promise;
+        pageNum = Math.min(Math.max(1, startPage), pdf.numPages);
+        await render();
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not load this PDF. Try Download PDF.", true);
+      }
+    }
+
+    $("prev").onclick = () => { if (pageNum > 1) { pageNum--; render(); } };
+    $("next").onclick = () => { if (pdf && pageNum < pdf.numPages) { pageNum++; render(); } };
+    $("hl").onclick = () => { highlightOn = !highlightOn; render(); };
+    window.addEventListener("resize", () => render());
+    main();
+  </script>
+</body>
+</html>
