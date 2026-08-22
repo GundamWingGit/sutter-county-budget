@@ -131,6 +131,10 @@
     }
     const toolbar = document.querySelector("#evidencePanel .evidence-toolbar");
     if (toolbar) toolbar.hidden = mode !== "page";
+    document.body.classList.toggle("ev-mode-compose", mode === "compose");
+    document.body.classList.toggle("ev-mode-page", mode === "page");
+    document.body.classList.toggle("ev-mode-empty", mode === "empty");
+    document.body.classList.toggle("ev-mode-loading", mode === "loading");
   }
 
   function showLoading(text, loaded, total) {
@@ -695,9 +699,32 @@
 
   function setOpen(open) {
     document.body.classList.toggle("evidence-open", open);
-    if (!open) document.body.classList.remove("evidence-pay");
+    if (!open) {
+      document.body.classList.remove("evidence-pay", "ev-mode-compose", "ev-mode-page", "ev-mode-empty", "ev-mode-loading");
+    }
     const panel = $("evidencePanel");
-    if (panel) panel.setAttribute("aria-hidden", open ? "false" : "true");
+    if (panel) {
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
+      if (window.innerWidth <= 900) {
+        if (open) {
+          panel.style.position = "fixed";
+          panel.style.inset = "0";
+          panel.style.width = "100vw";
+          panel.style.height = "100vh";
+          panel.style.maxWidth = "100vw";
+          panel.style.maxHeight = "100vh";
+          panel.style.minWidth = "100vw";
+          panel.style.minHeight = "100vh";
+          panel.style.transform = "none";
+          panel.style.visibility = "visible";
+          panel.style.display = "flex";
+          panel.style.flexDirection = "column";
+          panel.style.zIndex = "2000";
+        } else {
+          panel.style.cssText = "";
+        }
+      }
+    }
   }
 
   function showStatus(msg, isErr) {
@@ -1000,6 +1027,8 @@
     const exp = plainExplainer(cite || {});
     $("evidenceExplainTitle").textContent = exp.title;
     $("evidenceExplainBody").textContent = exp.body;
+    const explainer = $("evidenceExplainDetails");
+    if (explainer) explainer.open = window.innerWidth > 900;
     const eq = $("evidenceEq");
     if (exp.equation) {
       eq.hidden = false;
@@ -1995,11 +2024,11 @@
         </div>
         <h2 id="evidenceTitle">Source</h2>
         <p id="evidenceClicked" class="evidence-clicked"></p>
-        <div class="evidence-explain">
-          <h3 id="evidenceExplainTitle"></h3>
+        <details class="evidence-explain" id="evidenceExplainDetails" open>
+          <summary id="evidenceExplainTitle"></summary>
           <p id="evidenceExplainBody"></p>
           <div id="evidenceEq" class="evidence-eq" hidden></div>
-        </div>
+        </details>
         <p id="evidenceCaption" class="evidence-caption" hidden></p>
         <p id="evidenceMeta" class="evidence-meta"></p>
         <div class="evidence-toolbar" hidden>
