@@ -829,6 +829,250 @@ window.BUDGET_DATA = {
       15686013
     ]
   },
+  "revenueCategoriesByYear": {
+    "FY2018-19": {
+      "year": "FY 2018-19",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Charges for Services",
+        "Taxes",
+        "Investment & Property",
+        "Miscellaneous",
+        "Licenses & Permits",
+        "Fines & Penalties"
+      ],
+      "values": [
+        127533788,
+        100391317,
+        61843643,
+        38507411,
+        4841267,
+        4564115,
+        2653780,
+        1190951
+      ]
+    },
+    "FY2019-20": {
+      "year": "FY 2019-20",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Taxes",
+        "Charges for Services",
+        "Miscellaneous",
+        "Investment & Property",
+        "Licenses & Permits",
+        "Fines & Penalties"
+      ],
+      "values": [
+        125373492,
+        113545133,
+        39909475,
+        31957898,
+        12921055,
+        3096685,
+        2715437,
+        1128482
+      ]
+    },
+    "FY2020-21": {
+      "year": "FY 2020-21",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Taxes",
+        "Charges for Services",
+        "Miscellaneous",
+        "Licenses & Permits",
+        "Investment & Property",
+        "Fines & Penalties"
+      ],
+      "values": [
+        151438373,
+        127224855,
+        40549175,
+        35507743,
+        4794175,
+        3036477,
+        2261972,
+        1120690
+      ]
+    },
+    "FY2021-22": {
+      "year": "FY 2021-22",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Taxes",
+        "Charges for Services",
+        "Licenses & Permits",
+        "Miscellaneous",
+        "Fines & Penalties",
+        "Investment & Property"
+      ],
+      "values": [
+        150965750,
+        129406750,
+        43244785,
+        32598702,
+        4490221,
+        3919102,
+        1113478,
+        -4476647
+      ]
+    },
+    "FY2022-23": {
+      "year": "FY 2022-23",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Taxes",
+        "Charges for Services",
+        "Miscellaneous",
+        "Licenses & Permits",
+        "Investment & Property",
+        "Fines & Penalties"
+      ],
+      "values": [
+        176142244,
+        134573672,
+        44791970,
+        32652817,
+        4459940,
+        4338882,
+        2363438,
+        972371
+      ]
+    },
+    "FY2023-24": {
+      "year": "FY 2023-24",
+      "labels": [
+        "Intergovernmental",
+        "Other Financing Sources",
+        "Taxes",
+        "Charges for Services",
+        "Investment & Property",
+        "Licenses & Permits",
+        "Miscellaneous",
+        "Fines & Penalties"
+      ],
+      "values": [
+        178784594,
+        135486016,
+        45016729,
+        24415922,
+        7932649,
+        3750048,
+        3437262,
+        1297204
+      ]
+    }
+  },
+  "expenseCategoriesByYear": {
+    "FY2018-19": {
+      "year": "FY 2018-19",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        101251181,
+        98626299,
+        79970440,
+        56250641,
+        4008116
+      ]
+    },
+    "FY2019-20": {
+      "year": "FY 2019-20",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        113759738,
+        102729350,
+        53651640,
+        52245167,
+        4610088
+      ]
+    },
+    "FY2020-21": {
+      "year": "FY 2020-21",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        136230123,
+        104313586,
+        57273997,
+        51523208,
+        3297689
+      ]
+    },
+    "FY2021-22": {
+      "year": "FY 2021-22",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        130504133,
+        106147378,
+        54250421,
+        51322687,
+        5640543
+      ]
+    },
+    "FY2022-23": {
+      "year": "FY 2022-23",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        130716499,
+        114680214,
+        61892255,
+        58966664,
+        10515281
+      ]
+    },
+    "FY2023-24": {
+      "year": "FY 2023-24",
+      "labels": [
+        "Other Financing Uses",
+        "Salaries & Benefits",
+        "Other Charges",
+        "Services & Supplies",
+        "Capital Assets"
+      ],
+      "values": [
+        135802606,
+        120341302,
+        76851471,
+        49134762,
+        15686013
+      ]
+    }
+  },
   "pay": {
     "year": "FY 2025-26",
     "totalFte": 1120.5,

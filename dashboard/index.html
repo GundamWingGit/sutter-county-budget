@@ -108,6 +108,17 @@
 
   .yr-badge { float: right; font-size: 11px; font-weight: 600; letter-spacing: .06em;
               color: var(--ink-3); border: 1px solid var(--line); padding: 2px 9px; }
+  .year-tabs-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 12px; }
+  .year-tabs-kicker { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .year-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .year-tab {
+    font: 600 11.5px var(--sans); letter-spacing: .03em;
+    color: var(--ink-2); background: #fff; border: 1px solid var(--line);
+    padding: 5px 10px; cursor: pointer;
+  }
+  .year-tab:hover { border-color: var(--steel); color: var(--navy); }
+  .year-tab.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .card .year-tabs { margin: 8px 0 12px; }
 
   .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 8px; }
   .finding { background: var(--card); border: 1px solid var(--line); padding: 18px 20px 16px;
@@ -536,8 +547,9 @@
         <div class="chart-box"><canvas id="chFuncTrend"></canvas></div>
       </div>
       <div class="card">
-        <h3>FY 2024-25 share <span class="yr-badge">actual</span></h3>
-        <p class="note">Percent of governmental-fund spending.</p>
+        <h3>Share of spending <span class="yr-badge" id="funcShareBadge">FY 24-25 actual</span></h3>
+        <p class="note">Percent of governmental-fund spending that year. The stacked chart at left is every year at once.</p>
+        <div class="year-tabs" id="funcYearTabs"></div>
         <div class="chart-box"><canvas id="chByFunc"></canvas></div>
       </div>
     </div>
@@ -559,15 +571,19 @@
         <div class="chart-box"><canvas id="chExpMix"></canvas></div>
       </div>
     </div>
-    <div class="grid halves" style="margin-top:16px">
+    <div class="year-tabs-bar" style="margin-top:18px">
+      <span class="year-tabs-kicker">One year at a time</span>
+      <div class="year-tabs" id="catYearTabs"></div>
+    </div>
+    <div class="grid halves">
       <div class="card">
-        <h3>FY 2023-24 revenue sources <span class="yr-badge">actual</span></h3>
-        <p class="note">Latest year with a complete, consistent object classification.</p>
+        <h3>Revenue sources <span class="yr-badge" id="revCatBadge">FY 23-24 actual</span></h3>
+        <p class="note" id="revCatNote">Object labels are stable in this window. Intergovernmental aid is the largest external source.</p>
         <div class="chart-box short"><canvas id="chRevCat"></canvas></div>
       </div>
       <div class="card">
-        <h3>FY 2023-24 spending objects <span class="yr-badge">actual</span></h3>
-        <p class="note">Transfers sit next to salaries because restricted funds move money between units.</p>
+        <h3>Spending objects <span class="yr-badge" id="expCatBadge">FY 23-24 actual</span></h3>
+        <p class="note" id="expCatNote">Transfers sit next to salaries because restricted funds move money between units.</p>
         <div class="chart-box short"><canvas id="chExpCat"></canvas></div>
       </div>
     </div>
@@ -735,6 +751,20 @@
   const markChart = (canvasId) => {
     const box = document.getElementById(canvasId)?.closest(".chart-box");
     if (box) box.classList.add("citeable-chart");
+  };
+  const bindYearTabs = (hostId, labels, selected, onPick) => {
+    const host = document.getElementById(hostId);
+    if (!host) return;
+    host.innerHTML = labels.map((lab, i) =>
+      `<button type="button" class="year-tab${i === selected ? " is-on" : ""}" data-i="${i}">${lab}</button>`
+    ).join("");
+    host.addEventListener("click", ev => {
+      const btn = ev.target.closest(".year-tab");
+      if (!btn) return;
+      const i = +btn.dataset.i;
+      host.querySelectorAll(".year-tab").forEach(b => b.classList.toggle("is-on", b === btn));
+      onPick(i);
+    });
   };
 
   document.getElementById("metaRow").innerHTML = [
@@ -978,35 +1008,65 @@
     }
   });
 
-  const bf = D.byFunction;
-  const bfTotal = bf.values.reduce((a, b) => a + b, 0);
+  const ftYears = ft.years || [];
+  const funcShareAt = yi => {
+    const rows = (ft.series || [])
+      .map((s, si) => ({ name: s.name, value: s.values[yi] || 0, si }))
+      .filter(r => r.value)
+      .sort((a, b) => b.value - a.value);
+    const total = rows.reduce((s, r) => s + r.value, 0);
+    return { rows, total };
+  };
+  const paintFuncShare = (chart, yi) => {
+    const { rows, total } = funcShareAt(yi);
+    chart.data.labels = rows.map(r => r.name);
+    chart.data.datasets[0].data = rows.map(r => r.value);
+    chart.options.scales.x.ticks.callback = v => total ? (v / total * 100).toFixed(0) + "%" : v;
+    chart.options.scales.x.max = total ? Math.ceil((rows[0]?.value || 0) / total * 10) / 10 * total * 1.08 : undefined;
+    chart.options.scales.x.title.text = `Share of ${ft.labels[yi]} spending`;
+    chart.options.plugins.tooltip.callbacks.label = c => {
+      const pct = total ? (c.parsed.x / total * 100).toFixed(1) : "0.0";
+      return ` ${fmtFull(c.parsed.x)} — ${pct}% of total`;
+    };
+    const onClick = citeClick((_ds, idx) => {
+      const row = rows[idx];
+      return row ? `function.${row.si}.${yi}` : null;
+    });
+    chart.options.onClick = onClick;
+    chart.update();
+    const badge = document.getElementById("funcShareBadge");
+    if (badge) badge.textContent = `${ft.labels[yi]} actual`;
+  };
   markChart("chByFunc");
-  new Chart(document.getElementById("chByFunc"), {
-    type: "bar",
-    data: {
-      labels: bf.labels,
-      datasets: [{ data: bf.values, backgroundColor: NAVY, barPercentage: 0.62, borderWidth: 0 }]
-    },
-    options: {
-      indexAxis: "y", maintainAspectRatio: false,
-      onClick: citeClick((_ds, idx) => {
-        const name = bf.labels[idx];
-        const si = (D.functionTrend.series || []).findIndex(s => s.name === name);
-        // FY 2024-25 is the last actual year (index 8)
-        return si >= 0 ? `function.${si}.8` : null;
-      }),
-      scales: {
-        x: { ticks: { callback: v => (v / bfTotal * 100).toFixed(0) + "%", maxTicksLimit: 6 }, grid,
-             max: Math.ceil(bf.values[0] / bfTotal * 10) / 10 * bfTotal * 1.08,
-             title: { display: true, text: "Share of FY 2024-25 spending" } },
-        y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } }
+  {
+    const startYi = ftYears.length - 1;
+    const first = funcShareAt(startYi);
+    const chByFunc = new Chart(document.getElementById("chByFunc"), {
+      type: "bar",
+      data: {
+        labels: first.rows.map(r => r.name),
+        datasets: [{ data: first.rows.map(r => r.value), backgroundColor: NAVY, barPercentage: 0.62, borderWidth: 0 }]
       },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / bfTotal * 100).toFixed(1)}% of total` } }
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => {
+          const row = first.rows[idx];
+          return row ? `function.${row.si}.${startYi}` : null;
+        }),
+        scales: {
+          x: { ticks: { callback: v => first.total ? (v / first.total * 100).toFixed(0) + "%" : v, maxTicksLimit: 6 }, grid,
+               max: first.total ? Math.ceil(first.rows[0].value / first.total * 10) / 10 * first.total * 1.08 : undefined,
+               title: { display: true, text: `Share of ${ft.labels[startYi]} spending` } },
+          y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / first.total * 100).toFixed(1)}% of total` } }
+        }
       }
-    }
-  });
+    });
+    bindYearTabs("funcYearTabs", ft.labels, startYi, yi => paintFuncShare(chByFunc, yi));
+  }
 
   function stacked(canvasId, pack, prefix) {
     markChart(canvasId);
@@ -1033,15 +1093,44 @@
   stacked("chRevMix", D.revenueMix, "revmix");
   stacked("chExpMix", D.expenseMix, "expmix");
 
-  function categoryBar(canvasId, cat, color, prefix) {
+  const mixYears = (D.revenueMix && D.revenueMix.years) || [];
+  const REV_MIX_IDX = {
+    "Intergovernmental": 0, "Taxes": 1, "Charges for Services": 2,
+    "Investment & Property": 3, "Licenses & Permits": 3, "Miscellaneous": 3,
+    "Fines & Penalties": 3, "Other Financing Sources": 4
+  };
+  const EXP_MIX_IDX = {
+    "Salaries & Benefits": 0, "Other Charges": 1, "Services & Supplies": 2,
+    "Other Financing Uses": 3, "Capital Assets": 4
+  };
+  const REV_SNAP = ["Intergovernmental", "Other Financing Sources", "Taxes",
+    "Charges for Services", "Investment & Property", "Licenses & Permits",
+    "Miscellaneous", "Fines & Penalties"];
+  const EXP_SNAP = ["Other Financing Uses", "Salaries & Benefits", "Other Charges",
+    "Services & Supplies", "Capital Assets"];
+
+  function categoryCite(side, fy, name) {
+    const yi = mixYears.indexOf(fy);
+    if (fy === "FY2023-24") {
+      const snap = side === "rev" ? REV_SNAP : EXP_SNAP;
+      const i = snap.indexOf(name);
+      if (i >= 0) return `${side === "rev" ? "revcat" : "expcat"}.${i}`;
+    }
+    const map = side === "rev" ? REV_MIX_IDX : EXP_MIX_IDX;
+    const si = map[name];
+    if (si == null || yi < 0) return null;
+    return `${side === "rev" ? "revmix" : "expmix"}.${si}.${yi}`;
+  }
+
+  function categoryBar(canvasId, cat, color, side) {
     markChart(canvasId);
     const total = cat.values.reduce((a, b) => a + b, 0);
-    new Chart(document.getElementById(canvasId), {
+    return new Chart(document.getElementById(canvasId), {
       type: "bar",
       data: { labels: cat.labels, datasets: [{ data: cat.values, backgroundColor: color, barPercentage: 0.6, borderWidth: 0 }] },
       options: {
         indexAxis: "y", maintainAspectRatio: false,
-        onClick: citeClick((_ds, idx) => `${prefix}.${idx}`),
+        onClick: citeClick((_ds, idx) => categoryCite(side, cat.fy || "FY2023-24", cat.labels[idx])),
         scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
@@ -1050,8 +1139,49 @@
       }
     });
   }
-  categoryBar("chRevCat", D.revenueCategories, STEEL, "revcat");
-  categoryBar("chExpCat", D.expenseCategories, NAVY, "expcat");
+
+  const revByYear = D.revenueCategoriesByYear || {};
+  const expByYear = D.expenseCategoriesByYear || {};
+  const catYears = mixYears.filter(y => revByYear[y] && expByYear[y]);
+  const catLabels = (D.revenueMix && D.revenueMix.labels) || catYears.map(shortYear);
+  const startCat = Math.max(0, catYears.indexOf("FY2023-24"));
+
+  const paintCat = (chart, pack, side, fy) => {
+    const total = pack.values.reduce((a, b) => a + b, 0);
+    chart.data.labels = pack.labels;
+    chart.data.datasets[0].data = pack.values;
+    chart.options.plugins.tooltip.callbacks.label = c =>
+      ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%`;
+    chart.options.onClick = citeClick((_ds, idx) => categoryCite(side, fy, pack.labels[idx]));
+    chart.update();
+  };
+
+  const chRevCat = categoryBar("chRevCat", {
+    ... (revByYear[catYears[startCat]] || D.revenueCategories),
+    fy: catYears[startCat] || "FY2023-24"
+  }, STEEL, "rev");
+  const chExpCat = categoryBar("chExpCat", {
+    ... (expByYear[catYears[startCat]] || D.expenseCategories),
+    fy: catYears[startCat] || "FY2023-24"
+  }, NAVY, "exp");
+
+  const setCatYear = yi => {
+    const fy = catYears[yi];
+    const lab = catLabels[mixYears.indexOf(fy)] || shortYear(fy);
+    paintCat(chRevCat, revByYear[fy], "rev", fy);
+    paintCat(chExpCat, expByYear[fy], "exp", fy);
+    const rb = document.getElementById("revCatBadge");
+    const eb = document.getElementById("expCatBadge");
+    if (rb) rb.textContent = `${lab} actual`;
+    if (eb) eb.textContent = `${lab} actual`;
+    const rn = document.getElementById("revCatNote");
+    if (rn) {
+      rn.textContent = fy === "FY2021-22"
+        ? "Investment & property is negative this year — a printed mark-to-market, not a missing source."
+        : "Object labels are stable in this window. Intergovernmental aid is the largest external source.";
+    }
+  };
+  bindYearTabs("catYearTabs", catYears.map(y => catLabels[mixYears.indexOf(y)] || shortYear(y)), startCat, setCatYear);
 
   const u = D.topUnits;
   markChart("chUnits");
