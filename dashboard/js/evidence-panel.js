@@ -158,6 +158,104 @@
     if (b) b.textContent = body || "This total is a sum of unit lines. Click a row in the list to open that printed page here.";
   }
 
+  function fmtFte(v) {
+    if (v == null || Number.isNaN(Number(v))) return "—";
+    const n = Number(v);
+    const s = Math.abs(n % 1) > 0.05 ? n.toFixed(1) : String(Math.round(n));
+    return s + " FTE";
+  }
+
+  function isPayCite(cite) {
+    return !!(cite && (cite.metric === "pay" || cite.metric === "fte" ||
+      String(cite.id || "").startsWith("pay.")));
+  }
+
+  function formatClicked(cite) {
+    if (!cite || cite.value == null) return "";
+    if (citeFamily(cite) === "pay.staff" || cite.metric === "fte") return fmtFte(cite.value);
+    return fmtFull(cite.value);
+  }
+
+  function payJob(cite) {
+    const title = (cite && (cite.unit || cite.label)) || "";
+    const jobs = (global.BUDGET_DATA && global.BUDGET_DATA.pay && global.BUDGET_DATA.pay.jobs) || [];
+    const want = title.toLowerCase().replace(/[–—]/g, "-");
+    const found = jobs.find(j => (j.title || "").toLowerCase().replace(/[–—]/g, "-") === want);
+    return found || {
+      title,
+      fte: cite && cite.fte,
+      min: cite && cite.min,
+      max: cite && cite.max,
+      estMid: cite && cite.estMid,
+      estMax: cite && cite.estMax,
+      units: (cite && cite.units) || [],
+    };
+  }
+
+  function renderPayDossier(cite) {
+    const host = $("evidenceCompose");
+    if (!host) return;
+    const job = payJob(cite);
+    const family = citeFamily(cite);
+    const fte = job.fte != null ? job.fte : (family === "pay.staff" ? cite.value : null);
+    const sources = (allSources || []).filter(s => s && (s.page || s.value != null));
+    const unitRows = sources.filter(s => s.metric === "fte" || s.group === "FTE" ||
+      (family === "pay.staff" && s.page));
+    const title = job.title || cite.label || "Classification";
+    const hero = family === "pay.staff"
+      ? `<div class="pd-hero">${fmtFte(fte != null ? fte : cite.value)}<small>authorized seats</small></div>`
+      : `<div class="pd-hero">${fmtFull(cite.value)}<small>${
+          family === "pay.cost" ? "estimated mid-range payroll" : "top of salary range"
+        }</small></div>`;
+
+    const range = (job.min != null && job.max != null)
+      ? fmtFull(job.min) + " – " + fmtFull(job.max)
+      : "—";
+    const units = (job.units && job.units.length) ? job.units.join(" · ") : "";
+
+    setPane("compose");
+    host.innerHTML =
+      `<div class="pay-dossier">` +
+        `<div class="pd-kicker">Classification</div>` +
+        `<div class="pd-name">${escapeHtml(title)}</div>` +
+        hero +
+        `<p class="pd-note">${family === "pay.staff"
+          ? "Budgeted seats in the FY 2025-26 Position Allocation Schedule. The book does not print how many of these jobs are filled."
+          : "Posted in the FY 2025-26 salary resolution (Section J). Authorized FTE is a roster count, not filled headcount."
+        }</p>` +
+        `<div class="pd-grid">` +
+          `<div class="pd-stat"><span>Authorized FTE</span><b>${fte != null ? fmtFte(fte) : "—"}</b></div>` +
+          `<div class="pd-stat"><span>Salary range</span><b>${escapeHtml(range)}</b></div>` +
+          `<div class="pd-stat"><span>Est. payroll (mid)</span><b>${job.estMid != null ? fmtShort(job.estMid) : "—"}</b></div>` +
+          `<div class="pd-stat"><span>Est. payroll (max)</span><b>${job.estMax != null ? fmtShort(job.estMax) : "—"}</b></div>` +
+        `</div>` +
+        (units ? `<p class="pd-units">Where they sit: ${escapeHtml(units)}</p>` : "") +
+        `<p class="pd-hint">Payroll estimates are authorized FTE × the printed range. Not a printed class total.</p>` +
+        (unitRows.length
+          ? `<div class="pd-section">Printed seats by unit — click to box that FTE</div>` +
+            `<div class="ec-rows">${unitRows.map((s, i) => {
+              return `<button type="button" class="ec-row" data-pack="fte" data-i="${i}">` +
+                `<span class="ec-swatch" style="background:var(--navy)"></span>` +
+                `<span class="ec-row-main"><span class="ec-row-name">${escapeHtml(s.unit || s.label || "Unit")}` +
+                `${s.page ? " · p." + s.page : ""}</span></span>` +
+                `<span class="ec-row-amt">${fmtFte(s.value)}</span>` +
+              `</button>`;
+            }).join("")}</div>`
+          : (cite.page
+            ? `<button type="button" class="ec-printed" data-printed="1">` +
+                `<span>Box the printed figure</span>` +
+                `<strong>${formatClicked(cite)} · p.${cite.page}</strong>` +
+              `</button>`
+            : "")) +
+      `</div>`;
+
+    bindComposeClicks(host, { fte: unitRows.map(s => ({ source: s, ...s })) }, cite);
+    const printedBtn = host.querySelector("[data-printed]");
+    if (printedBtn && cite.page) {
+      printedBtn.addEventListener("click", () => showPiece(cite, cite, ++openGen));
+    }
+  }
+
   function fmtShort(v) {
     const n = Number(v);
     if (Number.isNaN(n)) return "—";
@@ -246,6 +344,10 @@
       return;
     }
     const sources = allSources || [];
+    if (isPayCite(cite)) {
+      renderPayDossier(cite);
+      return;
+    }
     if (!sources.length) {
       showEmpty(
         "This total is not printed as one figure",
@@ -777,21 +879,22 @@
     const clicked = cite.value != null ? Number(cite.value) : null;
     const same = valuesClose(pieceVal, clicked);
 
+    const fmtPiece = (piece && piece.metric === "fte") || citeFamily(cite) === "pay.staff" ? fmtFte : fmtFull;
     if (cite.type === "printed" && same) {
       el.className = "evidence-caption";
-      el.innerHTML = `Highlight: <strong>${fmtFull(clicked)}</strong>`;
+      el.innerHTML = `Highlight: <strong>${fmtPiece(clicked)}</strong>`;
       return;
     }
     if (cite.type === "printed" && !same && pieceVal != null) {
       el.className = "evidence-caption warn";
       el.innerHTML =
-        `Clicked <strong>${fmtFull(clicked)}</strong>; page shows <strong>${fmtFull(pieceVal)}</strong> ` +
+        `Clicked <strong>${fmtPiece(clicked)}</strong>; page shows <strong>${fmtPiece(pieceVal)}</strong> ` +
         `(${escapeHtml(pieceLabel(piece))}).`;
       return;
     }
     el.className = "evidence-caption";
     el.innerHTML =
-      `Highlight is the source row <strong>${fmtFull(pieceVal)}</strong>, not the calculated ${fmtFull(clicked)}.`;
+      `Highlight is the source row <strong>${fmtPiece(pieceVal)}</strong>, not the calculated ${fmtPiece(clicked)}.`;
   }
 
   function renderHeader(cite) {
@@ -801,7 +904,7 @@
     badge.className = "evidence-badge " + (type === "printed" ? "printed" : "derived");
 
     $("evidenceTitle").textContent = (cite && cite.label) || "Source evidence";
-    $("evidenceClicked").textContent = cite && cite.value != null ? fmtFull(cite.value) : "";
+    $("evidenceClicked").textContent = formatClicked(cite || {});
 
     const exp = plainExplainer(cite || {});
     $("evidenceExplainTitle").textContent = exp.title;
@@ -1147,10 +1250,14 @@
           renderComposition(currentCite || cite);
           showStatus("This total is not printed as one figure. Click a source row to box that row.");
         } else {
-          showStatus("Opened the page but could not box " + fmtFull(piece.value) + ". The figure is not on this page as a whole number.", true);
+          showStatus("Opened the page but could not box " +
+            ((piece.metric === "fte") ? fmtFte(piece.value) : fmtFull(piece.value)) +
+            ". The figure is not on this page as a whole number.", true);
         }
       } else {
-        showStatus("Highlight is " + fmtFull(piece.value) + ". Click the page for a sharper view.");
+        showStatus("Highlight is " +
+          ((piece.metric === "fte") ? fmtFte(piece.value) : fmtFull(piece.value)) +
+          ". Click the page for a sharper view.");
       }
     } catch (e) {
       if (gen != null && gen !== openGen) return;
@@ -1203,6 +1310,7 @@
     const canHighlightClicked = !!(
       cite.type === "printed" &&
       !countyWide &&
+      !isPayCite(cite) &&
       cite.book && cite.page && cite.value != null &&
       (printedHit || queryMatchesValue(parentQuery, cite.value))
     );
@@ -1222,9 +1330,13 @@
     }
 
     renderComposition(cite);
-    showStatus(countyWide && cite.type === "printed"
-      ? "Unit lines below add to this total. Click the county-wide row to box the printed figure."
-      : "This total is not a single printed figure. Click a source row to box that row in the book.");
+    showStatus(isPayCite(cite)
+      ? (citeFamily(cite) === "pay.staff"
+        ? "Authorized seats, not dollars. Filled headcount is not printed. Click a unit to box that FTE."
+        : "Click a source row or the printed figure to box it in the position book.")
+      : (countyWide && cite.type === "printed"
+        ? "Unit lines below add to this total. Click the county-wide row to box the printed figure."
+        : "This total is not a single printed figure. Click a source row to box that row in the book."));
     clearCanvas();
     $("evidencePageLabel").textContent = "—";
     $("evidenceDocLink").href = "#";

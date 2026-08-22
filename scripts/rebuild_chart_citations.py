@@ -9,8 +9,13 @@ import csv
 import json
 import re
 import shutil
+import sys
 from collections import defaultdict
 from pathlib import Path
+
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+from extract_positions_salaries import join_fte_to_salary
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -458,7 +463,9 @@ def _parse_pay_money(text: str):
     return -v if neg else v
 
 
-def locate_pay_figure(pdf_path: Path, title: str, value: float, kind: str) -> dict | None:
+def locate_pay_figure(
+    pdf_path: Path, title: str, value: float, kind: str, page_hint: int | None = None
+) -> dict | None:
     """Find the printed salary or FTE token — never the first FTE roster hit for a dollar."""
     try:
         import pdfplumber
@@ -469,7 +476,11 @@ def locate_pay_figure(pdf_path: Path, title: str, value: float, kind: str) -> di
     needles = _pay_title_needles(title)
     want = float(value)
     # Dollars live in the salary resolution (roughly p.16+). Headcount is p.3–14.
-    if kind == "staff":
+    if page_hint:
+        lo = max(0, page_hint - 2)
+        page_range = range(lo, page_hint + 1)
+        tol = 0.05 if kind == "staff" else 1.01
+    elif kind == "staff":
         page_range = range(2, 15)
         tol = 0.05
     else:
@@ -512,10 +523,38 @@ def locate_pay_figure(pdf_path: Path, title: str, value: float, kind: str) -> di
     return best
 
 
+def _job_by_title(pay: dict, title: str) -> dict:
+    for j in pay.get("jobs") or []:
+        if j.get("title") == title:
+            return j
+    want = (title or "").lower().replace("–", "-").replace("—", "-")
+    for j in pay.get("jobs") or []:
+        if (j.get("title") or "").lower().replace("–", "-").replace("—", "-") == want:
+            return j
+    return {}
+
+
+def _staff_rows_for_class(joined: list[dict], title: str) -> list[dict]:
+    want = (title or "").replace("–", "-").replace("—", "-").lower()
+    out = []
+    for r in joined:
+        if not r.get("matched"):
+            continue
+        st = (r.get("salaryTitle") or "").replace("–", "-").replace("—", "-").lower()
+        if st == want:
+            out.append(r)
+    return out
+
+
 def build_pay_cites(cites: dict, budget: dict, books: dict) -> None:
     book = ensure_position_book(books)
     pdf = PDFS / books[book]["file"]
     pay = budget.get("pay") or {}
+    positions_path = DATA / "positions.json"
+    joined: list[dict] = []
+    if positions_path.exists():
+        pos = json.loads(positions_path.read_text())
+        joined, _un = join_fte_to_salary(pos.get("allocation") or [], pos.get("salaries") or [])
 
     for key, pack, kind in (
         ("pay.high", pay.get("highestPaid") or {}, "salary"),
@@ -524,31 +563,74 @@ def build_pay_cites(cites: dict, budget: dict, books: dict) -> None:
     ):
         labels = pack.get("labels") or []
         for i, title in enumerate(labels):
+            job = _job_by_title(pay, title)
             value = (
                 (pack.get("values") or [None])[i]
                 if kind == "staff"
                 else (pack.get("max") or pack.get("values") or [None])[i]
             )
             hit = locate_pay_figure(pdf, title, value, kind)
+            children = []
+            if kind == "staff":
+                for r in _staff_rows_for_class(joined, title):
+                    fte = r.get("fte")
+                    alloc_title = r.get("title") or title
+                    kid_hit = locate_pay_figure(
+                        pdf, alloc_title, fte, "staff", page_hint=r.get("page")
+                    )
+                    children.append({
+                        "type": "printed" if kid_hit or r.get("page") else "derived",
+                        "book": book,
+                        "page": (kid_hit or {}).get("page") or r.get("page"),
+                        "value": fte,
+                        "query": (kid_hit or {}).get("query") or (
+                            f"{float(fte):.2f}" if fte is not None else None
+                        ),
+                        "label": f"{r.get('unitName') or 'Unit'} — {fte:g} FTE",
+                        "unit": r.get("unitName") or "",
+                        "line": alloc_title,
+                        "metric": "fte",
+                        "hit": (
+                            {k: v for k, v in kid_hit.items() if k != "printed"}
+                            if kid_hit else None
+                        ),
+                    })
+                children.sort(key=lambda k: -abs(float(k.get("value") or 0)))
+
             cites[f"{key}.{i}"] = {
-                "type": "printed" if hit else "derived",
+                "type": "derived" if kind == "staff" else ("printed" if hit else "derived"),
                 "label": title,
                 "value": value,
                 "formula": (
                     f"Posted top of range in the FY 2025-26 salary resolution "
                     f"(Section J), not the FTE roster."
                     if kind != "staff"
-                    else f"Authorized FTE in the FY 2025-26 Position Allocation Schedule."
+                    else (
+                        f"Sum of authorized FTE for this classification in the "
+                        f"FY 2025-26 Position Allocation Schedule."
+                    )
                 ),
                 "book": book,
-                "page": (hit or {}).get("page"),
-                "query": (hit or {}).get("query"),
-                "hit": {k: v for k, v in (hit or {}).items() if k != "printed"} if hit else None,
-                "children": [],
+                "page": None if kind == "staff" else (hit or {}).get("page"),
+                "query": None if kind == "staff" else (hit or {}).get("query"),
+                "hit": None if kind == "staff" else (
+                    {k: v for k, v in (hit or {}).items() if k != "printed"} if hit else None
+                ),
+                "children": children,
                 "metric": "pay",
                 "unit": title,
+                "min": job.get("min"),
+                "max": job.get("max"),
+                "fte": job.get("fte") if job.get("fte") is not None else (value if kind == "staff" else None),
+                "estMid": job.get("estMid"),
+                "estMax": job.get("estMax"),
+                "units": job.get("units") or [c["unit"] for c in children if c.get("unit")],
             }
-            print(f"  {key}.{i} {title}: p{(hit or {}).get('page')} q={(hit or {}).get('query')}", flush=True)
+            print(
+                f"  {key}.{i} {title}: p{(hit or {}).get('page')} "
+                f"kids={len(children)} fte={cites[f'{key}.{i}'].get('fte')}",
+                flush=True,
+            )
 
 
 def build_contract_cites(cites: dict, budget: dict) -> None:
@@ -650,15 +732,24 @@ def fill_missing_pages(cites: dict) -> None:
         if donor:
             c["page"] = donor.get("page")
             c["query"] = c.get("query") or donor.get("query")
-        elif c.get("book") and c.get("metric") == "pay":
+        elif c.get("book") and c.get("metric") == "pay" and c.get("type") != "derived":
             c["page"] = 1
 
 
 def main() -> None:
-    analysis = json.loads((DATA / "analysis.json").read_text())
+    pay_only = "--pay-only" in sys.argv
+    analysis = json.loads((DATA / "analysis.json").read_text()) if not pay_only else {}
     budget = load_budget()
     cites = load_cites()
     books = json.loads(BOOKS_PATH.read_text())
+
+    if pay_only:
+        print("pay cites…", flush=True)
+        build_pay_cites(cites, budget, books)
+        write_cites(cites)
+        BOOKS_PATH.write_text(json.dumps(books, indent=2) + "\n")
+        print(f"wrote {len(cites)} citation keys", flush=True)
+        return
 
     print("function cites…", flush=True)
     build_function_cites(cites, analysis)

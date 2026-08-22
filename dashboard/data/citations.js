@@ -88063,7 +88063,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Physician"
+    "unit": "Physician",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.1": {
     "type": "printed",
@@ -88085,7 +88091,15 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Psychiatrist"
+    "unit": "Psychiatrist",
+    "min": 156000,
+    "max": 395200,
+    "fte": 6.0,
+    "estMid": 1653600,
+    "estMax": 2371200,
+    "units": [
+      "Behavioral Health Services"
+    ]
   },
   "pay.high.2": {
     "type": "printed",
@@ -88107,7 +88121,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Consulting Specialist"
+    "unit": "Consulting Specialist",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.3": {
     "type": "printed",
@@ -88129,7 +88149,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "County Administrative Officer"
+    "unit": "County Administrative Officer",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.4": {
     "type": "printed",
@@ -88151,7 +88177,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Psychiatric Nurse Practitioner"
+    "unit": "Psychiatric Nurse Practitioner",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.5": {
     "type": "printed",
@@ -88173,7 +88205,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Health Officer"
+    "unit": "Health Officer",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.6": {
     "type": "printed",
@@ -88195,7 +88233,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "County Counsel"
+    "unit": "County Counsel",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.7": {
     "type": "printed",
@@ -88217,7 +88261,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Sheriff - Coroner"
+    "unit": "Sheriff - Coroner",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.8": {
     "type": "printed",
@@ -88239,7 +88289,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "District Attorney"
+    "unit": "District Attorney",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.9": {
     "type": "printed",
@@ -88261,7 +88317,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Director of Health & Human Services"
+    "unit": "Director of Health & Human Services",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.10": {
     "type": "printed",
@@ -88283,7 +88345,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Assistant County Administrator"
+    "unit": "Assistant County Administrator",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.11": {
     "type": "printed",
@@ -88305,7 +88373,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Chief Deputy District Attorney"
+    "unit": "Chief Deputy District Attorney",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.12": {
     "type": "printed",
@@ -88327,7 +88401,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Undersheriff"
+    "unit": "Undersheriff",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.high.13": {
     "type": "printed",
@@ -88349,7 +88429,13 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Assistant County Counsel"
+    "unit": "Assistant County Counsel",
+    "min": null,
+    "max": null,
+    "fte": null,
+    "estMid": null,
+    "estMax": null,
+    "units": []
   },
   "pay.cost.0": {
     "type": "printed",
@@ -88371,7 +88457,16 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Public Assistance Specialist I\u2013III"
+    "unit": "Public Assistance Specialist I\u2013III",
+    "min": 42182,
+    "max": 69576,
+    "fte": 112.0,
+    "estMid": 6258470,
+    "estMax": 7792512,
+    "units": [
+      "Jail Medical Services",
+      "Welfare Administration"
+    ]
   },
   "pay.cost.1": {
     "type": "printed",
@@ -88393,7 +88488,16 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Mental Health Therapist I\u2013III"
+    "unit": "Mental Health Therapist I\u2013III",
+    "min": 64230,
+    "max": 106912,
+    "fte": 47.0,
+    "estMid": 4021846,
+    "estMax": 5024864,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act"
+    ]
   },
   "pay.cost.2": {
     "type": "printed",
@@ -88415,7 +88519,19 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Deputy Sheriff"
+    "unit": "Deputy Sheriff",
+    "min": 71406,
+    "max": 102752,
+    "fte": 43.0,
+    "estMid": 3744406,
+    "estMax": 4418336,
+    "units": [
+      "Sheriff-Communications",
+      "Sheriff'S Court Bailiffs",
+      "Sheriff-Coroner",
+      "Sheriff Boat Patrol",
+      "Live Oak Contract"
+    ]
   },
   "pay.cost.3": {
     "type": "printed",
@@ -88437,7 +88553,17 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Correctional Officer"
+    "unit": "Correctional Officer",
+    "min": 53477,
+    "max": 77314,
+    "fte": 57.0,
+    "estMid": 3727526,
+    "estMax": 4406875,
+    "units": [
+      "Sheriff'S Court Bailiffs",
+      "County Jail",
+      "Sheriff Inmate Welfare"
+    ]
   },
   "pay.cost.4": {
     "type": "printed",
@@ -88459,7 +88585,17 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Intervention Counselor I\u2013II"
+    "unit": "Intervention Counselor I\u2013II",
+    "min": 51688,
+    "max": 79144,
+    "fte": 37.0,
+    "estMid": 2420392,
+    "estMax": 2928328,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act",
+      "Probation"
+    ]
   },
   "pay.cost.5": {
     "type": "printed",
@@ -88481,7 +88617,20 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Staff Analyst"
+    "unit": "Staff Analyst",
+    "min": 70087,
+    "max": 95173,
+    "fte": 27.0,
+    "estMid": 2231012,
+    "estMax": 2569684,
+    "units": [
+      "Agricultural Commissioner",
+      "Development Services Admin",
+      "Emergency Services",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Behavioral Health Services"
+    ]
   },
   "pay.cost.6": {
     "type": "printed",
@@ -88503,7 +88652,20 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Office Assistant I\u2013III"
+    "unit": "Office Assistant I\u2013III",
+    "min": 35880,
+    "max": 61173,
+    "fte": 36.0,
+    "estMid": 1746950,
+    "estMax": 2202221,
+    "units": [
+      "Bi-County Farm Advisor",
+      "Human Resources",
+      "Animal Control",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Public Health"
+    ]
   },
   "pay.cost.7": {
     "type": "printed",
@@ -88525,7 +88687,15 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Deputy Probation Officer I\u2013II"
+    "unit": "Deputy Probation Officer I\u2013II",
+    "min": 56950,
+    "max": 89253,
+    "fte": 23.0,
+    "estMid": 1681337,
+    "estMax": 2052814,
+    "units": [
+      "Probation"
+    ]
   },
   "pay.cost.8": {
     "type": "printed",
@@ -88547,7 +88717,15 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Psychiatrist"
+    "unit": "Psychiatrist",
+    "min": 156000,
+    "max": 395200,
+    "fte": 6.0,
+    "estMid": 1653600,
+    "estMax": 2371200,
+    "units": [
+      "Behavioral Health Services"
+    ]
   },
   "pay.cost.9": {
     "type": "printed",
@@ -88569,7 +88747,15 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Social Worker I - Children's Services"
+    "unit": "Social Worker I - Children's Services",
+    "min": 51688,
+    "max": 71074,
+    "fte": 26.0,
+    "estMid": 1595901,
+    "estMax": 1847914,
+    "units": [
+      "Welfare Administration"
+    ]
   },
   "pay.cost.10": {
     "type": "printed",
@@ -88591,7 +88777,16 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Mental Health Worker I\u2013II"
+    "unit": "Mental Health Worker I\u2013II",
+    "min": 43326,
+    "max": 68286,
+    "fte": 28.0,
+    "estMid": 1562579,
+    "estMax": 1912019,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act"
+    ]
   },
   "pay.cost.11": {
     "type": "printed",
@@ -88613,199 +88808,1466 @@ window.CITATIONS = {
     },
     "children": [],
     "metric": "pay",
-    "unit": "Accounting Technician I"
+    "unit": "Accounting Technician I",
+    "min": 44554,
+    "max": 61693,
+    "fte": 25.0,
+    "estMid": 1328080,
+    "estMax": 1542320,
+    "units": [
+      "Development Services Admin",
+      "Auditor-Controller",
+      "Treasurer-Tax Collector",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Behavioral Health Services"
+    ]
   },
   "pay.staff.0": {
     "type": "derived",
     "label": "Public Assistance Specialist I\u2013III",
     "value": 112.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 111.0,
+        "query": "111.00",
+        "label": "Welfare Administration \u2014 111 FTE",
+        "unit": "Welfare Administration",
+        "line": "PUBLIC ASST SPECIALIST",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 382.32,
+          "top": 396.22,
+          "x1": 404.76,
+          "bottom": 404.38,
+          "query": "111.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Jail Medical Services \u2014 1 FTE",
+        "unit": "Jail Medical Services",
+        "line": "PUBLIC ASSISTANCE SPECIALIST - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 305.88,
+          "top": 107.5,
+          "x1": 320.16,
+          "bottom": 115.66,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Public Assistance Specialist I\u2013III"
+    "unit": "Public Assistance Specialist I\u2013III",
+    "min": 42182,
+    "max": 69576,
+    "fte": 112.0,
+    "estMid": 6258470,
+    "estMax": 7792512,
+    "units": [
+      "Jail Medical Services",
+      "Welfare Administration"
+    ]
   },
   "pay.staff.1": {
     "type": "derived",
     "label": "Correctional Officer",
     "value": 57.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 14,
+        "value": 47.0,
+        "query": "47.00",
+        "label": "County Jail \u2014 47 FTE",
+        "unit": "County Jail",
+        "line": "CORRECTIONAL OFFICER",
+        "metric": "fte",
+        "hit": {
+          "page": 14,
+          "x0": 331.56,
+          "top": 251.13,
+          "x1": 351.6,
+          "bottom": 260.01,
+          "query": "47.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 8.0,
+        "query": "8.00",
+        "label": "Sheriff'S Court Bailiffs \u2014 8 FTE",
+        "unit": "Sheriff'S Court Bailiffs",
+        "line": "CORRECTIONAL OFFICER",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 336.0,
+          "top": 348.57,
+          "x1": 351.6,
+          "bottom": 357.45,
+          "query": "8.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "County Jail \u2014 1 FTE",
+        "unit": "County Jail",
+        "line": "CORRECTIONAL OFFICER - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 335.64,
+          "top": 126.81,
+          "x1": 351.24,
+          "bottom": 135.69,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Sheriff Inmate Welfare \u2014 1 FTE",
+        "unit": "Sheriff Inmate Welfare",
+        "line": "CORRECTIONAL OFFICER",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 335.64,
+          "top": 126.81,
+          "x1": 351.24,
+          "bottom": 135.69,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Correctional Officer"
+    "unit": "Correctional Officer",
+    "min": 53477,
+    "max": 77314,
+    "fte": 57.0,
+    "estMid": 3727526,
+    "estMax": 4406875,
+    "units": [
+      "Sheriff'S Court Bailiffs",
+      "County Jail",
+      "Sheriff Inmate Welfare"
+    ]
   },
   "pay.staff.2": {
     "type": "derived",
     "label": "Mental Health Therapist I\u2013III",
     "value": 47.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 28.1,
+        "query": "28.10",
+        "label": "Behavioral Health Services \u2014 28.1 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "MENTAL HEALTH THERAPIST FLEX 1-3",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 301.8,
+          "top": 497.38,
+          "x1": 320.16,
+          "bottom": 505.54,
+          "query": "28.10",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 16.9,
+        "query": "16.90",
+        "label": "Mental Health Services Act \u2014 16.9 FTE",
+        "unit": "Mental Health Services Act",
+        "line": "MENTAL HEALTH THERAPIST FLEX 1-3",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 301.8,
+          "top": 210.94,
+          "x1": 320.16,
+          "bottom": 219.1,
+          "query": "16.90",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Behavioral Health Services \u2014 1 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "MENTAL HEALTH THERAPIST FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 110.62,
+          "x1": 320.16,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Behavioral Health Services \u2014 1 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "MENTAL HEALTH THERAPIST 3 - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 110.62,
+          "x1": 320.16,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Mental Health Therapist I\u2013III"
+    "unit": "Mental Health Therapist I\u2013III",
+    "min": 64230,
+    "max": 106912,
+    "fte": 47.0,
+    "estMid": 4021846,
+    "estMax": 5024864,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act"
+    ]
   },
   "pay.staff.3": {
     "type": "derived",
     "label": "Deputy Sheriff",
     "value": 43.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 31.0,
+        "query": "31.00",
+        "label": "Sheriff-Coroner \u2014 31 FTE",
+        "unit": "Sheriff-Coroner",
+        "line": "DEPUTY SHERIFF",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 331.56,
+          "top": 473.97,
+          "x1": 351.6,
+          "bottom": 482.85,
+          "query": "31.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 8.0,
+        "query": "8.00",
+        "label": "Live Oak Contract \u2014 8 FTE",
+        "unit": "Live Oak Contract",
+        "line": "DEPUTY SHERIFF",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 336.0,
+          "top": 348.57,
+          "x1": 351.6,
+          "bottom": 357.45,
+          "query": "8.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 2.0,
+        "query": "2.00",
+        "label": "Sheriff Boat Patrol \u2014 2 FTE",
+        "unit": "Sheriff Boat Patrol",
+        "line": "DEPUTY SHERIFF",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 336.0,
+          "top": 277.77,
+          "x1": 351.6,
+          "bottom": 286.65,
+          "query": "2.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Sheriff-Communications \u2014 1 FTE",
+        "unit": "Sheriff-Communications",
+        "line": "DEPUTY SHERIFF",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 335.64,
+          "top": 126.81,
+          "x1": 351.24,
+          "bottom": 135.69,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 13,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Sheriff'S Court Bailiffs \u2014 1 FTE",
+        "unit": "Sheriff'S Court Bailiffs",
+        "line": "DEPUTY SHERIFF",
+        "metric": "fte",
+        "hit": {
+          "page": 13,
+          "x0": 335.64,
+          "top": 126.81,
+          "x1": 351.24,
+          "bottom": 135.69,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Deputy Sheriff"
+    "unit": "Deputy Sheriff",
+    "min": 71406,
+    "max": 102752,
+    "fte": 43.0,
+    "estMid": 3744406,
+    "estMax": 4418336,
+    "units": [
+      "Sheriff-Communications",
+      "Sheriff'S Court Bailiffs",
+      "Sheriff-Coroner",
+      "Sheriff Boat Patrol",
+      "Live Oak Contract"
+    ]
   },
   "pay.staff.4": {
     "type": "derived",
     "label": "Intervention Counselor I\u2013II",
     "value": 37.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 15.5,
+        "query": "15.50",
+        "label": "Behavioral Health Services \u2014 15.5 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "INTERVENTION COUNSELOR FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 386.4,
+          "top": 419.62,
+          "x1": 404.76,
+          "bottom": 427.78,
+          "query": "15.50",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 15.5,
+        "query": "15.50",
+        "label": "Mental Health Services Act \u2014 15.5 FTE",
+        "unit": "Mental Health Services Act",
+        "line": "INTERVENTION COUNSELOR FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 386.4,
+          "top": 419.62,
+          "x1": 404.76,
+          "bottom": 427.78,
+          "query": "15.50",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 12,
+        "value": 4.0,
+        "query": "4.00",
+        "label": "Probation \u2014 4 FTE",
+        "unit": "Probation",
+        "line": "INTERVENTION COUNSELOR FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 12,
+          "x0": 334.32,
+          "top": 146.95,
+          "x1": 351.42,
+          "bottom": 156.67,
+          "query": "4.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 2.0,
+        "query": "2",
+        "label": "Behavioral Health Services \u2014 2 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "INTERVENTION COUNSELOR FLEX 1-2 - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 203.4,
+          "top": 110.62,
+          "x1": 207.48,
+          "bottom": 118.78,
+          "query": "2",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Intervention Counselor I\u2013II"
+    "unit": "Intervention Counselor I\u2013II",
+    "min": 51688,
+    "max": 79144,
+    "fte": 37.0,
+    "estMid": 2420392,
+    "estMax": 2928328,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act",
+      "Probation"
+    ]
   },
   "pay.staff.5": {
     "type": "derived",
     "label": "Office Assistant I\u2013III",
     "value": 36.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 22.0,
+        "query": "22.00",
+        "label": "Welfare Administration \u2014 22 FTE",
+        "unit": "Welfare Administration",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 301.8,
+          "top": 367.06,
+          "x1": 320.16,
+          "bottom": 375.22,
+          "query": "22.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 3.0,
+        "query": "3",
+        "label": "Public Health \u2014 3 FTE",
+        "unit": "Public Health",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 212.54,
+          "top": 507.1,
+          "x1": 216.62,
+          "bottom": 515.26,
+          "query": "3",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 3.0,
+        "query": "3",
+        "label": "Probation \u2014 3 FTE",
+        "unit": "Probation",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 215.4,
+          "top": 117.22,
+          "x1": 219.48,
+          "bottom": 125.38,
+          "query": "3",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 3,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Bi-County Farm Advisor \u2014 1 FTE",
+        "unit": "Bi-County Farm Advisor",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 3,
+          "x0": 358.56,
+          "top": 119.85,
+          "x1": 376.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 7,
+        "value": 1.0,
+        "query": "1.000",
+        "label": "Human Resources \u2014 1 FTE",
+        "unit": "Human Resources",
+        "line": "OFFICE ASSISTANT - CON",
+        "metric": "fte",
+        "hit": {
+          "page": 7,
+          "x0": 311.76,
+          "top": 341.09,
+          "x1": 331.62,
+          "bottom": 349.85,
+          "query": "1.000",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 7,
+        "value": 1.0,
+        "query": "1.000",
+        "label": "General Services Department \u2014 1 FTE",
+        "unit": "General Services Department",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 7,
+          "x0": 311.76,
+          "top": 341.09,
+          "x1": 331.62,
+          "bottom": 349.85,
+          "query": "1.000",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 8,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Health & Human Services Admin. \u2014 1 FTE",
+        "unit": "Health & Human Services Admin.",
+        "line": "OFFICE ASSISTANT FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 8,
+          "x0": 355.56,
+          "top": 119.85,
+          "x1": 373.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Public Health \u2014 1 FTE",
+        "unit": "Public Health",
+        "line": "OFFICE ASSISTANT FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 110.62,
+          "x1": 320.16,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Public Guardian \u2014 1 FTE",
+        "unit": "Public Guardian",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 305.88,
+          "top": 107.5,
+          "x1": 320.16,
+          "bottom": 115.66,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Child Support Services \u2014 1 FTE",
+        "unit": "Child Support Services",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 305.88,
+          "top": 107.5,
+          "x1": 320.16,
+          "bottom": 115.66,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 12,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Victim Services \u2014 1 FTE",
+        "unit": "Victim Services",
+        "line": "OFFICE ASST 3/LEGAL SEC 3",
+        "metric": "fte",
+        "hit": {
+          "page": 12,
+          "x0": 336.0,
+          "top": 114.33,
+          "x1": 351.6,
+          "bottom": 123.21,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 7,
+        "value": 0.0,
+        "query": "0.000",
+        "label": "Animal Control \u2014 0 FTE",
+        "unit": "Animal Control",
+        "line": "OFFICE ASSISTANT",
+        "metric": "fte",
+        "hit": {
+          "page": 7,
+          "x0": 353.16,
+          "top": 198.27,
+          "x1": 374.69,
+          "bottom": 207.75,
+          "query": "0.000",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Office Assistant I\u2013III"
+    "unit": "Office Assistant I\u2013III",
+    "min": 35880,
+    "max": 61173,
+    "fte": 36.0,
+    "estMid": 1746950,
+    "estMax": 2202221,
+    "units": [
+      "Bi-County Farm Advisor",
+      "Human Resources",
+      "Animal Control",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Public Health"
+    ]
   },
   "pay.staff.6": {
-    "type": "printed",
+    "type": "derived",
     "label": "Mental Health Worker I\u2013II",
     "value": 28.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
-    "page": 4,
-    "query": "28.00",
-    "hit": {
-      "page": 4,
-      "x0": 293.88,
-      "top": 605.79,
-      "x1": 313.92,
-      "bottom": 614.67,
-      "query": "28.00",
-      "pageW": 611.9997999999999,
-      "pageH": 791.9997999999999
-    },
-    "children": [],
+    "page": null,
+    "query": null,
+    "hit": null,
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 21.0,
+        "query": "21.00",
+        "label": "Behavioral Health Services \u2014 21 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "MENTAL HEALTH WORKER FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 301.8,
+          "top": 516.82,
+          "x1": 320.16,
+          "bottom": 524.98,
+          "query": "21.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 5.0,
+        "query": "5.00",
+        "label": "Mental Health Services Act \u2014 5 FTE",
+        "unit": "Mental Health Services Act",
+        "line": "MENTAL HEALTH WORKER FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 181.78,
+          "x1": 320.16,
+          "bottom": 189.94,
+          "query": "5.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 2.0,
+        "query": "2",
+        "label": "Behavioral Health Services \u2014 2 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "MENTAL HEALTH WORKER LT",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 203.4,
+          "top": 110.62,
+          "x1": 207.48,
+          "bottom": 118.78,
+          "query": "2",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Mental Health Worker I\u2013II"
+    "unit": "Mental Health Worker I\u2013II",
+    "min": 43326,
+    "max": 68286,
+    "fte": 28.0,
+    "estMid": 1562579,
+    "estMax": 1912019,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act"
+    ]
   },
   "pay.staff.7": {
-    "type": "printed",
+    "type": "derived",
     "label": "Staff Analyst",
     "value": 27.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
-    "page": 8,
-    "query": "27.00",
-    "hit": {
-      "page": 8,
-      "x0": 347.88,
-      "top": 405.26,
-      "x1": 372.72,
-      "bottom": 416.3,
-      "query": "27.00",
-      "pageW": 611.9997999999999,
-      "pageH": 791.9997999999999
-    },
-    "children": [],
+    "page": null,
+    "query": null,
+    "hit": null,
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 8.25,
+        "query": "8.25",
+        "label": "Welfare Administration \u2014 8.25 FTE",
+        "unit": "Welfare Administration",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 390.48,
+          "top": 493.42,
+          "x1": 404.76,
+          "bottom": 501.58,
+          "query": "8.25",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 3.75,
+        "query": "3.75",
+        "label": "Behavioral Health Services \u2014 3.75 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 305.88,
+          "top": 97.78,
+          "x1": 320.16,
+          "bottom": 105.94,
+          "query": "3.75",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 3.5,
+        "query": "3.50",
+        "label": "Public Health \u2014 3.5 FTE",
+        "unit": "Public Health",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 305.88,
+          "top": 593.14,
+          "x1": 320.16,
+          "bottom": 601.3,
+          "query": "3.50",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 2.5,
+        "query": "2.50",
+        "label": "Mental Health Services Act \u2014 2.5 FTE",
+        "unit": "Mental Health Services Act",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 555.7,
+          "x1": 320.16,
+          "bottom": 563.86,
+          "query": "2.50",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 8,
+        "value": 2.0,
+        "query": "2.00",
+        "label": "Health & Human Services Admin. \u2014 2 FTE",
+        "unit": "Health & Human Services Admin.",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 8,
+          "x0": 462.96,
+          "top": 283.41,
+          "x1": 480.6,
+          "bottom": 293.49,
+          "query": "2.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 2.0,
+        "query": "2.00",
+        "label": "Welfare Administration \u2014 2 FTE",
+        "unit": "Welfare Administration",
+        "line": "STAFF ANALYST - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 390.48,
+          "top": 233.27,
+          "x1": 404.76,
+          "bottom": 241.43,
+          "query": "2.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 3,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Agricultural Commissioner \u2014 1 FTE",
+        "unit": "Agricultural Commissioner",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 3,
+          "x0": 358.56,
+          "top": 119.85,
+          "x1": 376.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 3,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Development Services Admin \u2014 1 FTE",
+        "unit": "Development Services Admin",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 3,
+          "x0": 358.56,
+          "top": 119.85,
+          "x1": 376.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 4,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Emergency Services \u2014 1 FTE",
+        "unit": "Emergency Services",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 4,
+          "x0": 300.12,
+          "top": 110.62,
+          "x1": 314.4,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 8,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "General Services Department \u2014 1 FTE",
+        "unit": "General Services Department",
+        "line": "STAFF ANALYST",
+        "metric": "fte",
+        "hit": {
+          "page": 8,
+          "x0": 355.56,
+          "top": 119.85,
+          "x1": 373.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Behavioral Health Services \u2014 1 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "STAFF ANALYST - LT",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 110.62,
+          "x1": 320.16,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Staff Analyst"
+    "unit": "Staff Analyst",
+    "min": 70087,
+    "max": 95173,
+    "fte": 27.0,
+    "estMid": 2231012,
+    "estMax": 2569684,
+    "units": [
+      "Agricultural Commissioner",
+      "Development Services Admin",
+      "Emergency Services",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Behavioral Health Services"
+    ]
   },
   "pay.staff.8": {
-    "type": "printed",
+    "type": "derived",
     "label": "Social Worker I - Children's Services",
     "value": 26.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
-    "page": 11,
-    "query": "26.00",
-    "hit": {
-      "page": 11,
-      "x0": 301.8,
-      "top": 444.82,
-      "x1": 320.16,
-      "bottom": 452.98,
-      "query": "26.00",
-      "pageW": 611.9997999999999,
-      "pageH": 791.9997999999999
-    },
-    "children": [],
+    "page": null,
+    "query": null,
+    "hit": null,
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 11,
+        "value": 26.0,
+        "query": "26.00",
+        "label": "Welfare Administration \u2014 26 FTE",
+        "unit": "Welfare Administration",
+        "line": "SOCIAL WORKER CHILD SERVICES",
+        "metric": "fte",
+        "hit": {
+          "page": 11,
+          "x0": 301.8,
+          "top": 444.82,
+          "x1": 320.16,
+          "bottom": 452.98,
+          "query": "26.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Social Worker I - Children's Services"
+    "unit": "Social Worker I - Children's Services",
+    "min": 51688,
+    "max": 71074,
+    "fte": 26.0,
+    "estMid": 1595901,
+    "estMax": 1847914,
+    "units": [
+      "Welfare Administration"
+    ]
   },
   "pay.staff.9": {
     "type": "derived",
     "label": "Accounting Technician I",
     "value": 25.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 5.0,
+        "query": "5.00",
+        "label": "Behavioral Health Services \u2014 5 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "ACCOUNTING TECHNICIAN FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 181.78,
+          "x1": 320.16,
+          "bottom": 189.94,
+          "query": "5.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 10,
+        "value": 5.0,
+        "query": "5.00",
+        "label": "Welfare Administration \u2014 5 FTE",
+        "unit": "Welfare Administration",
+        "line": "ACCOUNTING TECHNICIAN FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 10,
+          "x0": 305.88,
+          "top": 222.1,
+          "x1": 320.16,
+          "bottom": 230.26,
+          "query": "5.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 4,
+        "value": 2.0,
+        "query": "2.00",
+        "label": "Development Services Admin \u2014 2 FTE",
+        "unit": "Development Services Admin",
+        "line": "ACCOUNTING TECHNICIAN FLEX 1-2",
+        "metric": "fte",
+        "hit": {
+          "page": 4,
+          "x0": 384.71,
+          "top": 120.58,
+          "x1": 398.99,
+          "bottom": 128.74,
+          "query": "2.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 4,
+        "value": 2.0,
+        "query": "2.00",
+        "label": "Auditor-Controller \u2014 2 FTE",
+        "unit": "Auditor-Controller",
+        "line": "ACCOUNTING TECHNICIAN",
+        "metric": "fte",
+        "hit": {
+          "page": 4,
+          "x0": 384.71,
+          "top": 120.58,
+          "x1": 398.99,
+          "bottom": 128.74,
+          "query": "2.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 7,
+        "value": 1.0,
+        "query": "1.000",
+        "label": "General Services Department \u2014 1 FTE",
+        "unit": "General Services Department",
+        "line": "ACCOUNTING TECHNICIAN",
+        "metric": "fte",
+        "hit": {
+          "page": 7,
+          "x0": 311.76,
+          "top": 341.09,
+          "x1": 331.62,
+          "bottom": 349.85,
+          "query": "1.000",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 8,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Health & Human Services Admin. \u2014 1 FTE",
+        "unit": "Health & Human Services Admin.",
+        "line": "ACCOUNTING TECHNICIAN 2",
+        "metric": "fte",
+        "hit": {
+          "page": 8,
+          "x0": 355.56,
+          "top": 119.85,
+          "x1": 373.2,
+          "bottom": 129.93,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Accounting Technician I"
+    "unit": "Accounting Technician I",
+    "min": 44554,
+    "max": 61693,
+    "fte": 25.0,
+    "estMid": 1328080,
+    "estMax": 1542320,
+    "units": [
+      "Development Services Admin",
+      "Auditor-Controller",
+      "Treasurer-Tax Collector",
+      "General Services Department",
+      "Health & Human Services Admin.",
+      "Behavioral Health Services"
+    ]
   },
   "pay.staff.10": {
-    "type": "printed",
+    "type": "derived",
     "label": "Deputy Probation Officer I\u2013II",
     "value": 23.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
-    "page": 12,
-    "query": "23.00",
-    "hit": {
-      "page": 12,
-      "x0": 331.56,
-      "top": 571.29,
-      "x1": 351.6,
-      "bottom": 580.17,
-      "query": "23.00",
-      "pageW": 611.9997999999999,
-      "pageH": 791.9997999999999
-    },
-    "children": [],
+    "page": null,
+    "query": null,
+    "hit": null,
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 12,
+        "value": 23.0,
+        "query": "23.00",
+        "label": "Probation \u2014 23 FTE",
+        "unit": "Probation",
+        "line": "DEPUTY PROBATION OFFICER FLEX 1-S",
+        "metric": "fte",
+        "hit": {
+          "page": 12,
+          "x0": 331.56,
+          "top": 571.29,
+          "x1": 351.6,
+          "bottom": 580.17,
+          "query": "23.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Deputy Probation Officer I\u2013II"
+    "unit": "Deputy Probation Officer I\u2013II",
+    "min": 56950,
+    "max": 89253,
+    "fte": 23.0,
+    "estMid": 1681337,
+    "estMax": 2052814,
+    "units": [
+      "Probation"
+    ]
   },
   "pay.staff.11": {
     "type": "derived",
     "label": "Psychiatric Licensed Vocational Nurse",
     "value": 18.0,
-    "formula": "Authorized FTE in the FY 2025-26 Position Allocation Schedule.",
+    "formula": "Sum of authorized FTE for this classification in the FY 2025-26 Position Allocation Schedule.",
     "book": "FY 2025-26 Positions",
     "page": null,
     "query": null,
     "hit": null,
-    "children": [],
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 17.0,
+        "query": "17.00",
+        "label": "Behavioral Health Services \u2014 17 FTE",
+        "unit": "Behavioral Health Services",
+        "line": "PSYCHIATRIC LVN/TECHNICIAN",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 301.8,
+          "top": 594.58,
+          "x1": 320.16,
+          "bottom": 602.74,
+          "query": "17.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      },
+      {
+        "type": "printed",
+        "book": "FY 2025-26 Positions",
+        "page": 9,
+        "value": 1.0,
+        "query": "1.00",
+        "label": "Mental Health Services Act \u2014 1 FTE",
+        "unit": "Mental Health Services Act",
+        "line": "PSYCHIATRIC LVN/TECHNICIAN",
+        "metric": "fte",
+        "hit": {
+          "page": 9,
+          "x0": 305.88,
+          "top": 110.62,
+          "x1": 320.16,
+          "bottom": 118.78,
+          "query": "1.00",
+          "pageW": 611.9997999999999,
+          "pageH": 791.9997999999999
+        }
+      }
+    ],
     "metric": "pay",
-    "unit": "Psychiatric Licensed Vocational Nurse"
+    "unit": "Psychiatric Licensed Vocational Nurse",
+    "min": 60362,
+    "max": 82826,
+    "fte": 18.0,
+    "estMid": 1288685,
+    "estMax": 1490861,
+    "units": [
+      "Behavioral Health Services",
+      "Mental Health Services Act"
+    ]
   },
   "contract.0.0": {
     "type": "printed",
