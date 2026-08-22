@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Sutter County Budget</title>
+<title>Sutter County Budget Analysis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
@@ -898,43 +898,45 @@
   <header class="masthead">
     <hr class="rule" />
     <div class="overline">Sutter County, California</div>
-    <h1 id="sec-home">How the county budget works</h1>
+    <h1 id="sec-home">Sutter County Budget Analysis</h1>
     <p class="lede">
-      A plain-language look at Sutter County’s published budget books: where the money
-      comes from, where it goes, who is on the payroll, and how to read a planned number
-      versus a closed-year result.
+      Figures from the county’s published budget books: governmental-fund revenue and
+      expenditures, adopted plans against closed-year results, functional and object
+      classifications, budget units, authorized positions, and printed line items.
     </p>
     <div class="meta-row" id="metaRow"></div>
     <nav class="toc">
-      <a href="#sec-trend">Revenue and spending</a>
-      <a href="#sec-function">By function</a>
-      <a href="#sec-units">Departments</a>
-      <a href="#sec-pay">Jobs and pay</a>
+      <a href="#sec-trend">Closed-year results</a>
+      <a href="#sec-ava">Adopted and actual</a>
+      <a href="#sec-function">Spending by function</a>
+      <a href="#sec-cats">Sources and objects</a>
+      <a href="#sec-units">Budget units</a>
+      <a href="#sec-pay">Positions and pay</a>
       <a href="#sec-contracts">Contracts and aid</a>
-      <a href="#sec-explorer">Look up a line</a>
+      <a href="#sec-explorer">Line-item search</a>
     </nav>
   </header>
 
   <div class="kpis" id="kpis"></div>
 
   <section id="sec-trend">
-    <div class="sec-head"><span class="sec-num">1</span><h2>Revenue and spending</h2></div>
-    <p class="sec-q">Closed-year actuals for governmental funds. A budget is a plan. These
-      lines are what the books later said actually came in and went out.</p>
+    <div class="sec-head"><span class="sec-num">1</span><h2>Closed-year results</h2></div>
+    <p class="sec-q">Governmental-fund totals as later printed in the adopted books.
+      These are closed-year actuals, not the original adopted plan.</p>
     <div class="card">
-      <h3>All governmental funds: actual revenue vs actual spending</h3>
-        <p class="note">Governmental funds. Tap a year for the exact figures.</p>
+      <h3>Revenue and expenditures</h3>
+        <p class="note">Select a year for the printed totals.</p>
       <div class="chart-box"><canvas id="chTrend"></canvas></div>
     </div>
     <div class="grid halves" style="margin-top:16px">
       <div class="card">
-        <h3>Annual surplus (actuals)</h3>
-        <p class="note">Revenue minus spending for that year.</p>
+        <h3>Annual surplus or deficit</h3>
+        <p class="note">Closed-year revenue less expenditures.</p>
         <div class="chart-box short"><canvas id="chSurplus"></canvas></div>
       </div>
       <div class="card">
-        <h3>Inflation check: spending in FY 2024-25 dollars</h3>
-        <p class="note">Same spending, adjusted for inflation (FY 2024-25 dollars).</p>
+        <h3>Inflation-adjusted spending</h3>
+        <p class="note">The same expenditures restated in FY 2024-25 dollars using CPI-U.</p>
         <div class="chart-box short"><canvas id="chInflation"></canvas></div>
       </div>
     </div>
@@ -942,37 +944,37 @@
   </section>
 
   <section id="sec-ava">
-    <div class="sec-head"><span class="sec-num">2</span><h2>The plan versus the result</h2></div>
-    <p class="sec-q">Adopted budgets are what the Board approved. Actuals are what closed.
-      Counties often adopt a tight plan and finish differently.</p>
+    <div class="sec-head"><span class="sec-num">2</span><h2>Adopted and actual</h2></div>
+    <p class="sec-q">Board-adopted appropriations compared with the actuals printed after
+      each year closed.</p>
     <div class="grid halves">
       <div class="card">
-        <h3>Adopted appropriations vs actual spending</h3>
-        <p class="note">Years where an adopted book is posted on the county archive and later actuals exist.</p>
+        <h3>Appropriations and actual spending</h3>
+        <p class="note">Years with both a posted adopted book and later closed actuals.</p>
         <div class="chart-box short"><canvas id="chAva"></canvas></div>
       </div>
       <div class="card">
-        <h3>Planned surplus vs actual surplus</h3>
-        <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis. They are not missing. Click the light stub (or beside it) for the plan; click the green bar for the actual. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
+        <h3>Planned and actual surplus</h3>
+        <p class="note">Most adopted plans are near zero, so the light bars sit on the axis. Select the light stub for the plan and the green bar for the result. FY 2022-23 is omitted because no adopted book is paired with later actuals.</p>
         <div class="chart-box short"><canvas id="chBva"></canvas></div>
       </div>
     </div>
   </section>
 
   <section id="sec-function">
-    <div class="sec-head"><span class="sec-num">3</span><h2>Where the money goes</h2></div>
-    <p class="sec-q">Spending grouped the way California counties report it: public protection,
-      health, public assistance, roads, and general government.</p>
+    <div class="sec-head"><span class="sec-num">3</span><h2>Spending by function</h2></div>
+    <p class="sec-q">Expenditures classified under California’s county reporting categories:
+      public protection, health, public assistance, roads, and general government.</p>
     <div class="grid two">
       <div class="card">
-        <h3>Function composition over time <span class="yr-badge">FY 16-17 – FY 24-25</span></h3>
-        <p class="note">Stacked actual spending. The drop in “Other” after FY 2022-23 is a reclassification into named functions.</p>
+        <h3>Composition by year <span class="yr-badge">FY 16-17 – FY 24-25</span></h3>
+        <p class="note">Stacked closed-year expenditures. After FY 2022-23, amounts previously labeled “Other” were reclassified into named functions.</p>
         <div class="series-toggles" id="funcSeriesToggles"></div>
         <div class="chart-box"><canvas id="chFuncTrend"></canvas></div>
       </div>
       <div class="card">
-        <h3>Share of spending</h3>
-        <p class="note">Percent of governmental-fund spending that year. The stacked chart is every year at once.</p>
+        <h3>Share of the year’s total</h3>
+        <p class="note">Each year’s mix as a percentage of governmental-fund spending. The stacked chart shows every year together.</p>
         <div class="year-tabs" id="funcYearTabs"></div>
         <div class="chart-box"><canvas id="chByFunc"></canvas></div>
       </div>
@@ -980,87 +982,87 @@
   </section>
 
   <section id="sec-cats">
-    <div class="sec-head"><span class="sec-num">4</span><h2>Kinds of money</h2></div>
-    <p class="sec-q">Revenue by source, and spending by object. A large share of county financing
-      is state and federal aid, or money moving between funds, not local taxes.</p>
+    <div class="sec-head"><span class="sec-num">4</span><h2>Sources and objects</h2></div>
+    <p class="sec-q">Receipts classified by source and outlays by object. Intergovernmental
+      aid and interfund transfers account for a large share of financing.</p>
     <div class="grid halves">
       <div class="card">
-        <h3>Revenue by source <span class="yr-badge">actuals, consistent window</span></h3>
-        <p class="note">FY 2018-19 – FY 2023-24, after the county’s classification change. Intergovernmental aid is the largest external source.</p>
+        <h3>Revenue by source <span class="yr-badge">FY 18-19 – FY 23-24</span></h3>
+        <p class="note">After the county’s classification change. Intergovernmental aid is the largest external source.</p>
         <div class="series-toggles" id="revMixSeriesToggles"></div>
         <div class="chart-box"><canvas id="chRevMix"></canvas></div>
       </div>
       <div class="card">
-        <h3>Spending by object <span class="yr-badge">actuals, same window</span></h3>
-        <p class="note">Salaries &amp; benefits grew from $98.6M to $120.3M (+22%). Capital jumped in FY 2022-23 and FY 2023-24, then receded.</p>
+        <h3>Expenditures by object <span class="yr-badge">FY 18-19 – FY 23-24</span></h3>
+        <p class="note">Salaries and benefits rose from $98.6M to $120.3M (+22%). Capital outlay increased in FY 2022-23 and FY 2023-24, then receded.</p>
         <div class="series-toggles" id="expMixSeriesToggles"></div>
         <div class="chart-box"><canvas id="chExpMix"></canvas></div>
       </div>
     </div>
     <div class="year-tabs-bar" style="margin-top:18px">
-      <span class="year-tabs-kicker">One year at a time</span>
+      <span class="year-tabs-kicker">Selected year</span>
       <div class="year-tabs" id="catYearTabs"></div>
     </div>
     <div class="grid halves">
       <div class="card">
-        <h3>Revenue sources</h3>
-        <p class="note" id="revCatNote">Object labels are stable in this window. Intergovernmental aid is the largest external source.</p>
+        <h3>Revenue mix, selected year</h3>
+        <p class="note" id="revCatNote">Account labels are consistent across this window. Intergovernmental aid is the largest external source.</p>
         <div class="chart-box short"><canvas id="chRevCat"></canvas></div>
       </div>
       <div class="card">
-        <h3>Spending objects</h3>
-        <p class="note" id="expCatNote">Transfers sit next to salaries because restricted funds move money between units.</p>
+        <h3>Expenditure mix, selected year</h3>
+        <p class="note" id="expCatNote">Transfers appear beside salaries because restricted funds move money between units.</p>
         <div class="chart-box short"><canvas id="chExpCat"></canvas></div>
       </div>
     </div>
   </section>
 
   <section id="sec-units">
-    <div class="sec-head"><span class="sec-num">5</span><h2>Departments</h2></div>
-    <p class="sec-q">Biggest budget units by spending. Net county cost is what is left after
-      that unit’s own program revenue. That is a better read of local-dollar burden than the
-      headline total.</p>
+    <div class="sec-head"><span class="sec-num">5</span><h2>Budget units</h2></div>
+    <p class="sec-q">Units ranked by closed-year spending. Net county cost is expenditures
+      less the unit’s own program revenue, a closer measure of local-dollar burden than
+      the headline total.</p>
     <div class="card">
-      <h3>Largest units by actual spending</h3>
-      <p class="note">Governmental funds. Ranking changes by year. A unit can be huge one year and off this list the next.</p>
+      <h3>Largest units by expenditure</h3>
+      <p class="note">Rankings change from year to year. A unit can lead one list and drop off the next.</p>
       <div class="year-tabs" id="unitYearTabs"></div>
       <div class="chart-box tall"><canvas id="chUnits"></canvas></div>
     </div>
     <div class="card" style="margin-top:16px">
-      <h3>Department and fund detail</h3>
+      <h3>Unit detail</h3>
       <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Each underlined year is a separate source: FY 16-17, FY 20-21, and FY 24-25 open different books.</p>
       <div id="deptTable"></div>
     </div>
   </section>
 
   <section id="sec-pay">
-    <div class="sec-head"><span class="sec-num">6</span><h2>Jobs and pay</h2></div>
+    <div class="sec-head"><span class="sec-num">6</span><h2>Positions and pay</h2></div>
     <p class="sec-q">Posted salary ranges and authorized positions (<span id="payCensus">1,120.5 FTE, 385 job titles</span>).
-      Class cost is midpoint × seats. Benefits and overtime sit on top of that.</p>
+      Estimated class cost is the range midpoint times authorized seats and excludes benefits and overtime.</p>
     <div class="year-tabs-bar">
-      <span class="year-tabs-kicker">Position book</span>
+      <span class="year-tabs-kicker">Position allocation</span>
       <div class="year-tabs" id="payYearTabs"></div>
     </div>
     <div class="grid two">
       <div class="card">
         <h3>Highest posted salary ranges</h3>
-        <p class="note" id="payHighNote">Range for one seat. The number in parentheses is how many seats are authorized.</p>
+        <p class="note" id="payHighNote">Posted range for a single seat. Authorized seats appear in parentheses.</p>
         <div class="chart-box tall"><canvas id="chPay"></canvas></div>
       </div>
       <div class="card">
-        <h3>Costliest classifications <span class="yr-badge" id="payCostBadge">mid-range × FTE</span></h3>
-        <p class="note">Authorized seats × midpoint of the posted range.</p>
+        <h3>Highest estimated class cost <span class="yr-badge" id="payCostBadge">midpoint × FTE</span></h3>
+        <p class="note">Authorized seats times the midpoint of the posted range.</p>
         <div class="chart-box tall"><canvas id="chCostClass"></canvas></div>
       </div>
     </div>
     <div class="card" style="margin-top:16px">
-      <h3>Most authorized positions</h3>
-      <p class="note">Headcount, not dollars. Eligibility workers, jail staff, and clinicians dominate.</p>
+      <h3>Classifications with the most seats</h3>
+      <p class="note">Authorized FTE, not payroll. Eligibility workers, jail staff, and clinicians account for most seats.</p>
       <div class="chart-box short"><canvas id="chStaff"></canvas></div>
     </div>
     <div class="card" style="margin-top:16px">
-      <h3>Job-by-job estimated class payroll</h3>
-      <p class="note">Authorized FTE × midpoint and top of range. Benefits and overtime are not included.</p>
+      <h3>Estimated payroll by classification</h3>
+      <p class="note">Authorized FTE times the midpoint and the top of the range. Benefits and overtime are excluded.</p>
       <div id="payTable"></div>
     </div>
   </section>
@@ -1068,20 +1070,20 @@
   <section id="sec-contracts">
     <div class="sec-head"><span class="sec-num">7</span><h2>Contracts and aid</h2></div>
     <p class="sec-q">Object-level professional services, cash aid, and overtime. Closed-year
-      actuals run through FY 2022-23. Later books do not print these accounts the same way.
-      FY 24-25 rec is the last recommended plan that still does.</p>
+      detail is available through FY 2022-23; later books do not print these accounts the
+      same way. The FY 2024-25 recommended book is the last plan that still does.</p>
     <div class="year-tabs-bar">
-      <span class="year-tabs-kicker">Largest units</span>
+      <span class="year-tabs-kicker">By object group</span>
       <div class="year-tabs" id="contractYearTabs"></div>
     </div>
     <div class="grid halves" id="contractCharts"></div>
   </section>
 
   <section id="sec-explorer">
-    <div class="sec-head"><span class="sec-num">8</span><h2>Look up a line</h2></div>
-    <p class="sec-q">Search lines printed in a source book. One book holds several columns:
-      adopted, recommended, and the last closed year’s actuals. Closed-year actuals print
-      two books later, so FY 2023-24 actuals are in the FY 2025-26 book.</p>
+    <div class="sec-head"><span class="sec-num">8</span><h2>Line-item search</h2></div>
+    <p class="sec-q">Search printed lines in a selected book. Each book includes adopted,
+      recommended, and the last closed year’s actuals. Closed-year actuals appear two
+      books later, so FY 2023-24 actuals are in the FY 2025-26 book.</p>
     <div class="card">
       <div class="explorer-controls">
         <label>Source book
@@ -1429,7 +1431,7 @@
   const K = D.kpis;
   const kpiDefs = [
     { label: "Latest closed year", value: fmtCompact(K.lastActualSpend),
-      sub: fmtCompact(K.lastActualRevenue) + " came in · " + fmtCompact(K.lastActualSurplus) + " left over",
+      sub: fmtCompact(K.lastActualRevenue) + " revenue · " + fmtCompact(K.lastActualSurplus) + " surplus",
       cite: "kpi.lastActualSurplus" },
     { label: "Nine-year net", value: fmtCompact(K.cumulativeSurplus),
       sub: "Sum of closed-year revenue minus spending",
@@ -1437,7 +1439,7 @@
     { label: "This year’s adopted plan", value: fmtCompact(K.adoptedDraw2526),
       sub: "FY 2025-26 planned use of fund balance, not a result yet",
       cite: "kpi.adoptedDraw2526" },
-    { label: "Authorized jobs", value: K.totalFte.toLocaleString(),
+    { label: "Authorized FTE", value: K.totalFte.toLocaleString(),
       sub: K.classifications + " classifications",
       cite: null }
   ];
@@ -1838,7 +1840,7 @@
     if (rn) {
       rn.textContent = fy === "FY2021-22"
         ? "Investment & property is negative this year: a printed mark-to-market, not a missing source."
-        : "Object labels are stable in this window. Intergovernmental aid is the largest external source.";
+        : "Account labels are consistent across this window. Intergovernmental aid is the largest external source.";
     }
   };
   bindYearTabs("catYearTabs", catYears.map(y => catLabels[mixYears.indexOf(y)] || shortYear(y)), startCat, setCatYear);
@@ -2092,8 +2094,8 @@
       const note = document.getElementById("payHighNote");
       if (note) {
         note.textContent = pack.salaryKind === "step-table"
-          ? "This book prints a step table. The range is the first and last annual step. Seats in parentheses."
-          : "Range for one seat. The number in parentheses is how many seats are authorized.";
+          ? "This book prints a step table. The first and last annual steps define the range. Authorized seats appear in parentheses."
+          : "Posted range for a single seat. Authorized seats appear in parentheses.";
       }
       paintPayTable(pack);
       phoneRanks("chPay", hp.labels.map((l, i) => ({
@@ -2153,7 +2155,7 @@
       const wrap = document.createElement("div");
       wrap.className = "card";
       wrap.innerHTML = `<h3>${g.name} <span class="yr-badge" id="contractBadge${i}">${fmtCompact(g.total)}</span></h3>` +
-        `<p class="note">Largest budget units.</p>` +
+        `<p class="note">Units with the largest printed amounts in this object group.</p>` +
         `<div class="chart-box short"><canvas id="${id}"></canvas></div>`;
       host.appendChild(wrap);
       markChart(id);
@@ -2308,7 +2310,7 @@
   {
     const dock = document.querySelector(".m-dock");
     const links = dock ? [...dock.querySelectorAll("a[data-tab]")] : [];
-    const titles = { home: "Sutter County · Budget", mix: "Sutter County · Mix", depts: "Sutter County · Departments", pay: "Sutter County · Pay", search: "Sutter County · Search" };
+    const titles = { home: "Sutter County · Budget", mix: "Sutter County · Composition", depts: "Sutter County · Units", pay: "Sutter County · Positions", search: "Sutter County · Search" };
     const showTab = tab => {
       document.body.classList.add("m-tabs");
       document.body.dataset.tab = tab;
