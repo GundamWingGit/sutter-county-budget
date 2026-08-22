@@ -596,8 +596,9 @@
       that unit’s own program revenue — a better read of local-dollar burden than the
       headline total.</p>
     <div class="card">
-      <h3>Largest units by FY 2024-25 actual spending</h3>
-      <p class="note">Governmental funds. Net county cost is local burden after program revenue; negative means the unit generated more than it spent.</p>
+      <h3>Largest units by actual spending <span class="yr-badge" id="unitsBadge">FY 24-25 actual</span></h3>
+      <p class="note">Governmental funds. Ranking changes by year — a unit can be huge one year and off this list the next.</p>
+      <div class="year-tabs" id="unitYearTabs"></div>
       <div class="chart-box tall"><canvas id="chUnits"></canvas></div>
     </div>
     <div class="card" style="margin-top:16px">
@@ -1189,29 +1190,51 @@
   };
   bindYearTabs("catYearTabs", catYears.map(y => catLabels[mixYears.indexOf(y)] || shortYear(y)), startCat, setCatYear);
 
-  const u = D.topUnits;
+  const uby = D.topUnitsByYear || {};
+  const unitYears = uby.years || [];
+  const unitYearLabs = uby.labels || [];
+  const unitStart = Math.max(0, unitYears.length - 1);
+  const unitPack = yi => (uby.byYear || {})[unitYears[yi]] || D.topUnits || { labels: [], values: [] };
+  const unitAxis = labs => labs.map(l => l.length > 42 ? l.slice(0, 40) + "…" : l);
+  const unitColors = vals => vals.map((_, i) => i < 3 ? NAVY : STEEL);
   markChart("chUnits");
-  new Chart(document.getElementById("chUnits"), {
-    type: "bar",
-    data: {
-      labels: u.labels.map(l => l.length > 42 ? l.slice(0, 40) + "…" : l),
-      datasets: [{ data: u.values, backgroundColor: u.values.map((_, i) => i < 3 ? NAVY : STEEL),
-                   barPercentage: 0.66, borderWidth: 0 }]
-    },
-    options: {
-      indexAxis: "y", maintainAspectRatio: false,
-      onClick: citeClick((_ds, idx) => `dept.${idx}`),
-      scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: "FY 2024-25 actual spending" } },
-                y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: {
-          title: i => u.labels[i[0].dataIndex],
-          label: c => " " + fmtFull(c.parsed.x)
-        } }
+  {
+    const first = unitPack(unitStart);
+    const chUnits = new Chart(document.getElementById("chUnits"), {
+      type: "bar",
+      data: {
+        labels: unitAxis(first.labels),
+        datasets: [{ data: first.values, backgroundColor: unitColors(first.values),
+                     barPercentage: 0.66, borderWidth: 0 }]
+      },
+      options: {
+        indexAxis: "y", maintainAspectRatio: false,
+        onClick: citeClick((_ds, idx) => `topunit.${unitStart}.${idx}`),
+        scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: `${unitYearLabs[unitStart] || ""} actual spending` } },
+                  y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: {
+            title: i => first.labels[i[0].dataIndex],
+            label: c => " " + fmtFull(c.parsed.x)
+          } }
+        }
       }
-    }
-  });
+    });
+    const paintUnits = yi => {
+      const pack = unitPack(yi);
+      chUnits.data.labels = unitAxis(pack.labels);
+      chUnits.data.datasets[0].data = pack.values;
+      chUnits.data.datasets[0].backgroundColor = unitColors(pack.values);
+      chUnits.options.onClick = citeClick((_ds, idx) => `topunit.${yi}.${idx}`);
+      chUnits.options.scales.x.title.text = `${unitYearLabs[yi] || ""} actual spending`;
+      chUnits.options.plugins.tooltip.callbacks.title = i => pack.labels[i[0].dataIndex];
+      chUnits.update();
+      const badge = document.getElementById("unitsBadge");
+      if (badge) badge.textContent = `${unitYearLabs[yi] || ""} actual`;
+    };
+    bindYearTabs("unitYearTabs", unitYearLabs, unitStart, paintUnits);
+  }
 
   document.getElementById("deptTable").innerHTML =
     `<table class="data"><thead><tr>` +
