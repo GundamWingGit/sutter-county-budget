@@ -132,12 +132,7 @@
     const countyWide = !!(currentCite && (currentCite.metric === "revenue" || currentCite.metric === "spend") && currentCite.fy);
     const showBack = (derived || countyWide) && mode !== "compose" && mode !== "empty";
     const back = $("evidenceBack");
-    const pageBack = $("evidencePageBack");
     if (back) back.hidden = !showBack;
-    if (pageBack) {
-      pageBack.hidden = !showBack;
-      pageBack.classList.toggle("on", showBack);
-    }
     const toolbar = document.querySelector("#evidencePanel .evidence-toolbar");
     if (toolbar) toolbar.hidden = mode !== "page";
     document.body.classList.toggle("ev-mode-compose", mode === "compose");
@@ -1646,7 +1641,7 @@
       }
       $("evidencePageLabel").textContent = `p. ${currentPage} of ${currentPdf.numPages}`;
       $("evidenceDocLink").href = viewerUrl(piece.book, currentPage, piece.query || formatQueryFromValue(piece.value));
-      $("evidenceDocLink").textContent = "Open page";
+      $("evidenceDocLink").textContent = "Open";
 
       setPane("page");
       await renderPage(currentPage, {
@@ -1705,7 +1700,7 @@
       clearCanvas();
       $("evidencePageLabel").textContent = "—";
       $("evidenceDocLink").href = "#";
-      $("evidenceDocLink").textContent = "Open page";
+      $("evidenceDocLink").textContent = "Open";
       loadBooks().then(() => {
         if (gen !== openGen) return;
         if (cite.book && books[cite.book]) {
@@ -1774,7 +1769,7 @@
     clearCanvas();
     $("evidencePageLabel").textContent = "—";
     $("evidenceDocLink").href = "#";
-    $("evidenceDocLink").textContent = "Open page";
+    $("evidenceDocLink").textContent = "Open";
     if (cite.book && books[cite.book]) {
       $("evidenceDocLink").href = viewerUrl(cite.book, null, clickedQuery);
       $("evidenceDocLink").textContent = books[cite.book].title || cite.book;
@@ -1939,7 +1934,7 @@
   function syncHighlightButton() {
     const btn = $("evidenceHlToggle");
     if (!btn) return;
-    btn.textContent = highlightOn ? "Hide highlight" : "Show highlight";
+    btn.textContent = highlightOn ? "Highlight on" : "Highlight off";
   }
 
   async function highlightQuery(page, viewport, ctx, query, opts) {
@@ -2386,17 +2381,18 @@
         <p id="evidenceCaption" class="evidence-caption" hidden></p>
         <p id="evidenceMeta" class="evidence-meta"></p>
         <div class="evidence-toolbar" hidden>
-          <button type="button" id="evidencePrev" class="evidence-nav">← Prev</button>
-          <span id="evidencePageLabel" class="evidence-page">—</span>
-          <button type="button" id="evidenceNext" class="evidence-nav">Next →</button>
-          <a id="evidenceDocLink" class="evidence-doc" href="#" target="_blank" rel="noopener">Open page</a>
-          <button type="button" id="evidenceBack" class="evidence-nav" hidden>Breakdown</button>
-          <button type="button" id="evidenceHlToggle" class="evidence-nav">Hide highlight</button>
+          <button type="button" id="evidenceBack" class="evidence-nav evidence-back" hidden>← Back</button>
+          <span class="evidence-pager">
+            <button type="button" id="evidencePrev" class="evidence-nav">Prev</button>
+            <span id="evidencePageLabel" class="evidence-page">—</span>
+            <button type="button" id="evidenceNext" class="evidence-nav">Next</button>
+          </span>
+          <a id="evidenceDocLink" class="evidence-doc" href="#" target="_blank" rel="noopener">Open</a>
+          <button type="button" id="evidenceHlToggle" class="evidence-nav evidence-hl">Highlight on</button>
         </div>
         <p id="evidenceStatus" class="evidence-status"></p>
       </div>
       <div id="evidenceBody" class="evidence-body">
-        <button type="button" id="evidencePageBack" class="evidence-page-back" hidden>← Back to breakdown</button>
         <div id="evidenceLoading" class="evidence-pane-msg">
           <div class="evidence-spinner" aria-hidden="true"></div>
           <p id="evidenceLoadingText">Opening the source book…</p>
@@ -2434,7 +2430,6 @@
     $("evidencePrev").addEventListener("click", () => stepPage(-1));
     $("evidenceNext").addEventListener("click", () => stepPage(1));
     $("evidenceBack").addEventListener("click", showBreakdown);
-    $("evidencePageBack").addEventListener("click", showBreakdown);
     $("evidenceHlToggle").addEventListener("click", () => {
       highlightOn = !highlightOn;
       syncHighlightButton();

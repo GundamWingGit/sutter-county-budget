@@ -341,15 +341,21 @@
   .evidence-caption.warn { color: var(--ink); }
   .evidence-meta { font-size: 12px; color: var(--ink-3); margin: 0 0 8px; }
   .evidence-toolbar {
-    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px;
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px;
   }
   .evidence-toolbar[hidden] { display: none !important; }
+  .evidence-pager {
+    display: flex; align-items: center; gap: 4px;
+  }
   .evidence-nav, .evidence-doc {
     font: 12px var(--sans); font-weight: 600; border: 1px solid var(--line);
     background: #fff; color: var(--navy); padding: 4px 10px; cursor: pointer;
     text-decoration: none;
   }
-  .evidence-page { font-size: 12px; color: var(--ink-3); min-width: 90px; text-align: center; }
+  .evidence-back {
+    background: var(--navy); color: #fff; border-color: var(--navy);
+  }
+  .evidence-page { font-size: 12px; color: var(--ink-3); min-width: 72px; text-align: center; }
   .evidence-status { font-size: 12px; color: var(--ink-3); margin: 0; min-height: 1.2em; }
   .evidence-status.err { color: var(--red); }
   .evidence-body {
@@ -401,15 +407,7 @@
     font-family: var(--serif); font-size: 30px; line-height: 1.1;
     color: var(--navy); margin: 4px 0 14px;
   }
-  .evidence-page-back {
-    display: none; position: absolute; top: 0; left: 0; right: 0; z-index: 5;
-    width: 100%; border: 0; cursor: pointer;
-    background: var(--navy); color: #fff;
-    font: 13px/1.2 var(--sans); font-weight: 650;
-    padding: 10px 12px; text-align: left;
-  }
-  .evidence-page-back.on { display: block; }
-  .evidence-page-back:hover { filter: brightness(1.08); }
+  body.ev-mode-page .evidence-status:not(.err) { display: none; }
   .ec-filter {
     width: 100%; font: 13px var(--sans); border: 1px solid var(--line);
     background: #fff; padding: 7px 8px; margin: 10px 0 8px;
@@ -674,6 +672,7 @@
     body.ev-mode-page #evidenceTitle { font-size: 14px; }
     .evidence-toolbar { gap: 6px; }
     .evidence-nav, .evidence-doc { min-height: 36px; padding: 6px 8px; }
+    .evidence-pager { flex: 1 1 auto; justify-content: center; }
     .ec-mosaic { height: 56px; border-radius: 8px; }
     .ec-mosaic.tall { height: 48px; }
     .ec-slice { pointer-events: none; }
@@ -1113,7 +1112,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=36"></script>
+<script src="js/evidence-panel.js?v=37"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
