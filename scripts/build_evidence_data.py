@@ -412,7 +412,8 @@ def build_line_indexes() -> dict:
                 unit = (r.get("unit_name") or "").strip()
                 code = (r.get("unit_code") or "").strip()
                 line = (r.get("line_name") or "").strip()
-                if not line:
+                # Schedule 9 column indexes (1 2 3 4 5) are not dollar lines.
+                if not line or re.fullmatch(r"\d{1,2}(?:\s+\d{1,2})*", line):
                     continue
                 try:
                     value = float(r["value"])

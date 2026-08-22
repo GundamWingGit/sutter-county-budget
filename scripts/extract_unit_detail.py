@@ -137,8 +137,27 @@ def assign_columns(ws, col_x):
 HEADER_NOISE = re.compile(
     r"^(state controller|county budget act|schedule 9|governmental funds|fiscal year|"
     r"financing uses classification|expenditures$|1 2 3 4|county of sutter|"
-    r"function, activity|estimated board|actual actual|adopted by)", re.I,
+    r"function, activity|estimated board|actual actual|adopted by|"
+    r"\d{1,2}(?:\s+\d{1,2})*)$",
+    re.I,
 )
+
+
+def is_column_number_row(name, vals):
+    """Schedule 9 prints 1 2 3 4 5 under the year headers. Those are column
+    indexes, not dollars. After assign_columns the name is often just '1'
+    and the values are 2,3,4,5 sitting in the money columns."""
+    n = (name or "").strip()
+    if not n:
+        return True
+    if re.fullmatch(r"\d{1,2}(?:\s+\d{1,2})*", n):
+        return True
+    nums = [v for v in (vals or {}).values() if v == int(v) and 1 <= v <= 8]
+    if len(nums) >= 3:
+        seq = sorted(int(v) for v in nums)
+        if seq == list(range(seq[0], seq[-1] + 1)):
+            return True
+    return False
 
 
 def parse_era2_page(page_lines, book_fy):
@@ -170,7 +189,7 @@ def parse_era2_page(page_lines, book_fy):
     rows = []
     for ws in page_lines[hi + 1 :]:
         name, vals = assign_columns(ws, col_x)
-        if not vals or HEADER_NOISE.match(name):
+        if not vals or HEADER_NOISE.match(name) or is_column_number_row(name, vals):
             continue
         acct = ""
         am2 = re.match(r"^(\d{5})\s+(.*)$", name)
@@ -218,7 +237,7 @@ def parse_era3_page(page_lines, book_fy):
     rows = []
     for ws in page_lines[hi + 1 :]:
         name, vals = assign_columns(ws, col_x)
-        if not vals or HEADER_NOISE.match(name):
+        if not vals or HEADER_NOISE.match(name) or is_column_number_row(name, vals):
             continue
         rows.append((unit_code, unit_name, "", fn, act, "", name, vals, cols))
     return rows
@@ -285,7 +304,7 @@ def parse_era3_6col_page(page_lines, book_fy, col_x, context):
                     else:
                         name = (name + " " + frag["text"]).strip()
                     used_frag.add(j)
-        if LOCAL_NOISE.match(name):
+        if LOCAL_NOISE.match(name) or is_column_number_row(name, {}):
             continue
         vals = {}
         for w in ln["nums"]:
@@ -355,6 +374,8 @@ def main():
         def emit(pageno, parsed):
             nonlocal n_rows
             for unit_code, unit_name, fund, fn, act, acct, name, vals, cols in parsed:
+                if is_column_number_row(name, vals):
+                    continue
                 for idx, v in vals.items():
                     if idx < len(cols):
                         fy, kind = cols[idx]
