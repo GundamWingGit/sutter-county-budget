@@ -3,8 +3,8 @@
  *
  * Printed numbers: jump to the page and highlight that same figure.
  * Calculated numbers: explain the math in plain English, list every
- * contributing source, and highlight only the piece the user picked —
- * never a different number pretending to be the one they clicked.
+ * contributing source, and highlight only the piece the user picked.
+ * Never a different number pretending to be the one they clicked.
  */
 (function (global) {
   "use strict";
@@ -32,8 +32,12 @@
 
   function $(id) { return document.getElementById(id); }
 
+  function labelHead(s) {
+    return String(s || "").split("—")[0].split(" · ")[0].trim();
+  }
+
   function fmtFull(v) {
-    if (v == null || Number.isNaN(Number(v))) return "—";
+    if (v == null || Number.isNaN(Number(v))) return "n/a";
     const n = Number(v);
     const sign = n < 0 ? "−" : "";
     return sign + "$" + Math.round(Math.abs(n)).toLocaleString("en-US");
@@ -169,7 +173,7 @@
   }
 
   function fmtFte(v) {
-    if (v == null || Number.isNaN(Number(v))) return "—";
+    if (v == null || Number.isNaN(Number(v))) return "n/a";
     const n = Number(v);
     const s = Math.abs(n % 1) > 0.05 ? n.toFixed(1) : String(Math.round(n));
     return s + " FTE";
@@ -290,7 +294,7 @@
 
     const range = (job.min != null && job.max != null)
       ? fmtFull(job.min) + " – " + fmtFull(job.max)
-      : (job.max != null ? fmtFull(job.max) : (job.min != null ? fmtFull(job.min) : "—"));
+      : (job.max != null ? fmtFull(job.max) : (job.min != null ? fmtFull(job.min) : "n/a"));
     const units = (job.units && job.units.length) ? job.units.join(" · ") : "";
 
     setPane("compose");
@@ -304,15 +308,15 @@
           : "Posted in the " + escapeHtml(cite.year || cite.book || "position") + " salary table (Section J). Authorized FTE is a roster count, not filled headcount."
         }</p>` +
         `<div class="pd-grid">` +
-          `<div class="pd-stat"><span>Authorized FTE</span><b>${fte != null ? fmtFte(fte) : "—"}</b></div>` +
+          `<div class="pd-stat"><span>Authorized FTE</span><b>${fte != null ? fmtFte(fte) : "n/a"}</b></div>` +
           `<div class="pd-stat"><span>Salary range</span><b>${escapeHtml(range)}</b></div>` +
-          `<div class="pd-stat"><span>Est. payroll (mid)</span><b>${job.estMid != null ? fmtShort(job.estMid) : "—"}</b></div>` +
-          `<div class="pd-stat"><span>Est. payroll (max)</span><b>${job.estMax != null ? fmtShort(job.estMax) : "—"}</b></div>` +
+          `<div class="pd-stat"><span>Est. payroll (mid)</span><b>${job.estMid != null ? fmtShort(job.estMid) : "n/a"}</b></div>` +
+          `<div class="pd-stat"><span>Est. payroll (max)</span><b>${job.estMax != null ? fmtShort(job.estMax) : "n/a"}</b></div>` +
         `</div>` +
         (units ? `<p class="pd-units">Where they sit: ${escapeHtml(units)}</p>` : "") +
         `<p class="pd-hint">Payroll estimates are authorized FTE × the printed range. Not a printed class total.</p>` +
         (unitRows.length
-          ? `<div class="pd-section">Printed seats by unit — click to box that FTE</div>` +
+          ? `<div class="pd-section">Printed seats by unit. Click to box that FTE</div>` +
             `<div class="ec-rows">${unitRows.map((s, i) => {
               return `<button type="button" class="ec-row" data-pack="fte" data-i="${i}">` +
                 `<span class="ec-swatch" style="background:var(--navy)"></span>` +
@@ -338,7 +342,7 @@
 
   function fmtShort(v) {
     const n = Number(v);
-    if (Number.isNaN(n)) return "—";
+    if (Number.isNaN(n)) return "n/a";
     const sign = n < 0 ? "−" : "";
     const a = Math.abs(n);
     if (a >= 1e9) return sign + "$" + (a / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
@@ -348,7 +352,7 @@
   }
 
   function shortUnitName(s) {
-    const raw = (s && (s.unit || s.group || (s.label || "").split("—")[0] || s.line)) || "Unit";
+    const raw = (s && (s.unit || s.group || labelHead(s.label) || s.line)) || "Unit";
     return String(raw).replace(/\s+/g, " ").trim();
   }
 
@@ -768,7 +772,7 @@
       : "";
     host.innerHTML =
       `<div class="ec-kicker">${inflation
-        ? "The book prints the nominal figure — this chart point is CPI-adjusted"
+        ? "The book prints the nominal figure. This chart point is CPI-adjusted"
         : slices.length + " printed lines add to"}</div>` +
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
       printedChip +
@@ -1014,7 +1018,7 @@
   function actualsLag(cite) {
     if ((cite.kind || "actual") !== "actual" || !cite.fy || !cite.book) return "";
     const fy = String(cite.fy).replace("FY", "FY ");
-    return ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`;
+    return ` ${fy} actuals are printed in the ${cite.book} book. Closed years appear two books later.`;
   }
 
   function isAbsentCite(cite) {
@@ -1088,9 +1092,9 @@
     const family = citeFamily(cite);
     const lag = actualsLag(cite);
     const eq = cite.formula || null;
-    const fn = cite.function || (String(cite.label || "").split("—")[0] || "").trim();
-    const cat = cite.category || (String(cite.label || "").split("—")[0] || "").trim();
-    const unit = cite.unit || (String(cite.label || "").split("—")[0] || "").trim();
+    const fn = cite.function || labelHead(cite.label);
+    const cat = cite.category || labelHead(cite.label);
+    const unit = cite.unit || labelHead(cite.label);
     const line = cite.line || "this line";
 
     const meanings = {
@@ -1142,11 +1146,11 @@
       },
       "adopted.spend": {
         title: "Adopted spending",
-        body: "Appropriations the Board authorized for that year — the spending plan / ceiling, not what later closed.",
+        body: "Appropriations the Board authorized for that year: the spending plan / ceiling, not what later closed.",
       },
       "adopted.plan": {
         title: "Adopted planned surplus (or draw)",
-        body: "Adopted revenue minus adopted spending — what the Board planned. Most years that is about $0, so the light bar is a sliver on the chart, not a missing year.",
+        body: "Adopted revenue minus adopted spending: what the Board planned. Most years that is about $0, so the light bar is a sliver on the chart, not a missing year.",
         equation: eq,
       },
       "function": {
@@ -1197,16 +1201,16 @@
           (cite.book || "that") +
           " actuals for " +
           String(cite.fy || "that year").replace("FY", "FY ") +
-          ". The table shows $0 because there is no printed line to add — not because the book printed a zero. There is no page to box.",
+          ". The table shows $0 because there is no printed line to add, not because the book printed a zero. There is no page to box.",
       },
       "dept.growth": {
         title: "Unit spending change",
-        body: "FY 2024-25 actual spending minus FY 2016-17 actual spending for this unit, in dollars — not a percent.",
+        body: "FY 2024-25 actual spending minus FY 2016-17 actual spending for this unit, in dollars, not a percent.",
         equation: eq,
       },
       "dept.net24": {
         title: "Net county cost",
-        body: "This unit’s printed Net County Cost: spending minus the unit’s own revenue — the piece the county must cover." + lag,
+        body: "This unit’s printed Net County Cost: spending minus the unit’s own revenue, the piece the county must cover." + lag,
       },
       "dept.revenue": {
         title: "Unit actual revenue",
@@ -1223,7 +1227,7 @@
       },
       "pay.staff": {
         title: "Authorized seats",
-        body: "Budgeted FTE for this classification in the position allocation schedule — not filled headcount.",
+        body: "Budgeted FTE for this classification in the position allocation schedule, not filled headcount.",
       },
       "contract": {
         title: "Contract / professional-services line",
@@ -1232,7 +1236,7 @@
       "printed.line": {
         title: "Printed budget line",
         body: "The boxed figure is " +
-          (unit ? unit + " — " : "") +
+          (unit ? unit + " · " : "") +
           line +
           ", as printed in the source book.",
       },
@@ -1438,7 +1442,7 @@
         unit: r.u,
         unitCode: r.c,
         line: r.l,
-        label: (r.u || r.c || "Unit") + " — " + r.l,
+        label: (r.u || r.c || "Unit") + " · " + r.l,
         fy: r.f,
         kind: r.k,
         group: group || null,
@@ -1498,7 +1502,7 @@
       return units;
     }
 
-    // Cumulative nine-year net: one row per closed year — not every unit in year one.
+    // Cumulative nine-year net: one row per closed year, not every unit in year one.
     // Must run before the surplus test; that label also contains "surplus".
     if (/cumulative/i.test(label)) {
       const out = [];
@@ -1696,9 +1700,9 @@
         unit + " is not in the " + book + " book for " + fy +
           ". $0 means the unit is absent, not a printed zero."
       );
-      showStatus("Nothing to box — this unit is not in that year’s book.");
+      showStatus("Nothing to box. This unit is not in that year’s book.");
       clearCanvas();
-      $("evidencePageLabel").textContent = "—";
+      $("evidencePageLabel").textContent = "n/a";
       $("evidenceDocLink").href = "#";
       $("evidenceDocLink").textContent = "Open";
       loadBooks().then(() => {
@@ -1746,7 +1750,7 @@
 
     // Only open a PDF to box a figure that is printed as that same amount.
     // County-wide revenue/spend always shows the same unit breakdown first.
-    // Calculated totals stay on the breakdown — never a feeder page and a red miss.
+    // Calculated totals stay on the breakdown. Never a feeder page and a red miss.
     if (canHighlightClicked) {
       viewingPiece = {
         ...cite,
@@ -1767,7 +1771,7 @@
         ? "Unit lines below add to this total. Click the county-wide row to box the printed figure."
         : "This total is not a single printed figure. Click a source row to box that row in the book."));
     clearCanvas();
-    $("evidencePageLabel").textContent = "—";
+    $("evidencePageLabel").textContent = "n/a";
     $("evidenceDocLink").href = "#";
     $("evidenceDocLink").textContent = "Open";
     if (cite.book && books[cite.book]) {
@@ -2230,7 +2234,7 @@
   function openLine(book, row) {
     openCitation({
       type: "printed",
-      label: `${row.u || row.c || "Unit"} — ${row.l}`,
+      label: `${row.u || row.c || "Unit"} · ${row.l}`,
       formula: `This number is printed in the ${book} book.`,
       book,
       page: row.p,
@@ -2384,7 +2388,7 @@
           <button type="button" id="evidenceBack" class="evidence-nav evidence-back" hidden>← Back</button>
           <span class="evidence-pager">
             <button type="button" id="evidencePrev" class="evidence-nav">Prev</button>
-            <span id="evidencePageLabel" class="evidence-page">—</span>
+            <span id="evidencePageLabel" class="evidence-page">n/a</span>
             <button type="button" id="evidenceNext" class="evidence-nav">Next</button>
           </span>
           <a id="evidenceDocLink" class="evidence-doc" href="#" target="_blank" rel="noopener">Open</a>

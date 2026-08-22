@@ -177,7 +177,7 @@ def child_from_line(book: str, r: dict, extra=None) -> dict:
         "unit": r.get("u"),
         "unitCode": r.get("c"),
         "line": r.get("l"),
-        "label": f"{r.get('u') or r.get('c')} — {r.get('l')}",
+        "label": f"{r.get('u') or r.get('c')} · {r.get('l')}",
         "fy": r.get("f"),
         "kind": r.get("k"),
     }
@@ -232,7 +232,7 @@ def build_function_cites(cites: dict, analysis: dict) -> None:
                         "query": fmt_query(u["value"]),
                         "unit": u["name"],
                         "unitCode": u["code"],
-                        "label": f"{u['name']} — Total Expenditures",
+                        "label": f"{u['name']} · Total Expenditures",
                         "line": "Total Expenditures",
                         "fy": fy,
                         "kind": "actual",
@@ -241,7 +241,7 @@ def build_function_cites(cites: dict, analysis: dict) -> None:
             first = printable[0] if printable else None
             cites[f"function.{si}.{yi}"] = {
                 "type": "derived",
-                "label": f"{name} — {fy} actual spending",
+                "label": f"{name} · {fy} actual spending",
                 "value": int(round(v)) if v else 0,
                 "formula": (
                     f"{name} spending for {fy} is the sum of every budget unit tagged "
@@ -328,7 +328,7 @@ def build_mix_cites(cites: dict, analysis: dict) -> None:
                     kids = category_children(book, fy, "actual", cat, line_cache[book])
                 cites[f"{prefix}.{si}.{yi}"] = {
                     "type": "derived",
-                    "label": f"{cat} — {fy} actual",
+                    "label": f"{cat} · {fy} actual",
                     "value": int(round(v)) if v else 0,
                     "formula": (
                         f"{cat} is a county-wide category total for {fy}, taken from unit "
@@ -354,7 +354,7 @@ def build_mix_cites(cites: dict, analysis: dict) -> None:
         first = next((k for k in kids if k.get("page")), None)
         cites[f"revcat.{i}"] = {
             "type": "derived",
-            "label": f"{cat} — {snap_fy} actual revenue",
+            "label": f"{cat} · {snap_fy} actual revenue",
             "value": int(round(v)) if v else 0,
             "formula": f"Sum of unit “{cat}” lines in the {book} book, {snap_fy} actual column.",
             "book": book, "page": None,
@@ -367,7 +367,7 @@ def build_mix_cites(cites: dict, analysis: dict) -> None:
         kids = category_children(book, snap_fy, "actual", cat, rows)
         cites[f"expcat.{i}"] = {
             "type": "derived",
-            "label": f"{cat} — {snap_fy} actual spending",
+            "label": f"{cat} · {snap_fy} actual spending",
             "value": int(round(v)) if v else 0,
             "formula": f"Sum of unit “{cat}” lines in the {book} book, {snap_fy} actual column. Click a unit to box that line.",
             "book": book, "page": None,
@@ -586,7 +586,7 @@ def build_pay_cites(cites: dict, budget: dict, books: dict) -> None:
                         "query": (kid_hit or {}).get("query") or (
                             f"{float(fte):.2f}" if fte is not None else None
                         ),
-                        "label": f"{r.get('unitName') or 'Unit'} — {fte:g} FTE",
+                        "label": f"{r.get('unitName') or 'Unit'} · {fte:g} FTE",
                         "unit": r.get("unitName") or "",
                         "line": alloc_title,
                         "metric": "fte",
@@ -667,7 +667,7 @@ def build_contract_cites(cites: dict, budget: dict) -> None:
                         break
             cites[f"contract.{gi}.{ui}"] = {
                 "type": "printed" if hit and hit.get("p") else "derived",
-                "label": f"{g.get('name')} — {name}",
+                "label": f"{g.get('name')} · {name}",
                 "value": val,
                 "formula": (
                     f"Contract / professional-services line for {name} in the {book} book "

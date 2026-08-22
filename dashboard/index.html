@@ -722,7 +722,7 @@
     body.evidence-open .m-dock { display: none !important; }
   }
 
-  /* Phone layout — designed as its own UI, not a squeezed desktop */
+  /* Phone layout: designed as its own UI, not a squeezed desktop */
   @media (max-width: 720px) {
     html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
     body { overflow-x: hidden; }
@@ -922,7 +922,7 @@
     <p class="sec-q">Closed-year actuals for governmental funds. A budget is a plan. These
       lines are what the books later said actually came in and went out.</p>
     <div class="card">
-      <h3>All governmental funds — actual revenue vs actual spending</h3>
+      <h3>All governmental funds: actual revenue vs actual spending</h3>
         <p class="note">Governmental funds. Tap a year for the exact figures.</p>
       <div class="chart-box"><canvas id="chTrend"></canvas></div>
     </div>
@@ -933,7 +933,7 @@
         <div class="chart-box short"><canvas id="chSurplus"></canvas></div>
       </div>
       <div class="card">
-        <h3>Inflation check — spending in FY 2024-25 dollars</h3>
+        <h3>Inflation check: spending in FY 2024-25 dollars</h3>
         <p class="note">Same spending, adjusted for inflation (FY 2024-25 dollars).</p>
         <div class="chart-box short"><canvas id="chInflation"></canvas></div>
       </div>
@@ -953,7 +953,7 @@
       </div>
       <div class="card">
         <h3>Planned surplus vs actual surplus</h3>
-        <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis — they are not missing. Click the light stub (or beside it) for the plan; click the green bar for the actual. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
+        <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis. They are not missing. Click the light stub (or beside it) for the plan; click the green bar for the actual. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
         <div class="chart-box short"><canvas id="chBva"></canvas></div>
       </div>
     </div>
@@ -982,7 +982,7 @@
   <section id="sec-cats">
     <div class="sec-head"><span class="sec-num">4</span><h2>Kinds of money</h2></div>
     <p class="sec-q">Revenue by source, and spending by object. A large share of county financing
-      is state and federal aid, or money moving between funds — not local taxes.</p>
+      is state and federal aid, or money moving between funds, not local taxes.</p>
     <div class="grid halves">
       <div class="card">
         <h3>Revenue by source <span class="yr-badge">actuals, consistent window</span></h3>
@@ -1018,11 +1018,11 @@
   <section id="sec-units">
     <div class="sec-head"><span class="sec-num">5</span><h2>Departments</h2></div>
     <p class="sec-q">Biggest budget units by spending. Net county cost is what is left after
-      that unit’s own program revenue — a better read of local-dollar burden than the
+      that unit’s own program revenue. That is a better read of local-dollar burden than the
       headline total.</p>
     <div class="card">
       <h3>Largest units by actual spending</h3>
-      <p class="note">Governmental funds. Ranking changes by year — a unit can be huge one year and off this list the next.</p>
+      <p class="note">Governmental funds. Ranking changes by year. A unit can be huge one year and off this list the next.</p>
       <div class="year-tabs" id="unitYearTabs"></div>
       <div class="chart-box tall"><canvas id="chUnits"></canvas></div>
     </div>
@@ -1079,7 +1079,7 @@
 
   <section id="sec-explorer">
     <div class="sec-head"><span class="sec-num">8</span><h2>Look up a line</h2></div>
-    <p class="sec-q">Search lines printed in a source book. One book holds several columns —
+    <p class="sec-q">Search lines printed in a source book. One book holds several columns:
       adopted, recommended, and the last closed year’s actuals. Closed-year actuals print
       two books later, so FY 2023-24 actuals are in the FY 2025-26 book.</p>
     <div class="card">
@@ -1112,7 +1112,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=37"></script>
+<script src="js/evidence-panel.js?v=38"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -1435,7 +1435,7 @@
       sub: "Sum of closed-year revenue minus spending",
       cite: "kpi.cumulativeSurplus" },
     { label: "This year’s adopted plan", value: fmtCompact(K.adoptedDraw2526),
-      sub: "FY 2025-26 planned use of fund balance — not a result yet",
+      sub: "FY 2025-26 planned use of fund balance, not a result yet",
       cite: "kpi.adoptedDraw2526" },
     { label: "Authorized jobs", value: K.totalFte.toLocaleString(),
       sub: K.classifications + " classifications",
@@ -1680,7 +1680,7 @@
     chart.options.scales.x.title.text = "Share of spending";
     chart.options.plugins.tooltip.callbacks.label = c => {
       const pct = total ? (c.parsed.x / total * 100).toFixed(1) : "0.0";
-      return ` ${fmtFull(c.parsed.x)} — ${pct}% of total`;
+      return ` ${fmtFull(c.parsed.x)} · ${pct}% of total`;
     };
     const onClick = citeClick((_ds, idx) => {
       const row = rows[idx];
@@ -1717,7 +1717,7 @@
         },
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / first.total * 100).toFixed(1)}% of total` } }
+          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} · ${(c.parsed.x / first.total * 100).toFixed(1)}% of total` } }
         }
       }
     });
@@ -1793,7 +1793,7 @@
         scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11.5 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%` } }
+          tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} · ${(c.parsed.x / total * 100).toFixed(1)}%` } }
         }
       }
     });
@@ -1810,7 +1810,7 @@
     chart.data.labels = pack.labels.map(l => clipLabel(l, 36, 20));
     chart.data.datasets[0].data = pack.values;
     chart.options.plugins.tooltip.callbacks.label = c =>
-      ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%`;
+      ` ${fmtFull(c.parsed.x)} · ${(c.parsed.x / total * 100).toFixed(1)}%`;
     chart.options.onClick = citeClick((_ds, idx) => categoryCite(side, fy, pack.labels[idx]));
     chart.update();
     phoneRanks(chart.canvas.id, pack.labels.map((l, i) => ({
@@ -1837,7 +1837,7 @@
     const rn = document.getElementById("revCatNote");
     if (rn) {
       rn.textContent = fy === "FY2021-22"
-        ? "Investment & property is negative this year — a printed mark-to-market, not a missing source."
+        ? "Investment & property is negative this year: a printed mark-to-market, not a missing source."
         : "Object labels are stable in this window. Intergovernmental aid is the largest external source.";
     }
   };
@@ -1938,7 +1938,7 @@
     const payPack = yi => (pby.byYear || {})[payYears[yi]] || D.pay || {};
     const fteLabel = (name, n) => {
       const short = clipLabel(name, 28, 16);
-      if (!n) return `${short}  (—)`;
+      if (!n) return `${short}  (n/a)`;
       const seats = n % 1 ? n.toFixed(1) : String(n);
       return `${short}  (${seats})`;
     };
@@ -2208,7 +2208,7 @@
       recommended: "recommended",
       actual_estimated: "estimated actual",
       adjusted: "adjusted"
-    }[k] || k || "—");
+    }[k] || k || "n/a");
     const bookTitle = label => {
       const b = (catalog && catalog.books || []).find(x => x.book === label);
       return (b && b.title) || label;
@@ -2243,7 +2243,7 @@
       const figureYears = [...new Set(shown.map(r => prettyFy(r.f)).filter(Boolean))];
       const yearBit = figureYears.length === 1
         ? (kind === "actual"
-          ? ` Those actuals are ${figureYears[0]} — closed years print two books later.`
+          ? ` Those actuals are ${figureYears[0]}. Closed years print two books later.`
           : ` Those ${prettyKind(kind)} figures are ${figureYears[0]}.`)
         : (figureYears.length > 1
           ? ` This book prints ${figureYears.join(", ")} in separate columns.`
@@ -2264,7 +2264,7 @@
         `<th class="num">Value</th><th class="num">Page</th></tr></thead><tbody>` +
         shown.map((r, i) =>
           `<tr class="citeable" data-idx="${i}">` +
-          `<td>${r.u || r.c || "—"}</td>` +
+          `<td>${r.u || r.c || "n/a"}</td>` +
           `<td>${r.l}</td>` +
           `<td>${prettyFy(r.f)}</td>` +
           `<td>${prettyKind(r.k)}</td>` +
@@ -2274,7 +2274,7 @@
         `<div class="mobile-cards">` +
         shown.map((r, i) =>
           `<article class="m-row citeable" data-idx="${i}">` +
-          `<div class="m-row-name">${r.u || r.c || "—"}</div>` +
+          `<div class="m-row-name">${r.u || r.c || "n/a"}</div>` +
           `<div class="m-row-line">${r.l}</div>` +
           `<div class="m-row-main"><span class="m-row-k">${prettyFy(r.f)} · ${prettyKind(r.k)}</span>` +
           `<span class="m-row-v">${fmtCompact(r.v)}</span></div>` +

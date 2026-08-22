@@ -45,7 +45,7 @@
 <body>
   <header>
     <button type="button" id="prev">← Prev</button>
-    <span id="pageLabel">—</span>
+    <span id="pageLabel">n/a</span>
     <button type="button" id="next">Next →</button>
     <button type="button" id="hl">Hide highlight</button>
     <a id="raw" class="btn" href="#" target="_blank" rel="noopener">Download PDF</a>
@@ -298,7 +298,7 @@
             $("body").scrollTop = Math.max(0, firstY - 120);
             setStatus("Highlight: " + query);
           } else {
-            setStatus("Page loaded — figure not found on this page.");
+            setStatus("Page loaded. Figure not found on this page.");
           }
         } else {
           setStatus(highlightOn ? "Page loaded." : "Highlight off.");

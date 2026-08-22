@@ -514,7 +514,7 @@ def find_unit_pages(book: str, fy: str, kind: str, unit_code: str = "",
                 "unit": rn,
                 "unitCode": r.get("unit_code", ""),
                 "line": line,
-                "label": f"{rn} — {line}",
+                "label": f"{rn} · {line}",
                 "fy": fy,
                 "kind": kind,
             })
@@ -557,7 +557,7 @@ def top_unit_total_children(
                     "unit": r.get("unit_name") or "",
                     "unitCode": r.get("unit_code") or "",
                     "line": line,
-                    "label": f"{r.get('unit_name') or r.get('unit_code')} — {line}",
+                    "label": f"{r.get('unit_name') or r.get('unit_code')} · {line}",
                     "fy": fy,
                     "kind": kind,
                 }
@@ -706,8 +706,8 @@ def build_citations(analysis: dict) -> dict:
             "children": [thin_child(rev_c), thin_child(exp_c)],
             "fy": fy, "kind": "actual", "metric": "surplus",
         }
-        print(f"    {fy}: rev={'p'+str(rev_c['page']) if rev_c.get('page') else '—'} "
-              f"({rev_c['type']}) exp={'p'+str(exp_c['page']) if exp_c.get('page') else '—'} "
+        print(f"    {fy}: rev={'p'+str(rev_c['page']) if rev_c.get('page') else 'n/a'} "
+              f"({rev_c['type']}) exp={'p'+str(exp_c['page']) if exp_c.get('page') else 'n/a'} "
               f"({exp_c['type']})", flush=True)
 
     last_i = len(actuals) - 1
@@ -774,7 +774,7 @@ def build_citations(analysis: dict) -> dict:
             children.append({
                 "type": "printed", "book": "FY 2025-26", "page": s1["page"],
                 "value": 542601948, "query": s1["query"], "hit": hit_payload(s1),
-                "label": "Schedule 1 — Total All Funds (context only; not the $32.9M draw)",
+                "label": "Schedule 1 · Total All Funds (context only; not the $32.9M draw)",
             })
     primary = children[0] if children else None
     cites["kpi.adoptedDraw2526"] = {
@@ -849,7 +849,7 @@ def build_citations(analysis: dict) -> dict:
 
         cites[f"dept.{i}"] = {
             "type": "printed" if (primary or primary_hit) else "derived",
-            "label": f"{name} — FY 2024-25 actual spending",
+            "label": f"{name} · FY 2024-25 actual spending",
             "value": e24,
             "formula": (
                 f"\"Total Expenditures\" for unit {code or name} "

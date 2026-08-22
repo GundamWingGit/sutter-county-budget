@@ -79,7 +79,7 @@ def find_line(book: str, fy: str, kind: str, code: str, name: str, matcher) -> d
         "line": r.get("l"),
         "fy": fy,
         "kind": kind,
-        "label": f"{r.get('u') or name} — {r.get('l')}",
+        "label": f"{r.get('u') or name} · {r.get('l')}",
     }
 
 
@@ -103,7 +103,7 @@ def main() -> None:
             if not found:
                 cites[f"dept.{i}.{suffix}"] = {
                     "type": "derived",
-                    "label": f"{name} — {fy} actual spending",
+                    "label": f"{name} · {fy} actual spending",
                     "value": displayed,
                     "formula": (
                         f"This unit ({code or name}) does not appear in the {book} "
@@ -122,7 +122,7 @@ def main() -> None:
                     "metric": "spend",
                 }
             else:
-                found["label"] = f"{name} — {fy} actual spending"
+                found["label"] = f"{name} · {fy} actual spending"
                 found["metric"] = "spend"
                 found["children"] = []
                 cites[f"dept.{i}.{suffix}"] = found
@@ -133,7 +133,7 @@ def main() -> None:
             ACTUAL_BOOK["FY2024-25"], "FY2024-25", "actual", code, name, NET_RE.match
         )
         if net_found:
-            net_found["label"] = f"{name} — FY 2024-25 net county cost"
+            net_found["label"] = f"{name} · FY 2024-25 net county cost"
             net_found["metric"] = "net"
             net_found["children"] = []
             cites[f"dept.{i}.net24"] = net_found
@@ -144,7 +144,7 @@ def main() -> None:
             )
             cites[f"dept.{i}.net24"] = {
                 "type": "derived",
-                "label": f"{name} — FY 2024-25 net county cost",
+                "label": f"{name} · FY 2024-25 net county cost",
                 "value": d.get("net24"),
                 "formula": "Spending minus that unit’s own program revenue.",
                 "book": ACTUAL_BOOK["FY2024-25"],
@@ -162,7 +162,7 @@ def main() -> None:
         a, b = year_cites["fy16"], year_cites["fy24"]
         cites[f"dept.{i}.growth"] = {
             "type": "derived",
-            "label": f"{name} — growth FY 2016-17 to FY 2024-25",
+            "label": f"{name} · growth FY 2016-17 to FY 2024-25",
             "value": (d.get("fy24") or 0) - (d.get("fy16") or 0),
             "formula": (
                 f"{int(round(d.get('fy24') or 0)):,} minus "

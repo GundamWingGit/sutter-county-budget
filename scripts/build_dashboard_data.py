@@ -238,7 +238,7 @@ def build_pay_and_notable():
             "label": "Outside professional services",
             "value": money_label(t),
             "detail": f"Countywide professional/specialized services in the FY 2024-25 recommended "
-                      f"book. Largest user: {top[0]} at ${top[1]:,.0f} — contractors sitting next "
+                      f"book. Largest user: {top[0]} at ${top[1]:,.0f}: contractors sitting next "
                       f"to a $140 million in-house payroll.",
         })
     if by_group_total.get("Support and care of persons"):
@@ -247,7 +247,7 @@ def build_pay_and_notable():
             "label": "Cash aid and care of persons",
             "value": money_label(t),
             "detail": "Mostly TANF family grants, adoption assistance, behavioral-health placements, "
-                      "and the bi-county juvenile hall. This is pass-through aid, not county salaries — "
+                      "and the bi-county juvenile hall. This is pass-through aid, not county salaries, "
                       "but it is still county-budgeted spending.",
         })
     prof = by_group_unit.get("Professional / specialized services", {})

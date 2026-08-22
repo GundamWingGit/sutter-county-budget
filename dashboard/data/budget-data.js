@@ -1,4 +1,4 @@
-// Generated from data/analysis.json — validated governmental-fund actuals.
+// Generated from data/analysis.json. Validated governmental-fund actuals.
 // Pay and contract object detail retained from the FY 2025-26 salary resolution
 // and the FY 2024-25 recommended book.
 window.BUDGET_DATA = {
