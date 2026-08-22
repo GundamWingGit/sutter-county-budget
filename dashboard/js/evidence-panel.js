@@ -910,11 +910,6 @@
   }
 
   function renderHeader(cite) {
-    const type = (cite && cite.type) || "printed";
-    const badge = $("evidenceBadge");
-    badge.textContent = type === "printed" ? "Printed" : "Calculated";
-    badge.className = "evidence-badge " + (type === "printed" ? "printed" : "derived");
-
     document.body.classList.toggle("evidence-pay", isPayCite(cite));
     $("evidenceTitle").textContent = (cite && cite.label) || "Source evidence";
     $("evidenceClicked").textContent = formatClicked(cite || {});

@@ -185,10 +185,6 @@
   table.data td.citeable::after { display: none; }
   table.data td.citeable:hover { background: #faf6ee; box-shadow: inset 0 0 0 1px var(--gold); text-decoration-color: var(--gold); }
   .chart-box.citeable-chart { cursor: crosshair; }
-  .chart-box.citeable-chart::after {
-    content: "Click a point to verify in the source book";
-    position: absolute; right: 12px; top: 8px; font-size: 10.5px; color: var(--ink-3);
-  }
 
   /* explorer */
   .explorer-controls {
@@ -239,13 +235,8 @@
   body.evidence-pay .evidence-clicked,
   body.evidence-pay .evidence-explain { display: none; }
   body.evidence-pay .evidence-header { max-height: none; }
-  .evidence-header-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .evidence-badge {
-    font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    padding: 3px 8px; border: 1px solid var(--line); color: var(--ink-3);
-  }
-  .evidence-badge.printed { color: var(--green); border-color: #b7d4c2; background: #f1f8f3; }
-  .evidence-badge.derived { color: var(--gold); border-color: #e2d3b8; background: #faf6ee; }
+  .evidence-header-top { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .evidence-badge { display: none; }
   .evidence-close {
     border: 0; background: transparent; font-size: 24px; line-height: 1;
     color: var(--ink-3); cursor: pointer; padding: 0 4px;
@@ -668,7 +659,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=22"></script>
+<script src="js/evidence-panel.js?v=23"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -749,7 +740,7 @@
   document.getElementById("metaRow").innerHTML = [
     `<span>Closed actuals <b>FY 2016-17 – FY 2024-25</b></span>`,
     `<span>Governmental funds</span>`,
-    `<span>Click a number to open the source page</span>`
+    `<span>Click a number or chart point to open the source book</span>`
   ].join("");
 
   const K = D.kpis;
@@ -805,7 +796,7 @@
             label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}`,
             afterBody: items => {
               const i = items[0].dataIndex;
-              return [`Surplus: ${fmtFull(t.surplus[i])}`, "Click point to verify in source book"];
+              return [`Surplus: ${fmtFull(t.surplus[i])}`];
             }
           }
         }
