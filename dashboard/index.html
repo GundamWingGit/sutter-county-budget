@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Sutter County Budget</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -180,45 +180,13 @@
   .series-chip.is-all { color: var(--navy); border-color: var(--steel); }
   .series-chip.is-all.is-off { opacity: 1; text-decoration: none; }
 
+  .year-select { display: none; }
+  .mobile-cards { display: none; }
+  .m-bar, .m-dock { display: none; }
+
   @media (max-width: 980px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
     .grid.two, .grid.halves, .findings { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 720px) {
-    .wrap {
-      padding: 0 16px calc(80px + env(safe-area-inset-bottom, 0px));
-      padding-left: max(16px, env(safe-area-inset-left, 0px));
-      padding-right: max(16px, env(safe-area-inset-right, 0px));
-    }
-    .masthead { padding-top: 28px; }
-    .card { padding: 16px 14px 12px; }
-    .verdict { padding: 18px 16px; }
-    section { margin-top: 44px; }
-    .chart-box { height: 260px; }
-    .chart-box.tall { height: 320px; }
-    .chart-box.short { height: 240px; }
-    .year-tabs-bar { gap: 8px; }
-    .year-tabs {
-      flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px; max-width: 100%;
-    }
-    .year-tab { flex: 0 0 auto; }
-    .table-scroll table.data { min-width: 640px; }
-    .table-scroll table.data th:first-child,
-    .table-scroll table.data td:first-child {
-      position: sticky; left: 0; background: var(--card); z-index: 1;
-      box-shadow: 1px 0 0 var(--line-soft);
-    }
-    .table-scroll table.data thead th:first-child { z-index: 2; }
-    .explorer-controls { flex-direction: column; align-items: stretch; }
-    .explorer-controls select, .explorer-controls input { min-width: 0; width: 100%; }
-    .citeable::after { display: none; }
-    .kpi.citeable::after, .finding.citeable::after { display: none; }
-  }
-  @media (max-width: 560px) {
-    .kpis { grid-template-columns: 1fr; }
-    .wrap { padding-left: max(14px, env(safe-area-inset-left, 0px));
-            padding-right: max(14px, env(safe-area-inset-right, 0px)); }
   }
   @media print {
     nav.toc { display: none; }
@@ -539,16 +507,170 @@
       font-size: 30px; padding: 4px 10px; min-width: 44px; min-height: 44px;
     }
     .evidence-header { max-height: 38vh; }
+    .evidence-header::before {
+      content: "";
+      display: block; width: 36px; height: 4px; border-radius: 99px;
+      background: #c9d2de; margin: 0 auto 10px;
+    }
+    body.evidence-open .m-dock { display: none !important; }
+  }
+
+  /* Phone layout — designed as its own UI, not a squeezed desktop */
+  @media (max-width: 720px) {
+    html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+    body { overflow-x: hidden; }
+    .wrap {
+      padding: 0 16px calc(88px + env(safe-area-inset-bottom, 0px));
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+    .m-bar {
+      display: block;
+      position: sticky; top: 0; z-index: 80;
+      background: var(--paper);
+      font-size: 11px; font-weight: 650; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--ink-3);
+      padding: 10px 0 8px;
+      margin: 0 -16px 4px;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+      border-bottom: 1px solid var(--line);
+    }
+    .masthead { padding-top: 12px; }
+    .masthead .rule, .masthead .overline { display: none; }
+    h1 { font-size: 26px; margin: 4px 0 8px; line-height: 1.15; }
+    .lede { font-size: 13.5px; line-height: 1.45; }
+    .meta-row {
+      flex-direction: column; gap: 4px; margin-top: 14px; padding: 10px 0;
+      font-size: 12px;
+    }
+    .meta-row span + span::before { content: none; margin: 0; }
+    .meta-row .m-hide { display: none; }
+    nav.toc { display: none; }
+    .kpis { grid-template-columns: 1fr 1fr; margin-top: 16px; }
+    .kpi { padding: 12px 12px 10px; }
+    .kpi .label { font-size: 10px; letter-spacing: .1em; }
+    .kpi .value { font-size: 22px; margin-top: 4px; }
+    .kpi .sub { font-size: 11px; line-height: 1.3; }
+    .card, .grid, .grid > * { min-width: 0; max-width: 100%; }
+    .card { padding: 14px 14px 12px; border-radius: 10px; overflow: hidden; }
+    .card h3 {
+      float: none; display: block; font-size: 14.5px; line-height: 1.3;
+    }
+    .yr-badge { display: none; }
+    .card .note { font-size: 11.5px; margin: 4px 0 10px; line-height: 1.4; }
+    .verdict { padding: 16px 14px; }
+    section { margin-top: 36px; scroll-margin-top: 44px; }
+    .sec-head { gap: 10px; }
+    h2 { font-size: 21px; }
+    .sec-q { font-size: 13.5px; margin: 10px 0 14px; }
+    .chart-box { height: 220px; min-width: 0; max-width: 100%; }
+    .chart-box.tall { height: 360px; }
+    .chart-box.short { height: 210px; }
+    .year-tabs-bar {
+      flex-direction: column; align-items: stretch; gap: 6px; margin-bottom: 10px;
+    }
+    .year-tabs { display: block; }
+    .year-tabs .year-tab { display: none; }
+    .year-select {
+      display: block; width: 100%;
+      font: 600 15px var(--sans); color: var(--ink);
+      background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%2345566e' stroke-width='1.6'/></svg>") no-repeat right 14px center;
+      border: 1px solid var(--line); border-radius: 8px;
+      padding: 12px 36px 12px 14px; min-height: 44px;
+      appearance: none; -webkit-appearance: none;
+    }
+    .series-toggles {
+      flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      width: 100%; max-width: 100%; min-width: 0;
+      padding-bottom: 8px; margin-bottom: 8px;
+      mask-image: linear-gradient(to right, #000 78%, transparent);
+    }
+    .series-toggles .series-hint { display: none; }
+    .series-chip { flex: 0 0 auto; min-height: 34px; padding: 7px 10px; font-size: 12px; }
+    .table-scroll, .desktop-table { display: none; }
+    .mobile-cards { display: block; }
+    .m-row {
+      background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 14px; margin-bottom: 8px;
+    }
+    .m-row-name { font-weight: 650; font-size: 14px; color: var(--ink); line-height: 1.3; }
+    .m-row-sub { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+    .m-row-line { font-size: 13px; color: var(--ink-2); margin-top: 4px; line-height: 1.35; }
+    .m-row-main {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+      margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line-soft);
+    }
+    .m-row-k { font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+    .m-row-v { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .m-row-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-soft);
+    }
+    .m-row-stats > div { display: flex; flex-direction: column; gap: 1px; }
+    .m-row-stats span { font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+    .m-row-stats b { font-size: 14px; font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .m-row-stats b.up { color: var(--red); }
+    .m-row-stats b.down, .m-row-stats b.neg { color: var(--green); }
+    .m-row.citeable { cursor: pointer; }
+    .explorer-controls { flex-direction: column; align-items: stretch; gap: 12px; }
+    .explorer-controls label { width: 100%; }
+    .explorer-controls select,
+    .explorer-controls input {
+      min-width: 0 !important; width: 100%; min-height: 44px; font-size: 16px;
+    }
+    #explorerResults { max-height: none; overflow: visible; border: 0; }
+    .citeable::after { display: none; }
+    .kpi.citeable::after, .finding.citeable::after { display: none; }
+    .m-dock {
+      display: flex;
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+      background: #fff; border-top: 1px solid var(--line);
+      padding: 4px 2px calc(6px + env(safe-area-inset-bottom, 0px));
+      justify-content: space-around;
+    }
+    .m-dock a {
+      flex: 1; text-align: center; text-decoration: none;
+      font-size: 10px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--ink-3); padding: 8px 2px; line-height: 1.2;
+    }
+    .m-dock a.is-on { color: var(--navy); }
+    .chart-box.is-ranks { display: none !important; }
+    .m-bars { display: flex; flex-direction: column; gap: 11px; padding: 2px 0 4px; }
+    .m-bar-row {
+      display: block; width: 100%; text-align: left; border: 0;
+      background: transparent; padding: 0; cursor: pointer;
+    }
+    .m-bar-top {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+    }
+    .m-bar-name { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .m-bar-val { font-size: 13px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .m-bar-track {
+      height: 7px; background: #e6ebf2; border-radius: 99px; margin-top: 5px; overflow: hidden;
+    }
+    .m-bar-track > i { display: block; height: 100%; border-radius: 99px; }
+    .m-bar-sub { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+    #explorerResults .m-row { padding: 10px 12px; margin-bottom: 6px; }
+    #explorerResults .m-row-v { font-size: 20px; }
   }
 </style>
 </head>
 <body>
+<nav class="m-dock" aria-label="Sections">
+  <a href="#sec-home" data-sec="sec-home">Home</a>
+  <a href="#sec-function" data-sec="sec-function">Mix</a>
+  <a href="#sec-units" data-sec="sec-units">Depts</a>
+  <a href="#sec-pay" data-sec="sec-pay">Pay</a>
+  <a href="#sec-explorer" data-sec="sec-explorer">Search</a>
+</nav>
 <div class="wrap" id="app">
+  <div class="m-bar">Sutter County · Budget</div>
 
   <header class="masthead">
     <hr class="rule" />
     <div class="overline">Sutter County, California</div>
-    <h1>How the county budget works</h1>
+    <h1 id="sec-home">How the county budget works</h1>
     <p class="lede">
       A plain-language look at Sutter County’s published budget books: where the money
       comes from, where it goes, who is on the payroll, and how to read a planned number
@@ -573,7 +695,7 @@
       lines are what the books later said actually came in and went out.</p>
     <div class="card">
       <h3>All governmental funds — actual revenue vs actual spending</h3>
-        <p class="note">Governmental funds. Hover a year for the exact figures.</p>
+        <p class="note">Governmental funds. Tap a year for the exact figures.</p>
       <div class="chart-box"><canvas id="chTrend"></canvas></div>
     </div>
     <div class="grid halves" style="margin-top:16px">
@@ -622,7 +744,7 @@
       </div>
       <div class="card">
         <h3>Share of spending</h3>
-        <p class="note">Percent of governmental-fund spending that year. The stacked chart at left is every year at once.</p>
+        <p class="note">Percent of governmental-fund spending that year. The stacked chart is every year at once.</p>
         <div class="year-tabs" id="funcYearTabs"></div>
         <div class="chart-box"><canvas id="chByFunc"></canvas></div>
       </div>
@@ -679,7 +801,7 @@
     <div class="card" style="margin-top:16px">
       <h3>Department and fund detail</h3>
       <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Each underlined year is a separate source: FY 16-17, FY 20-21, and FY 24-25 open different books.</p>
-      <div class="table-scroll" id="deptTable"></div>
+      <div id="deptTable"></div>
     </div>
   </section>
 
@@ -711,7 +833,7 @@
     <div class="card" style="margin-top:16px">
       <h3>Job-by-job estimated class payroll</h3>
       <p class="note">Authorized FTE × midpoint and top of range. Benefits and overtime are not included.</p>
-      <div class="table-scroll" id="payTable"></div>
+      <div id="payTable"></div>
     </div>
   </section>
 
@@ -783,6 +905,19 @@
     return sign + "$" + Math.round(a);
   };
   const shortYear = fy => String(fy).replace(/^FY ?20/, "FY ");
+  const PHONE = window.matchMedia("(max-width: 720px)").matches;
+  const axisYears = labs => {
+    if (!PHONE || !labs) return labs;
+    return labs.map(l => {
+      const s = String(l).replace(/^FY\s?/, "");
+      const head = s.split(/[-–]/)[0];
+      return head.length === 4 ? head.slice(2) : head;
+    });
+  };
+  const clipLabel = (name, wide, narrow) => {
+    const n = PHONE ? (narrow || 20) : (wide || 42);
+    return name.length > n ? name.slice(0, n - 1) + "…" : name;
+  };
   const growthPct = (a, b) => {
     if (!a || a < 1e5) return "new";
     const p = Math.round((b - a) / a * 100);
@@ -793,12 +928,14 @@
   const PALETTE = ["#1f3a5f", "#4f6d94", "#8ba3c0", "#a5814b", "#6f8479", "#5c5470",
                    "#97a3ae", "#c3b48e", "#3d5566", "#7d6b57"];
   Chart.defaults.font.family = "'Inter', sans-serif";
-  Chart.defaults.font.size = 11.5;
+  Chart.defaults.font.size = PHONE ? 10 : 11.5;
   Chart.defaults.color = "#74839a";
   Chart.defaults.borderColor = "#eceff5";
+  Chart.defaults.plugins.legend.display = !PHONE;
   Chart.defaults.plugins.legend.labels.boxWidth = 10;
   Chart.defaults.plugins.legend.labels.boxHeight = 10;
-  Chart.defaults.plugins.legend.labels.padding = 16;
+  Chart.defaults.plugins.legend.labels.padding = PHONE ? 8 : 16;
+  if (PHONE) Chart.defaults.scale.title.display = false;
   Chart.defaults.plugins.tooltip.backgroundColor = "#17253c";
   Chart.defaults.plugins.tooltip.titleFont = { weight: "600", size: 12 };
   Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
@@ -810,7 +947,12 @@
   Chart.defaults.animation.duration = 450;
   Chart.defaults.animation.easing = "easeOutCubic";
 
-  const moneyTicks = { callback: v => fmtCompact(v), maxTicksLimit: 7 };
+  const moneyTicks = { callback: v => fmtCompact(v), maxTicksLimit: PHONE ? 4 : 7 };
+  const legendBottom = PHONE ? { display: false } : { position: "bottom" };
+  const xYearScale = {
+    grid: { display: false },
+    ticks: { maxRotation: 0, minRotation: 0, autoSkip: true, maxTicksLimit: PHONE ? 5 : 9, font: { size: PHONE ? 10 : 11.5 } }
+  };
   const grid = { color: "#eceff5" };
   const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
 
@@ -842,15 +984,54 @@
   const bindYearTabs = (hostId, labels, selected, onPick) => {
     const host = document.getElementById(hostId);
     if (!host) return;
-    host.innerHTML = labels.map((lab, i) =>
-      `<button type="button" class="year-tab${i === selected ? " is-on" : ""}" data-i="${i}">${lab}</button>`
-    ).join("");
+    host.innerHTML =
+      `<select class="year-select" aria-label="Fiscal year">` +
+      labels.map((lab, i) =>
+        `<option value="${i}"${i === selected ? " selected" : ""}>${lab}</option>`
+      ).join("") + `</select>` +
+      labels.map((lab, i) =>
+        `<button type="button" class="year-tab${i === selected ? " is-on" : ""}" data-i="${i}">${lab}</button>`
+      ).join("");
+    const apply = i => {
+      host.querySelectorAll(".year-tab").forEach(b => b.classList.toggle("is-on", +b.dataset.i === i));
+      const sel = host.querySelector(".year-select");
+      if (sel) sel.value = String(i);
+      onPick(i);
+    };
     host.addEventListener("click", ev => {
       const btn = ev.target.closest(".year-tab");
       if (!btn) return;
-      const i = +btn.dataset.i;
-      host.querySelectorAll(".year-tab").forEach(b => b.classList.toggle("is-on", b === btn));
-      onPick(i);
+      apply(+btn.dataset.i);
+    });
+    const sel = host.querySelector(".year-select");
+    if (sel) sel.addEventListener("change", () => apply(+sel.value));
+  };
+  const phoneRanks = (canvasId, rows, opts) => {
+    if (!PHONE) return;
+    const canvas = document.getElementById(canvasId);
+    const box = canvas && canvas.closest(".chart-box");
+    if (!box) return;
+    const format = (opts && opts.format) || fmtCompact;
+    box.classList.add("is-ranks");
+    let host = box.parentNode.querySelector(`.m-bars[data-for="${canvasId}"]`);
+    if (!host) {
+      host = document.createElement("div");
+      host.className = "m-bars";
+      host.dataset.for = canvasId;
+      box.insertAdjacentElement("afterend", host);
+    }
+    const max = Math.max(...rows.map(r => Math.abs(Number(r.value) || 0)), 1);
+    host.innerHTML = rows.map(r => {
+      const pct = Math.max(3, Math.round(Math.abs(Number(r.value) || 0) / max * 100));
+      return `<button type="button" class="m-bar-row${r.cite ? " citeable" : ""}" ${r.cite ? `data-cite="${r.cite}"` : ""}>` +
+        `<div class="m-bar-top"><span class="m-bar-name">${r.label}</span>` +
+        `<span class="m-bar-val">${format(r.value)}</span></div>` +
+        `<div class="m-bar-track"><i style="width:${pct}%;background:${r.color || NAVY}"></i></div>` +
+        (r.sub ? `<div class="m-bar-sub">${r.sub}</div>` : "") +
+        `</button>`;
+    }).join("");
+    host.querySelectorAll("[data-cite]").forEach(el => {
+      if (window.EvidencePanel) EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
     });
   };
   const bindSeriesToggles = (chart, hostId) => {
@@ -860,9 +1041,29 @@
       const chips = chart.data.datasets.map((ds, i) => {
         const on = chart.isDatasetVisible(i);
         const color = ds.backgroundColor || NAVY;
+        const raw = ds.label || ("Series " + (i + 1));
+        const label = PHONE ? ({
+          "Health & Sanitation": "Health",
+          "Public Ways & Facilities": "Roads",
+          "Public Assistance": "Assistance",
+          "General Government": "Gov",
+          "Public Protection": "Protection",
+          "Recreation & Cultural Services": "Recreation",
+          "Intergovernmental": "State/fed aid",
+          "Salaries & Benefits": "Salaries",
+          "Services & Supplies": "Services",
+          "Other Financing Uses": "Transfers out",
+          "Other Financing Sources": "Transfers in",
+          "Charges for Services": "Charges",
+          "Investment & Property": "Investment",
+          "Licenses & Permits": "Licenses",
+          "Fines & Penalties": "Fines",
+          "Capital Assets": "Capital",
+          "Other Charges": "Other charges"
+        }[raw] || raw) : raw;
         return `<button type="button" class="series-chip${on ? "" : " is-off"}" data-i="${i}" ` +
-          `aria-pressed="${on ? "true" : "false"}">` +
-          `<span class="swatch" style="background:${color}"></span>${ds.label || ("Series " + (i + 1))}` +
+          `aria-pressed="${on ? "true" : "false"}" title="${raw}">` +
+          `<span class="swatch" style="background:${color}"></span>${label}` +
           `</button>`;
       }).join("");
       const allOn = chart.data.datasets.every((_, i) => chart.isDatasetVisible(i));
@@ -897,7 +1098,7 @@
   document.getElementById("metaRow").innerHTML = [
     `<span>Closed actuals <b>FY 2016-17 – FY 2024-25</b></span>`,
     `<span>Governmental funds</span>`,
-    `<span>Click a number or chart point to open the source book</span>`
+    `<span class="m-hide">Click a number or chart point to open the source book</span>`
   ].join("");
 
   const K = D.kpis;
@@ -929,24 +1130,24 @@
   new Chart(document.getElementById("chTrend"), {
     type: "line",
     data: {
-      labels: t.labels || t.years.map(shortYear),
+      labels: axisYears(t.labels || t.years.map(shortYear)),
       datasets: [
         { label: "Actual revenue", data: t.revenue, borderColor: STEEL, backgroundColor: STEEL + "14",
-          fill: true, tension: 0.25, borderWidth: 2, pointRadius: 3, pointHoverRadius: 5,
+          fill: true, tension: 0.25, borderWidth: 2, pointRadius: PHONE ? 2 : 3, pointHoverRadius: 5,
           pointBackgroundColor: STEEL },
         { label: "Actual spending", data: t.spend, borderColor: NAVY, backgroundColor: NAVY + "10",
-          fill: true, tension: 0.25, borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+          fill: true, tension: 0.25, borderWidth: 2.5, pointRadius: PHONE ? 2 : 3, pointHoverRadius: 5,
           pointBackgroundColor: NAVY }
       ]
     },
     options: {
       maintainAspectRatio: false,
-      interaction: { mode: "nearest", intersect: true },
+      interaction: { mode: "nearest", intersect: !PHONE },
       onClick: citeClick((ds, idx) => ds === 0 ? `trend.revenue.${idx}` : `trend.spend.${idx}`),
-      scales: { y: { ticks: moneyTicks, grid, title: { display: true, text: "Dollars" } },
-                x: { grid: { display: false }, title: { display: true, text: "Fiscal year (actuals)" } } },
+      scales: { y: { ticks: moneyTicks, grid, title: { display: !PHONE, text: "Dollars" } },
+                x: { ...xYearScale, title: { display: !PHONE, text: "Fiscal year (actuals)" } } },
       plugins: {
-        legend: { position: "bottom" },
+        legend: legendBottom,
         tooltip: {
           callbacks: {
             title: items => t.years[items[0].dataIndex],
@@ -965,14 +1166,14 @@
   new Chart(document.getElementById("chSurplus"), {
     type: "bar",
     data: {
-      labels: t.labels || t.years.map(shortYear),
+      labels: axisYears(t.labels || t.years.map(shortYear)),
       datasets: [{ label: "Surplus", data: t.surplus, backgroundColor: GREEN, borderWidth: 0 }]
     },
     options: {
       maintainAspectRatio: false,
       onClick: citeClick((_ds, idx) => `trend.surplus.${idx}`),
-      scales: { y: { ticks: moneyTicks, grid, title: { display: true, text: "Surplus ($)" } },
-                x: { grid: { display: false } } },
+      scales: { y: { ticks: moneyTicks, grid, title: { display: !PHONE, text: "Surplus ($)" } },
+                x: xYearScale },
       plugins: {
         legend: { display: false },
         tooltip: { callbacks: {
@@ -988,7 +1189,7 @@
   new Chart(document.getElementById("chInflation"), {
     type: "line",
     data: {
-      labels: inf.labels,
+      labels: axisYears(inf.labels),
       datasets: [
         { label: "Nominal spending", data: inf.nominal, borderColor: LIGHT, tension: 0.25,
           borderWidth: 2, pointRadius: 3, pointBackgroundColor: LIGHT },
@@ -998,12 +1199,12 @@
     },
     options: {
       maintainAspectRatio: false,
-      interaction: { mode: "nearest", intersect: true },
+      interaction: { mode: "nearest", intersect: !PHONE },
       onClick: citeClick((ds, idx) => ds === 0 ? `trend.spend.${idx}` : `inflation.real.${idx}`),
-      scales: { y: { ticks: moneyTicks, grid, beginAtZero: false, title: { display: true, text: "Dollars" } },
-                x: { grid: { display: false } } },
+      scales: { y: { ticks: moneyTicks, grid, beginAtZero: false, title: { display: !PHONE, text: "Dollars" } },
+                x: xYearScale },
       plugins: {
-        legend: { position: "bottom" },
+        legend: legendBottom,
         tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
       }
     }
@@ -1030,7 +1231,7 @@
   new Chart(document.getElementById("chAva"), {
     type: "bar",
     data: {
-      labels: a.labels,
+      labels: axisYears(a.labels),
       datasets: [
         { label: "Adopted budget", data: a.adopted, backgroundColor: LIGHT, borderWidth: 0 },
         { label: "Actual spending", data: a.actual, backgroundColor: NAVY, borderWidth: 0 }
@@ -1044,9 +1245,9 @@
         if (ds === 0) return `adopted.spend.${idx}`;
         return ti >= 0 ? `trend.spend.${ti}` : null;
       }),
-      scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
+      scales: { y: { ticks: moneyTicks, grid }, x: xYearScale },
       plugins: {
-        legend: { position: "bottom" },
+        legend: legendBottom,
         tooltip: {
           callbacks: {
             label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}`,
@@ -1092,7 +1293,7 @@
     new Chart(document.getElementById("chBva"), {
       type: "bar",
       data: {
-        labels: b.labels,
+        labels: axisYears(b.labels),
         datasets: [
           { label: "Adopted plan", data: b.planned, backgroundColor: LIGHT,
             borderColor: STEEL, borderWidth: 1, minBarLength: 12 },
@@ -1103,9 +1304,9 @@
         maintainAspectRatio: false,
         interaction: { mode: "index", intersect: false },
         onClick: onBva,
-        scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
+        scales: { y: { ticks: moneyTicks, grid }, x: xYearScale },
         plugins: {
-          legend: { position: "bottom" },
+          legend: legendBottom,
           tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
         }
       }
@@ -1117,7 +1318,7 @@
   const chFuncTrend = new Chart(document.getElementById("chFuncTrend"), {
     type: "bar",
     data: {
-      labels: ft.labels,
+      labels: axisYears(ft.labels),
       datasets: ft.series.map((s, i) => ({
         label: s.name, data: s.values,
         backgroundColor: s.name === "Other" ? "#c9d1dc" : PALETTE[i % PALETTE.length],
@@ -1127,9 +1328,9 @@
     options: {
       maintainAspectRatio: false,
       onClick: citeClick((ds, idx) => `function.${ds}.${idx}`),
-      scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, grid: { display: false } } },
+      scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, ...xYearScale } },
       plugins: {
-        legend: { position: "bottom", labels: { font: { size: 11 } } },
+        legend: legendBottom,
         tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
       }
     }
@@ -1147,7 +1348,7 @@
   };
   const paintFuncShare = (chart, yi) => {
     const { rows, total } = funcShareAt(yi);
-    chart.data.labels = rows.map(r => r.name);
+    chart.data.labels = rows.map(r => clipLabel(r.name, 42, 22));
     chart.data.datasets[0].data = rows.map(r => r.value);
     chart.options.scales.x.ticks.callback = v => total ? (v / total * 100).toFixed(0) + "%" : v;
     chart.options.scales.x.max = total ? Math.ceil((rows[0]?.value || 0) / total * 10) / 10 * total * 1.08 : undefined;
@@ -1162,6 +1363,10 @@
     });
     chart.options.onClick = onClick;
     chart.update();
+    phoneRanks("chByFunc", rows.map(r => ({
+      label: r.name, value: r.value, cite: `function.${r.si}.${yi}`,
+      sub: total ? (r.value / total * 100).toFixed(1) + "% of spending" : ""
+    })));
   };
   markChart("chByFunc");
   {
@@ -1170,7 +1375,7 @@
     const chByFunc = new Chart(document.getElementById("chByFunc"), {
       type: "bar",
       data: {
-        labels: first.rows.map(r => r.name),
+        labels: first.rows.map(r => clipLabel(r.name, 42, 22)),
         datasets: [{ data: first.rows.map(r => r.value), backgroundColor: NAVY, barPercentage: 0.62, borderWidth: 0 }]
       },
       options: {
@@ -1180,10 +1385,10 @@
           return row ? `function.${row.si}.${startYi}` : null;
         }),
         scales: {
-          x: { ticks: { callback: v => first.total ? (v / first.total * 100).toFixed(0) + "%" : v, maxTicksLimit: 6 }, grid,
+          x: { ticks: { callback: v => first.total ? (v / first.total * 100).toFixed(0) + "%" : v, maxTicksLimit: PHONE ? 4 : 6 }, grid,
                max: first.total ? Math.ceil(first.rows[0].value / first.total * 10) / 10 * first.total * 1.08 : undefined,
-               title: { display: true, text: "Share of spending" } },
-          y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } }
+               title: { display: !PHONE, text: "Share of spending" } },
+          y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11.5 }, color: "#45566e" } }
         },
         plugins: {
           legend: { display: false },
@@ -1192,6 +1397,7 @@
       }
     });
     bindYearTabs("funcYearTabs", ft.labels, startYi, yi => paintFuncShare(chByFunc, yi));
+    paintFuncShare(chByFunc, startYi);
   }
 
   function stacked(canvasId, pack, prefix, toggleHostId) {
@@ -1199,7 +1405,7 @@
     const chart = new Chart(document.getElementById(canvasId), {
       type: "bar",
       data: {
-        labels: pack.labels,
+        labels: axisYears(pack.labels),
         datasets: pack.series.map((s, i) => ({
           label: s.name, data: s.values,
           backgroundColor: PALETTE[i % PALETTE.length], stack: "s", borderWidth: 0
@@ -1208,9 +1414,9 @@
       options: {
         maintainAspectRatio: false,
         onClick: citeClick((ds, idx) => `${prefix}.${ds}.${idx}`),
-        scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, grid: { display: false } } },
+        scales: { y: { stacked: true, ticks: moneyTicks, grid }, x: { stacked: true, ...xYearScale } },
         plugins: {
-          legend: { position: "bottom", labels: { font: { size: 10.5 } } },
+          legend: legendBottom,
           tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
         }
       }
@@ -1255,11 +1461,11 @@
     const total = cat.values.reduce((a, b) => a + b, 0);
     return new Chart(document.getElementById(canvasId), {
       type: "bar",
-      data: { labels: cat.labels, datasets: [{ data: cat.values, backgroundColor: color, barPercentage: 0.6, borderWidth: 0 }] },
+      data: { labels: cat.labels.map(l => clipLabel(l, 36, 20)), datasets: [{ data: cat.values, backgroundColor: color, barPercentage: 0.6, borderWidth: 0 }] },
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => categoryCite(side, cat.fy || "FY2023-24", cat.labels[idx])),
-        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11.5 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: c => ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%` } }
@@ -1276,12 +1482,18 @@
 
   const paintCat = (chart, pack, side, fy) => {
     const total = pack.values.reduce((a, b) => a + b, 0);
-    chart.data.labels = pack.labels;
+    chart.data.labels = pack.labels.map(l => clipLabel(l, 36, 20));
     chart.data.datasets[0].data = pack.values;
     chart.options.plugins.tooltip.callbacks.label = c =>
       ` ${fmtFull(c.parsed.x)} — ${(c.parsed.x / total * 100).toFixed(1)}%`;
     chart.options.onClick = citeClick((_ds, idx) => categoryCite(side, fy, pack.labels[idx]));
     chart.update();
+    phoneRanks(chart.canvas.id, pack.labels.map((l, i) => ({
+      label: l, value: pack.values[i],
+      cite: categoryCite(side, fy, l) || "",
+      sub: total ? (pack.values[i] / total * 100).toFixed(1) + "%" : "",
+      color: side === "rev" ? STEEL : NAVY
+    })));
   };
 
   const chRevCat = categoryBar("chRevCat", {
@@ -1305,13 +1517,14 @@
     }
   };
   bindYearTabs("catYearTabs", catYears.map(y => catLabels[mixYears.indexOf(y)] || shortYear(y)), startCat, setCatYear);
+  setCatYear(startCat);
 
   const uby = D.topUnitsByYear || {};
   const unitYears = uby.years || [];
   const unitYearLabs = uby.labels || [];
   const unitStart = Math.max(0, unitYears.length - 1);
   const unitPack = yi => (uby.byYear || {})[unitYears[yi]] || D.topUnits || { labels: [], values: [] };
-  const unitAxis = labs => labs.map(l => l.length > 42 ? l.slice(0, 40) + "…" : l);
+  const unitAxis = labs => labs.map(l => clipLabel(l, 42, 22));
   const unitColors = vals => vals.map((_, i) => i < 3 ? NAVY : STEEL);
   markChart("chUnits");
   {
@@ -1326,8 +1539,8 @@
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => `topunit.${unitStart}.${idx}`),
-        scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: "Actual spending" } },
-                  y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
+        scales: { x: { ticks: moneyTicks, grid, title: { display: !PHONE, text: "Actual spending" } },
+                  y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11.5 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: {
@@ -1345,12 +1558,17 @@
       chUnits.options.onClick = citeClick((_ds, idx) => `topunit.${yi}.${idx}`);
       chUnits.options.plugins.tooltip.callbacks.title = i => pack.labels[i[0].dataIndex];
       chUnits.update();
+      phoneRanks("chUnits", pack.labels.map((l, i) => ({
+        label: l, value: pack.values[i], cite: `topunit.${yi}.${i}`,
+        color: i < 3 ? NAVY : STEEL
+      })));
     };
     bindYearTabs("unitYearTabs", unitYearLabs, unitStart, paintUnits);
+    paintUnits(unitStart);
   }
 
   document.getElementById("deptTable").innerHTML =
-    `<table class="data"><thead><tr>` +
+    `<div class="desktop-table table-scroll"><table class="data"><thead><tr>` +
     `<th>Unit</th><th class="num">FY 16-17 ↗</th><th class="num">FY 20-21 ↗</th>` +
     `<th class="num">FY 24-25 ↗</th><th class="num">Growth ↗</th>` +
     `<th class="num">Net county cost 24-25 ↗</th></tr></thead><tbody>` +
@@ -1365,8 +1583,24 @@
         `<td class="num citeable" data-cite="dept.${i}.fy24" title="FY 2024-25 actual spending">${fmtCompact(r.fy24)}</td>` +
         `<td class="num citeable ${gcls}" data-cite="dept.${i}.growth" title="Growth from FY 2016-17 to FY 2024-25">${g}</td>` +
         `<td class="num citeable ${ncls}" data-cite="dept.${i}.net24" title="FY 2024-25 net county cost">${fmtCompact(r.net24)}</td></tr>`;
-    }).join("") + `</tbody></table>`;
-  document.querySelectorAll("#deptTable td.citeable").forEach(el => {
+    }).join("") + `</tbody></table></div>` +
+    `<div class="mobile-cards">` +
+    D.departments.map((r, i) => {
+      const g = growthPct(r.fy16, r.fy24);
+      const gcls = g === "new" ? "" : (g.startsWith("+") ? "up" : "down");
+      const ncls = r.net24 < 0 ? "neg" : "";
+      return `<article class="m-row">` +
+        `<div class="m-row-name">${r.name}</div>` +
+        `<div class="m-row-main"><span class="m-row-k">FY 24-25</span>` +
+        `<span class="m-row-v citeable" data-cite="dept.${i}.fy24">${fmtCompact(r.fy24)}</span></div>` +
+        `<div class="m-row-stats">` +
+        `<div><span>FY 16-17</span><b class="citeable" data-cite="dept.${i}.fy16">${fmtCompact(r.fy16)}</b></div>` +
+        `<div><span>FY 20-21</span><b class="citeable" data-cite="dept.${i}.fy20">${fmtCompact(r.fy20)}</b></div>` +
+        `<div><span>Growth</span><b class="citeable ${gcls}" data-cite="dept.${i}.growth">${g}</b></div>` +
+        `<div><span>Net local</span><b class="citeable ${ncls}" data-cite="dept.${i}.net24">${fmtCompact(r.net24)}</b></div>` +
+        `</div></article>`;
+    }).join("") + `</div>`;
+  document.querySelectorAll("#deptTable .citeable").forEach(el => {
     EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
   });
 
@@ -1378,8 +1612,8 @@
     const payStart = Math.max(0, payYears.length - 1);
     const payPack = yi => (pby.byYear || {})[payYears[yi]] || D.pay || {};
     const fteLabel = (name, n) => {
-      const short = name.length > 28 ? name.slice(0, 26) + "…" : name;
-      if (!n) return `${short}  (none authorized)`;
+      const short = clipLabel(name, 28, 16);
+      if (!n) return `${short}  (—)`;
       const seats = n % 1 ? n.toFixed(1) : String(n);
       return `${short}  (${seats})`;
     };
@@ -1402,9 +1636,9 @@
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => `pay.high.${payStart}.${idx}`),
-        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11 }, color: "#45566e" } } },
         plugins: {
-          legend: { position: "bottom" },
+          legend: legendBottom,
           tooltip: {
             callbacks: {
               title: i => {
@@ -1428,7 +1662,7 @@
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => `pay.cost.${payStart}.${idx}`),
-        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -1454,8 +1688,8 @@
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => `pay.staff.${payStart}.${idx}`),
-        scales: { x: { ticks: { maxTicksLimit: 6 }, grid, title: { display: true, text: "Authorized FTE" } },
-                  y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+        scales: { x: { ticks: { maxTicksLimit: PHONE ? 4 : 6 }, grid, title: { display: !PHONE, text: "Authorized FTE" } },
+                  y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { title: i => st0.labels[i[0].dataIndex], label: c => ` ${c.parsed.x} FTE` } }
@@ -1466,7 +1700,7 @@
     const paintPayTable = pack => {
       const jobs = pack.jobs || [];
       document.getElementById("payTable").innerHTML =
-        `<table class="data"><thead><tr>` +
+        `<div class="desktop-table table-scroll"><table class="data"><thead><tr>` +
         `<th>Classification</th><th class="num">Positions</th>` +
         `<th class="num">Min pay</th><th class="num">Max pay</th>` +
         `<th class="num">Est. class (mid)</th><th class="num">Est. class (max)</th>` +
@@ -1479,7 +1713,19 @@
           `<td class="num">${fmtFull(j.max)}</td>` +
           `<td class="num">${fmtFull(j.estMid)}</td>` +
           `<td class="num">${fmtFull(j.estMax)}</td></tr>`
-        ).join("") + `</tbody></table>`;
+        ).join("") + `</tbody></table></div>` +
+        `<div class="mobile-cards">` +
+        jobs.map(j =>
+          `<article class="m-row">` +
+          `<div class="m-row-name">${j.title}</div>` +
+          (j.units && j.units.length ? `<div class="m-row-sub">${j.units.slice(0, 3).join(" · ")}</div>` : "") +
+          `<div class="m-row-main"><span class="m-row-k">${fmtFte(j.fte)} seats</span>` +
+          `<span class="m-row-v">${fmtCompact(j.estMid)}</span></div>` +
+          `<div class="m-row-stats">` +
+          `<div><span>Range</span><b>${fmtCompact(j.min)}–${fmtCompact(j.max)}</b></div>` +
+          `<div><span>Class max</span><b>${fmtCompact(j.estMax)}</b></div>` +
+          `</div></article>`
+        ).join("") + `</div>`;
     };
 
     const paintPay = yi => {
@@ -1525,6 +1771,22 @@
           : "Range for one seat. The number in parentheses is how many seats are authorized.";
       }
       paintPayTable(pack);
+      phoneRanks("chPay", hp.labels.map((l, i) => ({
+        label: l, value: hp.max[i],
+        cite: `pay.high.${yi}.${i}`,
+        sub: `${fmtCompact(hp.min[i])}–${fmtCompact(hp.max[i])}` +
+          (hp.fte[i] ? ` · ${fmtFte(hp.fte[i])} seats` : "")
+      })));
+      phoneRanks("chCostClass", cc.labels.map((l, i) => ({
+        label: l, value: cc.values[i],
+        cite: `pay.cost.${yi}.${i}`,
+        sub: cc.fte && cc.fte[i] ? fmtFte(cc.fte[i]) + " FTE × range midpoint" : ""
+      })));
+      phoneRanks("chStaff", st.labels.map((l, i) => ({
+        label: l, value: st.values[i],
+        cite: `pay.staff.${yi}.${i}`,
+        color: STEEL
+      })), { format: v => (Number(v) % 1 ? Number(v).toFixed(1) : String(v)) + " FTE" });
     };
 
     bindYearTabs("payYearTabs", payLabs, payStart, paintPay);
@@ -1538,7 +1800,7 @@
     const cLabels = cby.labels || [];
     const startYi = Math.max(0, cYears.length - 1);
     const packAt = yi => ((cby.byYear || {})[cYears[yi]] || {}).groups || [];
-    const axisLabs = labs => labs.map(l => l.length > 34 ? l.slice(0, 32) + "…" : l);
+    const axisLabs = labs => labs.map(l => clipLabel(l, 34, 18));
     const contractCharts = [];
 
     const paintContracts = yi => {
@@ -1553,6 +1815,11 @@
         chart.update();
         const badge = document.getElementById("contractBadge" + i);
         if (badge) badge.textContent = fmtCompact(g.total);
+        phoneRanks("chContract" + i, g.labels.map((l, idx) => ({
+          label: l, value: g.values[idx],
+          cite: `contract.${i}.${yi}.${idx}`,
+          color: i % 2 ? STEEL : NAVY
+        })));
       });
     };
 
@@ -1572,7 +1839,7 @@
         options: {
           indexAxis: "y", maintainAspectRatio: false,
           onClick: citeClick((_ds, idx) => `contract.${i}.${startYi}.${idx}`),
-          scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
+          scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: PHONE ? 10 : 11 }, color: "#45566e" } } },
           plugins: {
             legend: { display: false },
             tooltip: { callbacks: { title: items => g.labels[items[0].dataIndex], label: x => " " + fmtFull(x.parsed.x) } }
@@ -1581,6 +1848,7 @@
       }));
     });
     bindYearTabs("contractYearTabs", cLabels, startYi, paintContracts);
+    paintContracts(startYi);
   }
 
   /* ---------- line-item explorer ---------- */
@@ -1666,7 +1934,7 @@
         return;
       }
       results.innerHTML =
-        `<div class="table-scroll"><table class="data"><thead><tr>` +
+        `<div class="desktop-table table-scroll"><table class="data"><thead><tr>` +
         `<th>Unit</th><th>Line</th><th>Year of figure</th><th>Column</th>` +
         `<th class="num">Value</th><th class="num">Page</th></tr></thead><tbody>` +
         shown.map((r, i) =>
@@ -1677,11 +1945,21 @@
           `<td>${prettyKind(r.k)}</td>` +
           `<td class="num">${fmtFull(r.v)}</td>` +
           `<td class="num">${r.p}</td></tr>`
-        ).join("") + `</tbody></table></div>`;
+        ).join("") + `</tbody></table></div>` +
+        `<div class="mobile-cards">` +
+        shown.map((r, i) =>
+          `<article class="m-row citeable" data-idx="${i}">` +
+          `<div class="m-row-name">${r.u || r.c || "—"}</div>` +
+          `<div class="m-row-line">${r.l}</div>` +
+          `<div class="m-row-main"><span class="m-row-k">${prettyFy(r.f)} · ${prettyKind(r.k)}</span>` +
+          `<span class="m-row-v">${fmtCompact(r.v)}</span></div>` +
+          `<div class="m-row-sub">Page ${r.p}</div>` +
+          `</article>`
+        ).join("") + `</div>`;
 
-      results.querySelectorAll("tr.citeable").forEach(tr => {
-        tr.addEventListener("click", () => {
-          const idx = +tr.getAttribute("data-idx");
+      results.querySelectorAll("[data-idx]").forEach(el => {
+        el.addEventListener("click", () => {
+          const idx = +el.getAttribute("data-idx");
           EvidencePanel.openLine(currentBook, shown[idx]);
         });
       });
@@ -1701,6 +1979,24 @@
       loadBook(prefer.book);
     }
   })();
+
+  {
+    const dock = document.querySelector(".m-dock");
+    const links = dock ? [...dock.querySelectorAll("a[data-sec]")] : [];
+    const markDock = () => {
+      const y = window.scrollY + 140;
+      let current = links[0];
+      links.forEach(a => {
+        const el = document.getElementById(a.dataset.sec);
+        if (el && el.offsetTop <= y) current = a;
+      });
+      links.forEach(a => a.classList.toggle("is-on", a === current));
+    };
+    if (links.length) {
+      window.addEventListener("scroll", markDock, { passive: true });
+      markDock();
+    }
+  }
 
   document.getElementById("foot").innerHTML =
     `<p>Source: Sutter County published budget books. Governmental-fund actuals from the ` +
