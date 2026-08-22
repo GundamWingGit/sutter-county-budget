@@ -634,6 +634,7 @@
 
   function setOpen(open) {
     document.body.classList.toggle("evidence-open", open);
+    if (!open) document.body.classList.remove("evidence-pay");
     const panel = $("evidencePanel");
     if (panel) panel.setAttribute("aria-hidden", open ? "false" : "true");
   }
@@ -914,6 +915,7 @@
     badge.textContent = type === "printed" ? "Printed" : "Calculated";
     badge.className = "evidence-badge " + (type === "printed" ? "printed" : "derived");
 
+    document.body.classList.toggle("evidence-pay", isPayCite(cite));
     $("evidenceTitle").textContent = (cite && cite.label) || "Source evidence";
     $("evidenceClicked").textContent = formatClicked(cite || {});
 
@@ -958,7 +960,11 @@
 
     if (qBox) qBox.hidden = allSources.length < 8;
 
-    if (!allSources.length || citeFamily(cite) === "pay.staff") {
+    const wrap = $("evidenceSourceWrap");
+    const hideSources = !allSources.length || isPayCite(cite);
+    if (wrap) wrap.hidden = hideSources;
+
+    if (hideSources) {
       labelEl.textContent = "";
       sumEl.textContent = "";
       list.innerHTML = "";
