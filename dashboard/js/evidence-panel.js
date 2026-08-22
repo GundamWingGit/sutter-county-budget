@@ -2231,6 +2231,55 @@
     openCitation({ id, ...cite });
   }
 
+  function isPhone() {
+    return window.matchMedia("(max-width: 720px)").matches;
+  }
+
+  const ARM_MS = 750;
+  let arm = { key: "", at: 0, el: null };
+
+  function armTarget(el) {
+    if (!el || !el.closest) return null;
+    return el.closest(".citeable, .m-bar-row, .m-row, .kpi, .chart-box") || el;
+  }
+
+  function clearArm() {
+    if (arm.el) arm.el.classList.remove("is-armed");
+    arm = { key: "", at: 0, el: null };
+  }
+
+  function armedToOpen(key, el) {
+    if (!isPhone()) return true;
+    const now = Date.now();
+    const target = armTarget(el);
+    if (arm.key === key && now - arm.at < 80) return false;
+    if (arm.key === key && now - arm.at < ARM_MS) {
+      clearArm();
+      return true;
+    }
+    clearArm();
+    arm = { key, at: now, el: target };
+    if (target) target.classList.add("is-armed");
+    return false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (arm.key) clearArm();
+  }, { passive: true, capture: true });
+
+  function openFromPage(citeId, el) {
+    if (!citeId) return;
+    if (!armedToOpen("cite:" + citeId, el)) return;
+    openById(citeId);
+  }
+
+  function openLineFromPage(book, row, el) {
+    if (!row) return;
+    const key = "line:" + book + ":" + (row.p || "") + ":" + (row.v || "") + ":" + (row.l || "");
+    if (!armedToOpen(key, el)) return;
+    openLine(book, row);
+  }
+
   function openLine(book, row) {
     openCitation({
       type: "printed",
@@ -2464,11 +2513,11 @@
     if (!el || !citeId) return;
     el.classList.add("citeable");
     el.setAttribute("data-cite", citeId);
-    el.title = "Click to see how this number was checked";
+    el.title = isPhone() ? "Tap twice to open the source" : "Click to see how this number was checked";
     el.addEventListener("pointerenter", () => prefetchById(citeId));
     el.addEventListener("click", (e) => {
       e.stopPropagation();
-      openById(citeId);
+      openFromPage(citeId, el);
     });
   }
 
@@ -2477,7 +2526,8 @@
       if (!elements || !elements.length) return;
       const el = elements[0];
       const id = buildId(el.datasetIndex, el.index);
-      if (id) openById(id);
+      const target = evt && evt.native && evt.native.target;
+      if (id) openFromPage(id, target);
     };
   }
 
@@ -2500,8 +2550,10 @@
   global.EvidencePanel = {
     init: initPanelDom,
     openById,
+    openFromPage,
     openCitation,
     openLine,
+    openLineFromPage,
     bindCite,
     prefetchById,
     chartCiteHandler,

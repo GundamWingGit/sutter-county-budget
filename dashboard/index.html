@@ -218,6 +218,7 @@
   .year-select { display: none; }
   .mobile-cards { display: none; }
   .m-bar, .m-dock { display: none; }
+  .d-hide { display: none; }
 
   @media (max-width: 980px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
@@ -753,6 +754,23 @@
     }
     .meta-row span + span::before { content: none; margin: 0; }
     .meta-row .m-hide { display: none; }
+    .d-hide { display: inline; }
+    .citeable, .chart-box.citeable-chart, .m-bar-row, .m-row.citeable {
+      touch-action: manipulation;
+    }
+    .citeable.is-armed,
+    .kpi.citeable.is-armed,
+    table.data td.citeable.is-armed,
+    .m-bar-row.is-armed,
+    .m-row.citeable.is-armed {
+      outline: 2px solid var(--gold);
+      outline-offset: -2px;
+      background: #faf6ee;
+    }
+    .chart-box.is-armed {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
     nav.toc { display: none; }
     .kpis { grid-template-columns: 1fr 1fr; margin-top: 16px; }
     .kpi { padding: 12px 12px 10px; }
@@ -1114,7 +1132,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=38"></script>
+<script src="js/evidence-panel.js?v=39"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -1290,7 +1308,8 @@
       if (!elements || !elements.length || !window.EvidencePanel) return;
       const el = elements[0];
       const id = typeof buildId === "function" ? buildId(el.datasetIndex, el.index) : buildId;
-      if (id) EvidencePanel.openById(id);
+      const target = evt && evt.native && evt.native.target;
+      if (id) EvidencePanel.openFromPage(id, target);
     };
     onClick.buildId = buildId;
     return onClick;
@@ -1425,7 +1444,8 @@
   document.getElementById("metaRow").innerHTML = [
     `<span>Closed actuals <b>FY 2016-17 – FY 2024-25</b></span>`,
     `<span>Governmental funds</span>`,
-    `<span class="m-hide">Click a number or chart point to open the source book</span>`
+    `<span class="m-hide">Click a number or chart point to open the source book</span>`,
+    `<span class="d-hide">Double-tap a number to open the source</span>`
   ].join("");
 
   const K = D.kpis;
@@ -1614,7 +1634,8 @@
     };
     const onBva = (evt, els, chart) => {
       const id = pickBva(evt, els, chart);
-      if (id && window.EvidencePanel) EvidencePanel.openById(id);
+      const target = evt && evt.native && evt.native.target;
+      if (id && window.EvidencePanel) EvidencePanel.openFromPage(id, target);
     };
     onBva.buildId = (ds, idx) => (ds === 0 ? planCite(idx) : actualCite(idx));
     new Chart(document.getElementById("chBva"), {
@@ -2287,7 +2308,7 @@
       results.querySelectorAll("[data-idx]").forEach(el => {
         el.addEventListener("click", () => {
           const idx = +el.getAttribute("data-idx");
-          EvidencePanel.openLine(currentBook, shown[idx]);
+          EvidencePanel.openLineFromPage(currentBook, shown[idx], el);
         });
       });
     }
