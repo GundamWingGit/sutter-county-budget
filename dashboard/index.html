@@ -922,11 +922,11 @@
 </head>
 <body>
 <nav class="m-dock" aria-label="Sections">
-  <a href="#sec-home" data-tab="home">Home</a>
-  <a href="#sec-function" data-tab="mix">Mix</a>
-  <a href="#sec-units" data-tab="depts">Depts</a>
-  <a href="#sec-pay" data-tab="pay">Pay</a>
-  <a href="#sec-explorer" data-tab="search">Search</a>
+  <a href="#tab-home" data-tab="home">Home</a>
+  <a href="#tab-mix" data-tab="mix">Mix</a>
+  <a href="#tab-depts" data-tab="depts">Depts</a>
+  <a href="#tab-pay" data-tab="pay">Pay</a>
+  <a href="#tab-search" data-tab="search">Search</a>
 </nav>
 <div class="wrap" id="app">
   <div class="m-bar">Sutter County · Budget</div>
@@ -2360,12 +2360,29 @@
     const dock = document.querySelector(".m-dock");
     const links = dock ? [...dock.querySelectorAll("a[data-tab]")] : [];
     const titles = { home: "Sutter County · Budget", mix: "Sutter County · Composition", depts: "Sutter County · Units", pay: "Sutter County · Positions", search: "Sutter County · Search" };
-    const showTab = tab => {
+    const storeKey = "sc-tab";
+    const byHash = {
+      "tab-home": "home", "sec-home": "home", app: "home",
+      "sec-trend": "home", "sec-ava": "home",
+      "tab-mix": "mix", "sec-function": "mix", "sec-cats": "mix", "sec-contracts": "mix",
+      "tab-depts": "depts", "sec-units": "depts",
+      "tab-pay": "pay", "sec-pay": "pay",
+      "tab-search": "search", "sec-explorer": "search"
+    };
+    const showTab = (tab, opts) => {
+      const next = titles[tab] ? tab : "home";
       document.body.classList.add("m-tabs");
-      document.body.dataset.tab = tab;
-      links.forEach(a => a.classList.toggle("is-on", a.dataset.tab === tab));
+      document.body.dataset.tab = next;
+      links.forEach(a => a.classList.toggle("is-on", a.dataset.tab === next));
       const bar = document.querySelector(".m-bar");
-      if (bar) bar.textContent = titles[tab] || titles.home;
+      if (bar) bar.textContent = titles[next] || titles.home;
+      try { sessionStorage.setItem(storeKey, next); } catch (err) { /* private mode */ }
+      if (!opts || !opts.skipHash) {
+        const want = "tab-" + next;
+        if ((location.hash || "").replace("#", "") !== want) {
+          history.replaceState(null, "", "#" + want);
+        }
+      }
       window.scrollTo(0, 0);
       requestAnimationFrame(() => {
         document.querySelectorAll("canvas").forEach(c => {
@@ -2382,13 +2399,17 @@
         showTab(a.dataset.tab);
       });
       const fromHash = (location.hash || "").replace("#", "");
-      const byHash = {
-        "sec-home": "home", app: "home",
-        "sec-trend": "home", "sec-ava": "home",
-        "sec-function": "mix", "sec-cats": "mix", "sec-contracts": "mix",
-        "sec-units": "depts", "sec-pay": "pay", "sec-explorer": "search"
-      };
-      showTab(byHash[fromHash] || "home");
+      const hashTab = byHash[fromHash];
+      let stored = "";
+      try { stored = sessionStorage.getItem(storeKey) || ""; } catch (err) { stored = ""; }
+      const nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      const isReload = nav ? nav.type === "reload" : performance.navigation && performance.navigation.type === 1;
+      const start = isReload ? (stored || hashTab || "home") : (hashTab || stored || "home");
+      showTab(start);
+      window.addEventListener("hashchange", () => {
+        const tab = byHash[(location.hash || "").replace("#", "")];
+        if (tab) showTab(tab, { skipHash: true });
+      });
     } else if (links.length) {
       const markDock = () => {
         const y = window.scrollY + 140;
