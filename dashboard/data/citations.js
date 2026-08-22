@@ -1883,7 +1883,7 @@ window.CITATIONS = {
   "trend.spend.7": {
     "type": "printed",
     "label": "FY2023-24 actual total spending",
-    "value": 398114614,
+    "value": 398114608,
     "formula": "Printed governmental-fund total expenditures for FY2023-24 in the FY 2025-26 budget book (Schedule 8 / financing uses).",
     "book": "FY 2025-26",
     "page": 42,
@@ -1906,8 +1906,8 @@ window.CITATIONS = {
   "trend.surplus.7": {
     "type": "derived",
     "label": "FY2023-24 actual surplus (revenue \u2212 spending)",
-    "value": 11382790,
-    "formula": "409,497,404 revenue \u2212 398,114,614 spending = 11,382,790.",
+    "value": 11382796,
+    "formula": "409,497,404 revenue \u2212 398,114,608 spending = 11,382,796.",
     "book": "FY 2025-26",
     "page": null,
     "query": null,
@@ -1942,7 +1942,7 @@ window.CITATIONS = {
         "type": "printed",
         "book": "FY 2025-26",
         "page": 42,
-        "value": 398114614,
+        "value": 398114608,
         "query": "398,114,608",
         "label": "FY2023-24 actual total spending",
         "fy": "FY2023-24",
@@ -2727,11 +2727,11 @@ window.CITATIONS = {
       {
         "type": "derived",
         "book": "FY 2025-26",
-        "value": 11382790,
+        "value": 11382796,
         "label": "FY2023-24 actual surplus (revenue \u2212 spending)",
         "fy": "FY2023-24",
         "kind": "actual",
-        "formula": "409,497,404 revenue \u2212 398,114,614 spending = 11,382,790.",
+        "formula": "409,497,404 revenue \u2212 398,114,608 spending = 11,382,796.",
         "metric": "surplus"
       },
       {
@@ -94165,8 +94165,8 @@ window.CITATIONS = {
   "inflation.real.7": {
     "type": "derived",
     "label": "FY2023-24 spending in FY 2024-25 dollars",
-    "value": 408829946,
-    "formula": "Nominal spending 398,114,614 adjusted with BLS CPI-U to FY 2024-25 dollars. The budget book prints the nominal figure, not this one.",
+    "value": 408829940,
+    "formula": "Nominal spending 398,114,608 adjusted with BLS CPI-U to FY 2024-25 dollars. The budget book prints the nominal figure, not this one.",
     "book": "FY 2025-26",
     "page": null,
     "query": null,
@@ -94175,7 +94175,7 @@ window.CITATIONS = {
       {
         "type": "printed",
         "label": "FY2023-24 actual total spending",
-        "value": 398114614,
+        "value": 398114608,
         "formula": "Printed governmental-fund total expenditures for FY2023-24 in the FY 2025-26 budget book (Schedule 8 / financing uses).",
         "book": "FY 2025-26",
         "page": 42,

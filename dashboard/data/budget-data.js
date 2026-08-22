@@ -90,7 +90,7 @@ window.BUDGET_DATA = {
       352663473,
       347865333,
       376771113,
-      398114614,
+      398114608,
       396562039
     ],
     "surplus": [
@@ -101,7 +101,7 @@ window.BUDGET_DATA = {
       13273613,
       21660215,
       23610725,
-      11382790,
+      11382796,
       18442511
     ],
     "kindUsed": [
@@ -147,7 +147,7 @@ window.BUDGET_DATA = {
       352663473,
       347865333,
       376771113,
-      398114614,
+      398114608,
       396562039
     ],
     "real2025": [
@@ -158,7 +158,7 @@ window.BUDGET_DATA = {
       419250064,
       382903266,
       398323714,
-      408829946,
+      408829940,
       396562039
     ],
     "note": "Deflated with BLS CPI-U annual averages for the calendar year in which each fiscal year ends. 2025 CPI is estimated."
@@ -194,7 +194,7 @@ window.BUDGET_DATA = {
       3653171,
       13273613,
       21660215,
-      11382790
+      11382796
     ]
   },
   "adoptedVsActual": {
@@ -228,7 +228,7 @@ window.BUDGET_DATA = {
       326995986,
       352663473,
       347865333,
-      398114614
+      398114608
     ]
   },
   "forwardBudgets": [

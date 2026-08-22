@@ -312,12 +312,17 @@
 
     const slices = packSlices(sources);
     const stack = slices.reduce((a, s) => a + s.value, 0);
+    const inflation = metric === "inflation";
     host.innerHTML =
-      `<div class="ec-kicker">${slices.length} printed lines add to</div>` +
+      `<div class="ec-kicker">${inflation
+        ? "The book prints the nominal figure — this chart point is CPI-adjusted"
+        : slices.length + " printed lines add to"}</div>` +
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
-      `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, stack, "main")}</div>` +
+      `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, inflation ? stack : (Math.abs(clicked) || stack), "main")}</div>` +
       `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
-      `<div class="ec-hint">Every unit, largest first. Click a slice or row to open that printed page.</div>` +
+      `<div class="ec-hint">${inflation
+        ? "Click the source row to box the printed nominal amount, " + fmtFull(stack) + "."
+        : "Every unit, largest first. Click a slice or row to open that printed page."}</div>` +
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
     bindComposeFilter(host);
@@ -521,10 +526,22 @@
     const kids = cite.children || [];
 
     if (cite.type === "printed") {
+      const fy = cite.fy ? String(cite.fy).replace("FY", "FY ") : "";
+      const lag = (fy && cite.book)
+        ? ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`
+        : "";
       return {
         title: "Printed in the source book",
-        body: "The figure below is the same amount on this page.",
+        body: "The boxed figure is the same amount you clicked." + lag,
         equation: null,
+      };
+    }
+
+    if (metric === "inflation") {
+      return {
+        title: "CPI-adjusted, not a printed total",
+        body: "The budget book prints nominal dollars. Click the source row to box that printed amount.",
+        equation: cite.formula || null,
       };
     }
 
@@ -678,8 +695,14 @@
     }
 
     const bits = [];
-    if (cite && cite.book) bits.push(cite.book);
-    if (viewingPiece && viewingPiece.page) bits.push("showing page " + viewingPiece.page);
+    if (cite && cite.book) bits.push(cite.book + " book");
+    if (cite && cite.fy && cite.book) {
+      const fy = String(cite.fy).replace("FY", "FY ");
+      if (!String(cite.book).includes(fy.replace("FY ", ""))) {
+        bits.push(fy + " actuals");
+      }
+    }
+    if (viewingPiece && viewingPiece.page) bits.push("p. " + viewingPiece.page);
     $("evidenceMeta").textContent = bits.join(" · ");
     renderCaption(cite, viewingPiece);
   }
