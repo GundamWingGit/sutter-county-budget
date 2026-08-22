@@ -652,7 +652,19 @@
     return ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`;
   }
 
+  function isAbsentCite(cite) {
+    if (!cite) return false;
+    if (/does not appear/i.test(cite.formula || "")) return true;
+    return cite.type === "derived" &&
+      Number(cite.value) === 0 &&
+      !cite.page &&
+      !(cite.children && cite.children.length) &&
+      !!(cite.unit || cite.unitCode) &&
+      (cite.metric === "spend" || cite.metric === "revenue");
+  }
+
   function citeFamily(cite) {
+    if (isAbsentCite(cite)) return "dept.absent";
     const id = String(cite.id || "");
     const parts = id.split(".");
     const head = parts[0] || "";
@@ -811,6 +823,16 @@
         title: "Unit actual spending",
         body: (unit ? unit + "’s" : "That budget unit’s") +
           " printed Total Expenditures in that closed year." + lag,
+      },
+      "dept.absent": {
+        title: "This unit is not in that year’s book",
+        body: (unit ? unit : "This unit") +
+          (cite.unitCode ? " (" + cite.unitCode + ")" : "") +
+          " does not appear in the " +
+          (cite.book || "that") +
+          " actuals for " +
+          String(cite.fy || "that year").replace("FY", "FY ") +
+          ". The table shows $0 because there is no printed line to add — not because the book printed a zero. There is no page to box.",
       },
       "dept.growth": {
         title: "Unit spending change",
@@ -1294,6 +1316,34 @@
     lastHighlight = null;
     setOpen(true);
     renderHeader(cite);
+
+    if (isAbsentCite(cite)) {
+      allSources = [];
+      renderSourceList(cite, "");
+      const unit = cite.unit || "This unit";
+      const fy = String(cite.fy || "that year").replace("FY", "FY ");
+      const book = cite.book || "that";
+      showEmpty(
+        "No page to open",
+        unit + " is not in the " + book + " book for " + fy +
+          ". $0 means the unit is absent, not a printed zero."
+      );
+      showStatus("Nothing to box — this unit is not in that year’s book.");
+      clearCanvas();
+      $("evidencePageLabel").textContent = "—";
+      $("evidenceDocLink").href = "#";
+      $("evidenceDocLink").textContent = "Open page";
+      loadBooks().then(() => {
+        if (gen !== openGen) return;
+        if (cite.book && books[cite.book]) {
+          $("evidenceDocLink").href = viewerUrl(cite.book, null, null);
+          $("evidenceDocLink").textContent = "Browse " + cite.book;
+        }
+      }).catch(() => {});
+      renderHeader(cite);
+      return;
+    }
+
     showLoading("Finding the printed page…");
     showStatus("Finding the printed page…");
 

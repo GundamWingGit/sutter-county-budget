@@ -675,7 +675,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=23"></script>
+<script src="js/evidence-panel.js?v=24"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -1218,8 +1218,8 @@
       const ncls = r.net24 < 0 ? "neg" : "";
       return `<tr>` +
         `<td>${r.name}</td>` +
-        `<td class="num citeable" data-cite="dept.${i}.fy16" title="FY 2016-17 actual spending">${fmtCompact(r.fy16)}</td>` +
-        `<td class="num citeable" data-cite="dept.${i}.fy20" title="FY 2020-21 actual spending">${fmtCompact(r.fy20)}</td>` +
+        `<td class="num citeable" data-cite="dept.${i}.fy16" title="${r.fy16 ? "FY 2016-17 actual spending" : "This unit does not appear in FY 2016-17 actuals"}">${fmtCompact(r.fy16)}</td>` +
+        `<td class="num citeable" data-cite="dept.${i}.fy20" title="${r.fy20 ? "FY 2020-21 actual spending" : "This unit does not appear in FY 2020-21 actuals"}">${fmtCompact(r.fy20)}</td>` +
         `<td class="num citeable" data-cite="dept.${i}.fy24" title="FY 2024-25 actual spending">${fmtCompact(r.fy24)}</td>` +
         `<td class="num citeable ${gcls}" data-cite="dept.${i}.growth" title="Growth from FY 2016-17 to FY 2024-25">${g}</td>` +
         `<td class="num citeable ${ncls}" data-cite="dept.${i}.net24" title="FY 2024-25 net county cost">${fmtCompact(r.net24)}</td></tr>`;
