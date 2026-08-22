@@ -491,29 +491,34 @@
   .evidence-child .ec-label { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
   .evidence-child .ec-meta { display: block; font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
 
+  #evidenceScrim { display: none; }
+  body:not(.ev-mode-page) #evidenceCanvas { display: none !important; }
+
   @media (max-width: 900px) {
     body.evidence-open .wrap { margin-right: 0; }
     html:has(body.evidence-open),
     body.evidence-open { overflow: hidden; }
+    #evidenceScrim {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(23, 37, 60, .38);
+    }
+    body.evidence-open #evidenceScrim { display: block; }
     #evidencePanel {
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw !important;
-      height: 100vh !important;
-      min-width: 100vw !important;
-      min-height: 100vh !important;
-      max-width: 100vw !important;
-      max-height: 100vh !important;
+      top: auto; left: 8px; right: 8px; bottom: 0;
+      width: auto;
+      height: min(86dvh, 740px);
+      min-width: 0; min-height: 0;
+      max-width: none;
+      max-height: min(86dvh, 740px);
       border-left: 0; border-top: 1px solid var(--line);
       border-radius: 16px 16px 0 0;
-      padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
-      transform: none;
-      visibility: hidden;
-      pointer-events: none;
+      transform: translate3d(0, 100vh, 0);
+      box-shadow: 0 -16px 48px rgba(23, 37, 60, .2);
     }
     body.evidence-open #evidencePanel {
-      visibility: visible;
-      pointer-events: auto;
+      transform: none;
     }
     .evidence-resize { display: none; }
     .evidence-close {
@@ -938,7 +943,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=30"></script>
+<script src="js/evidence-panel.js?v=31"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;

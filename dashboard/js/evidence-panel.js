@@ -117,7 +117,16 @@
     if (loading) loading.classList.toggle("on", mode === "loading");
     if (empty) empty.classList.toggle("on", mode === "empty");
     if (compose) compose.classList.toggle("on", mode === "compose");
-    if (canvas) canvas.style.visibility = mode === "page" ? "visible" : "hidden";
+    if (canvas) {
+      const show = mode === "page";
+      canvas.hidden = !show;
+      canvas.style.visibility = show ? "visible" : "hidden";
+      canvas.style.display = show ? "block" : "none";
+      if (!show) {
+        canvas.style.width = "0px";
+        canvas.style.height = "0px";
+      }
+    }
     expectPdf = mode === "loading";
     const derived = !!(currentCite && currentCite.type === "derived");
     const countyWide = !!(currentCite && (currentCite.metric === "revenue" || currentCite.metric === "spend") && currentCite.fy);
@@ -533,8 +542,12 @@
 
   function showBreakdown() {
     if (!currentCite) return;
+    openGen += 1;
+    renderToken += 1;
     viewingPiece = null;
     lastHighlight = null;
+    lastRenderOpts = null;
+    clearCanvas();
     renderComposition(currentCite);
     renderHeader(currentCite);
     renderSourceList(currentCite, ($("evidenceSourceQ") || {}).value);
@@ -703,27 +716,10 @@
       document.body.classList.remove("evidence-pay", "ev-mode-compose", "ev-mode-page", "ev-mode-empty", "ev-mode-loading");
     }
     const panel = $("evidencePanel");
-    if (panel) {
-      panel.setAttribute("aria-hidden", open ? "false" : "true");
-      if (window.innerWidth <= 900) {
-        if (open) {
-          panel.style.position = "fixed";
-          panel.style.inset = "0";
-          panel.style.width = "100vw";
-          panel.style.height = "100vh";
-          panel.style.maxWidth = "100vw";
-          panel.style.maxHeight = "100vh";
-          panel.style.minWidth = "100vw";
-          panel.style.minHeight = "100vh";
-          panel.style.transform = "none";
-          panel.style.visibility = "visible";
-          panel.style.display = "flex";
-          panel.style.flexDirection = "column";
-          panel.style.zIndex = "2000";
-        } else {
-          panel.style.cssText = "";
-        }
-      }
+    if (panel) panel.setAttribute("aria-hidden", open ? "false" : "true");
+    if (!open) {
+      renderToken += 1;
+      clearCanvas();
     }
   }
 
@@ -1505,6 +1501,10 @@
     const ctx = canvas.getContext("2d");
     canvas.width = 1;
     canvas.height = 1;
+    canvas.style.width = "0px";
+    canvas.style.height = "0px";
+    canvas.hidden = true;
+    canvas.style.display = "none";
     ctx.clearRect(0, 0, 1, 1);
   }
 
@@ -1588,6 +1588,12 @@
 
     await page.render({ canvasContext: ctx, viewport }).promise;
     if (token !== renderToken) return;
+    if (!document.body.classList.contains("ev-mode-page") &&
+        document.body.classList.contains("ev-mode-compose")) {
+      canvas.hidden = true;
+      canvas.style.display = "none";
+      return;
+    }
 
     lastHighlight = null;
     if (highlightOn) {
@@ -2067,6 +2073,12 @@
       </div>
     `;
     document.body.appendChild(panel);
+    if (!$("evidenceScrim")) {
+      const scrim = document.createElement("div");
+      scrim.id = "evidenceScrim";
+      scrim.addEventListener("click", () => setOpen(false));
+      document.body.appendChild(scrim);
+    }
     initResize(panel);
 
     $("evidenceClose").addEventListener("click", () => setOpen(false));
