@@ -170,10 +170,21 @@
       String(cite.id || "").startsWith("pay.")));
   }
 
+  function isFteValue(cite, piece) {
+    const row = piece || cite || {};
+    if (row.metric === "fte") return true;
+    if (/fte/i.test(String(row.label || "") + " " + String(row.line || ""))) return true;
+    return citeFamily(cite || {}) === "pay.staff";
+  }
+
+  function formatFigure(cite, piece) {
+    const row = piece || cite;
+    if (!row || row.value == null) return "";
+    return isFteValue(cite, piece) ? fmtFte(row.value) : fmtFull(row.value);
+  }
+
   function formatClicked(cite) {
-    if (!cite || cite.value == null) return "";
-    if (citeFamily(cite) === "pay.staff" || cite.metric === "fte") return fmtFte(cite.value);
-    return fmtFull(cite.value);
+    return formatFigure(cite, cite);
   }
 
   function payJob(cite) {
@@ -947,10 +958,11 @@
 
     if (qBox) qBox.hidden = allSources.length < 8;
 
-    if (!allSources.length) {
+    if (!allSources.length || citeFamily(cite) === "pay.staff") {
       labelEl.textContent = "";
       sumEl.textContent = "";
       list.innerHTML = "";
+      if (qBox) qBox.hidden = true;
       return;
     }
 
@@ -973,7 +985,7 @@
       btn.innerHTML =
         `<span class="ec-label">${escapeHtml(pieceLabel(kid))}</span>` +
         `<span class="ec-meta">${group}${kid.book || ""}${kid.page ? " · p." + kid.page : ""}` +
-        `${kid.value != null ? " · " + fmtFull(kid.value) : ""}</span>`;
+        `${kid.value != null ? " · " + formatFigure(cite, kid) : ""}</span>`;
       btn.addEventListener("pointerenter", () => {
         if (kid.book) prefetchPdf(kid.book).catch(() => {});
       });
@@ -1250,13 +1262,11 @@
           renderComposition(currentCite || cite);
           showStatus("This total is not printed as one figure. Click a source row to box that row.");
         } else {
-          showStatus("Opened the page but could not box " +
-            ((piece.metric === "fte") ? fmtFte(piece.value) : fmtFull(piece.value)) +
+          showStatus("Opened the page but could not box " + formatFigure(cite, piece) +
             ". The figure is not on this page as a whole number.", true);
         }
       } else {
-        showStatus("Highlight is " +
-          ((piece.metric === "fte") ? fmtFte(piece.value) : fmtFull(piece.value)) +
+        showStatus("Highlight is " + formatFigure(cite, piece) +
           ". Click the page for a sharper view.");
       }
     } catch (e) {
