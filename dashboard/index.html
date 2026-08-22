@@ -382,15 +382,59 @@
     font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-3); margin: 12px 0 4px;
   }
+  .ec-mosaic-ui { width: 100%; }
+  .ec-mosaic-scroll { overflow: hidden; border-radius: 4px; }
   .ec-mosaic {
     display: flex; height: 26px; width: 100%;
     border-radius: 3px; overflow: hidden; gap: 0; background: #d8dee8;
+    touch-action: none;
   }
   .ec-mosaic.tall { height: 18px; }
   .ec-slice {
     border: 0; padding: 0; min-width: 0; height: 100%; cursor: pointer;
+    position: relative;
   }
   .ec-slice:hover { filter: brightness(1.12); }
+  .ec-slice.is-on { filter: brightness(1.2); box-shadow: inset 0 0 0 2px #fff; z-index: 1; }
+  .ec-mosaic-tools { display: none; margin-top: 8px; }
+  .ec-spread {
+    border: 1px solid var(--line); background: #fff;
+    font: 12px/1 var(--sans); font-weight: 650;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer;
+    color: var(--navy); min-height: 40px;
+  }
+  .ec-loupe {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; margin-top: 8px; padding: 10px 12px;
+    border: 1px solid #c5d4e8; border-radius: 8px; background: #eef4fb;
+    font: inherit; text-align: left; cursor: pointer;
+  }
+  .ec-loupe[hidden] { display: none !important; }
+  .ec-loupe-swatch { width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; }
+  .ec-loupe-copy { min-width: 0; flex: 1; }
+  .ec-loupe-name {
+    display: block; font-size: 13px; font-weight: 650; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ec-loupe-sub { display: none; font-size: 11px; color: var(--ink-3); }
+  .ec-loupe-amt { font-size: 13px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+  .ec-years {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0 4px;
+  }
+  .ec-year {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 10px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: #fff; min-height: 68px; text-align: left; cursor: pointer;
+    font: inherit;
+  }
+  .ec-year i { display: block; width: 100%; height: 4px; border-radius: 99px; }
+  .ec-year-fy { font-size: 12px; font-weight: 650; color: var(--ink-2); }
+  .ec-year-amt { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .ec-year.is-on, .ec-row.is-on { outline: 2px solid var(--navy); outline-offset: 1px; }
   .ec-hint { font-size: 12px; color: var(--ink-3); margin: 8px 0 14px; }
   .ec-rows { display: flex; flex-direction: column; gap: 7px; }
   .ec-row {
@@ -547,7 +591,29 @@
     body.ev-mode-page #evidenceTitle { font-size: 14px; }
     .evidence-toolbar { gap: 6px; }
     .evidence-nav, .evidence-doc { min-height: 36px; padding: 6px 8px; }
-    .ec-mosaic { height: 16px; }
+    .ec-mosaic { height: 48px; border-radius: 8px; }
+    .ec-mosaic.tall { height: 40px; }
+    .ec-slice { pointer-events: none; }
+    .ec-mosaic-tools { display: flex; }
+    .ec-loupe { min-height: 52px; }
+    .ec-loupe-sub { display: block; }
+    .ec-years { display: grid; }
+    .ec-year-rows { display: none; }
+    .ec-mosaic-ui.is-spread .ec-mosaic-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+    }
+    .ec-mosaic-ui.is-spread .ec-mosaic {
+      width: max-content;
+      min-width: 100%;
+      touch-action: pan-x;
+    }
+    .ec-mosaic-ui.is-spread .ec-slice {
+      pointer-events: auto;
+      min-width: 36px;
+      flex: 1 0 36px;
+    }
     .evidence-body { flex: 1 1 auto; min-height: 0; }
     .evidence-compose { padding: 10px 14px 16px; }
     .evidence-compose .ec-total { display: none; }
@@ -964,7 +1030,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=31"></script>
+<script src="js/evidence-panel.js?v=32"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;

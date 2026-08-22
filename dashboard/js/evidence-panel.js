@@ -378,6 +378,34 @@
       }));
   }
 
+  function fyLabel(s) {
+    const raw = String((s && (s.fy || s.label)) || "");
+    const m = raw.match(/FY\s*(\d{4})\s*-?\s*(\d{2})/i);
+    if (m) return "FY " + m[1].slice(2) + "-" + m[2];
+    return shortUnitName(s);
+  }
+
+  function fySortKey(s) {
+    const raw = String((s && (s.fy || s.label)) || "");
+    const m = raw.match(/(\d{4})\s*-/);
+    return m ? Number(m[1]) : 0;
+  }
+
+  function packYearSlices(rows) {
+    return rows
+      .filter(s => s && s.value != null && Math.abs(Number(s.value)) >= 1 && !s.countyWide)
+      .slice()
+      .sort((a, b) => fySortKey(a) - fySortKey(b))
+      .map((s, i) => ({
+        source: s,
+        label: fyLabel(s),
+        value: Math.abs(Number(s.value)),
+        signed: Number(s.value),
+        color: sliceColor(i),
+        page: s.page || null,
+      }));
+  }
+
   function mosaicHtml(slices, total, pack) {
     const denom = slices.reduce((a, s) => a + s.value, 0) || total || 1;
     const p = pack || "main";
@@ -387,6 +415,38 @@
       return `<button type="button" class="ec-slice${s.other ? " other" : ""}" data-pack="${p}" data-i="${i}" ` +
         `style="flex:${s.value} 1 ${pct}%;background:${s.color}" title="${escapeHtml(title)}"></button>`;
     }).join("");
+  }
+
+  function mosaicUiHtml(slices, total, pack, opts) {
+    opts = opts || {};
+    const showSpread = slices.length > 12;
+    const widthStyle = opts.width ? ` style="width:${opts.width}"` : "";
+    return `<div class="ec-mosaic-ui" data-pack="${pack}"${widthStyle}>` +
+      `<div class="ec-mosaic-scroll">` +
+        `<div class="ec-mosaic${opts.tall ? " tall" : ""}" role="listbox" aria-label="${escapeHtml(opts.aria || "Composition")}">${mosaicHtml(slices, total, pack)}</div>` +
+      `</div>` +
+      `<div class="ec-mosaic-tools">` +
+        (showSpread ? `<button type="button" class="ec-spread">Spread slices</button>` : "") +
+      `</div>` +
+      `<button type="button" class="ec-loupe" hidden>` +
+        `<span class="ec-loupe-swatch"></span>` +
+        `<span class="ec-loupe-copy">` +
+          `<span class="ec-loupe-name"></span>` +
+          `<span class="ec-loupe-sub">Tap here to open this page</span>` +
+        `</span>` +
+        `<strong class="ec-loupe-amt"></strong>` +
+      `</button>` +
+    `</div>`;
+  }
+
+  function yearTilesHtml(slices, pack) {
+    return `<div class="ec-years">` + slices.map((s, i) => {
+      return `<button type="button" class="ec-year" data-pack="${pack}" data-i="${i}">` +
+        `<i style="background:${s.color}"></i>` +
+        `<span class="ec-year-fy">${escapeHtml(s.label)}</span>` +
+        `<span class="ec-year-amt">${fmtShort(s.signed)}</span>` +
+      `</button>`;
+    }).join("") + `</div>`;
   }
 
   function rowsHtml(slices, total, pack) {
@@ -407,19 +467,142 @@
     }).join("");
   }
 
-  function bindComposeClicks(host, packs, cite) {
-    host.querySelectorAll("[data-pack][data-i]").forEach((el) => {
-      el.addEventListener("click", () => {
-        const pack = el.getAttribute("data-pack");
-        const slice = (packs[pack] || [])[Number(el.getAttribute("data-i"))];
+  function openSlice(cite, slice) {
+    if (!slice) return;
+    if (slice.source && slice.source.page && slice.source.book) {
+      showPiece(cite, slice.source, ++openGen);
+    } else if (slice.source) {
+      openCitation(slice.source);
+    }
+  }
+
+  function bindMosaicScrub(host, packs, cite) {
+    host.querySelectorAll(".ec-mosaic-ui").forEach((ui) => {
+      const mosaic = ui.querySelector(".ec-mosaic");
+      const scroll = ui.querySelector(".ec-mosaic-scroll");
+      const loupe = ui.querySelector(".ec-loupe");
+      const spread = ui.querySelector(".ec-spread");
+      const pack = ui.getAttribute("data-pack");
+      const slices = packs[pack] || [];
+      if (!mosaic) return;
+      let selected = null;
+      let dragging = false;
+      let startX = 0;
+      let moved = false;
+
+      const sliceButtons = () => mosaic.querySelectorAll(".ec-slice");
+
+      const pickAt = (clientX) => {
+        const buttons = sliceButtons();
+        let found = null;
+        let nearest = null;
+        let nearestDist = Infinity;
+        buttons.forEach((btn) => {
+          const r = btn.getBoundingClientRect();
+          if (clientX >= r.left && clientX < r.right) found = btn;
+          const mid = (r.left + r.right) / 2;
+          const d = Math.abs(clientX - mid);
+          if (d < nearestDist) {
+            nearestDist = d;
+            nearest = btn;
+          }
+        });
+        return found || nearest;
+      };
+
+      const activate = (btn) => {
+        selected = btn;
+        sliceButtons().forEach((el) => el.classList.toggle("is-on", el === btn));
+        if (!btn || !loupe) return;
+        const i = Number(btn.getAttribute("data-i"));
+        const slice = slices[i];
         if (!slice) return;
-        if (slice.source && slice.source.page && slice.source.book) {
-          showPiece(cite, slice.source, ++openGen);
-        } else if (slice.source) {
-          openCitation(slice.source);
+        const denom = slices.reduce((a, s) => a + s.value, 0) || 1;
+        const pct = (slice.value / denom) * 100;
+        const pctLabel = pct >= 10 ? pct.toFixed(0) + "%" : pct.toFixed(1) + "%";
+        loupe.hidden = false;
+        const sw = loupe.querySelector(".ec-loupe-swatch");
+        const name = loupe.querySelector(".ec-loupe-name");
+        const amt = loupe.querySelector(".ec-loupe-amt");
+        if (sw) sw.style.background = slice.color;
+        if (name) name.textContent = slice.label + (slice.page ? " · p." + slice.page : "");
+        if (amt) amt.textContent = fmtShort(slice.signed != null ? slice.signed : slice.value) + " · " + pctLabel;
+        host.querySelectorAll(".ec-row, .ec-year").forEach((row) => {
+          const on = row.getAttribute("data-pack") === pack && row.getAttribute("data-i") === String(i);
+          row.classList.toggle("is-on", on);
+        });
+        const row = host.querySelector(".ec-row[data-pack=\"" + pack + "\"][data-i=\"" + i + "\"]");
+        if (row) {
+          try { row.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
+        }
+      };
+
+      mosaic.addEventListener("pointerdown", (e) => {
+        if (ui.classList.contains("is-spread")) return;
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        dragging = true;
+        moved = false;
+        startX = e.clientX;
+        try { mosaic.setPointerCapture(e.pointerId); } catch (_) {}
+        activate(pickAt(e.clientX));
+        e.preventDefault();
+      });
+      mosaic.addEventListener("pointermove", (e) => {
+        if (!dragging) {
+          if (e.pointerType === "mouse" && !ui.classList.contains("is-spread")) {
+            activate(pickAt(e.clientX));
+          }
+          return;
+        }
+        if (Math.abs(e.clientX - startX) > 8) moved = true;
+        activate(pickAt(e.clientX));
+      });
+      mosaic.addEventListener("pointerup", (e) => {
+        if (!dragging) return;
+        dragging = false;
+        try { mosaic.releasePointerCapture(e.pointerId); } catch (_) {}
+        const btn = pickAt(e.clientX);
+        activate(btn);
+        if (!moved && btn) {
+          openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
         }
       });
+      mosaic.addEventListener("pointercancel", () => { dragging = false; });
+      mosaic.addEventListener("click", (e) => {
+        if (!ui.classList.contains("is-spread")) return;
+        const btn = e.target.closest(".ec-slice");
+        if (!btn) return;
+        activate(btn);
+        openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
+      });
+
+      if (loupe) {
+        loupe.addEventListener("click", () => {
+          if (!selected) return;
+          openSlice(cite, slices[Number(selected.getAttribute("data-i"))]);
+        });
+      }
+
+      if (spread) {
+        spread.addEventListener("click", () => {
+          const on = ui.classList.toggle("is-spread");
+          spread.textContent = on ? "Fit bar" : "Spread slices";
+          if (on && scroll) {
+            try { scroll.scrollLeft = 0; } catch (_) {}
+          }
+        });
+      }
     });
+  }
+
+  function bindComposeClicks(host, packs, cite) {
+    host.querySelectorAll(".ec-row[data-pack][data-i], .ec-year[data-pack][data-i]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const pack = el.getAttribute("data-pack");
+        openSlice(cite, (packs[pack] || [])[Number(el.getAttribute("data-i"))]);
+      });
+    });
+    bindMosaicScrub(host, packs, cite);
   }
 
   function renderComposition(cite) {
@@ -452,14 +635,16 @@
     host.innerHTML = "";
 
     if (isYears) {
-      const slices = packSlices(sources);
+      const slices = packYearSlices(sources);
       const sum = slices.reduce((a, s) => a + s.signed, 0);
+      const denom = Math.abs(clicked) || Math.abs(sum);
       host.innerHTML =
         `<div class="ec-kicker">How the years add up</div>` +
         `<div class="ec-total">${fmtFull(clicked)}</div>` +
-        `<div class="ec-mosaic" role="img" aria-label="Yearly surplus mosaic">${mosaicHtml(slices, Math.abs(clicked) || Math.abs(sum), "main")}</div>` +
-        `<div class="ec-hint">Every closed year, largest first. Click a year to open its sources.</div>` +
-        `<div class="ec-rows">${rowsHtml(slices, Math.abs(clicked) || slices.reduce((a, s) => a + s.value, 0), "main")}</div>`;
+        mosaicUiHtml(slices, denom, "main", { aria: "Yearly surplus mosaic" }) +
+        yearTilesHtml(slices, "main") +
+        `<div class="ec-hint">Years in order. Drag the bar or tap a year.</div>` +
+        `<div class="ec-rows ec-year-rows">${rowsHtml(slices, denom || slices.reduce((a, s) => a + s.value, 0), "main")}</div>`;
       bindComposeClicks(host, { main: slices }, cite);
       return;
     }
@@ -478,15 +663,23 @@
         `<div class="ec-compare">` +
           `<div class="ec-compare-row">` +
             `<div class="ec-compare-lab">Revenue <b>${fmtShort(revN)}</b></div>` +
-            `<div class="ec-mosaic tall" style="width:${Math.max(18, (Math.abs(revN) / maxBar) * 100)}%">${mosaicHtml(revSlices, Math.abs(revN), "rev")}</div>` +
+            mosaicUiHtml(revSlices, Math.abs(revN), "rev", {
+              tall: true,
+              width: Math.max(18, (Math.abs(revN) / maxBar) * 100) + "%",
+              aria: "Revenue mosaic",
+            }) +
           `</div>` +
           `<div class="ec-compare-row">` +
             `<div class="ec-compare-lab">Spending <b>${fmtShort(expN)}</b></div>` +
-            `<div class="ec-mosaic tall" style="width:${Math.max(18, (Math.abs(expN) / maxBar) * 100)}%">${mosaicHtml(expSlices, Math.abs(expN) || 1, "exp")}</div>` +
+            mosaicUiHtml(expSlices, Math.abs(expN) || 1, "exp", {
+              tall: true,
+              width: Math.max(18, (Math.abs(expN) / maxBar) * 100) + "%",
+              aria: "Spending mosaic",
+            }) +
           `</div>` +
         `</div>` +
         `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
-        `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Click any row to open that page.</div>` +
+        `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Drag a bar or tap a row.</div>` +
         `<div class="ec-rows">` +
           `<div class="ec-section">Revenue</div>` +
           rowsHtml(revSlices, Math.abs(revN) || 1, "rev") +
@@ -514,11 +707,11 @@
         : slices.length + " printed lines add to"}</div>` +
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
       printedChip +
-      `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, inflation ? stack : (Math.abs(clicked) || stack), "main")}</div>` +
+      mosaicUiHtml(slices, inflation ? stack : (Math.abs(clicked) || stack), "main", { aria: "Composition mosaic" }) +
       `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
       `<div class="ec-hint">${inflation
-        ? "Click the source row to box the printed nominal amount, " + fmtFull(stack) + "."
-        : "Every unit, largest first. Click a slice or row to open that printed page."}</div>` +
+        ? "Drag the bar or tap a row to box the printed nominal amount, " + fmtFull(stack) + "."
+        : "Drag across the bar to pick a unit, or use the list."}</div>` +
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
     bindComposeFilter(host);
@@ -1217,6 +1410,46 @@
       return units;
     }
 
+    // Cumulative nine-year net: one row per closed year — not every unit in year one.
+    // Must run before the surplus test; that label also contains "surplus".
+    if (/cumulative/i.test(label)) {
+      const out = [];
+      for (const kid of hydratedKids) {
+        const full = hydrateCite(kid);
+        let pagePiece = null;
+        if (full.page && full.book) {
+          pagePiece = full;
+        } else {
+          const subKids = (full.children || []).map(hydrateCite);
+          const rev = subKids.find(k => metricFromChild(k) === "revenue") || subKids[0];
+          if (rev && rev.book && rev.fy) {
+            const rows = await expandMetricRows(
+              rev.book, rev.fy, rev.kind || "actual", "revenue", null
+            );
+            pagePiece = rows[0] || null;
+          }
+          if (!pagePiece) {
+            pagePiece = subKids.find(s => s.page && s.book) || null;
+          }
+        }
+        out.push({
+          ...full,
+          type: full.type || "derived",
+          label: full.label || kid.label,
+          value: full.value != null ? full.value : kid.value,
+          book: (pagePiece && pagePiece.book) || full.book || kid.book,
+          page: (pagePiece && pagePiece.page) || full.page || null,
+          query: (pagePiece && (pagePiece.query || formatQueryFromValue(pagePiece.value))) || full.query || null,
+          hit: (pagePiece && pagePiece.hit) || full.hit || null,
+          unit: null,
+          line: (pagePiece && pagePiece.line) || full.line,
+          fy: full.fy || kid.fy,
+          group: "Year",
+        });
+      }
+      return out.length ? out : baked;
+    }
+
     // Surplus / planned draw: expand both revenue and spend children into unit rows.
     if (metric === "surplus" || /surplus|draw|planned/i.test(label)) {
       const kids = hydratedKids.length ? hydratedKids : baked;
@@ -1249,44 +1482,6 @@
       }
       const all = dedupeSources(out);
       return all.length ? all : baked;
-    }
-
-    // Cumulative: keep yearly surplus rows, but attach a printable page from each year.
-    if (/cumulative/i.test(label)) {
-      const out = [];
-      for (const kid of hydratedKids) {
-        const full = hydrateCite(kid);
-        let pagePiece = null;
-        if (full.page && full.book) {
-          pagePiece = full;
-        } else {
-          const subKids = (full.children || []).map(hydrateCite);
-          const rev = subKids.find(k => metricFromChild(k) === "revenue") || subKids[0];
-          if (rev && rev.book && rev.fy) {
-            const rows = await expandMetricRows(
-              rev.book, rev.fy, rev.kind || "actual", "revenue", null
-            );
-            pagePiece = rows[0] || null;
-          }
-          if (!pagePiece) {
-            pagePiece = subKids.find(s => s.page && s.book) || null;
-          }
-        }
-        out.push({
-          ...full,
-          type: full.type || "derived",
-          label: full.label || kid.label,
-          value: full.value != null ? full.value : kid.value,
-          book: (pagePiece && pagePiece.book) || full.book || kid.book,
-          page: (pagePiece && pagePiece.page) || full.page || null,
-          query: (pagePiece && (pagePiece.query || formatQueryFromValue(pagePiece.value))) || full.query || null,
-          hit: (pagePiece && pagePiece.hit) || full.hit || null,
-          unit: (pagePiece && pagePiece.unit) || full.unit,
-          line: (pagePiece && pagePiece.line) || full.line,
-          group: "Year",
-        });
-      }
-      return out.length ? out : baked;
     }
 
     // Other derived cites: if baked kids lack pages, try expanding any revenue/spend child.
