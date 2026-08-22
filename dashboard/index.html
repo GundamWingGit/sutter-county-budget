@@ -159,11 +159,67 @@
   .error-panel { margin: 60px auto; max-width: 620px; text-align: center;
                  background: var(--card); border: 1px solid var(--line); padding: 48px 40px; }
 
+  .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table-scroll table.data { min-width: 560px; }
+  .series-toggles {
+    display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; align-items: center;
+  }
+  .series-toggles .series-hint {
+    font-size: 11px; color: var(--ink-3); width: 100%; margin: 0 0 2px;
+  }
+  .series-chip {
+    font: 600 11px var(--sans); letter-spacing: .02em;
+    color: var(--ink); background: #fff; border: 1px solid var(--line);
+    padding: 4px 9px 4px 7px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .series-chip .swatch {
+    width: 9px; height: 9px; border-radius: 1px; flex: 0 0 auto;
+  }
+  .series-chip:hover { border-color: var(--steel); }
+  .series-chip.is-off { opacity: .45; text-decoration: line-through; color: var(--ink-3); }
+  .series-chip.is-all { color: var(--navy); border-color: var(--steel); }
+  .series-chip.is-all.is-off { opacity: 1; text-decoration: none; }
+
   @media (max-width: 980px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
     .grid.two, .grid.halves, .findings { grid-template-columns: 1fr; }
   }
-  @media (max-width: 560px) { .kpis { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) {
+    .wrap {
+      padding: 0 16px calc(80px + env(safe-area-inset-bottom, 0px));
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+    .masthead { padding-top: 28px; }
+    .card { padding: 16px 14px 12px; }
+    .verdict { padding: 18px 16px; }
+    section { margin-top: 44px; }
+    .chart-box { height: 260px; }
+    .chart-box.tall { height: 320px; }
+    .chart-box.short { height: 240px; }
+    .year-tabs-bar { gap: 8px; }
+    .year-tabs {
+      flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px; max-width: 100%;
+    }
+    .year-tab { flex: 0 0 auto; }
+    .table-scroll table.data { min-width: 640px; }
+    .table-scroll table.data th:first-child,
+    .table-scroll table.data td:first-child {
+      position: sticky; left: 0; background: var(--card); z-index: 1;
+      box-shadow: 1px 0 0 var(--line-soft);
+    }
+    .table-scroll table.data thead th:first-child { z-index: 2; }
+    .explorer-controls { flex-direction: column; align-items: stretch; }
+    .explorer-controls select, .explorer-controls input { min-width: 0; width: 100%; }
+    .citeable::after { display: none; }
+    .kpi.citeable::after, .finding.citeable::after { display: none; }
+  }
+  @media (max-width: 560px) {
+    .kpis { grid-template-columns: 1fr; }
+    .wrap { padding-left: max(14px, env(safe-area-inset-left, 0px));
+            padding-right: max(14px, env(safe-area-inset-right, 0px)); }
+  }
   @media print {
     nav.toc { display: none; }
     .chart-box, .chart-box.tall, .chart-box.short { height: 280px; break-inside: avoid; }
@@ -466,7 +522,23 @@
 
   @media (max-width: 900px) {
     body.evidence-open .wrap { margin-right: 0; }
-    #evidencePanel { width: 100vw; }
+    #evidencePanel {
+      top: auto; left: 0; right: 0; bottom: 0;
+      width: 100vw; max-width: 100vw;
+      height: min(78vh, 640px);
+      max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 12px);
+      border-left: 0; border-top: 1px solid var(--line);
+      border-radius: 14px 14px 0 0;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      transform: translateY(110%);
+      box-shadow: 0 -8px 28px rgba(23, 37, 60, .12);
+    }
+    body.evidence-open #evidencePanel { transform: translateY(0); }
+    .evidence-resize { display: none; }
+    .evidence-close {
+      font-size: 30px; padding: 4px 10px; min-width: 44px; min-height: 44px;
+    }
+    .evidence-header { max-height: 38vh; }
   }
 </style>
 </head>
@@ -545,6 +617,7 @@
       <div class="card">
         <h3>Function composition over time <span class="yr-badge">FY 16-17 – FY 24-25</span></h3>
         <p class="note">Stacked actual spending. The drop in “Other” after FY 2022-23 is a reclassification into named functions.</p>
+        <div class="series-toggles" id="funcSeriesToggles"></div>
         <div class="chart-box"><canvas id="chFuncTrend"></canvas></div>
       </div>
       <div class="card">
@@ -564,11 +637,13 @@
       <div class="card">
         <h3>Revenue by source <span class="yr-badge">actuals, consistent window</span></h3>
         <p class="note">FY 2018-19 – FY 2023-24, after the county’s classification change. Intergovernmental aid is the largest external source.</p>
+        <div class="series-toggles" id="revMixSeriesToggles"></div>
         <div class="chart-box"><canvas id="chRevMix"></canvas></div>
       </div>
       <div class="card">
         <h3>Spending by object <span class="yr-badge">actuals, same window</span></h3>
         <p class="note">Salaries &amp; benefits grew from $98.6M to $120.3M (+22%). Capital jumped in FY 2022-23 and FY 2023-24, then receded.</p>
+        <div class="series-toggles" id="expMixSeriesToggles"></div>
         <div class="chart-box"><canvas id="chExpMix"></canvas></div>
       </div>
     </div>
@@ -604,7 +679,7 @@
     <div class="card" style="margin-top:16px">
       <h3>Department and fund detail</h3>
       <p class="note">Units above $2 million in FY 2024-25 actual spending, ranked. Each underlined year is a separate source: FY 16-17, FY 20-21, and FY 24-25 open different books.</p>
-      <div id="deptTable"></div>
+      <div class="table-scroll" id="deptTable"></div>
     </div>
   </section>
 
@@ -636,7 +711,7 @@
     <div class="card" style="margin-top:16px">
       <h3>Job-by-job estimated class payroll</h3>
       <p class="note">Authorized FTE × midpoint and top of range. Benefits and overtime are not included.</p>
-      <div id="payTable"></div>
+      <div class="table-scroll" id="payTable"></div>
     </div>
   </section>
 
@@ -777,6 +852,46 @@
       host.querySelectorAll(".year-tab").forEach(b => b.classList.toggle("is-on", b === btn));
       onPick(i);
     });
+  };
+  const bindSeriesToggles = (chart, hostId) => {
+    const host = document.getElementById(hostId);
+    if (!host || !chart) return;
+    const paint = () => {
+      const chips = chart.data.datasets.map((ds, i) => {
+        const on = chart.isDatasetVisible(i);
+        const color = ds.backgroundColor || NAVY;
+        return `<button type="button" class="series-chip${on ? "" : " is-off"}" data-i="${i}" ` +
+          `aria-pressed="${on ? "true" : "false"}">` +
+          `<span class="swatch" style="background:${color}"></span>${ds.label || ("Series " + (i + 1))}` +
+          `</button>`;
+      }).join("");
+      const allOn = chart.data.datasets.every((_, i) => chart.isDatasetVisible(i));
+      host.innerHTML =
+        `<span class="series-hint">Tap a category to hide it.</span>` +
+        `<button type="button" class="series-chip is-all${allOn ? "" : " is-off"}" data-all="1" ` +
+        `aria-pressed="${allOn ? "true" : "false"}">All</button>` +
+        chips;
+    };
+    paint();
+    host.addEventListener("click", ev => {
+      const btn = ev.target.closest(".series-chip");
+      if (!btn) return;
+      if (btn.dataset.all) {
+        chart.data.datasets.forEach((_, i) => chart.setDatasetVisibility(i, true));
+      } else {
+        const i = +btn.dataset.i;
+        chart.setDatasetVisibility(i, !chart.isDatasetVisible(i));
+      }
+      chart.update();
+      paint();
+    });
+    const legendOpts = chart.options.plugins.legend || (chart.options.plugins.legend = {});
+    const prev = legendOpts.onClick;
+    legendOpts.onClick = function (e, item, legend) {
+      if (typeof prev === "function") prev.call(this, e, item, legend);
+      else Chart.defaults.plugins.legend.onClick.call(this, e, item, legend);
+      paint();
+    };
   };
 
   document.getElementById("metaRow").innerHTML = [
@@ -999,7 +1114,7 @@
 
   const ft = D.functionTrend;
   markChart("chFuncTrend");
-  new Chart(document.getElementById("chFuncTrend"), {
+  const chFuncTrend = new Chart(document.getElementById("chFuncTrend"), {
     type: "bar",
     data: {
       labels: ft.labels,
@@ -1019,6 +1134,7 @@
       }
     }
   });
+  bindSeriesToggles(chFuncTrend, "funcSeriesToggles");
 
   const ftYears = ft.years || [];
   const funcShareAt = yi => {
@@ -1078,9 +1194,9 @@
     bindYearTabs("funcYearTabs", ft.labels, startYi, yi => paintFuncShare(chByFunc, yi));
   }
 
-  function stacked(canvasId, pack, prefix) {
+  function stacked(canvasId, pack, prefix, toggleHostId) {
     markChart(canvasId);
-    new Chart(document.getElementById(canvasId), {
+    const chart = new Chart(document.getElementById(canvasId), {
       type: "bar",
       data: {
         labels: pack.labels,
@@ -1099,9 +1215,11 @@
         }
       }
     });
+    if (toggleHostId) bindSeriesToggles(chart, toggleHostId);
+    return chart;
   }
-  stacked("chRevMix", D.revenueMix, "revmix");
-  stacked("chExpMix", D.expenseMix, "expmix");
+  stacked("chRevMix", D.revenueMix, "revmix", "revMixSeriesToggles");
+  stacked("chExpMix", D.expenseMix, "expmix", "expMixSeriesToggles");
 
   const mixYears = (D.revenueMix && D.revenueMix.years) || [];
   const REV_MIX_IDX = {
@@ -1548,7 +1666,7 @@
         return;
       }
       results.innerHTML =
-        `<table class="data"><thead><tr>` +
+        `<div class="table-scroll"><table class="data"><thead><tr>` +
         `<th>Unit</th><th>Line</th><th>Year of figure</th><th>Column</th>` +
         `<th class="num">Value</th><th class="num">Page</th></tr></thead><tbody>` +
         shown.map((r, i) =>
@@ -1559,7 +1677,7 @@
           `<td>${prettyKind(r.k)}</td>` +
           `<td class="num">${fmtFull(r.v)}</td>` +
           `<td class="num">${r.p}</td></tr>`
-        ).join("") + `</tbody></table>`;
+        ).join("") + `</tbody></table></div>`;
 
       results.querySelectorAll("tr.citeable").forEach(tr => {
         tr.addEventListener("click", () => {
