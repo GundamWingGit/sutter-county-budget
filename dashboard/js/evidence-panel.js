@@ -191,7 +191,10 @@
 
   function payJob(cite) {
     const title = (cite && (cite.unit || cite.label)) || "";
-    const jobs = (global.BUDGET_DATA && global.BUDGET_DATA.pay && global.BUDGET_DATA.pay.jobs) || [];
+    const fy = String((cite && cite.fy) || "").replace(/\s+/g, "");
+    const byYear = (global.BUDGET_DATA && global.BUDGET_DATA.payByYear && global.BUDGET_DATA.payByYear.byYear) || {};
+    const pack = byYear[fy] || {};
+    const jobs = pack.jobs || (global.BUDGET_DATA && global.BUDGET_DATA.pay && global.BUDGET_DATA.pay.jobs) || [];
     const want = title.toLowerCase().replace(/[–—]/g, "-");
     const found = jobs.find(j => (j.title || "").toLowerCase().replace(/[–—]/g, "-") === want);
     return found || {
@@ -233,8 +236,8 @@
         `<div class="pd-name">${escapeHtml(title)}</div>` +
         hero +
         `<p class="pd-note">${family === "pay.staff"
-          ? "Budgeted seats in the FY 2025-26 Position Allocation Schedule. The book does not print how many of these jobs are filled."
-          : "Posted in the FY 2025-26 salary resolution (Section J). Authorized FTE is a roster count, not filled headcount."
+          ? "Budgeted seats in the " + escapeHtml(cite.year || cite.book || "position") + " allocation schedule. The book does not print how many of these jobs are filled."
+          : "Posted in the " + escapeHtml(cite.year || cite.book || "position") + " salary table (Section J). Authorized FTE is a roster count, not filled headcount."
         }</p>` +
         `<div class="pd-grid">` +
           `<div class="pd-stat"><span>Authorized FTE</span><b>${fte != null ? fmtFte(fte) : "—"}</b></div>` +
@@ -852,7 +855,7 @@
       },
       "pay.high": {
         title: "Top of salary range",
-        body: "Highest authorized annual rate for this classification in the FY 2025-26 salary resolution. Not what any one person was paid.",
+        body: "Highest authorized annual rate for this classification in that year’s position book. Not what any one person was paid.",
       },
       "pay.cost": {
         title: "Estimated class payroll",

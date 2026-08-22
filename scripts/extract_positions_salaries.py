@@ -46,7 +46,7 @@ def clean_title(s):
 def extract_salaries(pdf):
     """One row per classification: min, max, top-of-range annual, FLSA, grade."""
     classes = {}
-    for page in pdf.pages[15:100]:
+    for page_i, page in enumerate(pdf.pages[15:100], start=16):
         tables = page.extract_tables() or []
         for table in tables:
             for row in table:
@@ -71,6 +71,7 @@ def extract_salaries(pdf):
                         "grade": grade,
                         "flsa": flsa,
                         "topAnnual": hi,
+                        "page": page_i,
                     },
                 )
                 rec["min"] = min(rec["min"], lo)
@@ -134,6 +135,12 @@ def extract_fte(pdf):
 ABBREV = (
     ("PUBLIC ASST SPECIALIST", "PUBLIC ASSISTANCE SPECIALIST"),
     ("PUBLIC ASSIST SPECIALIST", "PUBLIC ASSISTANCE SPECIALIST"),
+    ("PUBLIC ASST SPEC", "PUBLIC ASSISTANCE SPECIALIST"),
+    ("COUNTY ADMIN OFFICER", "COUNTY ADMINISTRATIVE OFFICER"),
+    ("ADMIN OFFICER", "ADMINISTRATIVE OFFICER"),
+    ("HLTH", "HEALTH"),
+    ("SVCS", "SERVICES"),
+    ("SVS", "SERVICES"),
     ("PUBLIC ASSISTANCE SPECIALIST SUPV", "PUBLIC ASSISTANCE SPECIALIST SUPERVISOR"),
     ("AG STANDARDS BIOLOGST", "AGRICULTURAL AND STANDARDS BIOLOGIST"),
     ("AG COMM SEALER", "AGRICULTURAL COMMISSIONER SEALER"),

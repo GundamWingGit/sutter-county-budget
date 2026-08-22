@@ -2880,5 +2880,4894 @@ window.BUDGET_DATA = {
         ]
       }
     }
+  },
+  "payByYear": {
+    "years": [
+      "FY2017-18",
+      "FY2018-19",
+      "FY2019-20",
+      "FY2020-21",
+      "FY2021-22",
+      "FY2022-23",
+      "FY2023-24",
+      "FY2024-25",
+      "FY2025-26"
+    ],
+    "labels": [
+      "FY 17-18",
+      "FY 18-19",
+      "FY 19-20",
+      "FY 20-21",
+      "FY 21-22",
+      "FY 22-23",
+      "FY 23-24",
+      "FY 24-25",
+      "FY 25-26"
+    ],
+    "byYear": {
+      "FY2017-18": {
+        "year": "FY 2017-18",
+        "salaryKind": "step-table",
+        "totalFte": 951.56,
+        "classifications": 344,
+        "highestPaid": {
+          "labels": [
+            "Director",
+            "Health Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svs",
+            "Asst County Administrator",
+            "District Attorney",
+            "Director of Development Svcs",
+            "Sheriff-Coroner",
+            "Asst County Counsel",
+            "Asst Dir Dev Serv Public Work",
+            "Human Resources Director",
+            "Undersheriff",
+            "Asst Dir Health & Human Svcs",
+            "Asst District Attorney"
+          ],
+          "min": [
+            312000,
+            161007,
+            138642,
+            138642,
+            132611,
+            154350,
+            120215,
+            145654,
+            114505,
+            114505,
+            114505,
+            99968,
+            109064,
+            109064
+          ],
+          "max": [
+            312000,
+            215673,
+            186306,
+            186306,
+            177435,
+            169785,
+            160364,
+            160220,
+            153514,
+            152772,
+            152772,
+            149274,
+            145574,
+            145574
+          ],
+          "fte": [
+            0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            3.0,
+            1.0
+          ],
+          "page": [
+            48,
+            57,
+            41,
+            49,
+            30,
+            49,
+            49,
+            84,
+            30,
+            30,
+            59,
+            94,
+            31,
+            31
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Child Services Case Worker",
+            "Psychiatric LVN",
+            "Account Clerk I\u2013III",
+            "Public Health Nurse I\u2013III",
+            "Public Asst Specialist Supv",
+            "Child Support Specialist I\u2013III",
+            "Medical Clerk I\u2013II"
+          ],
+          "values": [
+            4786101,
+            3286514,
+            2830528,
+            2619171,
+            1542536,
+            1147497,
+            1043323,
+            977949,
+            889774,
+            785105,
+            762197,
+            761513
+          ],
+          "fte": [
+            100.0,
+            42.0,
+            53.0,
+            42.0,
+            40.0,
+            25.0,
+            17.0,
+            23.5,
+            11.0,
+            13.0,
+            16.0,
+            20.0
+          ],
+          "min": [
+            35500,
+            57055,
+            42140,
+            49354,
+            28496,
+            37464,
+            51061,
+            31868,
+            62978,
+            49793,
+            36424,
+            30089
+          ],
+          "max": [
+            60222,
+            99445,
+            64673,
+            75368,
+            48631,
+            54336,
+            71683,
+            51361,
+            98799,
+            70992,
+            58851,
+            46062
+          ],
+          "page": [
+            null,
+            null,
+            40,
+            48,
+            null,
+            36,
+            74,
+            null,
+            null,
+            76,
+            null,
+            null
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Child Services Case Worker",
+            "Account Clerk I\u2013III",
+            "Medical Clerk I\u2013II",
+            "Psychiatric LVN",
+            "Child Support Specialist I\u2013III",
+            "Public Asst Specialist Supv",
+            "Mental Health Worker I\u2013II"
+          ],
+          "values": [
+            100.0,
+            53.0,
+            42.0,
+            42.0,
+            40.0,
+            25.0,
+            23.5,
+            20.0,
+            17.0,
+            16.0,
+            13.0,
+            12.63
+          ],
+          "page": [
+            null,
+            40,
+            null,
+            48,
+            null,
+            36,
+            null,
+            null,
+            74,
+            null,
+            76,
+            null
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 100.0,
+            "min": 35500,
+            "max": 60222,
+            "estMid": 4786101,
+            "estMax": 6022162,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 42.0,
+            "min": 57055,
+            "max": 99445,
+            "estMid": 3286514,
+            "estMax": 4176708,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 53.0,
+            "min": 42140,
+            "max": 64673,
+            "estMid": 2830528,
+            "estMax": 3427648,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 40
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 49354,
+            "max": 75368,
+            "estMid": 2619171,
+            "estMax": 3165455,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 48
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 40.0,
+            "min": 28496,
+            "max": 48631,
+            "estMid": 1542536,
+            "estMax": 1945233,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Human Resources",
+              "Animal Control",
+              "Workers' Comp Insurance Isf",
+              "General Services Department",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 25.0,
+            "min": 37464,
+            "max": 54336,
+            "estMid": 1147497,
+            "estMax": 1358396,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 36
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 17.0,
+            "min": 51061,
+            "max": 71683,
+            "estMid": 1043323,
+            "estMax": 1218612,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 74
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 23.5,
+            "min": 31868,
+            "max": 51361,
+            "estMid": 977949,
+            "estMax": 1206994,
+            "units": [
+              "Agricultural Commissioner",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration",
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 11.0,
+            "min": 62978,
+            "max": 98799,
+            "estMid": 889774,
+            "estMax": 1086793,
+            "units": [
+              "Public Health",
+              "Jail Medical Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 13.0,
+            "min": 49793,
+            "max": 70992,
+            "estMid": 785105,
+            "estMax": 922897,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Child Support Specialist I\u2013III",
+            "fte": 16.0,
+            "min": 36424,
+            "max": 58851,
+            "estMid": 762197,
+            "estMax": 941618,
+            "units": [
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 20.0,
+            "min": 30089,
+            "max": 46062,
+            "estMid": 761513,
+            "estMax": 921249,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 12.0,
+            "min": 45902,
+            "max": 73609,
+            "estMid": 717065,
+            "estMax": 883307,
+            "units": [
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections",
+              "Recorder",
+              "County Clerk"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 11.0,
+            "min": 51281,
+            "max": 73609,
+            "estMid": 686894,
+            "estMax": 809698,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Health Program Specialist Lt",
+            "fte": 10.2,
+            "min": 48554,
+            "max": 69663,
+            "estMid": 602906,
+            "estMax": 710560,
+            "units": [
+              "Public Health"
+            ],
+            "page": 58
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 12.63,
+            "min": 36424,
+            "max": 58851,
+            "estMid": 601659,
+            "estMax": 743289,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013III",
+            "fte": 9.0,
+            "min": 46352,
+            "max": 81949,
+            "estMid": 577355,
+            "estMax": 737542,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Fire Captain",
+            "fte": 9.0,
+            "min": 50020,
+            "max": 75038,
+            "estMid": 562758,
+            "estMax": 675339,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 54
+          },
+          {
+            "title": "Sheriff'S Sergeant Detective",
+            "fte": 7.0,
+            "min": 57855,
+            "max": 87507,
+            "estMid": 508767,
+            "estMax": 612546,
+            "units": [
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 84
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 8.0,
+            "min": 41168,
+            "max": 81103,
+            "estMid": 489084,
+            "estMax": 648822,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Works Engineer I\u2013II",
+            "fte": 6.0,
+            "min": 63330,
+            "max": 99445,
+            "estMid": 488326,
+            "estMax": 596673,
+            "units": [
+              "Engineering Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Program Manager",
+            "fte": 5.0,
+            "min": 80493,
+            "max": 108864,
+            "estMid": 473391,
+            "estMax": 544319,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 73
+          },
+          {
+            "title": "Social Wk Super Child Serv I\u2013II",
+            "fte": 5.0,
+            "min": 63151,
+            "max": 94319,
+            "estMid": 393673,
+            "estMax": 471593,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Asst Dir Health & Human Svcs",
+            "fte": 3.0,
+            "min": 109064,
+            "max": 145574,
+            "estMid": 381957,
+            "estMax": 436723,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 31
+          }
+        ]
+      },
+      "FY2018-19": {
+        "year": "FY 2018-19",
+        "salaryKind": "step-table",
+        "totalFte": 986.05,
+        "classifications": 316,
+        "highestPaid": {
+          "labels": [
+            "Health Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svs",
+            "Asst County Administrator",
+            "District Attorney",
+            "Sheriff-Coroner",
+            "Ag Comm-Sealer Wgts &",
+            "Asst Director HHS",
+            "Director of Development Svcs",
+            "Asst County Counsel",
+            "Asst Dir Dev Serv Public Work",
+            "Human Resources Director",
+            "Undersheriff",
+            "Chief Probation Officer"
+          ],
+          "min": [
+            162617,
+            140029,
+            140029,
+            133937,
+            155894,
+            151524,
+            121418,
+            121418,
+            121418,
+            115650,
+            115650,
+            115650,
+            103996,
+            109974
+          ],
+          "max": [
+            228203,
+            197130,
+            197130,
+            187743,
+            179278,
+            174253,
+            169680,
+            169680,
+            169680,
+            162432,
+            161648,
+            161648,
+            155290,
+            154641
+          ],
+          "fte": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "page": [
+            59,
+            42,
+            51,
+            31,
+            51,
+            85,
+            25,
+            32,
+            50,
+            31,
+            31,
+            61,
+            95,
+            37
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Child Services Case Worker",
+            "Psychiatric LVN",
+            "Mental Health Worker I\u2013II",
+            "Public Asst Specialist III",
+            "Account Clerk I\u2013III",
+            "Public Health Nurse I\u2013III",
+            "Accountant I\u2013II"
+          ],
+          "values": [
+            4205547,
+            3240346,
+            2889046,
+            2724719,
+            1596911,
+            1158971,
+            1053756,
+            943989,
+            928057,
+            903666,
+            898672,
+            844942
+          ],
+          "fte": [
+            87.0,
+            41.0,
+            52.0,
+            42.0,
+            41.0,
+            25.0,
+            17.0,
+            19.62,
+            18.0,
+            21.5,
+            11.0,
+            14.0
+          ],
+          "min": [
+            35855,
+            57626,
+            43838,
+            51343,
+            28781,
+            37839,
+            51572,
+            36788,
+            42294,
+            32187,
+            63607,
+            46361
+          ],
+          "max": [
+            60824,
+            100440,
+            67279,
+            78405,
+            49117,
+            54879,
+            72400,
+            59440,
+            60824,
+            51875,
+            99787,
+            74345
+          ],
+          "page": [
+            null,
+            null,
+            41,
+            49,
+            null,
+            37,
+            75,
+            null,
+            76,
+            null,
+            null,
+            null
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Mental Health Therapist I\u2013III",
+            "Office Assistant I\u2013III",
+            "Child Services Case Worker",
+            "Account Clerk I\u2013III",
+            "Medical Clerk I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Public Asst Specialist III",
+            "Psychiatric LVN",
+            "Child Support Specialist I\u2013III"
+          ],
+          "values": [
+            87.0,
+            52.0,
+            42.0,
+            41.0,
+            41.0,
+            25.0,
+            21.5,
+            20.0,
+            19.62,
+            18.0,
+            17.0,
+            16.0
+          ],
+          "page": [
+            null,
+            41,
+            49,
+            null,
+            null,
+            37,
+            null,
+            null,
+            null,
+            76,
+            75,
+            null
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 87.0,
+            "min": 35855,
+            "max": 60824,
+            "estMid": 4205547,
+            "estMax": 5291669,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 41.0,
+            "min": 57626,
+            "max": 100440,
+            "estMid": 3240346,
+            "estMax": 4118035,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 52.0,
+            "min": 43838,
+            "max": 67279,
+            "estMid": 2889046,
+            "estMax": 3498511,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 51343,
+            "max": 78405,
+            "estMid": 2724719,
+            "estMax": 3293018,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 49
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 41.0,
+            "min": 28781,
+            "max": 49117,
+            "estMid": 1596911,
+            "estMax": 2013802,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "County Counsel",
+              "Human Resources",
+              "Animal Control",
+              "Workers' Comp Insurance Isf"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 25.0,
+            "min": 37839,
+            "max": 54879,
+            "estMid": 1158971,
+            "estMax": 1371978,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 37
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 17.0,
+            "min": 51572,
+            "max": 72400,
+            "estMid": 1053756,
+            "estMax": 1230797,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 75
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 19.62,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 943989,
+            "estMax": 1166204,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist III",
+            "fte": 18.0,
+            "min": 42294,
+            "max": 60824,
+            "estMid": 928057,
+            "estMax": 1094828,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 21.5,
+            "min": 32187,
+            "max": 51875,
+            "estMid": 903666,
+            "estMax": 1115312,
+            "units": [
+              "General Services Department",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration",
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 11.0,
+            "min": 63607,
+            "max": 99787,
+            "estMid": 898672,
+            "estMax": 1097661,
+            "units": [
+              "Public Health",
+              "Jail Medical Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 14.0,
+            "min": 46361,
+            "max": 74345,
+            "estMid": 844942,
+            "estMax": 1040830,
+            "units": [
+              "County Library",
+              "Community Memorial Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 13.0,
+            "min": 50291,
+            "max": 71702,
+            "estMid": 792956,
+            "estMax": 932126,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Health Program Specialist Lt",
+            "fte": 13.2,
+            "min": 49040,
+            "max": 70359,
+            "estMid": 788033,
+            "estMax": 928743,
+            "units": [
+              "Public Health"
+            ],
+            "page": 59
+          },
+          {
+            "title": "Child Support Specialist I\u2013III",
+            "fte": 16.0,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 769818,
+            "estMax": 951033,
+            "units": [
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 20.0,
+            "min": 30390,
+            "max": 46523,
+            "estMid": 769130,
+            "estMax": 930463,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 11.0,
+            "min": 51794,
+            "max": 74345,
+            "estMid": 693763,
+            "estMax": 817795,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 43
+          },
+          {
+            "title": "Health & Human Svcs Branch Di",
+            "fte": 5.0,
+            "min": 110154,
+            "max": 154031,
+            "estMid": 660464,
+            "estMax": 770157,
+            "units": [
+              "Health And Human Services Administration",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 59
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013III",
+            "fte": 9.0,
+            "min": 48220,
+            "max": 85252,
+            "estMid": 600622,
+            "estMax": 767265,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Fire Captain",
+            "fte": 9.0,
+            "min": 51520,
+            "max": 77289,
+            "estMid": 579641,
+            "estMax": 695599,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 56
+          },
+          {
+            "title": "Sheriff'S Sergeant Detective",
+            "fte": 7.0,
+            "min": 60187,
+            "max": 91033,
+            "estMid": 529271,
+            "estMax": 637231,
+            "units": [
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 85
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 8.0,
+            "min": 41580,
+            "max": 81914,
+            "estMid": 493974,
+            "estMax": 655310,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Program Manager",
+            "fte": 5.0,
+            "min": 81298,
+            "max": 115189,
+            "estMid": 491215,
+            "estMax": 575943,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 74
+          },
+          {
+            "title": "Forensic Mental Health Spec I\u2013II",
+            "fte": 5.0,
+            "min": 67586,
+            "max": 100440,
+            "estMid": 420065,
+            "estMax": 502199,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          }
+        ]
+      },
+      "FY2019-20": {
+        "year": "FY 2019-20",
+        "salaryKind": "step-table",
+        "totalFte": 1024.55,
+        "classifications": 330,
+        "highestPaid": {
+          "labels": [
+            "Psychiatrist - Contract",
+            "Health Officer",
+            "County Administrative Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Asst County Administrator",
+            "District Attorney",
+            "Sheriff-Coroner",
+            "Ag Comm-Sealer Wgts &",
+            "Asst Director HHS",
+            "Director of Development Svcs",
+            "Asst County Counsel",
+            "Asst Director Dev Services",
+            "Human Resources Director"
+          ],
+          "min": [
+            254592,
+            162617,
+            146953,
+            140029,
+            140029,
+            133937,
+            155894,
+            151524,
+            121418,
+            121418,
+            121418,
+            115650,
+            115650,
+            115650
+          ],
+          "max": [
+            254592,
+            228203,
+            206987,
+            197130,
+            197130,
+            187743,
+            179278,
+            174253,
+            169680,
+            169680,
+            169680,
+            162432,
+            161648,
+            161648
+          ],
+          "fte": [
+            9.63,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.3
+          ],
+          "page": [
+            76,
+            59,
+            41,
+            41,
+            50,
+            29,
+            51,
+            86,
+            23,
+            30,
+            50,
+            29,
+            30,
+            61
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Psychiatrist - Contract",
+            "Office Assistant I\u2013III",
+            "Mental Health Worker I\u2013II",
+            "Psychiatric LVN",
+            "Child Services Case Worker",
+            "Public Asst Specialist III",
+            "Public Health Nurse II\u2013III",
+            "Health Program Specialist Lt"
+          ],
+          "values": [
+            4205547,
+            3793576,
+            2944604,
+            2806457,
+            2451721,
+            1557962,
+            1328898,
+            1177728,
+            1158971,
+            928057,
+            917364,
+            847732
+          ],
+          "fte": [
+            87.0,
+            48.0,
+            53.0,
+            42.0,
+            9.63,
+            40.0,
+            27.62,
+            19.0,
+            25.0,
+            18.0,
+            11.0,
+            14.2
+          ],
+          "min": [
+            35855,
+            57626,
+            43838,
+            52884,
+            254592,
+            28781,
+            36788,
+            51572,
+            37839,
+            42294,
+            67006,
+            49040
+          ],
+          "max": [
+            60824,
+            100440,
+            67279,
+            80757,
+            254592,
+            49117,
+            59440,
+            72400,
+            54879,
+            60824,
+            99787,
+            70359
+          ],
+          "page": [
+            null,
+            null,
+            40,
+            49,
+            76,
+            null,
+            null,
+            76,
+            37,
+            77,
+            null,
+            59
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Medical Clerk I\u2013II",
+            "Psychiatric LVN",
+            "Public Asst Specialist III",
+            "Child Support Specialist I\u2013III",
+            "Health Program Specialist Lt"
+          ],
+          "values": [
+            87.0,
+            53.0,
+            48.0,
+            42.0,
+            40.0,
+            27.62,
+            25.0,
+            21.0,
+            19.0,
+            18.0,
+            16.0,
+            14.2
+          ],
+          "page": [
+            null,
+            40,
+            null,
+            49,
+            null,
+            null,
+            37,
+            null,
+            76,
+            77,
+            null,
+            59
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 87.0,
+            "min": 35855,
+            "max": 60824,
+            "estMid": 4205547,
+            "estMax": 5291669,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 48.0,
+            "min": 57626,
+            "max": 100440,
+            "estMid": 3793576,
+            "estMax": 4821114,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 53.0,
+            "min": 43838,
+            "max": 67279,
+            "estMid": 2944604,
+            "estMax": 3565790,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 40
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 52884,
+            "max": 80757,
+            "estMid": 2806457,
+            "estMax": 3391804,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 49
+          },
+          {
+            "title": "Psychiatrist - Contract",
+            "fte": 9.63,
+            "min": 254592,
+            "max": 254592,
+            "estMid": 2451721,
+            "estMax": 2451721,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 40.0,
+            "min": 28781,
+            "max": 49117,
+            "estMid": 1557962,
+            "estMax": 1964685,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "Human Resources",
+              "Animal Control",
+              "Workers' Comp Insurance Isf",
+              "General Services Department"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 27.62,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 1328898,
+            "estMax": 1641720,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 19.0,
+            "min": 51572,
+            "max": 72400,
+            "estMid": 1177728,
+            "estMax": 1375596,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 25.0,
+            "min": 37839,
+            "max": 54879,
+            "estMid": 1158971,
+            "estMax": 1371978,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 37
+          },
+          {
+            "title": "Public Asst Specialist III",
+            "fte": 18.0,
+            "min": 42294,
+            "max": 60824,
+            "estMid": 928057,
+            "estMax": 1094828,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 77
+          },
+          {
+            "title": "Public Health Nurse II\u2013III",
+            "fte": 11.0,
+            "min": 67006,
+            "max": 99787,
+            "estMid": 917364,
+            "estMax": 1097661,
+            "units": [
+              "Public Health",
+              "Jail Medical Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Health Program Specialist Lt",
+            "fte": 14.2,
+            "min": 49040,
+            "max": 70359,
+            "estMid": 847732,
+            "estMax": 999102,
+            "units": [
+              "Public Health"
+            ],
+            "page": 59
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 14.0,
+            "min": 46361,
+            "max": 74345,
+            "estMid": 844942,
+            "estMax": 1040830,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": null
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 21.0,
+            "min": 30390,
+            "max": 46523,
+            "estMid": 807586,
+            "estMax": 976986,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 13.0,
+            "min": 50291,
+            "max": 71702,
+            "estMid": 792956,
+            "estMax": 932126,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 77
+          },
+          {
+            "title": "Child Support Specialist I\u2013III",
+            "fte": 16.0,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 769818,
+            "estMax": 951033,
+            "units": [
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 51794,
+            "max": 74345,
+            "estMid": 756832,
+            "estMax": 892140,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 42
+          },
+          {
+            "title": "HHS Branch Director",
+            "fte": 5.0,
+            "min": 110154,
+            "max": 154031,
+            "estMid": 660464,
+            "estMax": 770157,
+            "units": [
+              "Health And Human Services Administration",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 60
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 10.0,
+            "min": 41580,
+            "max": 81914,
+            "estMid": 617468,
+            "estMax": 819137,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013III",
+            "fte": 9.0,
+            "min": 48220,
+            "max": 85252,
+            "estMid": 600622,
+            "estMax": 767265,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 14.0,
+            "min": 32187,
+            "max": 51875,
+            "estMid": 588434,
+            "estMax": 726250,
+            "units": [
+              "Auditor-Controller",
+              "General Services Department",
+              "Behavioral Health Services",
+              "Public Health",
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Fire Captain",
+            "fte": 9.0,
+            "min": 51520,
+            "max": 77289,
+            "estMid": 579641,
+            "estMax": 695599,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 55
+          },
+          {
+            "title": "Sheriff'S Sergeant Detective",
+            "fte": 7.0,
+            "min": 61993,
+            "max": 93764,
+            "estMid": 545149,
+            "estMax": 656349,
+            "units": [
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 86
+          },
+          {
+            "title": "Forensic Mental Health Spec I\u2013II",
+            "fte": 6.0,
+            "min": 67586,
+            "max": 100440,
+            "estMid": 504078,
+            "estMax": 602639,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          }
+        ]
+      },
+      "FY2020-21": {
+        "year": "FY 2020-21",
+        "salaryKind": "step-table",
+        "totalFte": 1057.73,
+        "classifications": 334,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "Health Officer",
+            "County Admin Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Asst County Administrator",
+            "District Attorney",
+            "Sheriff-Coroner",
+            "Ag Commisioner/Sealer W&M",
+            "Asst Director HHS",
+            "Director of Development Svcs",
+            "Undersheriff",
+            "Asst County Counsel"
+          ],
+          "min": [
+            104000,
+            104000,
+            162617,
+            215010,
+            140029,
+            140029,
+            133937,
+            155894,
+            151524,
+            121418,
+            121418,
+            121418,
+            109196,
+            115650
+          ],
+          "max": [
+            312000,
+            312000,
+            228203,
+            215010,
+            197130,
+            197130,
+            187743,
+            179278,
+            174253,
+            169680,
+            169680,
+            169680,
+            163055,
+            162432
+          ],
+          "fte": [
+            0,
+            9.63,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "page": [
+            73,
+            77,
+            59,
+            42,
+            42,
+            51,
+            30,
+            52,
+            87,
+            24,
+            30,
+            51,
+            97,
+            30
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Psychiatrist",
+            "Intervention Counselor I\u2013II",
+            "Office Assistant I\u2013III",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Psychiatric LVN",
+            "Health Program Specialist Lt",
+            "Public Asst Specialist III"
+          ],
+          "values": [
+            4205547,
+            4030674,
+            3060164,
+            2890651,
+            2003040,
+            1959509,
+            1499538,
+            1347182,
+            1251689,
+            1177728,
+            967131,
+            928057
+          ],
+          "fte": [
+            87.0,
+            51.0,
+            54.0,
+            42.0,
+            9.63,
+            34.3,
+            38.5,
+            28.0,
+            27.0,
+            19.0,
+            16.2,
+            18.0
+          ],
+          "min": [
+            35855,
+            57626,
+            44715,
+            54470,
+            104000,
+            43898,
+            28781,
+            36788,
+            37839,
+            51572,
+            49040,
+            42294
+          ],
+          "max": [
+            60824,
+            100440,
+            68625,
+            83180,
+            312000,
+            70359,
+            49117,
+            59440,
+            54879,
+            72400,
+            70359,
+            60824
+          ],
+          "page": [
+            null,
+            null,
+            41,
+            50,
+            77,
+            null,
+            null,
+            null,
+            37,
+            76,
+            59,
+            78
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Intervention Counselor I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Account Clerk I\u2013III",
+            "Medical Clerk I\u2013II",
+            "Psychiatric LVN",
+            "Public Asst Specialist III"
+          ],
+          "values": [
+            87.0,
+            54.0,
+            51.0,
+            42.0,
+            38.5,
+            34.3,
+            28.0,
+            27.0,
+            22.0,
+            21.0,
+            19.0,
+            18.0
+          ],
+          "page": [
+            null,
+            41,
+            null,
+            50,
+            null,
+            null,
+            null,
+            37,
+            null,
+            null,
+            76,
+            78
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 87.0,
+            "min": 35855,
+            "max": 60824,
+            "estMid": 4205547,
+            "estMax": 5291669,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 51.0,
+            "min": 57626,
+            "max": 100440,
+            "estMid": 4030674,
+            "estMax": 5122433,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 54.0,
+            "min": 44715,
+            "max": 68625,
+            "estMid": 3060164,
+            "estMax": 3705729,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 54470,
+            "max": 83180,
+            "estMid": 2890651,
+            "estMax": 3493561,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 50
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 9.63,
+            "min": 104000,
+            "max": 312000,
+            "estMid": 2003040,
+            "estMax": 3004560,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 77
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 34.3,
+            "min": 43898,
+            "max": 70359,
+            "estMid": 1959509,
+            "estMax": 2413325,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 38.5,
+            "min": 28781,
+            "max": 49117,
+            "estMid": 1499538,
+            "estMax": 1891009,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 28.0,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 1347182,
+            "estMax": 1664307,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 27.0,
+            "min": 37839,
+            "max": 54879,
+            "estMid": 1251689,
+            "estMax": 1481737,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 37
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 19.0,
+            "min": 51572,
+            "max": 72400,
+            "estMid": 1177728,
+            "estMax": 1375596,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Health Program Specialist Lt",
+            "fte": 16.2,
+            "min": 49040,
+            "max": 70359,
+            "estMid": 967131,
+            "estMax": 1139821,
+            "units": [
+              "Health And Human Services Administration",
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": 59
+          },
+          {
+            "title": "Public Asst Specialist III",
+            "fte": 18.0,
+            "min": 42294,
+            "max": 60824,
+            "estMid": 928057,
+            "estMax": 1094828,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 78
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 22.0,
+            "min": 32187,
+            "max": 51875,
+            "estMid": 924681,
+            "estMax": 1141250,
+            "units": [
+              "Auditor-Controller",
+              "General Services Department",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration",
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Health Nurse II\u2013III",
+            "fte": 11.0,
+            "min": 67006,
+            "max": 99787,
+            "estMid": 917364,
+            "estMax": 1097661,
+            "units": [
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 14.0,
+            "min": 50291,
+            "max": 71702,
+            "estMid": 853953,
+            "estMax": 1003828,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 78
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 21.0,
+            "min": 30390,
+            "max": 46523,
+            "estMid": 807586,
+            "estMax": 976986,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Support Specialist I\u2013III",
+            "fte": 16.0,
+            "min": 36788,
+            "max": 59440,
+            "estMid": 769818,
+            "estMax": 951033,
+            "units": [
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 51794,
+            "max": 74345,
+            "estMid": 756832,
+            "estMax": 892140,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 43
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 12.0,
+            "min": 46361,
+            "max": 74345,
+            "estMid": 724236,
+            "estMax": 892140,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections",
+              "Recorder"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Works Maint Wkr I\u2013II",
+            "fte": 15.0,
+            "min": 34860,
+            "max": 56318,
+            "estMid": 683831,
+            "estMax": 844768,
+            "units": [
+              "Road"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 11.0,
+            "min": 41580,
+            "max": 81914,
+            "estMid": 679215,
+            "estMax": 901051,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "HHS Branch Director",
+            "fte": 5.0,
+            "min": 110154,
+            "max": 154031,
+            "estMid": 660464,
+            "estMax": 770157,
+            "units": [
+              "Health And Human Services Administration",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 60
+          },
+          {
+            "title": "Fire Engineer",
+            "fte": 11.0,
+            "min": 43702,
+            "max": 66766,
+            "estMid": 607570,
+            "estMax": 734424,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 56
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013III",
+            "fte": 9.0,
+            "min": 48220,
+            "max": 85252,
+            "estMid": 600622,
+            "estMax": 767265,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          }
+        ]
+      },
+      "FY2021-22": {
+        "year": "FY 2021-22",
+        "salaryKind": "step-table",
+        "totalFte": 1031.53,
+        "classifications": 336,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "Health Officer",
+            "County Admin Officer",
+            "Psychiatric Nurse Practitioner",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Asst County Administrator",
+            "District Attorney",
+            "Sheriff-Coroner",
+            "Ag Commisioner/Sealer W&M",
+            "Asst Director HHS",
+            "Director of Development Svcs",
+            "Undersheriff"
+          ],
+          "min": [
+            104000,
+            104000,
+            162617,
+            215010,
+            93600,
+            140029,
+            140029,
+            133937,
+            155894,
+            151524,
+            121418,
+            121418,
+            121418,
+            112472
+          ],
+          "max": [
+            312000,
+            312000,
+            228203,
+            215010,
+            197600,
+            197130,
+            197130,
+            187743,
+            179278,
+            174253,
+            169680,
+            169680,
+            169680,
+            167946
+          ],
+          "fte": [
+            0,
+            9.63,
+            1.0,
+            1.0,
+            2.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "page": [
+            70,
+            75,
+            57,
+            39,
+            75,
+            40,
+            48,
+            27,
+            49,
+            85,
+            22,
+            28,
+            48,
+            95
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Psychiatrist",
+            "Intervention Counselor I\u2013II",
+            "Office Assistant I\u2013III",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Psychiatric LVN",
+            "Health Program Specialist Lt",
+            "Public Asst Specialist III"
+          ],
+          "values": [
+            4247602,
+            4070979,
+            3090766,
+            2977369,
+            2003040,
+            1979104,
+            1640978,
+            1312060,
+            1264204,
+            1189505,
+            1037100,
+            937337
+          ],
+          "fte": [
+            87.0,
+            51.0,
+            54.0,
+            42.0,
+            9.63,
+            34.3,
+            39.5,
+            27.0,
+            27.0,
+            19.0,
+            17.2,
+            18.0
+          ],
+          "min": [
+            36214,
+            58202,
+            45162,
+            56104,
+            104000,
+            44337,
+            30694,
+            37156,
+            38217,
+            52087,
+            49530,
+            42717
+          ],
+          "max": [
+            61432,
+            101444,
+            69311,
+            85675,
+            312000,
+            71063,
+            52394,
+            60034,
+            55428,
+            73124,
+            71063,
+            61432
+          ],
+          "page": [
+            null,
+            null,
+            39,
+            47,
+            75,
+            null,
+            null,
+            null,
+            35,
+            74,
+            57,
+            76
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Intervention Counselor I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Medical Clerk I\u2013II",
+            "Psychiatric LVN",
+            "Public Asst Specialist III",
+            "Health Program Specialist Lt"
+          ],
+          "values": [
+            87.0,
+            54.0,
+            51.0,
+            42.0,
+            39.5,
+            34.3,
+            27.0,
+            27.0,
+            20.0,
+            19.0,
+            18.0,
+            17.2
+          ],
+          "page": [
+            null,
+            39,
+            null,
+            47,
+            null,
+            null,
+            null,
+            35,
+            null,
+            74,
+            76,
+            57
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 87.0,
+            "min": 36214,
+            "max": 61432,
+            "estMid": 4247602,
+            "estMax": 5344581,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 51.0,
+            "min": 58202,
+            "max": 101444,
+            "estMid": 4070979,
+            "estMax": 5173659,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 54.0,
+            "min": 45162,
+            "max": 69311,
+            "estMid": 3090766,
+            "estMax": 3742783,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 39
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 56104,
+            "max": 85675,
+            "estMid": 2977369,
+            "estMax": 3598367,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 47
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 9.63,
+            "min": 104000,
+            "max": 312000,
+            "estMid": 2003040,
+            "estMax": 3004560,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 75
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 34.3,
+            "min": 44337,
+            "max": 71063,
+            "estMid": 1979104,
+            "estMax": 2437461,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 39.5,
+            "min": 30694,
+            "max": 52394,
+            "estMid": 1640978,
+            "estMax": 2069553,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 27.0,
+            "min": 37156,
+            "max": 60034,
+            "estMid": 1312060,
+            "estMax": 1620918,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 27.0,
+            "min": 38217,
+            "max": 55428,
+            "estMid": 1264204,
+            "estMax": 1496552,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 35
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 19.0,
+            "min": 52087,
+            "max": 73124,
+            "estMid": 1189505,
+            "estMax": 1389353,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 74
+          },
+          {
+            "title": "Health Program Specialist Lt",
+            "fte": 17.2,
+            "min": 49530,
+            "max": 71063,
+            "estMid": 1037100,
+            "estMax": 1222283,
+            "units": [
+              "Health & Human Services Admin.",
+              "Public Health",
+              "Homeless Services",
+              "Welfare Administration"
+            ],
+            "page": 57
+          },
+          {
+            "title": "Public Asst Specialist III",
+            "fte": 18.0,
+            "min": 42717,
+            "max": 61432,
+            "estMid": 937337,
+            "estMax": 1105775,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Accountant II",
+            "fte": 14.0,
+            "min": 52312,
+            "max": 75088,
+            "estMid": 891800,
+            "estMax": 1051238,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": 18
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 14.0,
+            "min": 50794,
+            "max": 72419,
+            "estMid": 862492,
+            "estMax": 1013865,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 20.0,
+            "min": 30694,
+            "max": 46988,
+            "estMid": 776822,
+            "estMax": 939769,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 52312,
+            "max": 75088,
+            "estMid": 764400,
+            "estMax": 901061,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 40
+          },
+          {
+            "title": "Public Works Maint Wkr I\u2013II",
+            "fte": 15.0,
+            "min": 35208,
+            "max": 56881,
+            "estMid": 690670,
+            "estMax": 853217,
+            "units": [
+              "Road"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 11.0,
+            "min": 41996,
+            "max": 82733,
+            "estMid": 686006,
+            "estMax": 910061,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "HHS Branch Director",
+            "fte": 5.0,
+            "min": 110154,
+            "max": 154031,
+            "estMid": 660464,
+            "estMax": 770157,
+            "units": [
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 57
+          },
+          {
+            "title": "Fire Engineer",
+            "fte": 11.0,
+            "min": 43702,
+            "max": 66766,
+            "estMid": 607570,
+            "estMax": 734424,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 54
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013III",
+            "fte": 9.0,
+            "min": 48702,
+            "max": 86104,
+            "estMid": 606628,
+            "estMax": 774939,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Forensic Mental Health Spec I\u2013II",
+            "fte": 7.0,
+            "min": 68262,
+            "max": 101444,
+            "estMid": 593972,
+            "estMax": 710110,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Program Manager",
+            "fte": 6.0,
+            "min": 81298,
+            "max": 115189,
+            "estMid": 589458,
+            "estMax": 691131,
+            "units": [
+              "Health & Human Services Admin.",
+              "Welfare Administration"
+            ],
+            "page": 73
+          },
+          {
+            "title": "Staff Analyst",
+            "fte": 8.0,
+            "min": 59613,
+            "max": 85490,
+            "estMid": 580415,
+            "estMax": 683922,
+            "units": [
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Welfare Administration"
+            ],
+            "page": 89
+          }
+        ]
+      },
+      "FY2022-23": {
+        "year": "FY 2022-23",
+        "salaryKind": "step-table",
+        "totalFte": 1069.13,
+        "classifications": 344,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "County Admin Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Psychiatric Nurse Practitioner",
+            "Asst County Administrator",
+            "District Attorney",
+            "Sheriff-Coroner",
+            "Ag Commisioner/Sealer W&M",
+            "Asst Director HHS",
+            "Director of Development Svcs",
+            "Undersheriff",
+            "Asst County Counsel"
+          ],
+          "min": [
+            104000,
+            104000,
+            219294,
+            142829,
+            142829,
+            93600,
+            136616,
+            159012,
+            154555,
+            123846,
+            123846,
+            123846,
+            119220,
+            117963
+          ],
+          "max": [
+            312000,
+            312000,
+            219294,
+            201073,
+            201073,
+            197600,
+            191498,
+            182863,
+            177738,
+            173073,
+            173073,
+            173073,
+            167755,
+            165681
+          ],
+          "fte": [
+            0,
+            9.63,
+            1.0,
+            1.0,
+            1.0,
+            2.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "page": [
+            71,
+            75,
+            40,
+            41,
+            49,
+            75,
+            28,
+            50,
+            85,
+            23,
+            29,
+            49,
+            96,
+            29
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Correctional Officer",
+            "Deputy Sheriff",
+            "Psychiatrist",
+            "Intervention Counselor I\u2013II",
+            "Office Assistant I\u2013III",
+            "Deputy Probation Officer I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Psychiatric LVN",
+            "Health Program Specialist I\u2013II"
+          ],
+          "values": [
+            4339384,
+            4031066,
+            3042479,
+            3002904,
+            2003040,
+            1940618,
+            1731912,
+            1487518,
+            1374260,
+            1276845,
+            1201400,
+            1083503
+          ],
+          "fte": [
+            88.0,
+            50.0,
+            54.0,
+            42.0,
+            9.63,
+            33.3,
+            39.0,
+            23.0,
+            28.0,
+            27.0,
+            19.0,
+            18.2
+          ],
+          "min": [
+            36576,
+            58784,
+            46065,
+            58629,
+            104000,
+            44780,
+            32834,
+            49681,
+            37527,
+            38599,
+            52608,
+            47293
+          ],
+          "max": [
+            62046,
+            102459,
+            66619,
+            84367,
+            312000,
+            71774,
+            55982,
+            79669,
+            60634,
+            55982,
+            73855,
+            71774
+          ],
+          "page": [
+            null,
+            null,
+            40,
+            48,
+            75,
+            null,
+            null,
+            null,
+            null,
+            36,
+            75,
+            null
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Intervention Counselor I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker",
+            "Deputy Probation Officer I\u2013II",
+            "Medical Clerk I\u2013II",
+            "Psychiatric LVN",
+            "Account Clerk I\u2013III"
+          ],
+          "values": [
+            88.0,
+            54.0,
+            50.0,
+            42.0,
+            39.0,
+            33.3,
+            28.0,
+            27.0,
+            23.0,
+            20.0,
+            19.0,
+            19.0
+          ],
+          "page": [
+            null,
+            40,
+            null,
+            48,
+            null,
+            null,
+            null,
+            36,
+            null,
+            null,
+            75,
+            null
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 88.0,
+            "min": 36576,
+            "max": 62046,
+            "estMid": 4339384,
+            "estMax": 5460065,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 50.0,
+            "min": 58784,
+            "max": 102459,
+            "estMid": 4031066,
+            "estMax": 5122936,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 54.0,
+            "min": 46065,
+            "max": 66619,
+            "estMid": 3042479,
+            "estMax": 3597441,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 40
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 58629,
+            "max": 84367,
+            "estMid": 3002904,
+            "estMax": 3543400,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 48
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 9.63,
+            "min": 104000,
+            "max": 312000,
+            "estMid": 2003040,
+            "estMax": 3004560,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 75
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 33.3,
+            "min": 44780,
+            "max": 71774,
+            "estMid": 1940618,
+            "estMax": 2390058,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 39.0,
+            "min": 32834,
+            "max": 55982,
+            "estMid": 1731912,
+            "estMax": 2183304,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013II",
+            "fte": 23.0,
+            "min": 49681,
+            "max": 79669,
+            "estMid": 1487518,
+            "estMax": 1832377,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 28.0,
+            "min": 37527,
+            "max": 60634,
+            "estMid": 1374260,
+            "estMax": 1697760,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker",
+            "fte": 27.0,
+            "min": 38599,
+            "max": 55982,
+            "estMid": 1276845,
+            "estMax": 1511518,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 36
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 19.0,
+            "min": 52608,
+            "max": 73855,
+            "estMid": 1201400,
+            "estMax": 1403248,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 75
+          },
+          {
+            "title": "Health Program Specialist I\u2013II",
+            "fte": 18.2,
+            "min": 47293,
+            "max": 71774,
+            "estMid": 1083503,
+            "estMax": 1306278,
+            "units": [
+              "Health & Human Services Admin.",
+              "Public Health",
+              "Homeless Services",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accountant I\u2013III",
+            "fte": 15.0,
+            "min": 47293,
+            "max": 83560,
+            "estMid": 981398,
+            "estMax": 1253404,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist III",
+            "fte": 18.0,
+            "min": 43144,
+            "max": 62046,
+            "estMid": 946710,
+            "estMax": 1116831,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 14.0,
+            "min": 51302,
+            "max": 73143,
+            "estMid": 871118,
+            "estMax": 1024005,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 76
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 10.0,
+            "min": 64886,
+            "max": 101793,
+            "estMid": 833395,
+            "estMax": 1017929,
+            "units": [
+              "Public Health",
+              "Jail Medical Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "Medical Clerk I\u2013II",
+            "fte": 20.0,
+            "min": 32834,
+            "max": 50104,
+            "estMid": 829381,
+            "estMax": 1002086,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 13.0,
+            "min": 42416,
+            "max": 83560,
+            "estMid": 818843,
+            "estMax": 1086283,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 19.0,
+            "min": 32834,
+            "max": 52918,
+            "estMid": 814640,
+            "estMax": 1005436,
+            "units": [
+              "Auditor-Controller",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "HHS Branch Director",
+            "fte": 6.0,
+            "min": 112357,
+            "max": 157112,
+            "estMid": 808409,
+            "estMax": 942673,
+            "units": [
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 58
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 52835,
+            "max": 75839,
+            "estMid": 772044,
+            "estMax": 910072,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Staff Analyst",
+            "fte": 10.0,
+            "min": 60806,
+            "max": 87200,
+            "estMid": 740029,
+            "estMax": 872000,
+            "units": [
+              "Emergency Services",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Welfare Administration"
+            ],
+            "page": 90
+          },
+          {
+            "title": "Public Works Maint Wkr I\u2013II",
+            "fte": 15.0,
+            "min": 37527,
+            "max": 60634,
+            "estMid": 736211,
+            "estMax": 909514,
+            "units": [
+              "Road"
+            ],
+            "page": null
+          },
+          {
+            "title": "Senior Probation Officer",
+            "fte": 9.0,
+            "min": 61753,
+            "max": 87835,
+            "estMid": 673145,
+            "estMax": 790516,
+            "units": [
+              "Probation"
+            ],
+            "page": 85
+          }
+        ]
+      },
+      "FY2023-24": {
+        "year": "FY 2023-24",
+        "salaryKind": "step-table",
+        "totalFte": 1089.7,
+        "classifications": 365,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "Consulting Specialist",
+            "Psychiatric Nurse Practitioner",
+            "Sheriff-Coroner",
+            "County Admin Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Asst County Administrator",
+            "Undersheriff",
+            "District Attorney",
+            "Director of Development Svcs",
+            "Ag Commisioner/Sealer W&M",
+            "Asst Dir HHS - Admin & Finance"
+          ],
+          "min": [
+            156000,
+            156000,
+            52000,
+            104000,
+            194756,
+            219294,
+            152970,
+            152970,
+            146316,
+            139328,
+            170302,
+            139378,
+            132639,
+            132639
+          ],
+          "max": [
+            395200,
+            395200,
+            312000,
+            249600,
+            225723,
+            219294,
+            215349,
+            215349,
+            205094,
+            196047,
+            195847,
+            195411,
+            185362,
+            185362
+          ],
+          "fte": [
+            0,
+            6.0,
+            0,
+            2.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0
+          ],
+          "page": [
+            74,
+            79,
+            41,
+            79,
+            89,
+            42,
+            42,
+            51,
+            29,
+            100,
+            52,
+            51,
+            24,
+            30
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Correctional Officer",
+            "Intervention Counselor I\u2013II",
+            "Office Assistant I\u2013III",
+            "Psychiatrist",
+            "Deputy Probation Officer I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker I\u2013II",
+            "Deputy District Attorney I\u2013Iv",
+            "Staff Analyst"
+          ],
+          "values": [
+            5991426,
+            3978666,
+            3514593,
+            3443545,
+            2197907,
+            1818508,
+            1653600,
+            1576768,
+            1468312,
+            1436047,
+            1311996,
+            1268114
+          ],
+          "fte": [
+            110.0,
+            47.0,
+            42.0,
+            56.0,
+            34.0,
+            39.0,
+            6.0,
+            23.0,
+            27.0,
+            28.0,
+            11.0,
+            16.0
+          ],
+          "min": [
+            40529,
+            61723,
+            68619,
+            50275,
+            49657,
+            34476,
+            156000,
+            52662,
+            41626,
+            40529,
+            81345,
+            65123
+          ],
+          "max": [
+            68406,
+            107582,
+            98743,
+            72708,
+            79631,
+            58781,
+            395200,
+            84449,
+            67138,
+            62046,
+            157200,
+            93391
+          ],
+          "page": [
+            null,
+            null,
+            49,
+            41,
+            null,
+            null,
+            79,
+            null,
+            null,
+            null,
+            null,
+            94
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Intervention Counselor I\u2013II",
+            "Child Services Case Worker I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Deputy Probation Officer I\u2013II",
+            "Medical Clerk I\u2013III",
+            "Psychiatric LVN",
+            "Account Clerk I\u2013III"
+          ],
+          "values": [
+            110.0,
+            56.0,
+            47.0,
+            42.0,
+            39.0,
+            34.0,
+            28.0,
+            27.0,
+            23.0,
+            20.0,
+            18.0,
+            17.0
+          ],
+          "page": [
+            null,
+            41,
+            null,
+            49,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            78,
+            null
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 110.0,
+            "min": 40529,
+            "max": 68406,
+            "estMid": 5991426,
+            "estMax": 7524660,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 47.0,
+            "min": 61723,
+            "max": 107582,
+            "estMid": 3978666,
+            "estMax": 5056343,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 42.0,
+            "min": 68619,
+            "max": 98743,
+            "estMid": 3514593,
+            "estMax": 4147189,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 49
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 56.0,
+            "min": 50275,
+            "max": 72708,
+            "estMid": 3443545,
+            "estMax": 4071663,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 34.0,
+            "min": 49657,
+            "max": 79631,
+            "estMid": 2197907,
+            "estMax": 2707466,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 39.0,
+            "min": 34476,
+            "max": 58781,
+            "estMid": 1818508,
+            "estMax": 2292468,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Development Services Admin",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 6.0,
+            "min": 156000,
+            "max": 395200,
+            "estMid": 1653600,
+            "estMax": 2371200,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 79
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013II",
+            "fte": 23.0,
+            "min": 52662,
+            "max": 84449,
+            "estMid": 1576768,
+            "estMax": 1942318,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 27.0,
+            "min": 41626,
+            "max": 67138,
+            "estMid": 1468312,
+            "estMax": 1812732,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker I\u2013II",
+            "fte": 28.0,
+            "min": 40529,
+            "max": 62046,
+            "estMid": 1436047,
+            "estMax": 1737282,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy District Attorney I\u2013Iv",
+            "fte": 11.0,
+            "min": 81345,
+            "max": 157200,
+            "estMid": 1311996,
+            "estMax": 1729199,
+            "units": [
+              "District Attorney"
+            ],
+            "page": null
+          },
+          {
+            "title": "Staff Analyst",
+            "fte": 16.0,
+            "min": 65123,
+            "max": 93391,
+            "estMid": 1268114,
+            "estMax": 1494262,
+            "units": [
+              "Development Services Admin",
+              "Emergency Services",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 94
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 18.0,
+            "min": 57999,
+            "max": 81425,
+            "estMid": 1254820,
+            "estMax": 1465653,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 78
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 12.0,
+            "min": 71771,
+            "max": 112227,
+            "estMid": 1103986,
+            "estMax": 1346724,
+            "units": [
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 15.0,
+            "min": 49657,
+            "max": 79631,
+            "estMid": 969665,
+            "estMax": 1194470,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": null
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 14.0,
+            "min": 56902,
+            "max": 80641,
+            "estMid": 962798,
+            "estMax": 1128968,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 80
+          },
+          {
+            "title": "Medical Clerk I\u2013III",
+            "fte": 20.0,
+            "min": 34476,
+            "max": 58781,
+            "estMid": 932568,
+            "estMax": 1175624,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 13.0,
+            "min": 44536,
+            "max": 87738,
+            "estMid": 859785,
+            "estMax": 1140599,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 58542,
+            "max": 83856,
+            "estMid": 854388,
+            "estMax": 1006275,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 43
+          },
+          {
+            "title": "Account Clerk I\u2013III",
+            "fte": 17.0,
+            "min": 34476,
+            "max": 55564,
+            "estMid": 765334,
+            "estMax": 944582,
+            "units": [
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration",
+              "Child Support Services"
+            ],
+            "page": null
+          },
+          {
+            "title": "HHS Branch Director",
+            "fte": 5.0,
+            "min": 120335,
+            "max": 168267,
+            "estMid": 721505,
+            "estMax": 841335,
+            "units": [
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": 61
+          },
+          {
+            "title": "Public Works Maint Wkr I\u2013II",
+            "fte": 14.0,
+            "min": 39404,
+            "max": 63666,
+            "estMid": 721487,
+            "estMax": 891325,
+            "units": [
+              "Road"
+            ],
+            "page": null
+          },
+          {
+            "title": "Fire Engineer",
+            "fte": 11.0,
+            "min": 54348,
+            "max": 76473,
+            "estMid": 719515,
+            "estMax": 841198,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 57
+          },
+          {
+            "title": "Senior Probation Officer",
+            "fte": 9.0,
+            "min": 65458,
+            "max": 93105,
+            "estMid": 713533,
+            "estMax": 837947,
+            "units": [
+              "Probation"
+            ],
+            "page": 88
+          }
+        ]
+      },
+      "FY2024-25": {
+        "year": "FY 2024-25",
+        "salaryKind": "step-table",
+        "totalFte": 1112.73,
+        "classifications": 374,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "Consulting Specialist",
+            "Psychiatric Nurse Practitioner",
+            "Sheriff-Coroner",
+            "County Admin Officer",
+            "County Counsel",
+            "Director of Hlth & Human Svcs",
+            "Asst County Administrator",
+            "Undersheriff",
+            "District Attorney",
+            "Director of Development Svcs",
+            "Ag Commisioner/Sealer W&M",
+            "Asst Dir HHS - Admin & Finance"
+          ],
+          "min": [
+            156000,
+            156000,
+            52000,
+            104000,
+            198651,
+            219294,
+            152970,
+            152970,
+            146316,
+            142114,
+            170302,
+            139378,
+            132639,
+            132639
+          ],
+          "max": [
+            395200,
+            395200,
+            312000,
+            249600,
+            230237,
+            219294,
+            215349,
+            215349,
+            205094,
+            199968,
+            195847,
+            195411,
+            185362,
+            185362
+          ],
+          "fte": [
+            0,
+            6.0,
+            0,
+            2.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0,
+            1.0
+          ],
+          "page": [
+            74,
+            78,
+            39,
+            78,
+            89,
+            40,
+            41,
+            49,
+            27,
+            100,
+            50,
+            49,
+            22,
+            28
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Correctional Officer",
+            "Intervention Counselor I\u2013II",
+            "Staff Analyst",
+            "Office Assistant I\u2013III",
+            "Deputy Probation Officer I\u2013II",
+            "Psychiatrist",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker I\u2013II",
+            "Accounting Technician I\u2013II"
+          ],
+          "values": [
+            6166805,
+            4144583,
+            3670237,
+            3653794,
+            2406710,
+            1822915,
+            1759756,
+            1671374,
+            1653600,
+            1553147,
+            1464768,
+            1418056
+          ],
+          "fte": [
+            111.0,
+            48.0,
+            43.0,
+            57.0,
+            36.5,
+            23.0,
+            37.0,
+            23.0,
+            6.0,
+            28.0,
+            28.0,
+            25.0
+          ],
+          "min": [
+            41340,
+            62958,
+            69991,
+            52409,
+            50650,
+            65123,
+            35165,
+            55821,
+            156000,
+            42458,
+            41340,
+            43670
+          ],
+          "max": [
+            69774,
+            109733,
+            100717,
+            75794,
+            81224,
+            93391,
+            59957,
+            89516,
+            395200,
+            68481,
+            63287,
+            69774
+          ],
+          "page": [
+            null,
+            null,
+            48,
+            40,
+            null,
+            94,
+            null,
+            null,
+            78,
+            null,
+            null,
+            null
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Asst Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Office Assistant I\u2013III",
+            "Intervention Counselor I\u2013II",
+            "Mental Health Worker I\u2013II",
+            "Child Services Case Worker I\u2013II",
+            "Accounting Technician I\u2013II",
+            "Staff Analyst",
+            "Deputy Probation Officer I\u2013II",
+            "Medical Clerk I\u2013III"
+          ],
+          "values": [
+            111.0,
+            57.0,
+            48.0,
+            43.0,
+            37.0,
+            36.5,
+            28.0,
+            28.0,
+            25.0,
+            23.0,
+            23.0,
+            19.0
+          ],
+          "page": [
+            null,
+            40,
+            null,
+            48,
+            null,
+            null,
+            null,
+            null,
+            null,
+            94,
+            null,
+            null
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Asst Specialist I\u2013III",
+            "fte": 111.0,
+            "min": 41340,
+            "max": 69774,
+            "estMid": 6166805,
+            "estMax": 7744916,
+            "units": [
+              "Jail Medical Services",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 48.0,
+            "min": 62958,
+            "max": 109733,
+            "estMid": 4144583,
+            "estMax": 5267199,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 43.0,
+            "min": 69991,
+            "max": 100717,
+            "estMid": 3670237,
+            "estMax": 4330846,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 48
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 57.0,
+            "min": 52409,
+            "max": 75794,
+            "estMid": 3653794,
+            "estMax": 4320267,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 40
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 36.5,
+            "min": 50650,
+            "max": 81224,
+            "estMid": 2406710,
+            "estMax": 2964676,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Staff Analyst",
+            "fte": 23.0,
+            "min": 65123,
+            "max": 93391,
+            "estMid": 1822915,
+            "estMax": 2148002,
+            "units": [
+              "Development Services Admin",
+              "Emergency Services",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 94
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 37.0,
+            "min": 35165,
+            "max": 59957,
+            "estMid": 1759756,
+            "estMax": 2218403,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013II",
+            "fte": 23.0,
+            "min": 55821,
+            "max": 89516,
+            "estMid": 1671374,
+            "estMax": 2058856,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 6.0,
+            "min": 156000,
+            "max": 395200,
+            "estMid": 1653600,
+            "estMax": 2371200,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 78
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 28.0,
+            "min": 42458,
+            "max": 68481,
+            "estMid": 1553147,
+            "estMax": 1917471,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Child Services Case Worker I\u2013II",
+            "fte": 28.0,
+            "min": 41340,
+            "max": 63287,
+            "estMid": 1464768,
+            "estMax": 1772028,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accounting Technician I\u2013II",
+            "fte": 25.0,
+            "min": 43670,
+            "max": 69774,
+            "estMid": 1418056,
+            "estMax": 1744350,
+            "units": [
+              "Agricultural Commissioner",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Treasurer-Tax Collector",
+              "Office Of Revenue Collection",
+              "General Services Department"
+            ],
+            "page": null
+          },
+          {
+            "title": "Psychiatric LVN",
+            "fte": 18.0,
+            "min": 59159,
+            "max": 83054,
+            "estMid": 1279916,
+            "estMax": 1494964,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 78
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 13.0,
+            "min": 73206,
+            "max": 114472,
+            "estMid": 1219904,
+            "estMax": 1488130,
+            "units": [
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy District Attorney I\u2013Iv",
+            "fte": 10.0,
+            "min": 82972,
+            "max": 160344,
+            "estMid": 1216578,
+            "estMax": 1603439,
+            "units": [
+              "District Attorney"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 16.0,
+            "min": 50650,
+            "max": 81224,
+            "estMid": 1054996,
+            "estMax": 1299584,
+            "units": [
+              "County Library",
+              "Sutter County Museum",
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Clerk Of The Board",
+              "Elections"
+            ],
+            "page": null
+          },
+          {
+            "title": "Resource Specialist",
+            "fte": 14.0,
+            "min": 59713,
+            "max": 85533,
+            "estMid": 1016722,
+            "estMax": 1197467,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Jail Medical Services"
+            ],
+            "page": 85
+          },
+          {
+            "title": "Public Asst Specialist Supv",
+            "fte": 14.0,
+            "min": 58040,
+            "max": 82253,
+            "estMid": 982053,
+            "estMax": 1151547,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 79
+          },
+          {
+            "title": "Medical Clerk I\u2013III",
+            "fte": 19.0,
+            "min": 35165,
+            "max": 59957,
+            "estMid": 903658,
+            "estMax": 1139180,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker Adult Serv I\u2013Iv",
+            "fte": 13.0,
+            "min": 45427,
+            "max": 89493,
+            "estMid": 876980,
+            "estMax": 1163410,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 59713,
+            "max": 85533,
+            "estMid": 871476,
+            "estMax": 1026400,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 41
+          },
+          {
+            "title": "Fire Engineer",
+            "fte": 11.0,
+            "min": 58832,
+            "max": 82781,
+            "estMid": 778875,
+            "estMax": 910596,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 56
+          },
+          {
+            "title": "Senior Probation Officer",
+            "fte": 9.0,
+            "min": 69385,
+            "max": 98691,
+            "estMid": 756345,
+            "estMax": 888223,
+            "units": [
+              "Probation"
+            ],
+            "page": 88
+          },
+          {
+            "title": "Fire Captain",
+            "fte": 9.0,
+            "min": 68104,
+            "max": 95830,
+            "estMid": 737704,
+            "estMax": 862468,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 56
+          }
+        ]
+      },
+      "FY2025-26": {
+        "year": "FY 2025-26",
+        "salaryKind": "resolution",
+        "totalFte": 1120.5,
+        "classifications": 385,
+        "highestPaid": {
+          "labels": [
+            "Physician",
+            "Psychiatrist",
+            "Consulting Specialist",
+            "County Administrative Officer",
+            "Psychiatric Nurse Practitioner",
+            "Health Officer",
+            "County Counsel",
+            "Sheriff - Coroner",
+            "District Attorney",
+            "Director of Health & Human Services",
+            "Assistant County Administrator",
+            "Chief Deputy District Attorney",
+            "Undersheriff",
+            "Assistant County Counsel"
+          ],
+          "min": [
+            156000,
+            156000,
+            52000,
+            252978,
+            104000,
+            181199,
+            234600,
+            198651,
+            195411,
+            156029,
+            149242,
+            149242,
+            144957,
+            196000
+          ],
+          "max": [
+            395200,
+            395200,
+            312000,
+            252978,
+            249600,
+            242865,
+            234600,
+            230237,
+            226482,
+            214663,
+            204441,
+            204441,
+            203967,
+            196000
+          ],
+          "fte": [
+            0,
+            6.0,
+            0,
+            1.0,
+            2.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "page": [
+            69,
+            73,
+            37,
+            38,
+            73,
+            56,
+            38,
+            85,
+            47,
+            46,
+            25,
+            32,
+            99,
+            26
+          ]
+        },
+        "costliestClasses": {
+          "labels": [
+            "Public Assistance Specialist I\u2013III",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Correctional Officer",
+            "Intervention Counselor I\u2013II",
+            "Staff Analyst",
+            "Social Worker I - Children's Services",
+            "Office Assistant I\u2013III",
+            "Deputy Probation Officer I\u2013II",
+            "Psychiatrist",
+            "Mental Health Worker I\u2013II",
+            "Accounting Technician I"
+          ],
+          "values": [
+            6258470,
+            4021846,
+            3744406,
+            3727526,
+            2420392,
+            2231012,
+            1964186,
+            1746950,
+            1681337,
+            1653600,
+            1562579,
+            1328080
+          ],
+          "fte": [
+            112.0,
+            47.0,
+            43.0,
+            57.0,
+            37.0,
+            27.0,
+            32.0,
+            36.0,
+            23.0,
+            6.0,
+            28.0,
+            25.0
+          ],
+          "min": [
+            42182,
+            64230,
+            71406,
+            53477,
+            51688,
+            70087,
+            51688,
+            35880,
+            56950,
+            156000,
+            43326,
+            44554
+          ],
+          "max": [
+            69576,
+            106912,
+            102752,
+            77314,
+            79144,
+            95173,
+            71074,
+            61173,
+            89253,
+            395200,
+            68286,
+            61693
+          ],
+          "page": [
+            null,
+            null,
+            44,
+            38,
+            null,
+            92,
+            87,
+            null,
+            null,
+            73,
+            null,
+            17
+          ]
+        },
+        "mostStaff": {
+          "labels": [
+            "Public Assistance Specialist I\u2013III",
+            "Correctional Officer",
+            "Mental Health Therapist I\u2013III",
+            "Deputy Sheriff",
+            "Intervention Counselor I\u2013II",
+            "Office Assistant I\u2013III",
+            "Social Worker I - Children's Services",
+            "Mental Health Worker I\u2013II",
+            "Staff Analyst",
+            "Accounting Technician I",
+            "Deputy Probation Officer I\u2013II",
+            "Psychiatric Licensed Vocational Nurse"
+          ],
+          "values": [
+            112.0,
+            57.0,
+            47.0,
+            43.0,
+            37.0,
+            36.0,
+            32.0,
+            28.0,
+            27.0,
+            25.0,
+            23.0,
+            18.0
+          ],
+          "page": [
+            null,
+            38,
+            null,
+            44,
+            null,
+            null,
+            87,
+            null,
+            92,
+            17,
+            null,
+            73
+          ]
+        },
+        "jobs": [
+          {
+            "title": "Public Assistance Specialist I\u2013III",
+            "fte": 112.0,
+            "min": 42182,
+            "max": 69576,
+            "estMid": 6258470,
+            "estMax": 7792512,
+            "units": [
+              "Jail Medical Services",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Mental Health Therapist I\u2013III",
+            "fte": 47.0,
+            "min": 64230,
+            "max": 106912,
+            "estMid": 4021846,
+            "estMax": 5024864,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Sheriff",
+            "fte": 43.0,
+            "min": 71406,
+            "max": 102752,
+            "estMid": 3744406,
+            "estMax": 4418336,
+            "units": [
+              "Sheriff-Communications",
+              "Sheriff'S Court Bailiffs",
+              "Sheriff-Coroner",
+              "Sheriff Boat Patrol",
+              "Live Oak Contract"
+            ],
+            "page": 44
+          },
+          {
+            "title": "Correctional Officer",
+            "fte": 57.0,
+            "min": 53477,
+            "max": 77314,
+            "estMid": 3727526,
+            "estMax": 4406875,
+            "units": [
+              "Sheriff'S Court Bailiffs",
+              "County Jail",
+              "Sheriff Inmate Welfare"
+            ],
+            "page": 38
+          },
+          {
+            "title": "Intervention Counselor I\u2013II",
+            "fte": 37.0,
+            "min": 51688,
+            "max": 79144,
+            "estMid": 2420392,
+            "estMax": 2928328,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Staff Analyst",
+            "fte": 27.0,
+            "min": 70087,
+            "max": 95173,
+            "estMid": 2231012,
+            "estMax": 2569684,
+            "units": [
+              "Agricultural Commissioner",
+              "Development Services Admin",
+              "Emergency Services",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services"
+            ],
+            "page": 92
+          },
+          {
+            "title": "Social Worker I - Children's Services",
+            "fte": 32.0,
+            "min": 51688,
+            "max": 71074,
+            "estMid": 1964186,
+            "estMax": 2274355,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 87
+          },
+          {
+            "title": "Office Assistant I\u2013III",
+            "fte": 36.0,
+            "min": 35880,
+            "max": 61173,
+            "estMid": 1746950,
+            "estMax": 2202221,
+            "units": [
+              "Bi-County Farm Advisor",
+              "Human Resources",
+              "Animal Control",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy Probation Officer I\u2013II",
+            "fte": 23.0,
+            "min": 56950,
+            "max": 89253,
+            "estMid": 1681337,
+            "estMax": 2052814,
+            "units": [
+              "Probation"
+            ],
+            "page": null
+          },
+          {
+            "title": "Psychiatrist",
+            "fte": 6.0,
+            "min": 156000,
+            "max": 395200,
+            "estMid": 1653600,
+            "estMax": 2371200,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 73
+          },
+          {
+            "title": "Mental Health Worker I\u2013II",
+            "fte": 28.0,
+            "min": 43326,
+            "max": 68286,
+            "estMid": 1562579,
+            "estMax": 1912019,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": null
+          },
+          {
+            "title": "Accounting Technician I",
+            "fte": 25.0,
+            "min": 44554,
+            "max": 61693,
+            "estMid": 1328080,
+            "estMax": 1542320,
+            "units": [
+              "Development Services Admin",
+              "Auditor-Controller",
+              "Treasurer-Tax Collector",
+              "General Services Department",
+              "Health & Human Services Admin.",
+              "Behavioral Health Services"
+            ],
+            "page": 17
+          },
+          {
+            "title": "Psychiatric Licensed Vocational Nurse",
+            "fte": 18.0,
+            "min": 60362,
+            "max": 82826,
+            "estMid": 1288685,
+            "estMax": 1490861,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act"
+            ],
+            "page": 73
+          },
+          {
+            "title": "Public Health Nurse I\u2013III",
+            "fte": 12.5,
+            "min": 74693,
+            "max": 111550,
+            "estMid": 1164020,
+            "estMax": 1394380,
+            "units": [
+              "Public Health",
+              "Welfare Administration"
+            ],
+            "page": null
+          },
+          {
+            "title": "Deputy District Attorney I\u2013IV",
+            "fte": 9.0,
+            "min": 84656,
+            "max": 163571,
+            "estMid": 1117022,
+            "estMax": 1472141,
+            "units": [
+              "District Attorney"
+            ],
+            "page": null
+          },
+          {
+            "title": "Resource Specialist",
+            "fte": 14.0,
+            "min": 60923,
+            "max": 85280,
+            "estMid": 1023422,
+            "estMax": 1193920,
+            "units": [
+              "Behavioral Health Services",
+              "Mental Health Services Act",
+              "Jail Medical Services"
+            ],
+            "page": 80
+          },
+          {
+            "title": "Public Assistance Specialist Supervisor",
+            "fte": 14.0,
+            "min": 59218,
+            "max": 80142,
+            "estMid": 975520,
+            "estMax": 1121994,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 74
+          },
+          {
+            "title": "Social Worker I - Employment Services",
+            "fte": 17.0,
+            "min": 43867,
+            "max": 60674,
+            "estMid": 888597,
+            "estMax": 1031451,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 87
+          },
+          {
+            "title": "Crisis Counselor",
+            "fte": 12.0,
+            "min": 60923,
+            "max": 85280,
+            "estMid": 877219,
+            "estMax": 1023360,
+            "units": [
+              "Behavioral Health Services"
+            ],
+            "page": 39
+          },
+          {
+            "title": "Medical Clerk I\u2013III",
+            "fte": 18.0,
+            "min": 35880,
+            "max": 61173,
+            "estMid": 873475,
+            "estMax": 1101110,
+            "units": [
+              "Behavioral Health Services",
+              "Public Health"
+            ],
+            "page": null
+          },
+          {
+            "title": "Social Worker I - Adult Services",
+            "fte": 15.0,
+            "min": 46342,
+            "max": 64022,
+            "estMid": 827736,
+            "estMax": 960336,
+            "units": [
+              "Welfare Administration"
+            ],
+            "page": 87
+          },
+          {
+            "title": "Accountant I\u2013II",
+            "fte": 12.0,
+            "min": 51688,
+            "max": 79144,
+            "estMid": 784992,
+            "estMax": 949728,
+            "units": [
+              "Development Services Admin",
+              "Clerk Of The Board",
+              "Elections",
+              "Recorder",
+              "County Clerk",
+              "Human Resources"
+            ],
+            "page": null
+          },
+          {
+            "title": "Fire Captain",
+            "fte": 9.0,
+            "min": 71810,
+            "max": 101076,
+            "estMid": 777984,
+            "estMax": 909680,
+            "units": [
+              "County Service Area F"
+            ],
+            "page": 52
+          },
+          {
+            "title": "Senior Probation Officer",
+            "fte": 9.0,
+            "min": 70782,
+            "max": 98384,
+            "estMid": 761249,
+            "estMax": 885456,
+            "units": [
+              "Probation"
+            ],
+            "page": 84
+          }
+        ]
+      }
+    }
   }
 };

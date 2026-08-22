@@ -610,16 +610,20 @@
 
   <section id="sec-pay">
     <div class="sec-head"><span class="sec-num">6</span><h2>Jobs and pay</h2></div>
-    <p class="sec-q">Posted salary ranges and authorized positions (1,120.5 FTE, 385 job titles).
+    <p class="sec-q">Posted salary ranges and authorized positions (<span id="payCensus">1,120.5 FTE, 385 job titles</span>).
       Class cost is midpoint × seats. Benefits and overtime sit on top of that.</p>
+    <div class="year-tabs-bar">
+      <span class="year-tabs-kicker">Position book</span>
+      <div class="year-tabs" id="payYearTabs"></div>
+    </div>
     <div class="grid two">
       <div class="card">
-        <h3>Highest posted salary ranges <span class="yr-badge">FY 2025-26</span></h3>
-        <p class="note">Range for one seat. The number in parentheses is how many seats are authorized.</p>
+        <h3>Highest posted salary ranges <span class="yr-badge" id="payHighBadge">FY 2025-26</span></h3>
+        <p class="note" id="payHighNote">Range for one seat. The number in parentheses is how many seats are authorized.</p>
         <div class="chart-box tall"><canvas id="chPay"></canvas></div>
       </div>
       <div class="card">
-        <h3>Costliest classifications <span class="yr-badge">mid-range × FTE</span></h3>
+        <h3>Costliest classifications <span class="yr-badge" id="payCostBadge">mid-range × FTE</span></h3>
         <p class="note">Authorized seats × midpoint of the posted range.</p>
         <div class="chart-box tall"><canvas id="chCostClass"></canvas></div>
       </div>
@@ -682,7 +686,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=25"></script>
+<script src="js/evidence-panel.js?v=26"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -1259,26 +1263,36 @@
 
   /* pay */
   {
-    const p = D.pay || {};
+    const pby = D.payByYear || {};
+    const payYears = pby.years || [];
+    const payLabs = pby.labels || [];
+    const payStart = Math.max(0, payYears.length - 1);
+    const payPack = yi => (pby.byYear || {})[payYears[yi]] || D.pay || {};
     const fteLabel = (name, n) => {
       const short = name.length > 28 ? name.slice(0, 26) + "…" : name;
       if (!n) return `${short}  (none authorized)`;
       const seats = n % 1 ? n.toFixed(1) : String(n);
       return `${short}  (${seats})`;
     };
+    const fmtFte = n => (n % 1 ? n.toFixed(1) : String(n));
+    const first = payPack(payStart);
+    const hp0 = first.highestPaid || { labels: [], min: [], max: [], fte: [] };
+    const cc0 = first.costliestClasses || { labels: [], values: [], fte: [] };
+    const st0 = first.mostStaff || { labels: [], values: [] };
+
     markChart("chPay");
-    new Chart(document.getElementById("chPay"), {
+    const chPay = new Chart(document.getElementById("chPay"), {
       type: "bar",
       data: {
-        labels: p.highestPaid.labels.map((l, i) => fteLabel(l, p.highestPaid.fte[i])),
+        labels: hp0.labels.map((l, i) => fteLabel(l, hp0.fte[i])),
         datasets: [
-          { label: "Bottom of range", data: p.highestPaid.min, backgroundColor: LIGHT, borderWidth: 0 },
-          { label: "Top of range", data: p.highestPaid.max, backgroundColor: NAVY, borderWidth: 0 }
+          { label: "Bottom of range", data: hp0.min, backgroundColor: LIGHT, borderWidth: 0 },
+          { label: "Top of range", data: hp0.max, backgroundColor: NAVY, borderWidth: 0 }
         ]
       },
       options: {
         indexAxis: "y", maintainAspectRatio: false,
-        onClick: citeClick((_ds, idx) => `pay.high.${idx}`),
+        onClick: citeClick((_ds, idx) => `pay.high.${payStart}.${idx}`),
         scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
         plugins: {
           legend: { position: "bottom" },
@@ -1286,7 +1300,7 @@
             callbacks: {
               title: i => {
                 const n = i[0].dataIndex;
-                return `${p.highestPaid.labels[n]}  ·  ${p.highestPaid.fte[n]} authorized`;
+                return `${hp0.labels[n]}  ·  ${hp0.fte[n]} authorized`;
               },
               label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.x)}`
             }
@@ -1296,24 +1310,24 @@
     });
 
     markChart("chCostClass");
-    new Chart(document.getElementById("chCostClass"), {
+    const chCostClass = new Chart(document.getElementById("chCostClass"), {
       type: "bar",
       data: {
-        labels: p.costliestClasses.labels.map((l, i) => fteLabel(l, p.costliestClasses.fte[i])),
-        datasets: [{ data: p.costliestClasses.values, backgroundColor: NAVY, barPercentage: 0.66, borderWidth: 0 }]
+        labels: cc0.labels.map((l, i) => fteLabel(l, cc0.fte[i])),
+        datasets: [{ data: cc0.values, backgroundColor: NAVY, barPercentage: 0.66, borderWidth: 0 }]
       },
       options: {
         indexAxis: "y", maintainAspectRatio: false,
-        onClick: citeClick((_ds, idx) => `pay.cost.${idx}`),
+        onClick: citeClick((_ds, idx) => `pay.cost.${payStart}.${idx}`),
         scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              title: i => p.costliestClasses.labels[i[0].dataIndex],
+              title: i => cc0.labels[i[0].dataIndex],
               label: c => {
                 const i = c.dataIndex;
-                return ` Mid-range payroll ${fmtFull(c.parsed.x)} · ${p.costliestClasses.fte[i]} FTE`;
+                return ` Mid-range payroll ${fmtFull(c.parsed.x)} · ${cc0.fte[i]} FTE`;
               }
             }
           }
@@ -1322,41 +1336,93 @@
     });
 
     markChart("chStaff");
-    new Chart(document.getElementById("chStaff"), {
+    const chStaff = new Chart(document.getElementById("chStaff"), {
       type: "bar",
       data: {
-        labels: p.mostStaff.labels.map((l, i) => fteLabel(l, p.mostStaff.values[i])),
-        datasets: [{ data: p.mostStaff.values, backgroundColor: STEEL, barPercentage: 0.66, borderWidth: 0 }]
+        labels: st0.labels.map((l, i) => fteLabel(l, st0.values[i])),
+        datasets: [{ data: st0.values, backgroundColor: STEEL, barPercentage: 0.66, borderWidth: 0 }]
       },
       options: {
         indexAxis: "y", maintainAspectRatio: false,
-        onClick: citeClick((_ds, idx) => `pay.staff.${idx}`),
+        onClick: citeClick((_ds, idx) => `pay.staff.${payStart}.${idx}`),
         scales: { x: { ticks: { maxTicksLimit: 6 }, grid, title: { display: true, text: "Authorized FTE" } },
                   y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { title: i => p.mostStaff.labels[i[0].dataIndex], label: c => ` ${c.parsed.x} FTE` } }
+          tooltip: { callbacks: { title: i => st0.labels[i[0].dataIndex], label: c => ` ${c.parsed.x} FTE` } }
         }
       }
     });
 
-    const jobs = p.jobs || [];
-    const fmtFte = n => (n % 1 ? n.toFixed(1) : String(n));
-    document.getElementById("payTable").innerHTML =
-      `<table class="data"><thead><tr>` +
-      `<th>Classification</th><th class="num">Positions</th>` +
-      `<th class="num">Min pay</th><th class="num">Max pay</th>` +
-      `<th class="num">Est. class (mid)</th><th class="num">Est. class (max)</th>` +
-      `</tr></thead><tbody>` +
-      jobs.map(j =>
-        `<tr><td>${j.title}` +
-        (j.units && j.units.length ? `<div style="font-weight:400;color:var(--ink-3);font-size:11.5px;margin-top:2px">${j.units.slice(0,3).join(" · ")}</div>` : "") +
-        `</td><td class="num"><b>${fmtFte(j.fte)}</b></td>` +
-        `<td class="num">${fmtFull(j.min)}</td>` +
-        `<td class="num">${fmtFull(j.max)}</td>` +
-        `<td class="num">${fmtFull(j.estMid)}</td>` +
-        `<td class="num">${fmtFull(j.estMax)}</td></tr>`
-      ).join("") + `</tbody></table>`;
+    const paintPayTable = pack => {
+      const jobs = pack.jobs || [];
+      document.getElementById("payTable").innerHTML =
+        `<table class="data"><thead><tr>` +
+        `<th>Classification</th><th class="num">Positions</th>` +
+        `<th class="num">Min pay</th><th class="num">Max pay</th>` +
+        `<th class="num">Est. class (mid)</th><th class="num">Est. class (max)</th>` +
+        `</tr></thead><tbody>` +
+        jobs.map(j =>
+          `<tr><td>${j.title}` +
+          (j.units && j.units.length ? `<div style="font-weight:400;color:var(--ink-3);font-size:11.5px;margin-top:2px">${j.units.slice(0,3).join(" · ")}</div>` : "") +
+          `</td><td class="num"><b>${fmtFte(j.fte)}</b></td>` +
+          `<td class="num">${fmtFull(j.min)}</td>` +
+          `<td class="num">${fmtFull(j.max)}</td>` +
+          `<td class="num">${fmtFull(j.estMid)}</td>` +
+          `<td class="num">${fmtFull(j.estMax)}</td></tr>`
+        ).join("") + `</tbody></table>`;
+    };
+
+    const paintPay = yi => {
+      const pack = payPack(yi);
+      const hp = pack.highestPaid || { labels: [], min: [], max: [], fte: [] };
+      const cc = pack.costliestClasses || { labels: [], values: [], fte: [] };
+      const st = pack.mostStaff || { labels: [], values: [] };
+      const lab = payLabs[yi] || pack.year || "";
+      chPay.data.labels = hp.labels.map((l, i) => fteLabel(l, hp.fte[i]));
+      chPay.data.datasets[0].data = hp.min;
+      chPay.data.datasets[1].data = hp.max;
+      chPay.options.onClick = citeClick((_ds, idx) => `pay.high.${yi}.${idx}`);
+      chPay.options.plugins.tooltip.callbacks.title = i => {
+        const n = i[0].dataIndex;
+        return `${hp.labels[n]}  ·  ${hp.fte[n]} authorized`;
+      };
+      chPay.update();
+      chCostClass.data.labels = cc.labels.map((l, i) => fteLabel(l, cc.fte[i]));
+      chCostClass.data.datasets[0].data = cc.values;
+      chCostClass.options.onClick = citeClick((_ds, idx) => `pay.cost.${yi}.${idx}`);
+      chCostClass.options.plugins.tooltip.callbacks.title = i => cc.labels[i[0].dataIndex];
+      chCostClass.options.plugins.tooltip.callbacks.label = c => {
+        const i = c.dataIndex;
+        return ` Mid-range payroll ${fmtFull(c.parsed.x)} · ${cc.fte[i]} FTE`;
+      };
+      chCostClass.update();
+      chStaff.data.labels = st.labels.map((l, i) => fteLabel(l, st.values[i]));
+      chStaff.data.datasets[0].data = st.values;
+      chStaff.options.onClick = citeClick((_ds, idx) => `pay.staff.${yi}.${idx}`);
+      chStaff.options.plugins.tooltip.callbacks.title = i => st.labels[i[0].dataIndex];
+      chStaff.update();
+      const census = document.getElementById("payCensus");
+      if (census) {
+        const fte = pack.totalFte != null ? pack.totalFte : "";
+        const n = pack.classifications || 0;
+        census.textContent = fte
+          ? `${Number(fte).toLocaleString()} FTE, ${n} job titles`
+          : `${n} job titles`;
+      }
+      const hb = document.getElementById("payHighBadge");
+      if (hb) hb.textContent = lab;
+      const note = document.getElementById("payHighNote");
+      if (note) {
+        note.textContent = pack.salaryKind === "step-table"
+          ? "This book prints a step table. The range is the first and last annual step. Seats in parentheses."
+          : "Range for one seat. The number in parentheses is how many seats are authorized.";
+      }
+      paintPayTable(pack);
+    };
+
+    bindYearTabs("payYearTabs", payLabs, payStart, paintPay);
+    paintPay(payStart);
   }
 
   {
@@ -1515,8 +1581,8 @@
 
   document.getElementById("foot").innerHTML =
     `<p>Source: Sutter County published budget books. Governmental-fund actuals from the ` +
-    `unit-detail schedules. Pay and headcount from the FY 2025-26 position allocation and ` +
-    `May 1, 2025 salary resolution. Click a figure to open the page it came from.</p>` +
+    `unit-detail schedules. Pay and headcount from each year’s position allocation ` +
+    `(step table through FY 2024-25; salary resolution in FY 2025-26). Click a figure to open the page it came from.</p>` +
     `<p>These are budget-document figures, not the audited annual financial report. ` +
     `Internal service funds and special districts are not included.</p>`;
 })();

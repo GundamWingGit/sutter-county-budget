@@ -77,5 +77,61 @@
     "kind": "positions",
     "path": "documents/FY 2025-26/13 - Section J - Position Allocation Schedule.pdf",
     "bytes": 9918856
+  },
+  "FY 2017-18 Positions": {
+    "file": "FY2017-18-positions.pdf",
+    "title": "FY 2017-18 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2017-18/Position Allocation Schedule.pdf",
+    "bytes": 1064701
+  },
+  "FY 2018-19 Positions": {
+    "file": "FY2018-19-positions.pdf",
+    "title": "FY 2018-19 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2018-19/Position Allocation Schedule.pdf",
+    "bytes": 1161793
+  },
+  "FY 2019-20 Positions": {
+    "file": "FY2019-20-positions.pdf",
+    "title": "FY 2019-20 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2019-20/Position Allocation Schedule.pdf",
+    "bytes": 1167034
+  },
+  "FY 2020-21 Positions": {
+    "file": "FY2020-21-positions.pdf",
+    "title": "FY 2020-21 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2020-21/Position Allocation Schedule.pdf",
+    "bytes": 1143376
+  },
+  "FY 2021-22 Positions": {
+    "file": "FY2021-22-positions.pdf",
+    "title": "FY 2021-22 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2021-22/13 - Section J - Possition Allocation Schedule.pdf",
+    "bytes": 1158517
+  },
+  "FY 2022-23 Positions": {
+    "file": "FY2022-23-positions.pdf",
+    "title": "FY 2022-23 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2022-23/13 - Section J - Position Allocation Schedule.pdf",
+    "bytes": 1140550
+  },
+  "FY 2023-24 Positions": {
+    "file": "FY2023-24-positions.pdf",
+    "title": "FY 2023-24 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2023-24/13 - Section J - Position Allocation Schedule.pdf",
+    "bytes": 1188036
+  },
+  "FY 2024-25 Positions": {
+    "file": "FY2024-25-positions.pdf",
+    "title": "FY 2024-25 Position Allocation Schedule",
+    "kind": "positions",
+    "path": "documents/FY 2024-25/13 - Section J - Position Allocation Schedule.pdf",
+    "bytes": 1187455
   }
 }
