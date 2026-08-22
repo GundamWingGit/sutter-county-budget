@@ -769,7 +769,7 @@
       },
       "adopted.plan": {
         title: "Adopted planned surplus (or draw)",
-        body: "Adopted revenue minus adopted spending for that year. What the Board planned; compare to the actual surplus bar.",
+        body: "Adopted revenue minus adopted spending — what the Board planned. Most years that is about $0, so the light bar is a sliver on the chart, not a missing year.",
         equation: eq,
       },
       "function": {
