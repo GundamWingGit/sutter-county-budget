@@ -129,6 +129,8 @@
       pageBack.hidden = !showBack;
       pageBack.classList.toggle("on", showBack);
     }
+    const toolbar = document.querySelector("#evidencePanel .evidence-toolbar");
+    if (toolbar) toolbar.hidden = mode !== "page";
   }
 
   function showLoading(text, loaded, total) {
@@ -1941,7 +1943,7 @@
         </div>
         <p id="evidenceCaption" class="evidence-caption" hidden></p>
         <p id="evidenceMeta" class="evidence-meta"></p>
-        <div class="evidence-toolbar">
+        <div class="evidence-toolbar" hidden>
           <button type="button" id="evidencePrev" class="evidence-nav">← Prev</button>
           <span id="evidencePageLabel" class="evidence-page">—</span>
           <button type="button" id="evidenceNext" class="evidence-nav">Next →</button>
