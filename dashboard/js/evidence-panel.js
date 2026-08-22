@@ -120,7 +120,8 @@
     if (canvas) canvas.style.visibility = mode === "page" ? "visible" : "hidden";
     expectPdf = mode === "loading";
     const derived = !!(currentCite && currentCite.type === "derived");
-    const showBack = derived && mode !== "compose" && mode !== "empty";
+    const countyWide = !!(currentCite && (currentCite.metric === "revenue" || currentCite.metric === "spend") && currentCite.fy);
+    const showBack = (derived || countyWide) && mode !== "compose" && mode !== "empty";
     const back = $("evidenceBack");
     const pageBack = $("evidencePageBack");
     if (back) back.hidden = !showBack;
@@ -181,7 +182,7 @@
 
   function packSlices(rows) {
     return rows
-      .filter(s => s && s.value != null && Math.abs(Number(s.value)) >= 1)
+      .filter(s => s && s.value != null && Math.abs(Number(s.value)) >= 1 && !s.countyWide)
       .slice()
       .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
       .map((s, i) => ({
@@ -313,11 +314,19 @@
     const slices = packSlices(sources);
     const stack = slices.reduce((a, s) => a + s.value, 0);
     const inflation = metric === "inflation";
+    const printedTotal = sources.find(s => s && s.countyWide && s.page && s.book);
+    const printedChip = printedTotal
+      ? `<button type="button" class="ec-printed" data-printed="1">` +
+          `<span>Box the printed county-wide total</span>` +
+          `<strong>${fmtFull(printedTotal.value)} · p.${printedTotal.page}</strong>` +
+        `</button>`
+      : "";
     host.innerHTML =
       `<div class="ec-kicker">${inflation
         ? "The book prints the nominal figure — this chart point is CPI-adjusted"
         : slices.length + " printed lines add to"}</div>` +
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
+      printedChip +
       `<div class="ec-mosaic" role="img" aria-label="Composition mosaic">${mosaicHtml(slices, inflation ? stack : (Math.abs(clicked) || stack), "main")}</div>` +
       `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
       `<div class="ec-hint">${inflation
@@ -326,6 +335,10 @@
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
     bindComposeFilter(host);
+    const printedBtn = host.querySelector("[data-printed]");
+    if (printedBtn && printedTotal) {
+      printedBtn.addEventListener("click", () => showPiece(cite, printedTotal, ++openGen));
+    }
   }
 
   function bindComposeFilter(host) {
@@ -525,7 +538,7 @@
     const label = cite.label || "";
     const kids = cite.children || [];
 
-    if (cite.type === "printed") {
+    if (cite.type === "printed" && metric !== "revenue" && metric !== "spend") {
       const fy = cite.fy ? String(cite.fy).replace("FY", "FY ") : "";
       const lag = (fy && cite.book)
         ? ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`
@@ -553,32 +566,24 @@
       };
     }
 
-    if (metric === "revenue") {
+    if (metric === "revenue" || metric === "spend") {
+      const what = metric === "revenue" ? "revenue" : "spending";
       if (cite.type === "printed") {
+        const fy = cite.fy ? String(cite.fy).replace("FY", "FY ") : "";
+        const lag = (fy && cite.book)
+          ? ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`
+          : "";
         return {
-          title: "Printed county-wide total",
-          body: "This is the same governmental-fund revenue total you clicked, as printed in the source book.",
+          title: "How this total is built",
+          body: "Unit lines below add to the amount you clicked. This year also prints as one governmental-fund " +
+            what + " figure — click that row to box it." + lag,
           equation: null,
         };
       }
       return {
-        title: "Sum of unit revenue totals",
-        body: "Click a slice to open that unit’s printed page.",
-        equation: null,
-      };
-    }
-
-    if (metric === "spend") {
-      if (cite.type === "printed") {
-        return {
-          title: "Printed county-wide total",
-          body: "This is the same governmental-fund spending total you clicked, as printed in the source book.",
-          equation: null,
-        };
-      }
-      return {
-        title: "Sum of unit expenditure totals",
-        body: "Click a slice to open that unit’s printed page.",
+        title: "How this total is built",
+        body: "This book does not print a single governmental-fund " + what +
+          " total. The unit lines below add to the amount you clicked. Click a row to box that printed line.",
         equation: null,
       };
     }
@@ -730,7 +735,8 @@
       return;
     }
 
-    const isPieces = cite.type === "derived";
+    const isPieces = cite.type === "derived" ||
+      ((cite.metric === "revenue" || cite.metric === "spend") && cite.fy);
     labelEl.textContent = isPieces
       ? `Sources (${allSources.length})`
       : "Related rows";
@@ -833,7 +839,8 @@
   async function expandSources(cite) {
     const hydratedKids = (cite.children || []).map(hydrateCite);
     const baked = dedupeSources(hydratedKids);
-    if (cite.type === "printed") return baked;
+    const countyWide = (cite.metric === "revenue" || cite.metric === "spend") && cite.fy;
+    if (cite.type === "printed" && !countyWide) return baked;
 
     const metric = cite.metric;
     const label = cite.label || "";
@@ -850,8 +857,24 @@
       const found = await expandMetricRows(
         cite.book, cite.fy, cite.kind || "actual", metric, null
       );
-      const all = dedupeSources(found);
-      return all.length ? all : baked;
+      const units = dedupeSources(found.length ? found : baked);
+      if (cite.type === "printed" && cite.page && cite.book) {
+        return [{
+          type: "printed",
+          book: cite.book,
+          page: cite.page,
+          value: cite.value,
+          query: cite.query || formatQueryFromValue(cite.value),
+          hit: cite.hit,
+          label: "County-wide printed total",
+          line: metric === "revenue" ? "Schedule 5 total" : "Schedule 8 total",
+          fy: cite.fy,
+          kind: cite.kind,
+          metric: cite.metric,
+          countyWide: true,
+        }, ...units];
+      }
+      return units;
     }
 
     // Surplus / planned draw: expand both revenue and spend children into unit rows.
@@ -1060,13 +1083,16 @@
     const clickedQuery = formatQueryFromValue(cite.value);
     const parentQuery = queryMatchesValue(cite.query, cite.value) ? cite.query : clickedQuery;
     const printedHit = cite.hit && cite.hit.x0 != null && valuesExact(parseMoney(cite.hit.query), cite.value);
+    const countyWide = (cite.metric === "revenue" || cite.metric === "spend") && cite.fy;
     const canHighlightClicked = !!(
       cite.type === "printed" &&
+      !countyWide &&
       cite.book && cite.page && cite.value != null &&
       (printedHit || queryMatchesValue(parentQuery, cite.value))
     );
 
     // Only open a PDF to box a figure that is printed as that same amount.
+    // County-wide revenue/spend always shows the same unit breakdown first.
     // Calculated totals stay on the breakdown — never a feeder page and a red miss.
     if (canHighlightClicked) {
       viewingPiece = {
@@ -1080,9 +1106,9 @@
     }
 
     renderComposition(cite);
-    showStatus(cite.type === "derived"
-      ? "This total is not a single printed figure. Click a source row to box that row in the book."
-      : "");
+    showStatus(countyWide && cite.type === "printed"
+      ? "Unit lines below add to this total. Click the county-wide row to box the printed figure."
+      : "This total is not a single printed figure. Click a source row to box that row in the book.");
     clearCanvas();
     $("evidencePageLabel").textContent = "—";
     $("evidenceDocLink").href = "#";

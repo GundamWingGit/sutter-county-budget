@@ -378,7 +378,17 @@
   .ec-row-track > i { display: block; height: 100%; border-radius: 99px; }
   .ec-row-amt {
     font-size: 12px; font-weight: 650; color: var(--navy); white-space: nowrap; text-align: right;
+    background: #e4edf8; padding: 3px 8px; border-radius: 6px;
   }
+  .ec-printed {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    width: 100%; margin: 0 0 12px; padding: 10px 12px;
+    border: 1px solid #c5d4e8; border-radius: 8px; background: #eef4fb;
+    font: inherit; text-align: left; cursor: pointer;
+  }
+  .ec-printed span { font-size: 12px; color: var(--ink-2); }
+  .ec-printed strong { font-size: 13px; color: var(--navy); }
+  .ec-printed:hover { border-color: var(--navy); }
   .ec-row-amt em {
     display: block; font-style: normal; font-weight: 500; font-size: 11px; color: var(--ink-3);
   }
@@ -625,7 +635,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=16"></script>
+<script src="js/evidence-panel.js?v=17"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
