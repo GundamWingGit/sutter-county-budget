@@ -567,7 +567,7 @@
       </div>
       <div class="card">
         <h3>FY 2023-24 spending objects <span class="yr-badge">actual</span></h3>
-        <p class="note">Transfers and salaries are the two largest slices. Restricted funds move money between units. Click a slice or its legend label to verify.</p>
+        <p class="note">Transfers sit next to salaries because restricted funds move money between units.</p>
         <div class="chart-box short"><canvas id="chExpCat"></canvas></div>
       </div>
     </div>
@@ -1051,80 +1051,7 @@
     });
   }
   categoryBar("chRevCat", D.revenueCategories, STEEL, "revcat");
-
-  {
-    const cat = D.expenseCategories;
-    const total = cat.values.reduce((a, b) => a + b, 0);
-    markChart("chExpCat");
-    new Chart(document.getElementById("chExpCat"), {
-      type: "doughnut",
-      data: {
-        labels: cat.labels,
-        datasets: [{
-          data: cat.values,
-          backgroundColor: PALETTE.slice(0, cat.labels.length),
-          borderColor: "#ffffff",
-          borderWidth: 2,
-          hoverOffset: 6
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        cutout: "52%",
-        onClick: citeClick((_ds, idx) => `expcat.${idx}`),
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: {
-              boxWidth: 10,
-              boxHeight: 10,
-              padding: 8,
-              font: { size: 11 },
-              generateLabels(chart) {
-                const ds = chart.data.datasets[0];
-                return chart.data.labels.map((label, i) => ({
-                  text: `${label}  ${(ds.data[i] / total * 100).toFixed(0)}%`,
-                  fillStyle: ds.backgroundColor[i],
-                  strokeStyle: ds.backgroundColor[i],
-                  hidden: false,
-                  index: i
-                }));
-              }
-            },
-            onClick(_evt, item) {
-              if (window.EvidencePanel && item && item.index != null) {
-                EvidencePanel.openById(`expcat.${item.index}`);
-              }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: c => ` ${fmtFull(c.parsed)} — ${(c.parsed / total * 100).toFixed(1)}%`
-            }
-          }
-        }
-      },
-      plugins: [{
-        id: "expCatCenter",
-        afterDraw(chart) {
-          const { ctx, chartArea } = chart;
-          if (!chartArea) return;
-          const cx = (chartArea.left + chartArea.right) / 2;
-          const cy = (chartArea.top + chartArea.bottom) / 2;
-          ctx.save();
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = "#74839a";
-          ctx.font = "600 10px Inter, sans-serif";
-          ctx.fillText("FY 23-24", cx, cy - 9);
-          ctx.fillStyle = "#17253c";
-          ctx.font = "700 15px Inter, sans-serif";
-          ctx.fillText(fmtCompact(total), cx, cy + 9);
-          ctx.restore();
-        }
-      }]
-    });
-  }
+  categoryBar("chExpCat", D.expenseCategories, NAVY, "expcat");
 
   const u = D.topUnits;
   markChart("chUnits");
