@@ -694,6 +694,27 @@
       color: var(--ink-3); padding: 8px 2px; line-height: 1.2;
     }
     .m-dock a.is-on { color: var(--navy); }
+    body.m-tabs .masthead,
+    body.m-tabs .kpis,
+    body.m-tabs section,
+    body.m-tabs footer { display: none; }
+    body.m-tabs[data-tab="home"] .masthead { display: block; }
+    body.m-tabs[data-tab="home"] .kpis { display: grid; }
+    body.m-tabs[data-tab="home"] #sec-trend,
+    body.m-tabs[data-tab="home"] #sec-ava,
+    body.m-tabs[data-tab="home"] footer { display: block; }
+    body.m-tabs[data-tab="mix"] #sec-function,
+    body.m-tabs[data-tab="mix"] #sec-cats,
+    body.m-tabs[data-tab="mix"] #sec-contracts { display: block; }
+    body.m-tabs[data-tab="depts"] #sec-units { display: block; }
+    body.m-tabs[data-tab="pay"] #sec-pay { display: block; }
+    body.m-tabs[data-tab="search"] #sec-explorer { display: block; }
+    body.m-tabs section { margin-top: 22px; }
+    body.m-tabs[data-tab="home"] #sec-trend { margin-top: 28px; }
+    body.m-tabs[data-tab="mix"] #sec-function,
+    body.m-tabs[data-tab="depts"] #sec-units,
+    body.m-tabs[data-tab="pay"] #sec-pay,
+    body.m-tabs[data-tab="search"] #sec-explorer { margin-top: 8px; }
     .chart-box.is-ranks { display: none !important; }
     .m-bars { display: flex; flex-direction: column; gap: 11px; padding: 2px 0 4px; }
     .m-bar-row {
@@ -717,11 +738,11 @@
 </head>
 <body>
 <nav class="m-dock" aria-label="Sections">
-  <a href="#sec-home" data-sec="sec-home">Home</a>
-  <a href="#sec-function" data-sec="sec-function">Mix</a>
-  <a href="#sec-units" data-sec="sec-units">Depts</a>
-  <a href="#sec-pay" data-sec="sec-pay">Pay</a>
-  <a href="#sec-explorer" data-sec="sec-explorer">Search</a>
+  <a href="#sec-home" data-tab="home">Home</a>
+  <a href="#sec-function" data-tab="mix">Mix</a>
+  <a href="#sec-units" data-tab="depts">Depts</a>
+  <a href="#sec-pay" data-tab="pay">Pay</a>
+  <a href="#sec-explorer" data-tab="search">Search</a>
 </nav>
 <div class="wrap" id="app">
   <div class="m-bar">Sutter County · Budget</div>
@@ -2041,17 +2062,48 @@
 
   {
     const dock = document.querySelector(".m-dock");
-    const links = dock ? [...dock.querySelectorAll("a[data-sec]")] : [];
-    const markDock = () => {
-      const y = window.scrollY + 140;
-      let current = links[0];
-      links.forEach(a => {
-        const el = document.getElementById(a.dataset.sec);
-        if (el && el.offsetTop <= y) current = a;
+    const links = dock ? [...dock.querySelectorAll("a[data-tab]")] : [];
+    const titles = { home: "Sutter County · Budget", mix: "Sutter County · Mix", depts: "Sutter County · Departments", pay: "Sutter County · Pay", search: "Sutter County · Search" };
+    const showTab = tab => {
+      document.body.classList.add("m-tabs");
+      document.body.dataset.tab = tab;
+      links.forEach(a => a.classList.toggle("is-on", a.dataset.tab === tab));
+      const bar = document.querySelector(".m-bar");
+      if (bar) bar.textContent = titles[tab] || titles.home;
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => {
+        document.querySelectorAll("canvas").forEach(c => {
+          const ch = typeof Chart !== "undefined" && Chart.getChart && Chart.getChart(c);
+          if (ch) ch.resize();
+        });
       });
-      links.forEach(a => a.classList.toggle("is-on", a === current));
     };
-    if (links.length) {
+    if (PHONE && links.length) {
+      dock.addEventListener("click", ev => {
+        const a = ev.target.closest("a[data-tab]");
+        if (!a) return;
+        ev.preventDefault();
+        showTab(a.dataset.tab);
+      });
+      const fromHash = (location.hash || "").replace("#", "");
+      const byHash = {
+        "sec-home": "home", app: "home",
+        "sec-trend": "home", "sec-ava": "home",
+        "sec-function": "mix", "sec-cats": "mix", "sec-contracts": "mix",
+        "sec-units": "depts", "sec-pay": "pay", "sec-explorer": "search"
+      };
+      showTab(byHash[fromHash] || "home");
+    } else if (links.length) {
+      const markDock = () => {
+        const y = window.scrollY + 140;
+        let current = links[0];
+        links.forEach(a => {
+          const id = a.getAttribute("href").replace("#", "");
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= y) current = a;
+        });
+        links.forEach(a => a.classList.toggle("is-on", a === current));
+      };
       window.addEventListener("scroll", markDock, { passive: true });
       markDock();
     }
