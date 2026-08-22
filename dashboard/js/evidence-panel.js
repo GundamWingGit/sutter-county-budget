@@ -2235,20 +2235,146 @@
     return window.matchMedia("(max-width: 720px)").matches;
   }
 
-  const ARM_MS = 750;
-  let arm = { key: "", at: 0, el: null };
+  const ARM_MS = 1600;
+  let arm = { key: "", at: 0, el: null, chart: null, ds: 0, idx: 0 };
+  let armPluginReady = false;
 
   function armTarget(el) {
     if (!el || !el.closest) return null;
-    return el.closest(".citeable, .m-bar-row, .m-row, .kpi, .chart-box") || el;
+    return el.closest(".citeable, .m-bar-row, .m-row, .kpi") || null;
+  }
+
+  function removeArmChips() {
+    document.querySelectorAll(".arm-chip").forEach(n => n.remove());
+  }
+
+  function clamp(n, lo, hi) {
+    return Math.max(lo, Math.min(hi, n));
+  }
+
+  function placeChip(host, x, y, label) {
+    if (!host) return;
+    if (getComputedStyle(host).position === "static") host.style.position = "relative";
+    let chip = host.querySelector(":scope > .arm-chip");
+    if (!chip) {
+      chip = document.createElement("div");
+      chip.className = "arm-chip";
+      chip.setAttribute("aria-live", "polite");
+      host.appendChild(chip);
+    }
+    chip.textContent = label || "Tap again for source";
+    const pad = 8;
+    const w = chip.offsetWidth || 148;
+    const h = chip.offsetHeight || 28;
+    chip.style.left = clamp(x, pad, Math.max(pad, host.clientWidth - w - pad)) + "px";
+    chip.style.top = clamp(y, pad, Math.max(pad, host.clientHeight - h - pad)) + "px";
+  }
+
+  function chartEl(chart, ds, idx) {
+    const meta = chart && chart.getDatasetMeta(ds);
+    return meta && meta.data ? meta.data[idx] : null;
+  }
+
+  function ensureArmPlugin() {
+    if (armPluginReady || !global.Chart) return;
+    armPluginReady = true;
+    global.Chart.register({
+      id: "armSelect",
+      afterDatasetsDraw(chart) {
+        if (!arm.chart || arm.chart !== chart) return;
+        const el = chartEl(chart, arm.ds, arm.idx);
+        if (!el) return;
+        const ctx = chart.ctx;
+        const gold = "#a5814b";
+        ctx.save();
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 1.75;
+        ctx.shadowColor = "rgba(165, 129, 75, 0.4)";
+        ctx.shadowBlur = 8;
+        const horiz = chart.options.indexAxis === "y";
+        const isBar = el.base != null && (el.width != null || el.height != null);
+        if (isBar) {
+          let left, top, w, h;
+          if (horiz) {
+            left = Math.min(el.x, el.base);
+            w = Math.max(2, Math.abs(el.x - el.base));
+            h = el.height || 10;
+            top = el.y - h / 2;
+          } else {
+            w = el.width || 10;
+            left = el.x - w / 2;
+            top = Math.min(el.y, el.base);
+            h = Math.max(2, Math.abs(el.base - el.y));
+          }
+          const r = Math.min(3, w / 2, h / 2);
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(left, top, w, h, r);
+          else ctx.rect(left, top, w, h);
+          ctx.stroke();
+        } else {
+          ctx.beginPath();
+          ctx.arc(el.x, el.y, 8, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(el.x, el.y, 3.25, 0, Math.PI * 2);
+          ctx.fillStyle = gold;
+          ctx.shadowBlur = 0;
+          ctx.fill();
+        }
+        ctx.restore();
+      },
+    });
+  }
+
+  function pinChartArm(chart, ds, idx) {
+    if (!chart) return;
+    ensureArmPlugin();
+    const hit = [{ datasetIndex: ds, index: idx }];
+    chart.setActiveElements(hit);
+    try {
+      const el = chartEl(chart, ds, idx);
+      chart.tooltip.setActiveElements(hit, {
+        x: el ? el.x : 0,
+        y: el ? el.y : 0,
+      });
+    } catch (err) { /* tooltip API varies by Chart.js build */ }
+    chart.update("none");
+    const box = chart.canvas && chart.canvas.closest(".chart-box");
+    const el = chartEl(chart, ds, idx);
+    if (!box || !el) return;
+    const horiz = chart.options.indexAxis === "y";
+    const x = horiz ? el.x + 10 : el.x - 70;
+    const y = horiz ? el.y - 22 : (el.base != null ? Math.min(el.y, el.base) : el.y) - 30;
+    placeChip(box, x, y);
+  }
+
+  function clearChartArm(chart) {
+    if (!chart) return;
+    try {
+      chart.setActiveElements([]);
+      chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+      chart.update("none");
+    } catch (err) { /* ignore */ }
+  }
+
+  function showArm(target, ctx) {
+    removeArmChips();
+    if (ctx && ctx.chart) {
+      pinChartArm(ctx.chart, ctx.datasetIndex, ctx.index);
+      return;
+    }
+    if (!target) return;
+    target.classList.add("is-armed");
   }
 
   function clearArm() {
     if (arm.el) arm.el.classList.remove("is-armed");
-    arm = { key: "", at: 0, el: null };
+    removeArmChips();
+    clearChartArm(arm.chart);
+    arm = { key: "", at: 0, el: null, chart: null, ds: 0, idx: 0 };
   }
 
-  function armedToOpen(key, el) {
+  function armedToOpen(key, el, ctx) {
     if (!isPhone()) return true;
     const now = Date.now();
     const target = armTarget(el);
@@ -2258,8 +2384,15 @@
       return true;
     }
     clearArm();
-    arm = { key, at: now, el: target };
-    if (target) target.classList.add("is-armed");
+    arm = {
+      key,
+      at: now,
+      el: target,
+      chart: ctx && ctx.chart || null,
+      ds: ctx && ctx.datasetIndex || 0,
+      idx: ctx && ctx.index || 0,
+    };
+    showArm(target, ctx);
     return false;
   }
 
@@ -2267,9 +2400,9 @@
     if (arm.key) clearArm();
   }, { passive: true, capture: true });
 
-  function openFromPage(citeId, el) {
+  function openFromPage(citeId, el, ctx) {
     if (!citeId) return;
-    if (!armedToOpen("cite:" + citeId, el)) return;
+    if (!armedToOpen("cite:" + citeId, el, ctx)) return;
     openById(citeId);
   }
 
@@ -2522,12 +2655,16 @@
   }
 
   function chartCiteHandler(buildId) {
-    return (evt, elements) => {
+    return (evt, elements, chart) => {
       if (!elements || !elements.length) return;
       const el = elements[0];
       const id = buildId(el.datasetIndex, el.index);
       const target = evt && evt.native && evt.native.target;
-      if (id) openFromPage(id, target);
+      if (id) openFromPage(id, target, {
+        chart: chart || (evt && evt.chart),
+        datasetIndex: el.datasetIndex,
+        index: el.index,
+      });
     };
   }
 

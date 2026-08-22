@@ -763,13 +763,39 @@
     table.data td.citeable.is-armed,
     .m-bar-row.is-armed,
     .m-row.citeable.is-armed {
-      outline: 2px solid var(--gold);
-      outline-offset: -2px;
-      background: #faf6ee;
+      outline: none;
+      background: #fcfaf6;
+      box-shadow: inset 2px 0 0 var(--gold);
     }
-    .chart-box.is-armed {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
+    .kpi.citeable.is-armed::after,
+    .finding.citeable.is-armed::after {
+      display: block;
+      content: "Tap again";
+      opacity: 1;
+    }
+    .m-bar-row.is-armed,
+    .m-row.citeable.is-armed {
+      border-color: #e2d3b8;
+    }
+    .arm-chip {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      font: 600 10px/1 var(--sans);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #e2d3b8;
+      border-radius: 99px;
+      padding: 6px 10px;
+      box-shadow: 0 6px 18px rgba(23, 37, 60, 0.1);
+      white-space: nowrap;
+      animation: arm-chip-in .2s ease-out;
+    }
+    @keyframes arm-chip-in {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     nav.toc { display: none; }
     .kpis { grid-template-columns: 1fr 1fr; margin-top: 16px; }
@@ -1132,7 +1158,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=39"></script>
+<script src="js/evidence-panel.js?v=40"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
@@ -1304,12 +1330,16 @@
     paintAll();
   })();
   const citeClick = (buildId) => {
-    const onClick = (evt, elements) => {
+    const onClick = (evt, elements, chart) => {
       if (!elements || !elements.length || !window.EvidencePanel) return;
       const el = elements[0];
       const id = typeof buildId === "function" ? buildId(el.datasetIndex, el.index) : buildId;
       const target = evt && evt.native && evt.native.target;
-      if (id) EvidencePanel.openFromPage(id, target);
+      if (id) EvidencePanel.openFromPage(id, target, {
+        chart,
+        datasetIndex: el.datasetIndex,
+        index: el.index,
+      });
     };
     onClick.buildId = buildId;
     return onClick;
@@ -1627,15 +1657,21 @@
         const top = Math.min(act.y, act.base);
         const bot = Math.max(act.y, act.base);
         if (evt.x >= act.x - half && evt.x <= act.x + half && evt.y >= top - 2 && evt.y <= bot + 2) {
-          return actualCite(idx);
+          return { id: actualCite(idx), ds: 1, idx };
         }
       }
-      return planCite(idx);
+      return { id: planCite(idx), ds: 0, idx };
     };
     const onBva = (evt, els, chart) => {
-      const id = pickBva(evt, els, chart);
+      const pick = pickBva(evt, els, chart);
       const target = evt && evt.native && evt.native.target;
-      if (id && window.EvidencePanel) EvidencePanel.openFromPage(id, target);
+      if (pick && pick.id && window.EvidencePanel) {
+        EvidencePanel.openFromPage(pick.id, target, {
+          chart,
+          datasetIndex: pick.ds,
+          index: pick.idx,
+        });
+      }
     };
     onBva.buildId = (ds, idx) => (ds === 0 ? planCite(idx) : actualCite(idx));
     new Chart(document.getElementById("chBva"), {
