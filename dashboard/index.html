@@ -28,7 +28,11 @@
     --sans: "Inter", -apple-system, "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar { width: 0; height: 0; }
   body {
     font-family: var(--sans);
     background: var(--paper);
@@ -36,6 +40,37 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
+  .sb-rail {
+    position: fixed;
+    width: 4px;
+    border-radius: 99px;
+    background: rgba(31, 58, 95, 0.12);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 70;
+  }
+  .sb-rail.on { opacity: 1; }
+  .sb-rail.sb-compose,
+  .sb-rail.sb-body,
+  .sb-rail.sb-sources { z-index: 1002; }
+  .sb-thumb {
+    display: block;
+    width: 100%;
+    border-radius: 99px;
+    background: rgba(31, 58, 95, 0.5);
+    min-height: 24px;
+  }
+  .evidence-body,
+  .evidence-compose,
+  #evidenceSourceWrap,
+  #explorerResults {
+    scrollbar-width: none;
+  }
+  .evidence-body::-webkit-scrollbar,
+  .evidence-compose::-webkit-scrollbar,
+  #evidenceSourceWrap::-webkit-scrollbar,
+  #explorerResults::-webkit-scrollbar { width: 0; height: 0; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px 80px; }
 
   .masthead { padding: 58px 0 0; }
@@ -1142,6 +1177,103 @@
 
   // Click-to-source panel
   if (window.EvidencePanel) EvidencePanel.init();
+
+  (function installScrollRails() {
+    const rails = [];
+    const makeRail = (name) => {
+      const rail = document.createElement("div");
+      rail.className = "sb-rail sb-" + name;
+      rail.setAttribute("aria-hidden", "true");
+      rail.innerHTML = '<i class="sb-thumb"></i>';
+      document.body.appendChild(rail);
+      return rail;
+    };
+    const metrics = (el) => {
+      if (el === window) {
+        const view = window.innerHeight;
+        const scroll = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        return { view, scroll, top: window.scrollY || document.documentElement.scrollTop || 0 };
+      }
+      return { view: el.clientHeight, scroll: el.scrollHeight, top: el.scrollTop };
+    };
+    const visible = (el) => {
+      if (el === window) {
+        if (document.body.classList.contains("evidence-open") && window.matchMedia("(max-width: 900px)").matches) {
+          return false;
+        }
+        return true;
+      }
+      if (!el || !el.isConnected) return false;
+      const st = getComputedStyle(el);
+      if (st.display === "none" || st.visibility === "hidden") return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 8 && r.height > 8;
+    };
+    const layout = (rail, el) => {
+      if (!visible(el)) {
+        rail.classList.remove("on");
+        return;
+      }
+      const { view, scroll, top } = metrics(el);
+      if (scroll - view < 20) {
+        rail.classList.remove("on");
+        return;
+      }
+      if (el === window) {
+        const phone = window.matchMedia("(max-width: 720px)").matches;
+        const sheet = window.matchMedia("(max-width: 900px)").matches;
+        const ev = document.body.classList.contains("evidence-open");
+        rail.style.top = phone ? "48px" : "18px";
+        rail.style.bottom = phone ? "calc(76px + env(safe-area-inset-bottom, 0px))" : "18px";
+        rail.style.height = "auto";
+        rail.style.left = "auto";
+        rail.style.right = (ev && !sheet) ? "calc(var(--evidence-w) + 8px)" : "6px";
+      } else {
+        const r = el.getBoundingClientRect();
+        rail.style.top = (r.top + 8) + "px";
+        rail.style.height = Math.max(0, r.height - 16) + "px";
+        rail.style.left = (r.right - 8) + "px";
+        rail.style.right = "auto";
+        rail.style.bottom = "auto";
+      }
+      rail.classList.add("on");
+      const track = rail.clientHeight || 1;
+      const thumb = rail.firstElementChild;
+      const thumbH = Math.max(24, Math.round((view / scroll) * track));
+      const overflow = scroll - view;
+      const y = overflow > 0 ? Math.round((top / overflow) * Math.max(0, track - thumbH)) : 0;
+      thumb.style.height = thumbH + "px";
+      thumb.style.transform = "translateY(" + y + "px)";
+    };
+    const bind = (el, name) => {
+      const rail = makeRail(name);
+      const paint = () => layout(rail, el);
+      rails.push({ paint });
+      (el === window ? window : el).addEventListener("scroll", paint, { passive: true });
+      if (el !== window && window.ResizeObserver) new ResizeObserver(paint).observe(el);
+    };
+    const paintAll = () => rails.forEach((r) => r.paint());
+    bind(window, "page");
+    const attach = () => {
+      [["evidenceCompose", "compose"], ["evidenceBody", "body"], ["evidenceSourceWrap", "sources"], ["explorerResults", "explorer"]].forEach(([id, name]) => {
+        const el = document.getElementById(id);
+        if (el && !el.dataset.sb) {
+          el.dataset.sb = "1";
+          bind(el, name);
+        }
+      });
+    };
+    attach();
+    window.addEventListener("resize", paintAll);
+    window.addEventListener("orientationchange", paintAll);
+    document.body.addEventListener("transitionend", paintAll);
+    new MutationObserver(paintAll).observe(document.body, { attributes: true, attributeFilter: ["class", "data-tab"] });
+    const wrap = document.querySelector(".wrap");
+    if (wrap && window.ResizeObserver) new ResizeObserver(paintAll).observe(wrap);
+    const compose = document.getElementById("evidenceCompose");
+    if (compose) new MutationObserver(paintAll).observe(compose, { childList: true, subtree: true });
+    paintAll();
+  })();
   const citeClick = (buildId) => {
     const onClick = (evt, elements) => {
       if (!elements || !elements.length || !window.EvidencePanel) return;
