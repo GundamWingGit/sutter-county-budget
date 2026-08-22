@@ -1612,6 +1612,7 @@ window.BUDGET_DATA = {
   },
   "contracts": {
     "year": "FY 2024-25",
+    "kind": "recommended",
     "groups": [
       {
         "name": "Professional / specialized services",
@@ -1641,7 +1642,7 @@ window.BUDGET_DATA = {
         "name": "Support and care of persons",
         "total": 41208342,
         "labels": [
-          "Tanf-Family Group",
+          "TANF-Family Group",
           "Aid For Adoption",
           "Behavioral Health",
           "Social Services Administrati",
@@ -1685,8 +1686,7 @@ window.BUDGET_DATA = {
           68618
         ]
       }
-    ],
-    "kind": "recommended"
+    ]
   },
   "notable": [
     {
@@ -1719,5 +1719,681 @@ window.BUDGET_DATA = {
       "value": "$6.3 million",
       "detail": "112 Public Assistance Specialist I\u2013III positions. Mid-range estimate $6,258,470. These are eligibility workers, not executives."
     }
-  ]
+  ],
+  "contractsByYear": {
+    "years": [
+      "FY2016-17",
+      "FY2017-18",
+      "FY2018-19",
+      "FY2019-20",
+      "FY2020-21",
+      "FY2021-22",
+      "FY2022-23",
+      "FY2024-25"
+    ],
+    "labels": [
+      "FY 16-17",
+      "FY 17-18",
+      "FY 18-19",
+      "FY 19-20",
+      "FY 20-21",
+      "FY 21-22",
+      "FY 22-23",
+      "FY 24-25 rec"
+    ],
+    "kinds": [
+      "actual",
+      "actual",
+      "actual",
+      "actual",
+      "actual",
+      "actual",
+      "actual",
+      "recommended"
+    ],
+    "books": [
+      "FY 2018-19",
+      "FY 2019-20",
+      "FY 2020-21",
+      "FY 2021-22",
+      "FY 2022-23",
+      "FY 2023-24",
+      "FY 2024-25",
+      "FY 2024-25"
+    ],
+    "byYear": {
+      "FY2016-17": {
+        "year": "FY 2016-17",
+        "kind": "actual",
+        "book": "FY 2018-19",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 12652953,
+            "labels": [
+              "Behavioral Health",
+              "Road",
+              "Mental Health Services Act",
+              "County Service Area G",
+              "Jail Medical Services",
+              "Public Defender",
+              "Jail Expansion",
+              "Probation"
+            ],
+            "values": [
+              4911116,
+              1677560,
+              1012707,
+              711695,
+              547519,
+              502137,
+              471124,
+              321969
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 18713764,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Welfare Administration",
+              "Jail Medical Services",
+              "County Health",
+              "Mental Health Services Act"
+            ],
+            "values": [
+              9066446,
+              3960628,
+              2353910,
+              1716170,
+              972380,
+              452351,
+              99089,
+              61375
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2065465,
+            "labels": [
+              "County Jail",
+              "Sheriff-Coroner",
+              "Behavioral Health",
+              "Welfare Administration",
+              "County Service Area F",
+              "District Attorney",
+              "Mental Health Services Act",
+              "Sheriff Live Oak Contract"
+            ],
+            "values": [
+              444881,
+              401700,
+              342229,
+              284005,
+              158713,
+              87575,
+              82184,
+              47232
+            ]
+          }
+        ]
+      },
+      "FY2017-18": {
+        "year": "FY 2017-18",
+        "kind": "actual",
+        "book": "FY 2019-20",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 26515044,
+            "labels": [
+              "Jail Expansion",
+              "Road",
+              "Behavioral Health",
+              "Jail Medical Services",
+              "Mental Health Services Act",
+              "County Service Area G",
+              "680 North Walton Prj 1811",
+              "Public Defender"
+            ],
+            "values": [
+              9380639,
+              4635651,
+              4117225,
+              2845707,
+              1035610,
+              751990,
+              622809,
+              545977
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 20363939,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Welfare Administration",
+              "Mental Health Services Act",
+              "County Health",
+              "Probation"
+            ],
+            "values": [
+              9149212,
+              4408582,
+              3982252,
+              1569096,
+              1017311,
+              100619,
+              73829,
+              40027
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2012580,
+            "labels": [
+              "County Jail",
+              "Behavioral Health",
+              "Sheriff-Coroner",
+              "Welfare Administration",
+              "County Service Area F",
+              "Mental Health Services Act",
+              "District Attorney",
+              "Sheriff Live Oak Contract"
+            ],
+            "values": [
+              403192,
+              391270,
+              327796,
+              242942,
+              230845,
+              110316,
+              73415,
+              57129
+            ]
+          }
+        ]
+      },
+      "FY2018-19": {
+        "year": "FY 2018-19",
+        "kind": "actual",
+        "book": "FY 2020-21",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 25702499,
+            "labels": [
+              "Jail Expansion",
+              "Behavioral Health",
+              "Road",
+              "Jail Medical Services",
+              "County Service Area G",
+              "Building Maintenance",
+              "Human Services Building",
+              "Planning & Building"
+            ],
+            "values": [
+              7129758,
+              6619189,
+              3251143,
+              2937909,
+              787572,
+              694454,
+              682986,
+              613521
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 21444247,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Welfare Administration",
+              "County Health",
+              "Probation",
+              "Jail Medical Services"
+            ],
+            "values": [
+              8691666,
+              4901232,
+              4451589,
+              2205072,
+              1035069,
+              94949,
+              56402,
+              6604
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2321721,
+            "labels": [
+              "County Jail",
+              "Behavioral Health",
+              "Sheriff-Coroner",
+              "County Service Area F",
+              "Welfare Administration",
+              "District Attorney",
+              "Sheriff-Communications",
+              "Sheriff Live Oak Contract"
+            ],
+            "values": [
+              582836,
+              475418,
+              432306,
+              232375,
+              189368,
+              87203,
+              85457,
+              73744
+            ]
+          }
+        ]
+      },
+      "FY2019-20": {
+        "year": "FY 2019-20",
+        "kind": "actual",
+        "book": "FY 2021-22",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 22946518,
+            "labels": [
+              "Behavioral Health",
+              "Road",
+              "Jail Medical Services",
+              "Human Services Building",
+              "County Service Area G",
+              "Public Defender",
+              "Jail Expansion",
+              "Social Services Administrati"
+            ],
+            "values": [
+              8876753,
+              3948172,
+              3032908,
+              1416407,
+              844968,
+              574828,
+              457027,
+              437561
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 21598042,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Social Services Administrati",
+              "County Health",
+              "Probation",
+              "Refugee Cash Assistance"
+            ],
+            "values": [
+              10288441,
+              5400150,
+              2560245,
+              2100613,
+              917587,
+              202365,
+              113928,
+              11764
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2309806,
+            "labels": [
+              "County Jail",
+              "Sheriff-Coroner",
+              "Behavioral Health",
+              "County Service Area F",
+              "Sheriff-Communications",
+              "Social Services Administrati",
+              "Sheriff Live Oak Contract",
+              "Sheriff Boat Patrol"
+            ],
+            "values": [
+              748168,
+              467597,
+              416204,
+              169402,
+              140226,
+              102993,
+              50261,
+              45404
+            ]
+          }
+        ]
+      },
+      "FY2020-21": {
+        "year": "FY 2020-21",
+        "kind": "actual",
+        "book": "FY 2022-23",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 21224986,
+            "labels": [
+              "Behavioral Health",
+              "Road",
+              "Jail Medical Services",
+              "County Health",
+              "Social Services Administrati",
+              "County Service Area G",
+              "Water Resources",
+              "Public Defender"
+            ],
+            "values": [
+              7178586,
+              3537095,
+              3360556,
+              923360,
+              887499,
+              838155,
+              608411,
+              592488
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 24423828,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Social Services Administrati",
+              "Homeless Services",
+              "Probation",
+              "County Health"
+            ],
+            "values": [
+              10333410,
+              5787059,
+              4471249,
+              2365760,
+              780050,
+              561625,
+              78662,
+              23970
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2461413,
+            "labels": [
+              "Sheriff-Coroner",
+              "County Jail",
+              "Behavioral Health",
+              "County Service Area F",
+              "Sheriff-Communications",
+              "County Health",
+              "Social Services Administrati",
+              "Sheriff Live Oak Contract"
+            ],
+            "values": [
+              548268,
+              469009,
+              430081,
+              332995,
+              179363,
+              150187,
+              65046,
+              63952
+            ]
+          }
+        ]
+      },
+      "FY2021-22": {
+        "year": "FY 2021-22",
+        "kind": "actual",
+        "book": "FY 2023-24",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 20442300,
+            "labels": [
+              "Behavioral Health",
+              "Jail Medical Services",
+              "Social Services Administrati",
+              "Road",
+              "County Service Area G",
+              "Public Defender",
+              "County Health",
+              "Water Resources"
+            ],
+            "values": [
+              8689057,
+              3407256,
+              1897631,
+              953594,
+              880481,
+              622633,
+              565579,
+              431712
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 23985192,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Social Services Administrati",
+              "Homeless Services",
+              "Probation",
+              "County Health"
+            ],
+            "values": [
+              10846310,
+              5815168,
+              3399783,
+              2372432,
+              1022239,
+              363799,
+              61248,
+              49165
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2291963,
+            "labels": [
+              "Sheriff-Coroner",
+              "County Service Area F",
+              "County Jail",
+              "Behavioral Health",
+              "Social Services Administrati",
+              "Sheriff-Communications",
+              "Sheriff Live Oak Contract",
+              "Sheriff Boat Patrol"
+            ],
+            "values": [
+              560465,
+              349720,
+              330353,
+              294869,
+              206188,
+              146382,
+              77116,
+              58983
+            ]
+          }
+        ]
+      },
+      "FY2022-23": {
+        "year": "FY 2022-23",
+        "kind": "actual",
+        "book": "FY 2024-25",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 30014518,
+            "labels": [
+              "Road",
+              "Mental Health Services Act",
+              "Behavioral Health",
+              "Jail Medical Services",
+              "Social Services Administrati",
+              "County Service Area G",
+              "Workday Erp",
+              "Public Defender"
+            ],
+            "values": [
+              8535797,
+              5727363,
+              4927944,
+              3547198,
+              1636921,
+              928169,
+              614065,
+              602550
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 29450187,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Bi-County Juvenile Hall",
+              "Social Services Administrati",
+              "Mental Health Services Act",
+              "Homeless Services",
+              "Refugee Cash Assistance"
+            ],
+            "values": [
+              14797160,
+              7224693,
+              2979142,
+              2832473,
+              1066575,
+              180267,
+              113738,
+              90391
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 3430192,
+            "labels": [
+              "Sheriff-Coroner",
+              "County Jail",
+              "County Service Area F",
+              "Behavioral Health",
+              "Sheriff-Communications",
+              "Social Services Administrati",
+              "Sheriff Live Oak Contract",
+              "Sheriff Boat Patrol"
+            ],
+            "values": [
+              1007649,
+              491571,
+              472904,
+              394326,
+              282733,
+              263665,
+              131152,
+              88190
+            ]
+          }
+        ]
+      },
+      "FY2024-25": {
+        "year": "FY 2024-25",
+        "kind": "recommended",
+        "book": "FY 2024-25",
+        "groups": [
+          {
+            "name": "Professional / specialized services",
+            "total": 38540218,
+            "labels": [
+              "Behavioral Health",
+              "Mental Health Services Act",
+              "Jail Medical Services",
+              "Road",
+              "Social Services Administrati",
+              "Homeless Services",
+              "Water Resources",
+              "County Health"
+            ],
+            "values": [
+              7562236,
+              6769733,
+              5792719,
+              5575200,
+              2852581,
+              2155159,
+              1565077,
+              1241794
+            ]
+          },
+          {
+            "name": "Support and care of persons",
+            "total": 41208342,
+            "labels": [
+              "TANF-Family Group",
+              "Aid For Adoption",
+              "Behavioral Health",
+              "Social Services Administrati",
+              "Bi-County Juvenile Hall",
+              "Homeless Services",
+              "Mental Health Services Act",
+              "Probation"
+            ],
+            "values": [
+              19361134,
+              9715080,
+              3557275,
+              3370981,
+              3120000,
+              1675306,
+              147800,
+              120000
+            ]
+          },
+          {
+            "name": "Overtime",
+            "total": 2737942,
+            "labels": [
+              "Sheriff-Coroner",
+              "County Jail",
+              "Behavioral Health",
+              "County Service Area F",
+              "Sheriff-Communications",
+              "Social Services Administrati",
+              "Sheriff Live Oak Contract",
+              "District Attorney"
+            ],
+            "values": [
+              669000,
+              600000,
+              393500,
+              270000,
+              215000,
+              170000,
+              100000,
+              68618
+            ]
+          }
+        ]
+      }
+    }
+  }
 };

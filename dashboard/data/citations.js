@@ -95828,4 +95828,5957 @@ window.CITATIONS = {
     "fy": "FY2024-25",
     "metric": "inflation"
   }
+,
+  "contract.0.0.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 4911116,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 757,
+    "query": "4,911,116.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 757,
+        "value": 4911116.0,
+        "query": "4,911,116.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 757,
+      "query": "4,911,116.00"
+    }
+  },
+  "contract.0.0.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 1677560,
+    "formula": "Professional / specialized services line for Road in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 644,
+    "query": "1,677,560.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 644,
+        "value": 1677560.0,
+        "query": "1,677,560.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 644,
+      "query": "1,677,560.00"
+    }
+  },
+  "contract.0.0.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Mental Health Services Act",
+    "value": 1012707,
+    "formula": "Professional / specialized services line for Mental Health Services Act in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 761,
+    "query": "1,012,707.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 761,
+        "value": 1012707.0,
+        "query": "1,012,707.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Professional/Specialized Srvs",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 761,
+      "query": "1,012,707.00"
+    }
+  },
+  "contract.0.0.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 711695,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 633,
+    "query": "711,695.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 633,
+        "value": 711695.0,
+        "query": "711,695.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 633,
+      "query": "711,695.00"
+    }
+  },
+  "contract.0.0.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 547519,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 768,
+    "query": "547,519.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 768,
+        "value": 547519.0,
+        "query": "547,519.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 768,
+      "query": "547,519.00"
+    }
+  },
+  "contract.0.0.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 502137,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 800,
+    "query": "502,137.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 800,
+        "value": 502137.0,
+        "query": "502,137.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 800,
+      "query": "502,137.00"
+    }
+  },
+  "contract.0.0.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Expansion",
+    "value": 471124,
+    "formula": "Professional / specialized services line for Jail Expansion in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 694,
+    "query": "471,124.00",
+    "unit": "JAIL EXPANSION",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1807",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 694,
+        "value": 471124.0,
+        "query": "471,124.00",
+        "unit": "JAIL EXPANSION",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL EXPANSION \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 694,
+      "query": "471,124.00"
+    }
+  },
+  "contract.0.0.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Probation",
+    "value": 321969,
+    "formula": "Professional / specialized services line for Probation in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 795,
+    "query": "321,969.00",
+    "unit": "PROBATION",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 795,
+        "value": 321969.0,
+        "query": "321,969.00",
+        "unit": "PROBATION",
+        "line": "Professional/Specialized Srvs",
+        "label": "PROBATION \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 795,
+      "query": "321,969.00"
+    }
+  },
+  "contract.1.0.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 9066446,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 779,
+    "query": "9,066,446.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 779,
+        "value": 9066446.0,
+        "query": "9,066,446.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 779,
+      "query": "9,066,446.00"
+    }
+  },
+  "contract.1.0.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 3960628,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 782,
+    "query": "3,960,628.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 782,
+        "value": 3960628.0,
+        "query": "3,960,628.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 782,
+      "query": "3,960,628.00"
+    }
+  },
+  "contract.1.0.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 2353910,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 758,
+    "query": "2,353,910.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 758,
+        "value": 2353910.0,
+        "query": "2,353,910.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 758,
+      "query": "2,353,910.00"
+    }
+  },
+  "contract.1.0.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 1716170,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 799,
+    "query": "1,716,170.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 799,
+        "value": 1716170.0,
+        "query": "1,716,170.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 799,
+      "query": "1,716,170.00"
+    }
+  },
+  "contract.1.0.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Welfare Administration",
+    "value": 972380,
+    "formula": "Support and care of persons line for Welfare Administration in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 774,
+    "query": "645,697.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 774,
+        "value": 645697.0,
+        "query": "645,697.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "WELFARE ADMINISTRATION \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 774,
+      "query": "645,697.00"
+    }
+  },
+  "contract.1.0.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Jail Medical Services",
+    "value": 452351,
+    "formula": "Support and care of persons line for Jail Medical Services in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 768,
+    "query": "452,351.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 768,
+        "value": 452351.0,
+        "query": "452,351.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "JAIL MEDICAL SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 768,
+      "query": "452,351.00"
+    }
+  },
+  "contract.1.0.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 99089,
+    "formula": "Support and care of persons line for County Health in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 765,
+    "query": "99,089.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 765,
+        "value": 99089.0,
+        "query": "99,089.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 765,
+      "query": "99,089.00"
+    }
+  },
+  "contract.1.0.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Mental Health Services Act",
+    "value": 61375,
+    "formula": "Support and care of persons line for Mental Health Services Act in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 762,
+    "query": "61,375.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Support & Care of Persons",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 762,
+        "value": 61375.0,
+        "query": "61,375.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Support & Care of Persons",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 762,
+      "query": "61,375.00"
+    }
+  },
+  "contract.2.0.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 444881,
+    "formula": "Overtime line for County Jail in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 826,
+    "query": "444,881.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 826,
+        "value": 444881.0,
+        "query": "444,881.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 826,
+      "query": "444,881.00"
+    }
+  },
+  "contract.2.0.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 401700,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 817,
+    "query": "401,700.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 817,
+        "value": 401700.0,
+        "query": "401,700.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 817,
+      "query": "401,700.00"
+    }
+  },
+  "contract.2.0.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 342229,
+    "formula": "Overtime line for Behavioral Health in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 757,
+    "query": "342,229.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 757,
+        "value": 342229.0,
+        "query": "342,229.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 757,
+      "query": "342,229.00"
+    }
+  },
+  "contract.2.0.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 Welfare Administration",
+    "value": 284005,
+    "formula": "Overtime line for Welfare Administration in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 773,
+    "query": "284,005.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 773,
+        "value": 284005.0,
+        "query": "284,005.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Overtime",
+        "label": "WELFARE ADMINISTRATION \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 773,
+      "query": "284,005.00"
+    }
+  },
+  "contract.2.0.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 158713,
+    "formula": "Overtime line for County Service Area F in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 634,
+    "query": "158,713.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 634,
+        "value": 158713.0,
+        "query": "158,713.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 634,
+      "query": "158,713.00"
+    }
+  },
+  "contract.2.0.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 District Attorney",
+    "value": 87575,
+    "formula": "Overtime line for District Attorney in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 789,
+    "query": "87,575.00",
+    "unit": "DISTRICT ATTORNEY",
+    "line": "Overtime",
+    "unitCode": "2125",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 789,
+        "value": 87575.0,
+        "query": "87,575.00",
+        "unit": "DISTRICT ATTORNEY",
+        "line": "Overtime",
+        "label": "DISTRICT ATTORNEY \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 789,
+      "query": "87,575.00"
+    }
+  },
+  "contract.2.0.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Mental Health Services Act",
+    "value": 82184,
+    "formula": "Overtime line for Mental Health Services Act in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 761,
+    "query": "82,184.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Overtime",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 761,
+        "value": 82184.0,
+        "query": "82,184.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Overtime",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 761,
+      "query": "82,184.00"
+    }
+  },
+  "contract.2.0.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 47232,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2018-19 book (actual FY2016-17).",
+    "book": "FY 2018-19",
+    "page": 824,
+    "query": "47,232.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2018-19",
+        "page": 824,
+        "value": 47232.0,
+        "query": "47,232.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2016-17",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 824,
+      "query": "47,232.00"
+    }
+  },
+  "contract.0.1.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Expansion",
+    "value": 9380639,
+    "formula": "Professional / specialized services line for Jail Expansion in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 719,
+    "query": "9,380,639.00",
+    "unit": "JAIL EXPANSION",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1807",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 719,
+        "value": 9380639.0,
+        "query": "9,380,639.00",
+        "unit": "JAIL EXPANSION",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL EXPANSION \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 719,
+      "query": "9,380,639.00"
+    }
+  },
+  "contract.0.1.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 4635651,
+    "formula": "Professional / specialized services line for Road in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 669,
+    "query": "4,635,651.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 669,
+        "value": 4635651.0,
+        "query": "4,635,651.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 669,
+      "query": "4,635,651.00"
+    }
+  },
+  "contract.0.1.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 4117225,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 783,
+    "query": "4,117,225.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 783,
+        "value": 4117225.0,
+        "query": "4,117,225.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "4,117,225.00"
+    }
+  },
+  "contract.0.1.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 2845707,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 791,
+    "query": "2,845,707.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 791,
+        "value": 2845707.0,
+        "query": "2,845,707.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 791,
+      "query": "2,845,707.00"
+    }
+  },
+  "contract.0.1.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Mental Health Services Act",
+    "value": 1035610,
+    "formula": "Professional / specialized services line for Mental Health Services Act in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 436,
+    "query": "1,035,610.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 436,
+        "value": 1035610.0,
+        "query": "1,035,610.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Professional/Specialized Srvs",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 436,
+      "query": "1,035,610.00"
+    }
+  },
+  "contract.0.1.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 751990,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 658,
+    "query": "751,990.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 658,
+        "value": 751990.0,
+        "query": "751,990.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 658,
+      "query": "751,990.00"
+    }
+  },
+  "contract.0.1.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 680 North Walton Prj 1811",
+    "value": 622809,
+    "formula": "Professional / specialized services line for 680 North Walton Prj 1811 in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 723,
+    "query": "622,809.00",
+    "unit": "680 NORTH WALTON PRJ 1811",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1811",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 723,
+        "value": 622809.0,
+        "query": "622,809.00",
+        "unit": "680 NORTH WALTON PRJ 1811",
+        "line": "Professional/Specialized Srvs",
+        "label": "680 NORTH WALTON PRJ 1811 \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 723,
+      "query": "622,809.00"
+    }
+  },
+  "contract.0.1.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 545977,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 821,
+    "query": "545,977.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 821,
+        "value": 545977.0,
+        "query": "545,977.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 821,
+      "query": "545,977.00"
+    }
+  },
+  "contract.1.1.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 9149212,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 802,
+    "query": "9,149,212.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 802,
+        "value": 9149212.0,
+        "query": "9,149,212.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 802,
+      "query": "9,149,212.00"
+    }
+  },
+  "contract.1.1.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 4408582,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 805,
+    "query": "4,408,582.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 805,
+        "value": 4408582.0,
+        "query": "4,408,582.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 805,
+      "query": "4,408,582.00"
+    }
+  },
+  "contract.1.1.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 3982252,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 784,
+    "query": "3,982,252.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 784,
+        "value": 3982252.0,
+        "query": "3,982,252.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 784,
+      "query": "3,982,252.00"
+    }
+  },
+  "contract.1.1.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 1569096,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 820,
+    "query": "1,569,096.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 820,
+        "value": 1569096.0,
+        "query": "1,569,096.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 820,
+      "query": "1,569,096.00"
+    }
+  },
+  "contract.1.1.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Welfare Administration",
+    "value": 1017311,
+    "formula": "Support and care of persons line for Welfare Administration in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 797,
+    "query": "637,172.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 797,
+        "value": 637172.0,
+        "query": "637,172.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "WELFARE ADMINISTRATION \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 797,
+      "query": "637,172.00"
+    }
+  },
+  "contract.1.1.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Mental Health Services Act",
+    "value": 100619,
+    "formula": "Support and care of persons line for Mental Health Services Act in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 437,
+    "query": "100,619.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Support & Care of Persons",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 437,
+        "value": 100619.0,
+        "query": "100,619.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Support & Care of Persons",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 437,
+      "query": "100,619.00"
+    }
+  },
+  "contract.1.1.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 73829,
+    "formula": "Support and care of persons line for County Health in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 788,
+    "query": "73,829.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 788,
+        "value": 73829.0,
+        "query": "73,829.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 788,
+      "query": "73,829.00"
+    }
+  },
+  "contract.1.1.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 40027,
+    "formula": "Support and care of persons line for Probation in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 817,
+    "query": "40,027.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 817,
+        "value": 40027.0,
+        "query": "40,027.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 817,
+      "query": "40,027.00"
+    }
+  },
+  "contract.2.1.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 403192,
+    "formula": "Overtime line for County Jail in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 845,
+    "query": "403,192.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 845,
+        "value": 403192.0,
+        "query": "403,192.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 845,
+      "query": "403,192.00"
+    }
+  },
+  "contract.2.1.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 391270,
+    "formula": "Overtime line for Behavioral Health in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 783,
+    "query": "391,270.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 783,
+        "value": 391270.0,
+        "query": "391,270.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "391,270.00"
+    }
+  },
+  "contract.2.1.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 327796,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 836,
+    "query": "327,796.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 836,
+        "value": 327796.0,
+        "query": "327,796.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 836,
+      "query": "327,796.00"
+    }
+  },
+  "contract.2.1.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 Welfare Administration",
+    "value": 242942,
+    "formula": "Overtime line for Welfare Administration in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 796,
+    "query": "242,942.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 796,
+        "value": 242942.0,
+        "query": "242,942.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Overtime",
+        "label": "WELFARE ADMINISTRATION \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 796,
+      "query": "242,942.00"
+    }
+  },
+  "contract.2.1.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 230845,
+    "formula": "Overtime line for County Service Area F in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 659,
+    "query": "230,845.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 659,
+        "value": 230845.0,
+        "query": "230,845.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 659,
+      "query": "230,845.00"
+    }
+  },
+  "contract.2.1.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 Mental Health Services Act",
+    "value": 110316,
+    "formula": "Overtime line for Mental Health Services Act in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 436,
+    "query": "110,316.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Overtime",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 436,
+        "value": 110316.0,
+        "query": "110,316.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Overtime",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 436,
+      "query": "110,316.00"
+    }
+  },
+  "contract.2.1.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 District Attorney",
+    "value": 73415,
+    "formula": "Overtime line for District Attorney in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 810,
+    "query": "73,415.00",
+    "unit": "DISTRICT ATTORNEY",
+    "line": "Overtime",
+    "unitCode": "2125",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 810,
+        "value": 73415.0,
+        "query": "73,415.00",
+        "unit": "DISTRICT ATTORNEY",
+        "line": "Overtime",
+        "label": "DISTRICT ATTORNEY \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 810,
+      "query": "73,415.00"
+    }
+  },
+  "contract.2.1.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 57129,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2019-20 book (actual FY2017-18).",
+    "book": "FY 2019-20",
+    "page": 843,
+    "query": "57,129.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2019-20",
+        "page": 843,
+        "value": 57129.0,
+        "query": "57,129.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2017-18",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 843,
+      "query": "57,129.00"
+    }
+  },
+  "contract.0.2.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Expansion",
+    "value": 7129758,
+    "formula": "Professional / specialized services line for Jail Expansion in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 711,
+    "query": "7,129,758.00",
+    "unit": "JAIL EXPANSION",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1807",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 711,
+        "value": 7129758.0,
+        "query": "7,129,758.00",
+        "unit": "JAIL EXPANSION",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL EXPANSION \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 711,
+      "query": "7,129,758.00"
+    }
+  },
+  "contract.0.2.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 6619189,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 775,
+    "query": "6,619,189.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 775,
+        "value": 6619189.0,
+        "query": "6,619,189.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 775,
+      "query": "6,619,189.00"
+    }
+  },
+  "contract.0.2.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 3251143,
+    "formula": "Professional / specialized services line for Road in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 653,
+    "query": "3,251,143.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 653,
+        "value": 3251143.0,
+        "query": "3,251,143.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 653,
+      "query": "3,251,143.00"
+    }
+  },
+  "contract.0.2.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 2937909,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 783,
+    "query": "2,937,909.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 783,
+        "value": 2937909.0,
+        "query": "2,937,909.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "2,937,909.00"
+    }
+  },
+  "contract.0.2.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 787572,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 649,
+    "query": "787,572.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 649,
+        "value": 787572.0,
+        "query": "787,572.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 649,
+      "query": "787,572.00"
+    }
+  },
+  "contract.0.2.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Building Maintenance",
+    "value": 694454,
+    "formula": "Professional / specialized services line for Building Maintenance in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 760,
+    "query": "694,454.00",
+    "unit": "BUILDING MAINTENANCE",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1700",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 760,
+        "value": 694454.0,
+        "query": "694,454.00",
+        "unit": "BUILDING MAINTENANCE",
+        "line": "Professional/Specialized Srvs",
+        "label": "BUILDING MAINTENANCE \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 760,
+      "query": "694,454.00"
+    }
+  },
+  "contract.0.2.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Human Services Building",
+    "value": 682986,
+    "formula": "Professional / specialized services line for Human Services Building in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 710,
+    "query": "682,986.00",
+    "unit": "HUMAN SERVICES BUILDING",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1806",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 710,
+        "value": 682986.0,
+        "query": "682,986.00",
+        "unit": "HUMAN SERVICES BUILDING",
+        "line": "Professional/Specialized Srvs",
+        "label": "HUMAN SERVICES BUILDING \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 710,
+      "query": "682,986.00"
+    }
+  },
+  "contract.0.2.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Planning & Building",
+    "value": 613521,
+    "formula": "Professional / specialized services line for Planning & Building in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 650,
+    "query": "613,521.00",
+    "unit": "PLANNING & BUILDING",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2724",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 650,
+        "value": 613521.0,
+        "query": "613,521.00",
+        "unit": "PLANNING & BUILDING",
+        "line": "Professional/Specialized Srvs",
+        "label": "PLANNING & BUILDING \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 650,
+      "query": "613,521.00"
+    }
+  },
+  "contract.1.2.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 8691666,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 794,
+    "query": "8,691,666.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 794,
+        "value": 8691666.0,
+        "query": "8,691,666.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 794,
+      "query": "8,691,666.00"
+    }
+  },
+  "contract.1.2.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 4901232,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 797,
+    "query": "4,901,232.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 797,
+        "value": 4901232.0,
+        "query": "4,901,232.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 797,
+      "query": "4,901,232.00"
+    }
+  },
+  "contract.1.2.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 4451589,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 776,
+    "query": "4,451,589.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 776,
+        "value": 4451589.0,
+        "query": "4,451,589.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 776,
+      "query": "4,451,589.00"
+    }
+  },
+  "contract.1.2.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 2205072,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 812,
+    "query": "2,205,072.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 812,
+        "value": 2205072.0,
+        "query": "2,205,072.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 812,
+      "query": "2,205,072.00"
+    }
+  },
+  "contract.1.2.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Welfare Administration",
+    "value": 1035069,
+    "formula": "Support and care of persons line for Welfare Administration in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 789,
+    "query": "631,610.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 789,
+        "value": 631610.0,
+        "query": "631,610.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "WELFARE ADMINISTRATION \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 789,
+      "query": "631,610.00"
+    }
+  },
+  "contract.1.2.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 94949,
+    "formula": "Support and care of persons line for County Health in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 780,
+    "query": "94,949.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 780,
+        "value": 94949.0,
+        "query": "94,949.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 780,
+      "query": "94,949.00"
+    }
+  },
+  "contract.1.2.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 56402,
+    "formula": "Support and care of persons line for Probation in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 809,
+    "query": "56,402.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 809,
+        "value": 56402.0,
+        "query": "56,402.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 809,
+      "query": "56,402.00"
+    }
+  },
+  "contract.1.2.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Jail Medical Services",
+    "value": 6604,
+    "formula": "Support and care of persons line for Jail Medical Services in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 783,
+    "query": "6,604.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 783,
+        "value": 6604.0,
+        "query": "6,604.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "JAIL MEDICAL SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "6,604.00"
+    }
+  },
+  "contract.2.2.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 582836,
+    "formula": "Overtime line for County Jail in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 838,
+    "query": "582,836.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 838,
+        "value": 582836.0,
+        "query": "582,836.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 838,
+      "query": "582,836.00"
+    }
+  },
+  "contract.2.2.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 475418,
+    "formula": "Overtime line for Behavioral Health in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 775,
+    "query": "475,418.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 775,
+        "value": 475418.0,
+        "query": "475,418.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 775,
+      "query": "475,418.00"
+    }
+  },
+  "contract.2.2.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 432306,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 828,
+    "query": "432,306.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 828,
+        "value": 432306.0,
+        "query": "432,306.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 828,
+      "query": "432,306.00"
+    }
+  },
+  "contract.2.2.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 232375,
+    "formula": "Overtime line for County Service Area F in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 702,
+    "query": "232,375.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 702,
+        "value": 232375.0,
+        "query": "232,375.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 702,
+      "query": "232,375.00"
+    }
+  },
+  "contract.2.2.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Welfare Administration",
+    "value": 189368,
+    "formula": "Overtime line for Welfare Administration in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 788,
+    "query": "189,368.00",
+    "unit": "WELFARE ADMINISTRATION",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 788,
+        "value": 189368.0,
+        "query": "189,368.00",
+        "unit": "WELFARE ADMINISTRATION",
+        "line": "Overtime",
+        "label": "WELFARE ADMINISTRATION \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 788,
+      "query": "189,368.00"
+    }
+  },
+  "contract.2.2.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 District Attorney",
+    "value": 87203,
+    "formula": "Overtime line for District Attorney in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 802,
+    "query": "87,203.00",
+    "unit": "DISTRICT ATTORNEY",
+    "line": "Overtime",
+    "unitCode": "2125",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 802,
+        "value": 87203.0,
+        "query": "87,203.00",
+        "unit": "DISTRICT ATTORNEY",
+        "line": "Overtime",
+        "label": "DISTRICT ATTORNEY \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 802,
+      "query": "87,203.00"
+    }
+  },
+  "contract.2.2.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 85457,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 824,
+    "query": "85,457.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 824,
+        "value": 85457.0,
+        "query": "85,457.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 824,
+      "query": "85,457.00"
+    }
+  },
+  "contract.2.2.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 73744,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2020-21 book (actual FY2018-19).",
+    "book": "FY 2020-21",
+    "page": 836,
+    "query": "73,744.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2020-21",
+        "page": 836,
+        "value": 73744.0,
+        "query": "73,744.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2018-19",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 836,
+      "query": "73,744.00"
+    }
+  },
+  "contract.0.3.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 8876753,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 725,
+    "query": "8,876,753.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 725,
+        "value": 8876753.0,
+        "query": "8,876,753.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 725,
+      "query": "8,876,753.00"
+    }
+  },
+  "contract.0.3.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 3948172,
+    "formula": "Professional / specialized services line for Road in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 616,
+    "query": "3,948,172.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 616,
+        "value": 3948172.0,
+        "query": "3,948,172.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 616,
+      "query": "3,948,172.00"
+    }
+  },
+  "contract.0.3.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 3032908,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 732,
+    "query": "3,032,908.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 732,
+        "value": 3032908.0,
+        "query": "3,032,908.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 732,
+      "query": "3,032,908.00"
+    }
+  },
+  "contract.0.3.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Human Services Building",
+    "value": 1416407,
+    "formula": "Professional / specialized services line for Human Services Building in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 660,
+    "query": "1,416,407.00",
+    "unit": "HUMAN SERVICES BUILDING",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1806",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 660,
+        "value": 1416407.0,
+        "query": "1,416,407.00",
+        "unit": "HUMAN SERVICES BUILDING",
+        "line": "Professional/Specialized Srvs",
+        "label": "HUMAN SERVICES BUILDING \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 660,
+      "query": "1,416,407.00"
+    }
+  },
+  "contract.0.3.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 844968,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 612,
+    "query": "844,968.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 612,
+        "value": 844968.0,
+        "query": "844,968.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 612,
+      "query": "844,968.00"
+    }
+  },
+  "contract.0.3.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 574828,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 763,
+    "query": "574,828.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 763,
+        "value": 574828.0,
+        "query": "574,828.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 763,
+      "query": "574,828.00"
+    }
+  },
+  "contract.0.3.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Expansion",
+    "value": 457027,
+    "formula": "Professional / specialized services line for Jail Expansion in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 661,
+    "query": "457,027.00",
+    "unit": "JAIL EXPANSION",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1807",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 661,
+        "value": 457027.0,
+        "query": "457,027.00",
+        "unit": "JAIL EXPANSION",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL EXPANSION \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 661,
+      "query": "457,027.00"
+    }
+  },
+  "contract.0.3.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Social Services Administrati",
+    "value": 437561,
+    "formula": "Professional / specialized services line for Social Services Administrati in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 738,
+    "query": "437,561.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 738,
+        "value": 437561.0,
+        "query": "437,561.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Professional/Specialized Srvs",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 738,
+      "query": "437,561.00"
+    }
+  },
+  "contract.1.3.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 10288441,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 744,
+    "query": "10,288,441.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 744,
+        "value": 10288441.0,
+        "query": "10,288,441.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 744,
+      "query": "10,288,441.00"
+    }
+  },
+  "contract.1.3.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 5400150,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 747,
+    "query": "5,400,150.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 747,
+        "value": 5400150.0,
+        "query": "5,400,150.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 747,
+      "query": "5,400,150.00"
+    }
+  },
+  "contract.1.3.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 2560245,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 726,
+    "query": "2,560,245.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 726,
+        "value": 2560245.0,
+        "query": "2,560,245.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 726,
+      "query": "2,560,245.00"
+    }
+  },
+  "contract.1.3.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 2100613,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 762,
+    "query": "2,100,613.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 762,
+        "value": 2100613.0,
+        "query": "2,100,613.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 762,
+      "query": "2,100,613.00"
+    }
+  },
+  "contract.1.3.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Social Services Administrati",
+    "value": 917587,
+    "formula": "Support and care of persons line for Social Services Administrati in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 739,
+    "query": "550,433.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 739,
+        "value": 550433.0,
+        "query": "550,433.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 739,
+      "query": "550,433.00"
+    }
+  },
+  "contract.1.3.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 202365,
+    "formula": "Support and care of persons line for County Health in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 730,
+    "query": "202,365.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 730,
+        "value": 202365.0,
+        "query": "202,365.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 730,
+      "query": "202,365.00"
+    }
+  },
+  "contract.1.3.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 113928,
+    "formula": "Support and care of persons line for Probation in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 759,
+    "query": "113,928.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 759,
+        "value": 113928.0,
+        "query": "113,928.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 759,
+      "query": "113,928.00"
+    }
+  },
+  "contract.1.3.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Refugee Cash Assistance",
+    "value": 11764,
+    "formula": "Support and care of persons line for Refugee Cash Assistance in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 746,
+    "query": "11,764.00",
+    "unit": "REFUGEE CASH ASSISTANCE",
+    "line": "Support & Care of Persons",
+    "unitCode": "5207",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 746,
+        "value": 11764.0,
+        "query": "11,764.00",
+        "unit": "REFUGEE CASH ASSISTANCE",
+        "line": "Support & Care of Persons",
+        "label": "REFUGEE CASH ASSISTANCE \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "11,764.00"
+    }
+  },
+  "contract.2.3.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 748168,
+    "formula": "Overtime line for County Jail in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 789,
+    "query": "748,168.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 789,
+        "value": 748168.0,
+        "query": "748,168.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 789,
+      "query": "748,168.00"
+    }
+  },
+  "contract.2.3.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 467597,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 779,
+    "query": "467,597.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 779,
+        "value": 467597.0,
+        "query": "467,597.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 779,
+      "query": "467,597.00"
+    }
+  },
+  "contract.2.3.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 416204,
+    "formula": "Overtime line for Behavioral Health in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 725,
+    "query": "416,204.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 725,
+        "value": 416204.0,
+        "query": "416,204.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 725,
+      "query": "416,204.00"
+    }
+  },
+  "contract.2.3.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 169402,
+    "formula": "Overtime line for County Service Area F in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 653,
+    "query": "169,402.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 653,
+        "value": 169402.0,
+        "query": "169,402.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 653,
+      "query": "169,402.00"
+    }
+  },
+  "contract.2.3.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 140226,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 774,
+    "query": "140,226.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 774,
+        "value": 140226.0,
+        "query": "140,226.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 774,
+      "query": "140,226.00"
+    }
+  },
+  "contract.2.3.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 Social Services Administrati",
+    "value": 102993,
+    "formula": "Overtime line for Social Services Administrati in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 738,
+    "query": "102,993.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 738,
+        "value": 102993.0,
+        "query": "102,993.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Overtime",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 738,
+      "query": "102,993.00"
+    }
+  },
+  "contract.2.3.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 50261,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 787,
+    "query": "50,261.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 787,
+        "value": 50261.0,
+        "query": "50,261.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 787,
+      "query": "50,261.00"
+    }
+  },
+  "contract.2.3.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Boat Patrol",
+    "value": 45404,
+    "formula": "Overtime line for Sheriff Boat Patrol in the FY 2021-22 book (actual FY2019-20).",
+    "book": "FY 2021-22",
+    "page": 785,
+    "query": "45,404.00",
+    "unit": "SHERIFF BOAT PATROL",
+    "line": "Overtime",
+    "unitCode": "2205",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2021-22",
+        "page": 785,
+        "value": 45404.0,
+        "query": "45,404.00",
+        "unit": "SHERIFF BOAT PATROL",
+        "line": "Overtime",
+        "label": "SHERIFF BOAT PATROL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2019-20",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 785,
+      "query": "45,404.00"
+    }
+  },
+  "contract.0.4.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 7178586,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 704,
+    "query": "7,178,586.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 704,
+        "value": 7178586.0,
+        "query": "7,178,586.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 704,
+      "query": "7,178,586.00"
+    }
+  },
+  "contract.0.4.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 3537095,
+    "formula": "Professional / specialized services line for Road in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 598,
+    "query": "3,537,095.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 598,
+        "value": 3537095.0,
+        "query": "3,537,095.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 598,
+      "query": "3,537,095.00"
+    }
+  },
+  "contract.0.4.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 3360556,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 715,
+    "query": "3,360,556.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 715,
+        "value": 3360556.0,
+        "query": "3,360,556.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 715,
+      "query": "3,360,556.00"
+    }
+  },
+  "contract.0.4.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Health",
+    "value": 923360,
+    "formula": "Professional / specialized services line for County Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 711,
+    "query": "923,360.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 711,
+        "value": 923360.0,
+        "query": "923,360.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 711,
+      "query": "923,360.00"
+    }
+  },
+  "contract.0.4.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Social Services Administrati",
+    "value": 887499,
+    "formula": "Professional / specialized services line for Social Services Administrati in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 721,
+    "query": "887,499.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 721,
+        "value": 887499.0,
+        "query": "887,499.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Professional/Specialized Srvs",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 721,
+      "query": "887,499.00"
+    }
+  },
+  "contract.0.4.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 838155,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 594,
+    "query": "838,155.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 594,
+        "value": 838155.0,
+        "query": "838,155.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 594,
+      "query": "838,155.00"
+    }
+  },
+  "contract.0.4.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Water Resources",
+    "value": 608411,
+    "formula": "Professional / specialized services line for Water Resources in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 605,
+    "query": "608,411.00",
+    "unit": "WATER RESOURCES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1922",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 605,
+        "value": 608411.0,
+        "query": "608,411.00",
+        "unit": "WATER RESOURCES",
+        "line": "Professional/Specialized Srvs",
+        "label": "WATER RESOURCES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 605,
+      "query": "608,411.00"
+    }
+  },
+  "contract.0.4.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 592488,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 746,
+    "query": "592,488.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 746,
+        "value": 592488.0,
+        "query": "592,488.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "592,488.00"
+    }
+  },
+  "contract.1.4.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 10333410,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 727,
+    "query": "10,333,410.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 727,
+        "value": 10333410.0,
+        "query": "10,333,410.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 727,
+      "query": "10,333,410.00"
+    }
+  },
+  "contract.1.4.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 5787059,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 730,
+    "query": "5,787,059.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 730,
+        "value": 5787059.0,
+        "query": "5,787,059.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 730,
+      "query": "5,787,059.00"
+    }
+  },
+  "contract.1.4.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 4471249,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 705,
+    "query": "4,471,249.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 705,
+        "value": 4471249.0,
+        "query": "4,471,249.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 705,
+      "query": "4,471,249.00"
+    }
+  },
+  "contract.1.4.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 2365760,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 745,
+    "query": "2,365,760.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 745,
+        "value": 2365760.0,
+        "query": "2,365,760.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 745,
+      "query": "2,365,760.00"
+    }
+  },
+  "contract.1.4.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Social Services Administrati",
+    "value": 780050,
+    "formula": "Support and care of persons line for Social Services Administrati in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 722,
+    "query": "433,079.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 722,
+        "value": 433079.0,
+        "query": "433,079.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 722,
+      "query": "433,079.00"
+    }
+  },
+  "contract.1.4.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Homeless Services",
+    "value": 561625,
+    "formula": "Support and care of persons line for Homeless Services in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 720,
+    "query": "561,625.00",
+    "unit": "HOMELESS SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4121",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 720,
+        "value": 561625.0,
+        "query": "561,625.00",
+        "unit": "HOMELESS SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "HOMELESS SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 720,
+      "query": "561,625.00"
+    }
+  },
+  "contract.1.4.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 78662,
+    "formula": "Support and care of persons line for Probation in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 742,
+    "query": "78,662.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 742,
+        "value": 78662.0,
+        "query": "78,662.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 742,
+      "query": "78,662.00"
+    }
+  },
+  "contract.1.4.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 23970,
+    "formula": "Support and care of persons line for County Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 712,
+    "query": "23,970.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 712,
+        "value": 23970.0,
+        "query": "23,970.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 712,
+      "query": "23,970.00"
+    }
+  },
+  "contract.2.4.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 548268,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 763,
+    "query": "548,268.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 763,
+        "value": 548268.0,
+        "query": "548,268.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 763,
+      "query": "548,268.00"
+    }
+  },
+  "contract.2.4.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 469009,
+    "formula": "Overtime line for County Jail in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 773,
+    "query": "469,009.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 773,
+        "value": 469009.0,
+        "query": "469,009.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 773,
+      "query": "469,009.00"
+    }
+  },
+  "contract.2.4.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 430081,
+    "formula": "Overtime line for Behavioral Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 704,
+    "query": "430,081.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 704,
+        "value": 430081.0,
+        "query": "430,081.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 704,
+      "query": "430,081.00"
+    }
+  },
+  "contract.2.4.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 332995,
+    "formula": "Overtime line for County Service Area F in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 636,
+    "query": "332,995.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 636,
+        "value": 332995.0,
+        "query": "332,995.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 636,
+      "query": "332,995.00"
+    }
+  },
+  "contract.2.4.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 179363,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 758,
+    "query": "179,363.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 758,
+        "value": 179363.0,
+        "query": "179,363.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 758,
+      "query": "179,363.00"
+    }
+  },
+  "contract.2.4.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Health",
+    "value": 150187,
+    "formula": "Overtime line for County Health in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 711,
+    "query": "150,187.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Overtime",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 711,
+        "value": 150187.0,
+        "query": "150,187.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Overtime",
+        "label": "COUNTY HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 711,
+      "query": "150,187.00"
+    }
+  },
+  "contract.2.4.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Social Services Administrati",
+    "value": 65046,
+    "formula": "Overtime line for Social Services Administrati in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 721,
+    "query": "65,046.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 721,
+        "value": 65046.0,
+        "query": "65,046.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Overtime",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 721,
+      "query": "65,046.00"
+    }
+  },
+  "contract.2.4.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 63952,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2022-23 book (actual FY2020-21).",
+    "book": "FY 2022-23",
+    "page": 771,
+    "query": "63,952.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2022-23",
+        "page": 771,
+        "value": 63952.0,
+        "query": "63,952.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2020-21",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 771,
+      "query": "63,952.00"
+    }
+  },
+  "contract.0.5.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 8689057,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 203,
+    "query": "8,689,057.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 203,
+        "value": 8689057.0,
+        "query": "8,689,057.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 203,
+      "query": "8,689,057.00"
+    }
+  },
+  "contract.0.5.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 3407256,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 224,
+    "query": "3,407,256.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 224,
+        "value": 3407256.0,
+        "query": "3,407,256.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 224,
+      "query": "3,407,256.00"
+    }
+  },
+  "contract.0.5.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Social Services Administrati",
+    "value": 1897631,
+    "formula": "Professional / specialized services line for Social Services Administrati in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 229,
+    "query": "1,897,631.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 229,
+        "value": 1897631.0,
+        "query": "1,897,631.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Professional/Specialized Srvs",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 229,
+      "query": "1,897,631.00"
+    }
+  },
+  "contract.0.5.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 953594,
+    "formula": "Professional / specialized services line for Road in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 195,
+    "query": "953,594.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 195,
+        "value": 953594.0,
+        "query": "953,594.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 195,
+      "query": "953,594.00"
+    }
+  },
+  "contract.0.5.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 880481,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 451,
+    "query": "880,481.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 451,
+        "value": 880481.0,
+        "query": "880,481.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 451,
+      "query": "880,481.00"
+    }
+  },
+  "contract.0.5.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 622633,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 241,
+    "query": "622,633.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 241,
+        "value": 622633.0,
+        "query": "622,633.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 241,
+      "query": "622,633.00"
+    }
+  },
+  "contract.0.5.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Health",
+    "value": 565579,
+    "formula": "Professional / specialized services line for County Health in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 213,
+    "query": "565,579.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 213,
+        "value": 565579.0,
+        "query": "565,579.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 213,
+      "query": "565,579.00"
+    }
+  },
+  "contract.0.5.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Water Resources",
+    "value": 431712,
+    "formula": "Professional / specialized services line for Water Resources in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 145,
+    "query": "431,712.00",
+    "unit": "WATER RESOURCES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1922",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 145,
+        "value": 431712.0,
+        "query": "431,712.00",
+        "unit": "WATER RESOURCES",
+        "line": "Professional/Specialized Srvs",
+        "label": "WATER RESOURCES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 145,
+      "query": "431,712.00"
+    }
+  },
+  "contract.1.5.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 10846310,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 234,
+    "query": "10,846,310.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 234,
+        "value": 10846310.0,
+        "query": "10,846,310.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 234,
+      "query": "10,846,310.00"
+    }
+  },
+  "contract.1.5.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 5815168,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 237,
+    "query": "5,815,168.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 237,
+        "value": 5815168.0,
+        "query": "5,815,168.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 237,
+      "query": "5,815,168.00"
+    }
+  },
+  "contract.1.5.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 3399783,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 204,
+    "query": "3,399,783.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 204,
+        "value": 3399783.0,
+        "query": "3,399,783.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 204,
+      "query": "3,399,783.00"
+    }
+  },
+  "contract.1.5.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 2372432,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 273,
+    "query": "2,372,432.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 273,
+        "value": 2372432.0,
+        "query": "2,372,432.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 273,
+      "query": "2,372,432.00"
+    }
+  },
+  "contract.1.5.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Social Services Administrati",
+    "value": 1022239,
+    "formula": "Support and care of persons line for Social Services Administrati in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 230,
+    "query": "761,486.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Support & Care of Persons",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 230,
+        "value": 761486.0,
+        "query": "761,486.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Support & Care of Persons",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 230,
+      "query": "761,486.00"
+    }
+  },
+  "contract.1.5.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Homeless Services",
+    "value": 363799,
+    "formula": "Support and care of persons line for Homeless Services in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 222,
+    "query": "363,799.00",
+    "unit": "HOMELESS SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4121",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 222,
+        "value": 363799.0,
+        "query": "363,799.00",
+        "unit": "HOMELESS SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "HOMELESS SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 222,
+      "query": "363,799.00"
+    }
+  },
+  "contract.1.5.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 61248,
+    "formula": "Support and care of persons line for Probation in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 247,
+    "query": "61,248.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 247,
+        "value": 61248.0,
+        "query": "61,248.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 247,
+      "query": "61,248.00"
+    }
+  },
+  "contract.1.5.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 County Health",
+    "value": 49165,
+    "formula": "Support and care of persons line for County Health in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 214,
+    "query": "49,165.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 214,
+        "value": 49165.0,
+        "query": "49,165.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "COUNTY HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 214,
+      "query": "49,165.00"
+    }
+  },
+  "contract.2.5.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 560465,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 258,
+    "query": "560,465.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 258,
+        "value": 560465.0,
+        "query": "560,465.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 258,
+      "query": "560,465.00"
+    }
+  },
+  "contract.2.5.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 349720,
+    "formula": "Overtime line for County Service Area F in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 452,
+    "query": "349,720.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 452,
+        "value": 349720.0,
+        "query": "349,720.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 452,
+      "query": "349,720.00"
+    }
+  },
+  "contract.2.5.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 330353,
+    "formula": "Overtime line for County Jail in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 269,
+    "query": "330,353.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 269,
+        "value": 330353.0,
+        "query": "330,353.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 269,
+      "query": "330,353.00"
+    }
+  },
+  "contract.2.5.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 294869,
+    "formula": "Overtime line for Behavioral Health in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 203,
+    "query": "294,869.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 203,
+        "value": 294869.0,
+        "query": "294,869.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 203,
+      "query": "294,869.00"
+    }
+  },
+  "contract.2.5.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Social Services Administrati",
+    "value": 206188,
+    "formula": "Overtime line for Social Services Administrati in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 229,
+    "query": "206,188.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 229,
+        "value": 206188.0,
+        "query": "206,188.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Overtime",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 229,
+      "query": "206,188.00"
+    }
+  },
+  "contract.2.5.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 146382,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 250,
+    "query": "146,382.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 250,
+        "value": 146382.0,
+        "query": "146,382.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 250,
+      "query": "146,382.00"
+    }
+  },
+  "contract.2.5.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 77116,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 266,
+    "query": "77,116.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 266,
+        "value": 77116.0,
+        "query": "77,116.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 266,
+      "query": "77,116.00"
+    }
+  },
+  "contract.2.5.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Boat Patrol",
+    "value": 58983,
+    "formula": "Overtime line for Sheriff Boat Patrol in the FY 2023-24 book (actual FY2021-22).",
+    "book": "FY 2023-24",
+    "page": 264,
+    "query": "58,983.00",
+    "unit": "SHERIFF BOAT PATROL",
+    "line": "Overtime",
+    "unitCode": "2205",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2023-24",
+        "page": 264,
+        "value": 58983.0,
+        "query": "58,983.00",
+        "unit": "SHERIFF BOAT PATROL",
+        "line": "Overtime",
+        "label": "SHERIFF BOAT PATROL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2021-22",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 264,
+      "query": "58,983.00"
+    }
+  },
+  "contract.0.6.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 8535797,
+    "formula": "Professional / specialized services line for Road in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 619,
+    "query": "8,535,797.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 619,
+        "value": 8535797.0,
+        "query": "8,535,797.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 619,
+      "query": "8,535,797.00"
+    }
+  },
+  "contract.0.6.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Mental Health Services Act",
+    "value": 5727363,
+    "formula": "Professional / specialized services line for Mental Health Services Act in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 732,
+    "query": "5,727,363.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 732,
+        "value": 5727363.0,
+        "query": "5,727,363.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Professional/Specialized Srvs",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 732,
+      "query": "5,727,363.00"
+    }
+  },
+  "contract.0.6.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 4927944,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 728,
+    "query": "4,927,944.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 728,
+        "value": 4927944.0,
+        "query": "4,927,944.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 728,
+      "query": "4,927,944.00"
+    }
+  },
+  "contract.0.6.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 3547198,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 739,
+    "query": "3,547,198.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 739,
+        "value": 3547198.0,
+        "query": "3,547,198.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 739,
+      "query": "3,547,198.00"
+    }
+  },
+  "contract.0.6.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Social Services Administrati",
+    "value": 1636921,
+    "formula": "Professional / specialized services line for Social Services Administrati in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 746,
+    "query": "1,636,921.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 746,
+        "value": 1636921.0,
+        "query": "1,636,921.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Professional/Specialized Srvs",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "1,636,921.00"
+    }
+  },
+  "contract.0.6.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Service Area G",
+    "value": 928169,
+    "formula": "Professional / specialized services line for County Service Area G in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 615,
+    "query": "928,169.00",
+    "unit": "COUNTY SERVICE AREA G",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "0301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 615,
+        "value": 928169.0,
+        "query": "928,169.00",
+        "unit": "COUNTY SERVICE AREA G",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY SERVICE AREA G \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 615,
+      "query": "928,169.00"
+    }
+  },
+  "contract.0.6.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Workday Erp",
+    "value": 614065,
+    "formula": "Professional / specialized services line for Workday Erp in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 667,
+    "query": "614,065.00",
+    "unit": "WORKDAY ERP",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1820",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 667,
+        "value": 614065.0,
+        "query": "614,065.00",
+        "unit": "WORKDAY ERP",
+        "line": "Professional/Specialized Srvs",
+        "label": "WORKDAY ERP \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 667,
+      "query": "614,065.00"
+    }
+  },
+  "contract.0.6.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Public Defender",
+    "value": 602550,
+    "formula": "Professional / specialized services line for Public Defender in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 771,
+    "query": "602,550.00",
+    "unit": "PUBLIC DEFENDER",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "2106",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 771,
+        "value": 602550.0,
+        "query": "602,550.00",
+        "unit": "PUBLIC DEFENDER",
+        "line": "Professional/Specialized Srvs",
+        "label": "PUBLIC DEFENDER \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 771,
+      "query": "602,550.00"
+    }
+  },
+  "contract.1.6.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 14797160,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 752,
+    "query": "14,797,160.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 752,
+        "value": 14797160.0,
+        "query": "14,797,160.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 752,
+      "query": "14,797,160.00"
+    }
+  },
+  "contract.1.6.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 7224693,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 755,
+    "query": "7,224,693.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 755,
+        "value": 7224693.0,
+        "query": "7,224,693.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 755,
+      "query": "7,224,693.00"
+    }
+  },
+  "contract.1.6.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 2979142,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 729,
+    "query": "2,979,142.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 729,
+        "value": 2979142.0,
+        "query": "2,979,142.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 729,
+      "query": "2,979,142.00"
+    }
+  },
+  "contract.1.6.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 2832473,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 770,
+    "query": "2,832,473.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 770,
+        "value": 2832473.0,
+        "query": "2,832,473.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 770,
+      "query": "2,832,473.00"
+    }
+  },
+  "contract.1.6.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Social Services Administrati",
+    "value": 1066575,
+    "formula": "Support and care of persons line for Social Services Administrati in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 747,
+    "query": "641,542.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Support & Care of Persons-CTEC",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 747,
+        "value": 641542.0,
+        "query": "641,542.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Support & Care of Persons-CTEC",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Support & Care of Persons-CTEC"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 747,
+      "query": "641,542.00"
+    }
+  },
+  "contract.1.6.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Mental Health Services Act",
+    "value": 180267,
+    "formula": "Support and care of persons line for Mental Health Services Act in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 733,
+    "query": "180,267.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Support & Care of Persons",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 733,
+        "value": 180267.0,
+        "query": "180,267.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Support & Care of Persons",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 733,
+      "query": "180,267.00"
+    }
+  },
+  "contract.1.6.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Homeless Services",
+    "value": 113738,
+    "formula": "Support and care of persons line for Homeless Services in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 744,
+    "query": "113,738.00",
+    "unit": "HOMELESS SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4121",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 744,
+        "value": 113738.0,
+        "query": "113,738.00",
+        "unit": "HOMELESS SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "HOMELESS SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 744,
+      "query": "113,738.00"
+    }
+  },
+  "contract.1.6.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Refugee Cash Assistance",
+    "value": 90391,
+    "formula": "Support and care of persons line for Refugee Cash Assistance in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 754,
+    "query": "90,391.00",
+    "unit": "REFUGEE CASH ASSISTANCE",
+    "line": "Support & Care of Persons",
+    "unitCode": "5207",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 754,
+        "value": 90391.0,
+        "query": "90,391.00",
+        "unit": "REFUGEE CASH ASSISTANCE",
+        "line": "Support & Care of Persons",
+        "label": "REFUGEE CASH ASSISTANCE \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 754,
+      "query": "90,391.00"
+    }
+  },
+  "contract.2.6.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 1007649,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 788,
+    "query": "1,007,649.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 788,
+        "value": 1007649.0,
+        "query": "1,007,649.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 788,
+      "query": "1,007,649.00"
+    }
+  },
+  "contract.2.6.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 491571,
+    "formula": "Overtime line for County Jail in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 798,
+    "query": "491,571.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 798,
+        "value": 491571.0,
+        "query": "491,571.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 798,
+      "query": "491,571.00"
+    }
+  },
+  "contract.2.6.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 472904,
+    "formula": "Overtime line for County Service Area F in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 659,
+    "query": "472,904.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 659,
+        "value": 472904.0,
+        "query": "472,904.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 659,
+      "query": "472,904.00"
+    }
+  },
+  "contract.2.6.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 394326,
+    "formula": "Overtime line for Behavioral Health in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 728,
+    "query": "394,326.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 728,
+        "value": 394326.0,
+        "query": "394,326.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 728,
+      "query": "394,326.00"
+    }
+  },
+  "contract.2.6.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 282733,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 783,
+    "query": "282,733.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 783,
+        "value": 282733.0,
+        "query": "282,733.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "282,733.00"
+    }
+  },
+  "contract.2.6.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 Social Services Administrati",
+    "value": 263665,
+    "formula": "Overtime line for Social Services Administrati in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 746,
+    "query": "263,665.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 746,
+        "value": 263665.0,
+        "query": "263,665.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Overtime",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "263,665.00"
+    }
+  },
+  "contract.2.6.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 131152,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 796,
+    "query": "131,152.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 796,
+        "value": 131152.0,
+        "query": "131,152.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 796,
+      "query": "131,152.00"
+    }
+  },
+  "contract.2.6.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Boat Patrol",
+    "value": 88190,
+    "formula": "Overtime line for Sheriff Boat Patrol in the FY 2024-25 book (actual FY2022-23).",
+    "book": "FY 2024-25",
+    "page": 794,
+    "query": "88,190.00",
+    "unit": "SHERIFF BOAT PATROL",
+    "line": "Overtime",
+    "unitCode": "2205",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 794,
+        "value": 88190.0,
+        "query": "88,190.00",
+        "unit": "SHERIFF BOAT PATROL",
+        "line": "Overtime",
+        "label": "SHERIFF BOAT PATROL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2022-23",
+    "kind": "actual",
+    "metric": "contract",
+    "hit": {
+      "page": 794,
+      "query": "88,190.00"
+    }
+  },
+  "contract.0.7.0": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Behavioral Health",
+    "value": 7562236,
+    "formula": "Professional / specialized services line for Behavioral Health in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 728,
+    "query": "7,562,236.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 728,
+        "value": 7562236.0,
+        "query": "7,562,236.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "BEHAVIORAL HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 728,
+      "query": "7,562,236.00"
+    }
+  },
+  "contract.0.7.1": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Mental Health Services Act",
+    "value": 6769733,
+    "formula": "Professional / specialized services line for Mental Health Services Act in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 732,
+    "query": "6,769,733.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 732,
+        "value": 6769733.0,
+        "query": "6,769,733.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Professional/Specialized Srvs",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 732,
+      "query": "6,769,733.00"
+    }
+  },
+  "contract.0.7.2": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Jail Medical Services",
+    "value": 5792719,
+    "formula": "Professional / specialized services line for Jail Medical Services in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 739,
+    "query": "5,792,719.00",
+    "unit": "JAIL MEDICAL SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4134",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 739,
+        "value": 5792719.0,
+        "query": "5,792,719.00",
+        "unit": "JAIL MEDICAL SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "JAIL MEDICAL SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 739,
+      "query": "5,792,719.00"
+    }
+  },
+  "contract.0.7.3": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Road",
+    "value": 5575200,
+    "formula": "Professional / specialized services line for Road in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 619,
+    "query": "5,575,200.00",
+    "unit": "ROAD",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "3100",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 619,
+        "value": 5575200.0,
+        "query": "5,575,200.00",
+        "unit": "ROAD",
+        "line": "Professional/Specialized Srvs",
+        "label": "ROAD \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 619,
+      "query": "5,575,200.00"
+    }
+  },
+  "contract.0.7.4": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Social Services Administrati",
+    "value": 2852581,
+    "formula": "Professional / specialized services line for Social Services Administrati in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 746,
+    "query": "2,852,581.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 746,
+        "value": 2852581.0,
+        "query": "2,852,581.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Professional/Specialized Srvs",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "2,852,581.00"
+    }
+  },
+  "contract.0.7.5": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Homeless Services",
+    "value": 2155159,
+    "formula": "Professional / specialized services line for Homeless Services in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 743,
+    "query": "2,155,159.00",
+    "unit": "HOMELESS SERVICES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4121",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 743,
+        "value": 2155159.0,
+        "query": "2,155,159.00",
+        "unit": "HOMELESS SERVICES",
+        "line": "Professional/Specialized Srvs",
+        "label": "HOMELESS SERVICES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 743,
+      "query": "2,155,159.00"
+    }
+  },
+  "contract.0.7.6": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 Water Resources",
+    "value": 1565077,
+    "formula": "Professional / specialized services line for Water Resources in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 626,
+    "query": "1,565,077.00",
+    "unit": "WATER RESOURCES",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "1922",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 626,
+        "value": 1565077.0,
+        "query": "1,565,077.00",
+        "unit": "WATER RESOURCES",
+        "line": "Professional/Specialized Srvs",
+        "label": "WATER RESOURCES \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 626,
+      "query": "1,565,077.00"
+    }
+  },
+  "contract.0.7.7": {
+    "type": "printed",
+    "label": "Professional / specialized services \u2014 County Health",
+    "value": 1241794,
+    "formula": "Professional / specialized services line for County Health in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 735,
+    "query": "1,241,794.00",
+    "unit": "COUNTY HEALTH",
+    "line": "Professional/Specialized Srvs",
+    "unitCode": "4103",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 735,
+        "value": 1241794.0,
+        "query": "1,241,794.00",
+        "unit": "COUNTY HEALTH",
+        "line": "Professional/Specialized Srvs",
+        "label": "COUNTY HEALTH \u2014 Professional/Specialized Srvs"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 735,
+      "query": "1,241,794.00"
+    }
+  },
+  "contract.1.7.0": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 TANF-Family Group",
+    "value": 19361134,
+    "formula": "Support and care of persons line for TANF-Family Group in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 752,
+    "query": "19,361,134.00",
+    "unit": "TANF-FAMILY GROUP",
+    "line": "Support & Care of Persons",
+    "unitCode": "5204",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 752,
+        "value": 19361134.0,
+        "query": "19,361,134.00",
+        "unit": "TANF-FAMILY GROUP",
+        "line": "Support & Care of Persons",
+        "label": "TANF-FAMILY GROUP \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 752,
+      "query": "19,361,134.00"
+    }
+  },
+  "contract.1.7.1": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Aid For Adoption",
+    "value": 9715080,
+    "formula": "Support and care of persons line for Aid For Adoption in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 755,
+    "query": "9,715,080.00",
+    "unit": "AID FOR ADOPTION",
+    "line": "Support & Care of Persons",
+    "unitCode": "5209",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 755,
+        "value": 9715080.0,
+        "query": "9,715,080.00",
+        "unit": "AID FOR ADOPTION",
+        "line": "Support & Care of Persons",
+        "label": "AID FOR ADOPTION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 755,
+      "query": "9,715,080.00"
+    }
+  },
+  "contract.1.7.2": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Behavioral Health",
+    "value": 3557275,
+    "formula": "Support and care of persons line for Behavioral Health in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 729,
+    "query": "3,557,275.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Support & Care of Persons",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 729,
+        "value": 3557275.0,
+        "query": "3,557,275.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Support & Care of Persons",
+        "label": "BEHAVIORAL HEALTH \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 729,
+      "query": "3,557,275.00"
+    }
+  },
+  "contract.1.7.3": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Social Services Administrati",
+    "value": 3370981,
+    "formula": "Support and care of persons line for Social Services Administrati in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 747,
+    "query": "2,498,439.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Support & Care of Persons",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 747,
+        "value": 2498439.0,
+        "query": "2,498,439.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Support & Care of Persons",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 747,
+      "query": "2,498,439.00"
+    }
+  },
+  "contract.1.7.4": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Bi-County Juvenile Hall",
+    "value": 3120000,
+    "formula": "Support and care of persons line for Bi-County Juvenile Hall in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 770,
+    "query": "3,120,000.00",
+    "unit": "BI-COUNTY JUVENILE HALL",
+    "line": "Support & Care of Persons",
+    "unitCode": "2309",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 770,
+        "value": 3120000.0,
+        "query": "3,120,000.00",
+        "unit": "BI-COUNTY JUVENILE HALL",
+        "line": "Support & Care of Persons",
+        "label": "BI-COUNTY JUVENILE HALL \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 770,
+      "query": "3,120,000.00"
+    }
+  },
+  "contract.1.7.5": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Homeless Services",
+    "value": 1675306,
+    "formula": "Support and care of persons line for Homeless Services in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 744,
+    "query": "1,675,306.00",
+    "unit": "HOMELESS SERVICES",
+    "line": "Support & Care of Persons",
+    "unitCode": "4121",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 744,
+        "value": 1675306.0,
+        "query": "1,675,306.00",
+        "unit": "HOMELESS SERVICES",
+        "line": "Support & Care of Persons",
+        "label": "HOMELESS SERVICES \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 744,
+      "query": "1,675,306.00"
+    }
+  },
+  "contract.1.7.6": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Mental Health Services Act",
+    "value": 147800,
+    "formula": "Support and care of persons line for Mental Health Services Act in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 733,
+    "query": "147,800.00",
+    "unit": "MENTAL HEALTH SERVICES ACT",
+    "line": "Support & Care of Persons",
+    "unitCode": "4104",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 733,
+        "value": 147800.0,
+        "query": "147,800.00",
+        "unit": "MENTAL HEALTH SERVICES ACT",
+        "line": "Support & Care of Persons",
+        "label": "MENTAL HEALTH SERVICES ACT \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 733,
+      "query": "147,800.00"
+    }
+  },
+  "contract.1.7.7": {
+    "type": "printed",
+    "label": "Support and care of persons \u2014 Probation",
+    "value": 120000,
+    "formula": "Support and care of persons line for Probation in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 767,
+    "query": "120,000.00",
+    "unit": "PROBATION",
+    "line": "Support & Care of Persons",
+    "unitCode": "2304",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 767,
+        "value": 120000.0,
+        "query": "120,000.00",
+        "unit": "PROBATION",
+        "line": "Support & Care of Persons",
+        "label": "PROBATION \u2014 Support & Care of Persons"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 767,
+      "query": "120,000.00"
+    }
+  },
+  "contract.2.7.0": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Coroner",
+    "value": 669000,
+    "formula": "Overtime line for Sheriff-Coroner in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 788,
+    "query": "669,000.00",
+    "unit": "SHERIFF-CORONER",
+    "line": "Overtime",
+    "unitCode": "2201",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 788,
+        "value": 669000.0,
+        "query": "669,000.00",
+        "unit": "SHERIFF-CORONER",
+        "line": "Overtime",
+        "label": "SHERIFF-CORONER \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 788,
+      "query": "669,000.00"
+    }
+  },
+  "contract.2.7.1": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Jail",
+    "value": 600000,
+    "formula": "Overtime line for County Jail in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 798,
+    "query": "600,000.00",
+    "unit": "COUNTY JAIL",
+    "line": "Overtime",
+    "unitCode": "2301",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 798,
+        "value": 600000.0,
+        "query": "600,000.00",
+        "unit": "COUNTY JAIL",
+        "line": "Overtime",
+        "label": "COUNTY JAIL \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 798,
+      "query": "600,000.00"
+    }
+  },
+  "contract.2.7.2": {
+    "type": "printed",
+    "label": "Overtime \u2014 Behavioral Health",
+    "value": 393500,
+    "formula": "Overtime line for Behavioral Health in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 728,
+    "query": "393,500.00",
+    "unit": "BEHAVIORAL HEALTH",
+    "line": "Overtime",
+    "unitCode": "4102",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 728,
+        "value": 393500.0,
+        "query": "393,500.00",
+        "unit": "BEHAVIORAL HEALTH",
+        "line": "Overtime",
+        "label": "BEHAVIORAL HEALTH \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 728,
+      "query": "393,500.00"
+    }
+  },
+  "contract.2.7.3": {
+    "type": "printed",
+    "label": "Overtime \u2014 County Service Area F",
+    "value": 270000,
+    "formula": "Overtime line for County Service Area F in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 659,
+    "query": "270,000.00",
+    "unit": "COUNTY SERVICE AREA F",
+    "line": "Overtime",
+    "unitCode": "0305",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 659,
+        "value": 270000.0,
+        "query": "270,000.00",
+        "unit": "COUNTY SERVICE AREA F",
+        "line": "Overtime",
+        "label": "COUNTY SERVICE AREA F \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 659,
+      "query": "270,000.00"
+    }
+  },
+  "contract.2.7.4": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff-Communications",
+    "value": 215000,
+    "formula": "Overtime line for Sheriff-Communications in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 783,
+    "query": "215,000.00",
+    "unit": "SHERIFF-COMMUNICATIONS",
+    "line": "Overtime",
+    "unitCode": "1600",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 783,
+        "value": 215000.0,
+        "query": "215,000.00",
+        "unit": "SHERIFF-COMMUNICATIONS",
+        "line": "Overtime",
+        "label": "SHERIFF-COMMUNICATIONS \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 783,
+      "query": "215,000.00"
+    }
+  },
+  "contract.2.7.5": {
+    "type": "printed",
+    "label": "Overtime \u2014 Social Services Administrati",
+    "value": 170000,
+    "formula": "Overtime line for Social Services Administrati in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 746,
+    "query": "170,000.00",
+    "unit": "SOCIAL SERVICES ADMINISTRATI",
+    "line": "Overtime",
+    "unitCode": "5101",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 746,
+        "value": 170000.0,
+        "query": "170,000.00",
+        "unit": "SOCIAL SERVICES ADMINISTRATI",
+        "line": "Overtime",
+        "label": "SOCIAL SERVICES ADMINISTRATI \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 746,
+      "query": "170,000.00"
+    }
+  },
+  "contract.2.7.6": {
+    "type": "printed",
+    "label": "Overtime \u2014 Sheriff Live Oak Contract",
+    "value": 100000,
+    "formula": "Overtime line for Sheriff Live Oak Contract in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 796,
+    "query": "100,000.00",
+    "unit": "SHERIFF LIVE OAK CONTRACT",
+    "line": "Overtime",
+    "unitCode": "2208",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 796,
+        "value": 100000.0,
+        "query": "100,000.00",
+        "unit": "SHERIFF LIVE OAK CONTRACT",
+        "line": "Overtime",
+        "label": "SHERIFF LIVE OAK CONTRACT \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 796,
+      "query": "100,000.00"
+    }
+  },
+  "contract.2.7.7": {
+    "type": "printed",
+    "label": "Overtime \u2014 District Attorney",
+    "value": 68618,
+    "formula": "Overtime line for District Attorney in the FY 2024-25 book (recommended FY2024-25).",
+    "book": "FY 2024-25",
+    "page": 760,
+    "query": "68,618.00",
+    "unit": "DISTRICT ATTORNEY",
+    "line": "Overtime",
+    "unitCode": "2125",
+    "children": [
+      {
+        "type": "printed",
+        "book": "FY 2024-25",
+        "page": 760,
+        "value": 68618.0,
+        "query": "68,618.00",
+        "unit": "DISTRICT ATTORNEY",
+        "line": "Overtime",
+        "label": "DISTRICT ATTORNEY \u2014 Overtime"
+      }
+    ],
+    "fy": "FY2024-25",
+    "kind": "recommended",
+    "metric": "contract",
+    "hit": {
+      "page": 760,
+      "query": "68,618.00"
+    }
+  }
 };

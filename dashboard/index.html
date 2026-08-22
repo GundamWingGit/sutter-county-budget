@@ -637,8 +637,13 @@
 
   <section id="sec-contracts">
     <div class="sec-head"><span class="sec-num">7</span><h2>Contracts and aid</h2></div>
-    <p class="sec-q">Large non-salary uses from the last book that still prints this level of
-      detail (FY 2024-25 recommended): professional services, cash aid, overtime, and insurance.</p>
+    <p class="sec-q">Object-level professional services, cash aid, and overtime. Closed-year
+      actuals run through FY 2022-23. Later books do not print these accounts the same way.
+      FY 24-25 rec is the last recommended plan that still does.</p>
+    <div class="year-tabs-bar">
+      <span class="year-tabs-kicker">Largest units</span>
+      <div class="year-tabs" id="contractYearTabs"></div>
+    </div>
     <div class="grid halves" id="contractCharts"></div>
   </section>
 
@@ -1332,32 +1337,56 @@
   }
 
   {
-    const c = D.contracts || {};
+    const cby = D.contractsByYear || {};
     const host = document.getElementById("contractCharts");
-    (c.groups || []).forEach((g, i) => {
+    const cYears = cby.years || [];
+    const cLabels = cby.labels || [];
+    const startYi = Math.max(0, cYears.length - 1);
+    const packAt = yi => ((cby.byYear || {})[cYears[yi]] || {}).groups || [];
+    const axisLabs = labs => labs.map(l => l.length > 34 ? l.slice(0, 32) + "…" : l);
+    const contractCharts = [];
+
+    const paintContracts = yi => {
+      const groups = packAt(yi);
+      const lab = cLabels[yi] || "";
+      groups.forEach((g, i) => {
+        const chart = contractCharts[i];
+        if (!chart) return;
+        chart.data.labels = axisLabs(g.labels);
+        chart.data.datasets[0].data = g.values;
+        chart.options.onClick = citeClick((_ds, idx) => `contract.${i}.${yi}.${idx}`);
+        chart.options.plugins.tooltip.callbacks.title = items => g.labels[items[0].dataIndex];
+        chart.update();
+        const badge = document.getElementById("contractBadge" + i);
+        if (badge) badge.textContent = `${fmtCompact(g.total)} · ${lab}`;
+      });
+    };
+
+    packAt(startYi).forEach((g, i) => {
       const id = "chContract" + i;
       const wrap = document.createElement("div");
       wrap.className = "card";
-      wrap.innerHTML = `<h3>${g.name} <span class="yr-badge">${fmtCompact(g.total)}</span></h3>` +
-        `<p class="note">Largest budget units. ${c.year || ""} ${c.kind || ""}.</p>` +
+      wrap.innerHTML = `<h3>${g.name} <span class="yr-badge" id="contractBadge${i}">${fmtCompact(g.total)} · ${cLabels[startYi] || ""}</span></h3>` +
+        `<p class="note">Largest budget units.</p>` +
         `<div class="chart-box short"><canvas id="${id}"></canvas></div>`;
       host.appendChild(wrap);
       markChart(id);
-      new Chart(document.getElementById(id), {
+      contractCharts.push(new Chart(document.getElementById(id), {
         type: "bar",
-        data: { labels: g.labels.map(l => l.length > 34 ? l.slice(0, 32) + "…" : l),
+        data: { labels: axisLabs(g.labels),
                 datasets: [{ data: g.values, backgroundColor: i % 2 ? STEEL : NAVY, barPercentage: 0.64, borderWidth: 0 }] },
         options: {
           indexAxis: "y", maintainAspectRatio: false,
-          onClick: citeClick((_ds, idx) => `contract.${i}.${idx}`),
+          onClick: citeClick((_ds, idx) => `contract.${i}.${startYi}.${idx}`),
           scales: { x: { ticks: moneyTicks, grid }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: "#45566e" } } },
           plugins: {
             legend: { display: false },
             tooltip: { callbacks: { title: items => g.labels[items[0].dataIndex], label: x => " " + fmtFull(x.parsed.x) } }
           }
         }
-      });
+      }));
     });
+    bindYearTabs("contractYearTabs", cLabels, startYi, paintContracts);
   }
 
   /* ---------- line-item explorer ---------- */
