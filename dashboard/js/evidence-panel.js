@@ -468,10 +468,10 @@
   }
 
   function openSlice(cite, slice) {
-    if (!slice) return;
-    if (slice.source && slice.source.page && slice.source.book) {
+    if (!slice || !slice.source) return;
+    if (canBoxPrinted(slice.source)) {
       showPiece(cite, slice.source, ++openGen);
-    } else if (slice.source) {
+    } else {
       openCitation(slice.source);
     }
   }
@@ -643,7 +643,7 @@
         `<div class="ec-total">${fmtFull(clicked)}</div>` +
         mosaicUiHtml(slices, denom, "main", { aria: "Yearly surplus mosaic" }) +
         yearTilesHtml(slices, "main") +
-        `<div class="ec-hint">Years in order. Drag the bar or tap a year.</div>` +
+        `<div class="ec-hint">Years in order. Tap a year to open its printed revenue and spending lines.</div>` +
         `<div class="ec-rows ec-year-rows">${rowsHtml(slices, denom || slices.reduce((a, s) => a + s.value, 0), "main")}</div>`;
       bindComposeClicks(host, { main: slices }, cite);
       return;
@@ -856,6 +856,28 @@
     const b = books[bookLabel];
     if (!b || !b.file) return null;
     return "pdfs/" + b.file;
+  }
+
+  function surplusCiteId(fy) {
+    const want = String(fy || "").replace(/\s+/g, "");
+    if (!want) return null;
+    const cites = global.CITATIONS || {};
+    for (const id of Object.keys(cites)) {
+      const c = cites[id];
+      if (id.indexOf("trend.surplus.") === 0 && c && String(c.fy || "").replace(/\s+/g, "") === want) {
+        return id;
+      }
+    }
+    return null;
+  }
+
+  function canBoxPrinted(piece) {
+    if (!piece || piece.value == null || !piece.book || !piece.page) return false;
+    if (piece.type === "derived") return false;
+    if (piece.metric === "surplus") return false;
+    if (piece.group === "Year") return false;
+    return piece.type === "printed" ||
+      queryMatchesValue(piece.query || formatQueryFromValue(piece.value), piece.value);
   }
 
   function hydrateCite(partial) {
@@ -1292,7 +1314,7 @@
         if (kid.book) prefetchPdf(kid.book).catch(() => {});
       });
       btn.addEventListener("click", () => {
-        if (kid.page && kid.book) showPiece(cite, kid, ++openGen);
+        if (canBoxPrinted(kid)) showPiece(cite, kid, ++openGen);
         else openCitation(kid);
       });
       list.appendChild(btn);
@@ -1416,34 +1438,22 @@
       const out = [];
       for (const kid of hydratedKids) {
         const full = hydrateCite(kid);
-        let pagePiece = null;
-        if (full.page && full.book) {
-          pagePiece = full;
-        } else {
-          const subKids = (full.children || []).map(hydrateCite);
-          const rev = subKids.find(k => metricFromChild(k) === "revenue") || subKids[0];
-          if (rev && rev.book && rev.fy) {
-            const rows = await expandMetricRows(
-              rev.book, rev.fy, rev.kind || "actual", "revenue", null
-            );
-            pagePiece = rows[0] || null;
-          }
-          if (!pagePiece) {
-            pagePiece = subKids.find(s => s.page && s.book) || null;
-          }
-        }
+        const fy = full.fy || kid.fy;
         out.push({
           ...full,
-          type: full.type || "derived",
+          id: full.id || surplusCiteId(fy),
+          type: "derived",
+          metric: "surplus",
           label: full.label || kid.label,
           value: full.value != null ? full.value : kid.value,
-          book: (pagePiece && pagePiece.book) || full.book || kid.book,
-          page: (pagePiece && pagePiece.page) || full.page || null,
-          query: (pagePiece && (pagePiece.query || formatQueryFromValue(pagePiece.value))) || full.query || null,
-          hit: (pagePiece && pagePiece.hit) || full.hit || null,
+          book: full.book || kid.book,
+          page: null,
+          query: null,
+          hit: null,
           unit: null,
-          line: (pagePiece && pagePiece.line) || full.line,
-          fy: full.fy || kid.fy,
+          line: null,
+          fy: fy,
+          kind: full.kind || kid.kind || "actual",
           group: "Year",
         });
       }
@@ -1525,21 +1535,32 @@
   }
 
   async function showPiece(cite, piece, gen) {
+    if (!canBoxPrinted(piece)) {
+      if (piece && (piece.type === "derived" || piece.metric === "surplus" || piece.group === "Year" ||
+          (piece.children && piece.children.length) || piece.fy)) {
+        await openCitation(piece);
+        return;
+      }
+      showEmpty("No printed page for this row", "Open a source that has a page number to box that figure.");
+      showStatus("This row is not a single printed figure. Open a source line to box it.");
+      return;
+    }
+
     viewingPiece = piece;
     renderHeader(cite);
     renderSourceList(cite, ($("evidenceSourceQ") || {}).value);
-
-    if (!piece || !piece.book || !books[piece.book] || !piece.page) {
-      showEmpty("No page for this row", "Try another source in the list.");
-      showStatus("This piece has no page yet. Try another row.", true);
-      return;
-    }
 
     const alreadyOpen = currentBook === piece.book && currentPdf;
     if (!alreadyOpen) {
       showLoading("Opening the " + piece.book + " book…");
     }
     try {
+      await loadBooks();
+      if (!books[piece.book]) {
+        showEmpty("No page for this row", "Try another source in the list.");
+        showStatus("This piece has no page yet. Try another row.");
+        return;
+      }
       const doc = alreadyOpen ? currentPdf : await prefetchPdf(piece.book);
       if (gen != null && gen !== openGen) return;
       currentPdf = doc;
@@ -1562,13 +1583,9 @@
       if (gen != null && gen !== openGen) return;
       setPane("page");
       if (highlightOn && !lastHighlight && piece.value != null) {
-        if (piece.type === "derived") {
-          renderComposition(currentCite || cite);
-          showStatus("This total is not printed as one figure. Click a source row to box that row.");
-        } else {
-          showStatus("Opened the page but could not box " + formatFigure(cite, piece) +
-            ". The figure is not on this page as a whole number.", true);
-        }
+        showStatus("Opened " + piece.book + " p. " + currentPage +
+          " but could not auto-box " + formatFigure(cite, piece) +
+          ". Use Open page to search that printed figure.", true);
       } else {
         showStatus("Highlight is " + formatFigure(cite, piece) +
           ". Click the page for a sharper view.");
