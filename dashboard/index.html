@@ -777,25 +777,17 @@
     .m-row.citeable.is-armed {
       border-color: #e2d3b8;
     }
-    .arm-chip {
-      position: absolute;
-      z-index: 5;
-      pointer-events: none;
-      font: 600 10px/1 var(--sans);
-      letter-spacing: .08em;
-      text-transform: uppercase;
+    .arm-hint {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .03em;
       color: var(--gold);
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid #e2d3b8;
-      border-radius: 99px;
-      padding: 6px 10px;
-      box-shadow: 0 6px 18px rgba(23, 37, 60, 0.1);
-      white-space: nowrap;
-      animation: arm-chip-in .2s ease-out;
+      margin: -2px 0 10px;
+      animation: arm-hint-in .18s ease-out;
     }
-    @keyframes arm-chip-in {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes arm-hint-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     nav.toc { display: none; }
     .kpis { grid-template-columns: 1fr 1fr; margin-top: 16px; }
@@ -1158,7 +1150,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=40"></script>
+<script src="js/evidence-panel.js?v=41"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;

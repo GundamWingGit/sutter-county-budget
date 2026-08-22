@@ -2244,30 +2244,24 @@
     return el.closest(".citeable, .m-bar-row, .m-row, .kpi") || null;
   }
 
-  function removeArmChips() {
-    document.querySelectorAll(".arm-chip").forEach(n => n.remove());
+  function removeArmHints() {
+    document.querySelectorAll(".arm-hint").forEach(n => n.remove());
   }
 
-  function clamp(n, lo, hi) {
-    return Math.max(lo, Math.min(hi, n));
-  }
-
-  function placeChip(host, x, y, label) {
+  function placeHint(host) {
     if (!host) return;
-    if (getComputedStyle(host).position === "static") host.style.position = "relative";
-    let chip = host.querySelector(":scope > .arm-chip");
-    if (!chip) {
-      chip = document.createElement("div");
-      chip.className = "arm-chip";
-      chip.setAttribute("aria-live", "polite");
-      host.appendChild(chip);
+    let hint = host.querySelector(":scope > .arm-hint");
+    if (!hint) {
+      hint = document.createElement("p");
+      hint.className = "arm-hint";
+      hint.setAttribute("aria-live", "polite");
+      const note = host.querySelector(":scope > .note");
+      const title = host.querySelector(":scope > h3");
+      if (note) note.insertAdjacentElement("afterend", hint);
+      else if (title) title.insertAdjacentElement("afterend", hint);
+      else host.insertBefore(hint, host.firstChild);
     }
-    chip.textContent = label || "Tap again for source";
-    const pad = 8;
-    const w = chip.offsetWidth || 148;
-    const h = chip.offsetHeight || 28;
-    chip.style.left = clamp(x, pad, Math.max(pad, host.clientWidth - w - pad)) + "px";
-    chip.style.top = clamp(y, pad, Math.max(pad, host.clientHeight - h - pad)) + "px";
+    hint.textContent = "Tap again for source";
   }
 
   function chartEl(chart, ds, idx) {
@@ -2329,47 +2323,34 @@
   function pinChartArm(chart, ds, idx) {
     if (!chart) return;
     ensureArmPlugin();
-    const hit = [{ datasetIndex: ds, index: idx }];
-    chart.setActiveElements(hit);
-    try {
-      const el = chartEl(chart, ds, idx);
-      chart.tooltip.setActiveElements(hit, {
-        x: el ? el.x : 0,
-        y: el ? el.y : 0,
-      });
-    } catch (err) { /* tooltip API varies by Chart.js build */ }
+    chart.setActiveElements([{ datasetIndex: ds, index: idx }]);
     chart.update("none");
-    const box = chart.canvas && chart.canvas.closest(".chart-box");
-    const el = chartEl(chart, ds, idx);
-    if (!box || !el) return;
-    const horiz = chart.options.indexAxis === "y";
-    const x = horiz ? el.x + 10 : el.x - 70;
-    const y = horiz ? el.y - 22 : (el.base != null ? Math.min(el.y, el.base) : el.y) - 30;
-    placeChip(box, x, y);
+    const card = chart.canvas && chart.canvas.closest(".card");
+    placeHint(card);
   }
 
   function clearChartArm(chart) {
     if (!chart) return;
     try {
       chart.setActiveElements([]);
-      chart.tooltip.setActiveElements([], { x: 0, y: 0 });
       chart.update("none");
     } catch (err) { /* ignore */ }
   }
 
   function showArm(target, ctx) {
-    removeArmChips();
+    removeArmHints();
     if (ctx && ctx.chart) {
       pinChartArm(ctx.chart, ctx.datasetIndex, ctx.index);
       return;
     }
     if (!target) return;
     target.classList.add("is-armed");
+    placeHint(target.closest(".card"));
   }
 
   function clearArm() {
     if (arm.el) arm.el.classList.remove("is-armed");
-    removeArmChips();
+    removeArmHints();
     clearChartArm(arm.chart);
     arm = { key: "", at: 0, el: null, chart: null, ds: 0, idx: 0 };
   }
