@@ -98,7 +98,7 @@
 
   .grid { display: grid; gap: 16px; }
   .grid.two { grid-template-columns: 3fr 2fr; }
-  .grid.halves { grid-template-columns: 1fr 1fr; }
+  .grid.halves { grid-template-columns: 1fr 1fr; align-items: start; }
   .card { background: var(--card); border: 1px solid var(--line); padding: 22px 24px 16px; }
   .card h3 { font-size: 14px; font-weight: 600; color: var(--ink); }
   .card .note { font-size: 12px; color: var(--ink-3); margin: 2px 0 14px; }
@@ -129,8 +129,7 @@
   table.data .up { color: var(--red); }
   table.data .down { color: var(--green); }
   table.data .neg { color: var(--green); }
-  table.data.tight { margin-top: 10px; font-size: 12px; }
-  table.data.tight th, table.data.tight td { padding: 5px 6px; }
+  .grid.halves > .card { align-self: start; width: 100%; }
 
   .callout {
     background: var(--card); border: 1px solid var(--line); padding: 16px 20px;
@@ -531,7 +530,6 @@
         <h3>Planned surplus vs actual surplus</h3>
         <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis — they are not missing. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
         <div class="chart-box short"><canvas id="chBva"></canvas></div>
-        <table class="data tight" id="planTable"></table>
       </div>
     </div>
   </section>
@@ -941,21 +939,6 @@
         tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
       }
     }
-  });
-  document.getElementById("planTable").innerHTML =
-    `<thead><tr><th>Year</th><th class="num">Adopted plan</th><th class="num">Actual surplus</th></tr></thead><tbody>` +
-    b.years.map((y, i) =>
-      `<tr>` +
-      `<td>${b.labels[i]}</td>` +
-      `<td class="num citeable" data-cite="adopted.plan.${i}">${fmtFull(b.planned[i])}</td>` +
-      `<td class="num citeable" data-cite="${(() => {
-        const ti = t.years.indexOf(y);
-        return ti >= 0 ? `trend.surplus.${ti}` : "";
-      })()}">${fmtFull(b.actual[i])}</td>` +
-      `</tr>`
-    ).join("") + `</tbody>`;
-  document.querySelectorAll("#planTable td.citeable").forEach(el => {
-    if (el.getAttribute("data-cite")) EvidencePanel.bindCite(el, el.getAttribute("data-cite"));
   });
 
   const ft = D.functionTrend;
