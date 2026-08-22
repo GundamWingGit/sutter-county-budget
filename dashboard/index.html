@@ -548,7 +548,7 @@
         <div class="chart-box"><canvas id="chFuncTrend"></canvas></div>
       </div>
       <div class="card">
-        <h3>Share of spending <span class="yr-badge" id="funcShareBadge">FY 24-25 actual</span></h3>
+        <h3>Share of spending</h3>
         <p class="note">Percent of governmental-fund spending that year. The stacked chart at left is every year at once.</p>
         <div class="year-tabs" id="funcYearTabs"></div>
         <div class="chart-box"><canvas id="chByFunc"></canvas></div>
@@ -578,12 +578,12 @@
     </div>
     <div class="grid halves">
       <div class="card">
-        <h3>Revenue sources <span class="yr-badge" id="revCatBadge">FY 23-24 actual</span></h3>
+        <h3>Revenue sources</h3>
         <p class="note" id="revCatNote">Object labels are stable in this window. Intergovernmental aid is the largest external source.</p>
         <div class="chart-box short"><canvas id="chRevCat"></canvas></div>
       </div>
       <div class="card">
-        <h3>Spending objects <span class="yr-badge" id="expCatBadge">FY 23-24 actual</span></h3>
+        <h3>Spending objects</h3>
         <p class="note" id="expCatNote">Transfers sit next to salaries because restricted funds move money between units.</p>
         <div class="chart-box short"><canvas id="chExpCat"></canvas></div>
       </div>
@@ -596,7 +596,7 @@
       that unit’s own program revenue — a better read of local-dollar burden than the
       headline total.</p>
     <div class="card">
-      <h3>Largest units by actual spending <span class="yr-badge" id="unitsBadge">FY 24-25 actual</span></h3>
+      <h3>Largest units by actual spending</h3>
       <p class="note">Governmental funds. Ranking changes by year — a unit can be huge one year and off this list the next.</p>
       <div class="year-tabs" id="unitYearTabs"></div>
       <div class="chart-box tall"><canvas id="chUnits"></canvas></div>
@@ -618,7 +618,7 @@
     </div>
     <div class="grid two">
       <div class="card">
-        <h3>Highest posted salary ranges <span class="yr-badge" id="payHighBadge">FY 2025-26</span></h3>
+        <h3>Highest posted salary ranges</h3>
         <p class="note" id="payHighNote">Range for one seat. The number in parentheses is how many seats are authorized.</p>
         <div class="chart-box tall"><canvas id="chPay"></canvas></div>
       </div>
@@ -1034,7 +1034,7 @@
     chart.data.datasets[0].data = rows.map(r => r.value);
     chart.options.scales.x.ticks.callback = v => total ? (v / total * 100).toFixed(0) + "%" : v;
     chart.options.scales.x.max = total ? Math.ceil((rows[0]?.value || 0) / total * 10) / 10 * total * 1.08 : undefined;
-    chart.options.scales.x.title.text = `Share of ${ft.labels[yi]} spending`;
+    chart.options.scales.x.title.text = "Share of spending";
     chart.options.plugins.tooltip.callbacks.label = c => {
       const pct = total ? (c.parsed.x / total * 100).toFixed(1) : "0.0";
       return ` ${fmtFull(c.parsed.x)} — ${pct}% of total`;
@@ -1045,8 +1045,6 @@
     });
     chart.options.onClick = onClick;
     chart.update();
-    const badge = document.getElementById("funcShareBadge");
-    if (badge) badge.textContent = `${ft.labels[yi]} actual`;
   };
   markChart("chByFunc");
   {
@@ -1067,7 +1065,7 @@
         scales: {
           x: { ticks: { callback: v => first.total ? (v / first.total * 100).toFixed(0) + "%" : v, maxTicksLimit: 6 }, grid,
                max: first.total ? Math.ceil(first.rows[0].value / first.total * 10) / 10 * first.total * 1.08 : undefined,
-               title: { display: true, text: `Share of ${ft.labels[startYi]} spending` } },
+               title: { display: true, text: "Share of spending" } },
           y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } }
         },
         plugins: {
@@ -1178,13 +1176,8 @@
 
   const setCatYear = yi => {
     const fy = catYears[yi];
-    const lab = catLabels[mixYears.indexOf(fy)] || shortYear(fy);
     paintCat(chRevCat, revByYear[fy], "rev", fy);
     paintCat(chExpCat, expByYear[fy], "exp", fy);
-    const rb = document.getElementById("revCatBadge");
-    const eb = document.getElementById("expCatBadge");
-    if (rb) rb.textContent = `${lab} actual`;
-    if (eb) eb.textContent = `${lab} actual`;
     const rn = document.getElementById("revCatNote");
     if (rn) {
       rn.textContent = fy === "FY2021-22"
@@ -1214,7 +1207,7 @@
       options: {
         indexAxis: "y", maintainAspectRatio: false,
         onClick: citeClick((_ds, idx) => `topunit.${unitStart}.${idx}`),
-        scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: `${unitYearLabs[unitStart] || ""} actual spending` } },
+        scales: { x: { ticks: moneyTicks, grid, title: { display: true, text: "Actual spending" } },
                   y: { grid: { display: false }, ticks: { font: { size: 11.5 }, color: "#45566e" } } },
         plugins: {
           legend: { display: false },
@@ -1231,11 +1224,8 @@
       chUnits.data.datasets[0].data = pack.values;
       chUnits.data.datasets[0].backgroundColor = unitColors(pack.values);
       chUnits.options.onClick = citeClick((_ds, idx) => `topunit.${yi}.${idx}`);
-      chUnits.options.scales.x.title.text = `${unitYearLabs[yi] || ""} actual spending`;
       chUnits.options.plugins.tooltip.callbacks.title = i => pack.labels[i[0].dataIndex];
       chUnits.update();
-      const badge = document.getElementById("unitsBadge");
-      if (badge) badge.textContent = `${unitYearLabs[yi] || ""} actual`;
     };
     bindYearTabs("unitYearTabs", unitYearLabs, unitStart, paintUnits);
   }
@@ -1378,7 +1368,6 @@
       const hp = pack.highestPaid || { labels: [], min: [], max: [], fte: [] };
       const cc = pack.costliestClasses || { labels: [], values: [], fte: [] };
       const st = pack.mostStaff || { labels: [], values: [] };
-      const lab = payLabs[yi] || pack.year || "";
       chPay.data.labels = hp.labels.map((l, i) => fteLabel(l, hp.fte[i]));
       chPay.data.datasets[0].data = hp.min;
       chPay.data.datasets[1].data = hp.max;
@@ -1410,8 +1399,6 @@
           ? `${Number(fte).toLocaleString()} FTE, ${n} job titles`
           : `${n} job titles`;
       }
-      const hb = document.getElementById("payHighBadge");
-      if (hb) hb.textContent = lab;
       const note = document.getElementById("payHighNote");
       if (note) {
         note.textContent = pack.salaryKind === "step-table"
@@ -1437,7 +1424,6 @@
 
     const paintContracts = yi => {
       const groups = packAt(yi);
-      const lab = cLabels[yi] || "";
       groups.forEach((g, i) => {
         const chart = contractCharts[i];
         if (!chart) return;
@@ -1447,7 +1433,7 @@
         chart.options.plugins.tooltip.callbacks.title = items => g.labels[items[0].dataIndex];
         chart.update();
         const badge = document.getElementById("contractBadge" + i);
-        if (badge) badge.textContent = `${fmtCompact(g.total)} · ${lab}`;
+        if (badge) badge.textContent = fmtCompact(g.total);
       });
     };
 
@@ -1455,7 +1441,7 @@
       const id = "chContract" + i;
       const wrap = document.createElement("div");
       wrap.className = "card";
-      wrap.innerHTML = `<h3>${g.name} <span class="yr-badge" id="contractBadge${i}">${fmtCompact(g.total)} · ${cLabels[startYi] || ""}</span></h3>` +
+      wrap.innerHTML = `<h3>${g.name} <span class="yr-badge" id="contractBadge${i}">${fmtCompact(g.total)}</span></h3>` +
         `<p class="note">Largest budget units.</p>` +
         `<div class="chart-box short"><canvas id="${id}"></canvas></div>`;
       host.appendChild(wrap);
