@@ -435,6 +435,44 @@
   .ec-year-fy { font-size: 12px; font-weight: 650; color: var(--ink-2); }
   .ec-year-amt { font-size: 15px; font-weight: 700; color: var(--navy); }
   .ec-year.is-on, .ec-row.is-on { outline: 2px solid var(--navy); outline-offset: 1px; }
+  .ec-glass {
+    position: fixed; z-index: 10050; width: 196px;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 22px rgba(23, 37, 60, .3));
+  }
+  .ec-glass[hidden], .ec-caret[hidden] { display: none !important; }
+  .ec-glass-pop {
+    background: #1b2a44; color: #fff;
+    border-radius: 12px 12px 0 0;
+    padding: 8px 10px 6px;
+  }
+  .ec-glass-name {
+    display: block; font-size: 12px; font-weight: 650; line-height: 1.25;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ec-glass-amt { display: block; font-size: 13px; font-weight: 700; margin-top: 2px; }
+  .ec-glass-lens {
+    position: relative; height: 56px; overflow: hidden;
+    background: #d8dee8;
+    border: 2px solid #1b2a44; border-top: 0;
+    border-radius: 0 0 12px 12px;
+  }
+  .ec-glass-track {
+    display: flex; position: absolute; top: 0; left: 0; height: 100%;
+    will-change: transform;
+  }
+  .ec-glass-track .ec-slice { pointer-events: none; height: 100%; min-width: 0; }
+  .ec-glass-hair {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+    margin-left: -1px; background: #fff;
+    box-shadow: 0 0 0 1px #1b2a44;
+    z-index: 2;
+  }
+  .ec-caret {
+    position: fixed; z-index: 10049; width: 2px;
+    background: #1b2a44; pointer-events: none;
+    box-shadow: 0 0 0 1px #fff;
+  }
   .ec-hint { font-size: 12px; color: var(--ink-3); margin: 8px 0 14px; }
   .ec-rows { display: flex; flex-direction: column; gap: 7px; }
   .ec-row {
@@ -591,8 +629,8 @@
     body.ev-mode-page #evidenceTitle { font-size: 14px; }
     .evidence-toolbar { gap: 6px; }
     .evidence-nav, .evidence-doc { min-height: 36px; padding: 6px 8px; }
-    .ec-mosaic { height: 48px; border-radius: 8px; }
-    .ec-mosaic.tall { height: 40px; }
+    .ec-mosaic { height: 56px; border-radius: 8px; }
+    .ec-mosaic.tall { height: 48px; }
     .ec-slice { pointer-events: none; }
     .ec-mosaic-tools { display: flex; }
     .ec-loupe { min-height: 52px; }
@@ -1030,7 +1068,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=33"></script>
+<script src="js/evidence-panel.js?v=34"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;

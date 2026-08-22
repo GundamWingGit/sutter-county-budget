@@ -421,10 +421,21 @@
     opts = opts || {};
     const showSpread = slices.length > 12;
     const widthStyle = opts.width ? ` style="width:${opts.width}"` : "";
-    return `<div class="ec-mosaic-ui" data-pack="${pack}"${widthStyle}>` +
+    return `<div class="ec-mosaic-ui" data-pack="${pack}" data-dense="${slices.length > 12 ? "1" : "0"}"${widthStyle}>` +
       `<div class="ec-mosaic-scroll">` +
         `<div class="ec-mosaic${opts.tall ? " tall" : ""}" role="listbox" aria-label="${escapeHtml(opts.aria || "Composition")}">${mosaicHtml(slices, total, pack)}</div>` +
       `</div>` +
+      `<div class="ec-glass" hidden>` +
+        `<div class="ec-glass-pop">` +
+          `<span class="ec-glass-name"></span>` +
+          `<strong class="ec-glass-amt"></strong>` +
+        `</div>` +
+        `<div class="ec-glass-lens">` +
+          `<div class="ec-glass-track"></div>` +
+          `<i class="ec-glass-hair"></i>` +
+        `</div>` +
+      `</div>` +
+      `<i class="ec-caret" hidden></i>` +
       `<div class="ec-mosaic-tools">` +
         (showSpread ? `<button type="button" class="ec-spread">Spread slices</button>` : "") +
       `</div>` +
@@ -432,7 +443,7 @@
         `<span class="ec-loupe-swatch"></span>` +
         `<span class="ec-loupe-copy">` +
           `<span class="ec-loupe-name"></span>` +
-          `<span class="ec-loupe-sub">Tap here to open this page</span>` +
+          `<span class="ec-loupe-sub">Tap here to open the printed source</span>` +
         `</span>` +
         `<strong class="ec-loupe-amt"></strong>` +
       `</button>` +
@@ -477,18 +488,25 @@
   }
 
   function bindMosaicScrub(host, packs, cite) {
+    document.querySelectorAll("body > .ec-glass, body > .ec-caret").forEach((el) => el.remove());
     host.querySelectorAll(".ec-mosaic-ui").forEach((ui) => {
       const mosaic = ui.querySelector(".ec-mosaic");
       const scroll = ui.querySelector(".ec-mosaic-scroll");
       const loupe = ui.querySelector(".ec-loupe");
       const spread = ui.querySelector(".ec-spread");
+      const glass = ui.querySelector(".ec-glass");
+      const caret = ui.querySelector(".ec-caret");
       const pack = ui.getAttribute("data-pack");
       const slices = packs[pack] || [];
+      const dense = slices.length > 12;
       if (!mosaic) return;
+      if (glass) document.body.appendChild(glass);
+      if (caret) document.body.appendChild(caret);
       let selected = null;
       let dragging = false;
       let startX = 0;
       let moved = false;
+      const LENS_W = 196;
 
       const sliceButtons = () => mosaic.querySelectorAll(".ec-slice");
 
@@ -510,30 +528,77 @@
         return found || nearest;
       };
 
-      const activate = (btn) => {
+      const sliceCopy = (slice) => {
+        if (!slice) return { name: "", amt: "", page: "" };
+        const denom = slices.reduce((a, s) => a + s.value, 0) || 1;
+        const pct = (slice.value / denom) * 100;
+        const pctLabel = pct >= 10 ? pct.toFixed(0) + "%" : pct.toFixed(1) + "%";
+        const page = slice.page ? "p." + slice.page : (canBoxPrinted(slice.source) ? "" : "opens sources");
+        return {
+          name: slice.label + (slice.page ? " · p." + slice.page : ""),
+          amt: fmtShort(slice.signed != null ? slice.signed : slice.value) + " · " + pctLabel,
+          page,
+        };
+      };
+
+      const placeGlass = (clientX, slice) => {
+        if (!glass || !caret) return;
+        const rect = mosaic.getBoundingClientRect();
+        const x = Math.max(rect.left, Math.min(rect.right - 0.5, clientX));
+        const t = rect.width ? (x - rect.left) / rect.width : 0;
+        const zoom = dense ? 5 : 3;
+        const track = glass.querySelector(".ec-glass-track");
+        if (track && !track.childElementCount) track.innerHTML = mosaic.innerHTML;
+        if (track) {
+          track.style.width = Math.round(rect.width * zoom) + "px";
+          track.style.transform = "translateX(" + (LENS_W / 2 - t * rect.width * zoom) + "px)";
+        }
+        const copy = sliceCopy(slice);
+        const gn = glass.querySelector(".ec-glass-name");
+        const ga = glass.querySelector(".ec-glass-amt");
+        if (gn) gn.textContent = copy.name;
+        if (ga) ga.textContent = copy.amt;
+        const top = Math.max(8, rect.top - 118);
+        let left = x - LENS_W / 2;
+        left = Math.max(8, Math.min(window.innerWidth - LENS_W - 8, left));
+        glass.style.left = left + "px";
+        glass.style.top = top + "px";
+        glass.hidden = false;
+        caret.style.left = (x - 1) + "px";
+        caret.style.top = rect.top + "px";
+        caret.style.height = rect.height + "px";
+        caret.hidden = false;
+      };
+
+      const hideGlass = () => {
+        if (glass) glass.hidden = true;
+        if (caret) caret.hidden = true;
+      };
+
+      const activate = (btn, opts) => {
         selected = btn;
         sliceButtons().forEach((el) => el.classList.toggle("is-on", el === btn));
         if (!btn || !loupe) return;
         const i = Number(btn.getAttribute("data-i"));
         const slice = slices[i];
         if (!slice) return;
-        const denom = slices.reduce((a, s) => a + s.value, 0) || 1;
-        const pct = (slice.value / denom) * 100;
-        const pctLabel = pct >= 10 ? pct.toFixed(0) + "%" : pct.toFixed(1) + "%";
+        const copy = sliceCopy(slice);
         loupe.hidden = false;
         const sw = loupe.querySelector(".ec-loupe-swatch");
         const name = loupe.querySelector(".ec-loupe-name");
         const amt = loupe.querySelector(".ec-loupe-amt");
         if (sw) sw.style.background = slice.color;
-        if (name) name.textContent = slice.label + (slice.page ? " · p." + slice.page : "");
-        if (amt) amt.textContent = fmtShort(slice.signed != null ? slice.signed : slice.value) + " · " + pctLabel;
+        if (name) name.textContent = copy.name;
+        if (amt) amt.textContent = copy.amt;
         host.querySelectorAll(".ec-row, .ec-year").forEach((row) => {
           const on = row.getAttribute("data-pack") === pack && row.getAttribute("data-i") === String(i);
           row.classList.toggle("is-on", on);
         });
-        const row = host.querySelector(".ec-row[data-pack=\"" + pack + "\"][data-i=\"" + i + "\"]");
-        if (row) {
-          try { row.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
+        if (opts && opts.scrollRow) {
+          const row = host.querySelector(".ec-row[data-pack=\"" + pack + "\"][data-i=\"" + i + "\"]");
+          if (row) {
+            try { row.scrollIntoView({ block: "nearest" }); } catch (_) {}
+          }
         }
       };
 
@@ -544,7 +609,9 @@
         moved = false;
         startX = e.clientX;
         try { mosaic.setPointerCapture(e.pointerId); } catch (_) {}
-        activate(pickAt(e.clientX));
+        const btn = pickAt(e.clientX);
+        activate(btn);
+        placeGlass(e.clientX, btn && slices[Number(btn.getAttribute("data-i"))]);
         e.preventDefault();
       });
       mosaic.addEventListener("pointermove", (e) => {
@@ -554,25 +621,33 @@
           }
           return;
         }
-        if (Math.abs(e.clientX - startX) > 8) moved = true;
-        activate(pickAt(e.clientX));
+        if (Math.abs(e.clientX - startX) > 4) moved = true;
+        const btn = pickAt(e.clientX);
+        activate(btn);
+        placeGlass(e.clientX, btn && slices[Number(btn.getAttribute("data-i"))]);
       });
-      mosaic.addEventListener("pointerup", (e) => {
+      const endDrag = (e) => {
         if (!dragging) return;
         dragging = false;
         try { mosaic.releasePointerCapture(e.pointerId); } catch (_) {}
-        const btn = pickAt(e.clientX);
-        activate(btn);
-        if (!moved && btn) {
+        const btn = pickAt(e.clientX || startX);
+        activate(btn, { scrollRow: true });
+        hideGlass();
+        if (!dense && !moved && btn) {
           openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
         }
+      };
+      mosaic.addEventListener("pointerup", endDrag);
+      mosaic.addEventListener("pointercancel", (e) => {
+        dragging = false;
+        hideGlass();
+        try { mosaic.releasePointerCapture(e.pointerId); } catch (_) {}
       });
-      mosaic.addEventListener("pointercancel", () => { dragging = false; });
       mosaic.addEventListener("click", (e) => {
         if (!ui.classList.contains("is-spread")) return;
         const btn = e.target.closest(".ec-slice");
         if (!btn) return;
-        activate(btn);
+        activate(btn, { scrollRow: true });
         openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
       });
 
@@ -587,6 +662,7 @@
         spread.addEventListener("click", () => {
           const on = ui.classList.toggle("is-spread");
           spread.textContent = on ? "Fit bar" : "Spread slices";
+          hideGlass();
           if (on && scroll) {
             try { scroll.scrollLeft = 0; } catch (_) {}
           }
@@ -679,7 +755,7 @@
           `</div>` +
         `</div>` +
         `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
-        `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Drag a bar or tap a row.</div>` +
+        `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Press and hold the bar, slide to a piece, then tap the card to open that page.</div>` +
         `<div class="ec-rows">` +
           `<div class="ec-section">Revenue</div>` +
           rowsHtml(revSlices, Math.abs(revN) || 1, "rev") +
@@ -711,7 +787,7 @@
       `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
       `<div class="ec-hint">${inflation
         ? "Drag the bar or tap a row to box the printed nominal amount, " + fmtFull(stack) + "."
-        : "Drag across the bar to pick a unit, or use the list."}</div>` +
+        : "Press and hold the bar, slide to a unit, then tap the card to box it in the book."}</div>` +
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
     bindComposeFilter(host);
@@ -929,6 +1005,7 @@
     document.body.classList.toggle("evidence-open", open);
     if (!open) {
       document.body.classList.remove("evidence-pay", "ev-mode-compose", "ev-mode-page", "ev-mode-empty", "ev-mode-loading");
+      document.querySelectorAll("body > .ec-glass, body > .ec-caret").forEach((el) => el.remove());
     }
     const panel = $("evidencePanel");
     if (panel) panel.setAttribute("aria-hidden", open ? "false" : "true");
@@ -1566,13 +1643,18 @@
       currentPdf = doc;
       currentBook = piece.book;
       currentPage = Math.min(Math.max(1, piece.page), currentPdf.numPages);
-      if (highlightOn && piece.value != null) {
+      const trustHit = !!(piece.hit && piece.hit.x0 != null &&
+        valuesExact(parseMoney(piece.hit.query), piece.value));
+      if (trustHit && piece.hit.page) {
+        currentPage = Math.min(Math.max(1, piece.hit.page), currentPdf.numPages);
+      } else if (highlightOn && piece.value != null) {
         currentPage = await findPageWithValue(currentPdf, currentPage, piece.value);
       }
       $("evidencePageLabel").textContent = `p. ${currentPage} of ${currentPdf.numPages}`;
       $("evidenceDocLink").href = viewerUrl(piece.book, currentPage, piece.query || formatQueryFromValue(piece.value));
       $("evidenceDocLink").textContent = "Open page";
 
+      setPane("page");
       await renderPage(currentPage, {
         query: piece.query || formatQueryFromValue(piece.value),
         value: piece.value,
@@ -1581,7 +1663,6 @@
         line: piece.line,
       });
       if (gen != null && gen !== openGen) return;
-      setPane("page");
       if (highlightOn && !lastHighlight && piece.value != null) {
         showStatus("Opened " + piece.book + " p. " + currentPage +
           " but could not auto-box " + formatFigure(cite, piece) +
@@ -2345,6 +2426,22 @@
     };
   }
 
+  function auditSources() {
+    return (allSources || []).map((s) => ({
+      label: String(s.label || s.unit || "").slice(0, 90),
+      type: s.type || "",
+      book: s.book || "",
+      page: s.page || null,
+      value: s.value,
+      query: s.query || "",
+      boxable: canBoxPrinted(s),
+      metric: s.metric || "",
+      group: s.group || "",
+      fy: s.fy || "",
+      hasKids: !!(s.children && s.children.length),
+    }));
+  }
+
   global.EvidencePanel = {
     init: initPanelDom,
     openById,
@@ -2356,5 +2453,6 @@
     loadBookLines,
     loadBooks,
     setOpen,
+    auditSources,
   };
 })(window);
