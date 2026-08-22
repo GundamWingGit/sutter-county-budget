@@ -519,7 +519,7 @@
       </div>
       <div class="card">
         <h3>Planned surplus vs actual surplus</h3>
-        <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis — they are not missing. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
+        <p class="note">Every year has an adopted plan. Most planned about $0, so those bars sit on the axis — they are not missing. Click the light stub (or beside it) for the plan; click the green bar for the actual. FY 22-23 is omitted: no adopted book paired with later actuals.</p>
         <div class="chart-box short"><canvas id="chBva"></canvas></div>
       </div>
     </div>
@@ -906,31 +906,54 @@
 
   const b = D.surplusPlanVsActual;
   markChart("chBva");
-  new Chart(document.getElementById("chBva"), {
-    type: "bar",
-    data: {
-      labels: b.labels,
-      datasets: [
-        { label: "Adopted plan", data: b.planned, backgroundColor: LIGHT,
-          borderColor: STEEL, borderWidth: 1, minBarLength: 8 },
-        { label: "Actual surplus", data: b.actual, backgroundColor: GREEN, borderWidth: 0 }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      onClick: citeClick((ds, idx) => {
-        const fy = b.years[idx];
-        const ti = t.years.indexOf(fy);
-        if (ds === 0) return `adopted.plan.${idx}`;
-        return ti >= 0 ? `trend.surplus.${ti}` : null;
-      }),
-      scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
-      plugins: {
-        legend: { position: "bottom" },
-        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+  {
+    const planCite = idx => `adopted.plan.${idx}`;
+    const actualCite = idx => {
+      const ti = t.years.indexOf(b.years[idx]);
+      return ti >= 0 ? `trend.surplus.${ti}` : null;
+    };
+    const pickBva = (evt, els, chart) => {
+      const hits = chart.getElementsAtEventForMode(evt, "index", { intersect: false }, true);
+      if (!hits.length) return null;
+      const idx = hits[0].index;
+      const act = chart.getDatasetMeta(1).data[idx];
+      if (act) {
+        const half = (act.width || 0) / 2 + 4;
+        const top = Math.min(act.y, act.base);
+        const bot = Math.max(act.y, act.base);
+        if (evt.x >= act.x - half && evt.x <= act.x + half && evt.y >= top - 2 && evt.y <= bot + 2) {
+          return actualCite(idx);
+        }
       }
-    }
-  });
+      return planCite(idx);
+    };
+    const onBva = (evt, els, chart) => {
+      const id = pickBva(evt, els, chart);
+      if (id && window.EvidencePanel) EvidencePanel.openById(id);
+    };
+    onBva.buildId = (ds, idx) => (ds === 0 ? planCite(idx) : actualCite(idx));
+    new Chart(document.getElementById("chBva"), {
+      type: "bar",
+      data: {
+        labels: b.labels,
+        datasets: [
+          { label: "Adopted plan", data: b.planned, backgroundColor: LIGHT,
+            borderColor: STEEL, borderWidth: 1, minBarLength: 12 },
+          { label: "Actual surplus", data: b.actual, backgroundColor: GREEN, borderWidth: 0 }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        onClick: onBva,
+        scales: { y: { ticks: moneyTicks, grid }, x: { grid: { display: false } } },
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed.y)}` } }
+        }
+      }
+    });
+  }
 
   const ft = D.functionTrend;
   markChart("chFuncTrend");
