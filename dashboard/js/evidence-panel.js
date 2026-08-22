@@ -575,7 +575,7 @@
         if (caret) caret.hidden = true;
       };
 
-      const activate = (btn, opts) => {
+      const activate = (btn) => {
         selected = btn;
         sliceButtons().forEach((el) => el.classList.toggle("is-on", el === btn));
         if (!btn || !loupe) return;
@@ -594,12 +594,6 @@
           const on = row.getAttribute("data-pack") === pack && row.getAttribute("data-i") === String(i);
           row.classList.toggle("is-on", on);
         });
-        if (opts && opts.scrollRow) {
-          const row = host.querySelector(".ec-row[data-pack=\"" + pack + "\"][data-i=\"" + i + "\"]");
-          if (row) {
-            try { row.scrollIntoView({ block: "nearest" }); } catch (_) {}
-          }
-        }
       };
 
       mosaic.addEventListener("pointerdown", (e) => {
@@ -631,7 +625,7 @@
         dragging = false;
         try { mosaic.releasePointerCapture(e.pointerId); } catch (_) {}
         const btn = pickAt(e.clientX || startX);
-        activate(btn, { scrollRow: true });
+        activate(btn);
         hideGlass();
         if (!dense && !moved && btn) {
           openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
@@ -647,7 +641,7 @@
         if (!ui.classList.contains("is-spread")) return;
         const btn = e.target.closest(".ec-slice");
         if (!btn) return;
-        activate(btn, { scrollRow: true });
+        activate(btn);
         openSlice(cite, slices[Number(btn.getAttribute("data-i"))]);
       });
 
