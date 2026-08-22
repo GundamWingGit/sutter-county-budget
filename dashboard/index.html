@@ -654,20 +654,21 @@
 
   <section id="sec-explorer">
     <div class="sec-head"><span class="sec-num">8</span><h2>Look up a line</h2></div>
-    <p class="sec-q">Search the extracted budget lines. Click a row to open that page in the
-      source book.</p>
+    <p class="sec-q">Search lines printed in a source book. One book holds several columns —
+      adopted, recommended, and the last closed year’s actuals. Closed-year actuals print
+      two books later, so FY 2023-24 actuals are in the FY 2025-26 book.</p>
     <div class="card">
       <div class="explorer-controls">
-        <label>Budget book
+        <label>Source book
           <select id="explorerBook"></select>
         </label>
         <label>Search unit or account
           <input id="explorerQ" type="search" placeholder="e.g. County Jail, Total Revenues, Sheriff" />
         </label>
-        <label>Column
+        <label>Printed column
           <select id="explorerKind">
-            <option value="">All</option>
-            <option value="actual">Actual</option>
+            <option value="">All columns</option>
+            <option value="actual">Actual (closed year)</option>
             <option value="adopted">Adopted</option>
             <option value="recommended">Recommended</option>
             <option value="actual_estimated">Estimated actual</option>
@@ -1489,6 +1490,19 @@
       `<option value="${b.book}">${b.title} (${b.rows.toLocaleString()} rows)</option>`
     ).join("");
 
+    const prettyFy = fy => String(fy || "").replace(/^FY\s?/, "FY ");
+    const prettyKind = k => ({
+      actual: "actual",
+      adopted: "adopted",
+      recommended: "recommended",
+      actual_estimated: "estimated actual",
+      adjusted: "adjusted"
+    }[k] || k || "—");
+    const bookTitle = label => {
+      const b = (catalog && catalog.books || []).find(x => x.book === label);
+      return (b && b.title) || label;
+    };
+
     async function loadBook(label) {
       meta.textContent = "Loading " + label + "…";
       results.innerHTML = "";
@@ -1496,8 +1510,6 @@
         const data = await EvidencePanel.loadBookLines(label);
         currentBook = label;
         currentRows = data.rows || [];
-        meta.textContent = `${data.title}: ${currentRows.length.toLocaleString()} extracted values. ` +
-          `Search and click a row to open that page.`;
         render();
       } catch (e) {
         meta.textContent = "Failed to load " + label + ". Open via a local server.";
@@ -1516,13 +1528,20 @@
           return parts.every(p => hay.includes(p));
         });
       }
-      // Prefer summary rows when searching broadly
       const shown = hits.slice(0, 200);
+      const figureYears = [...new Set(shown.map(r => prettyFy(r.f)).filter(Boolean))];
+      const yearBit = figureYears.length === 1
+        ? (kind === "actual"
+          ? ` Those actuals are ${figureYears[0]} — closed years print two books later.`
+          : ` Those ${prettyKind(kind)} figures are ${figureYears[0]}.`)
+        : (figureYears.length > 1
+          ? ` This book prints ${figureYears.join(", ")} in separate columns.`
+          : "");
       meta.textContent =
-        `${currentBook}: showing ${shown.length.toLocaleString()} of ` +
+        `From the ${bookTitle(currentBook)}: showing ${shown.length.toLocaleString()} of ` +
         `${hits.length.toLocaleString()} matches` +
         (hits.length > 200 ? " (refine search to see more)" : "") +
-        `. Click a row to verify.`;
+        `.${yearBit} Click a row to verify.`;
 
       if (!shown.length) {
         results.innerHTML = `<p style="padding:16px;color:var(--ink-3);font-size:13px">No matching rows.</p>`;
@@ -1530,14 +1549,14 @@
       }
       results.innerHTML =
         `<table class="data"><thead><tr>` +
-        `<th>Unit</th><th>Line</th><th>FY</th><th>Kind</th>` +
+        `<th>Unit</th><th>Line</th><th>Year of figure</th><th>Column</th>` +
         `<th class="num">Value</th><th class="num">Page</th></tr></thead><tbody>` +
         shown.map((r, i) =>
           `<tr class="citeable" data-idx="${i}">` +
           `<td>${r.u || r.c || "—"}</td>` +
           `<td>${r.l}</td>` +
-          `<td>${r.f}</td>` +
-          `<td>${r.k}</td>` +
+          `<td>${prettyFy(r.f)}</td>` +
+          `<td>${prettyKind(r.k)}</td>` +
           `<td class="num">${fmtFull(r.v)}</td>` +
           `<td class="num">${r.p}</td></tr>`
         ).join("") + `</tbody></table>`;
