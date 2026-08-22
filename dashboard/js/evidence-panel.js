@@ -189,22 +189,78 @@
     return formatFigure(cite, cite);
   }
 
+  function normPayTitle(s) {
+    return String(s || "").toLowerCase().replace(/[–—]/g, "-").replace(/\s+/g, " ").trim();
+  }
+
+  function firstNum() {
+    for (let i = 0; i < arguments.length; i++) {
+      const v = arguments[i];
+      if (v == null || v === "") continue;
+      const n = Number(v);
+      if (!Number.isNaN(n)) return n;
+    }
+    return null;
+  }
+
+  function jobFromSeries(series, title, kind) {
+    if (!series || !series.labels) return null;
+    const want = normPayTitle(title);
+    const i = series.labels.findIndex(l => normPayTitle(l) === want);
+    if (i < 0) return null;
+    const fte = kind === "staff" ? (series.values || [])[i] : (series.fte || [])[i];
+    const estMid = kind === "cost" ? (series.values || [])[i] : (series.estMid || [])[i];
+    const units = (series.units || [])[i];
+    return {
+      title: series.labels[i],
+      min: (series.min || [])[i],
+      max: (series.max || [])[i],
+      fte,
+      estMid,
+      estMax: (series.estMax || [])[i],
+      units: Array.isArray(units) ? units : [],
+    };
+  }
+
   function payJob(cite) {
     const title = (cite && (cite.unit || cite.label)) || "";
-    const fy = String((cite && cite.fy) || "").replace(/\s+/g, "");
-    const byYear = (global.BUDGET_DATA && global.BUDGET_DATA.payByYear && global.BUDGET_DATA.payByYear.byYear) || {};
-    const pack = byYear[fy] || {};
-    const jobs = pack.jobs || (global.BUDGET_DATA && global.BUDGET_DATA.pay && global.BUDGET_DATA.pay.jobs) || [];
-    const want = title.toLowerCase().replace(/[–—]/g, "-");
-    const found = jobs.find(j => (j.title || "").toLowerCase().replace(/[–—]/g, "-") === want);
-    return found || {
-      title,
-      fte: cite && cite.fte,
-      min: cite && cite.min,
-      max: cite && cite.max,
-      estMid: cite && cite.estMid,
-      estMax: cite && cite.estMax,
-      units: (cite && cite.units) || [],
+    const family = citeFamily(cite);
+    const fy = String((cite && cite.fy) || "FY2025-26").replace(/\s+/g, "");
+    const D = global.BUDGET_DATA || {};
+    const pack = ((D.payByYear || {}).byYear || {})[fy] || D.pay || {};
+    const fallback = D.pay || {};
+    const jobs = pack.jobs || fallback.jobs || [];
+    const want = normPayTitle(title);
+    const found = jobs.find(j => normPayTitle(j.title) === want) || {};
+    const high = jobFromSeries(pack.highestPaid || fallback.highestPaid, title, "high") || {};
+    const cost = jobFromSeries(pack.costliestClasses || fallback.costliestClasses, title, "cost") || {};
+    const staff = jobFromSeries(pack.mostStaff || fallback.mostStaff, title, "staff") || {};
+    const min = firstNum(found.min, high.min, cost.min, cite && cite.min);
+    const max = firstNum(
+      found.max, high.max, cost.max, cite && cite.max,
+      family === "pay.high" ? cite && cite.value : null
+    );
+    const fte = firstNum(
+      found.fte, high.fte, cost.fte, staff.fte, cite && cite.fte,
+      family === "pay.staff" ? cite && cite.value : null
+    );
+    let estMid = firstNum(found.estMid, cost.estMid, cite && cite.estMid,
+      family === "pay.cost" ? cite && cite.value : null);
+    let estMax = firstNum(found.estMax, cite && cite.estMax);
+    if (estMid == null && min != null && max != null && fte != null) {
+      estMid = Math.round((min + max) / 2 * fte);
+    }
+    if (estMax == null && max != null && fte != null) {
+      estMax = Math.round(max * fte);
+    }
+    return {
+      title: found.title || high.title || cost.title || staff.title || title,
+      fte,
+      min,
+      max,
+      estMid,
+      estMax,
+      units: found.units || high.units || cost.units || (cite && cite.units) || [],
     };
   }
 
@@ -226,7 +282,7 @@
 
     const range = (job.min != null && job.max != null)
       ? fmtFull(job.min) + " – " + fmtFull(job.max)
-      : "—";
+      : (job.max != null ? fmtFull(job.max) : (job.min != null ? fmtFull(job.min) : "—"));
     const units = (job.units && job.units.length) ? job.units.join(" · ") : "";
 
     setPane("compose");
