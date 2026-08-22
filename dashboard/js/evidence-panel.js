@@ -2267,6 +2267,66 @@
     return w;
   }
 
+  function sheetBounds() {
+    const vh = window.innerHeight || 700;
+    return { min: Math.round(vh * 0.38), max: Math.round(vh * 0.96) };
+  }
+
+  function applySheetHeight(px, persist) {
+    const { min, max } = sheetBounds();
+    const h = Math.max(min, Math.min(max, Math.round(px)));
+    document.documentElement.style.setProperty("--evidence-sheet-h", h + "px");
+    if (persist) {
+      try { localStorage.setItem("evidenceSheetH", String(h)); } catch (_) {}
+    }
+    return h;
+  }
+
+  function initSheetResize(panel) {
+    const handle = $("evidenceSheetHandle");
+    if (!handle) return;
+    let startY = 0;
+    let startH = 0;
+    let lastH = 0;
+    let dragging = false;
+    const onMove = (e) => {
+      if (!dragging) return;
+      const y = e.clientY;
+      lastH = applySheetHeight(startH + (startY - y), false);
+    };
+    const onUp = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      document.body.classList.remove("evidence-resizing-v");
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      const { min } = sheetBounds();
+      if (lastH <= min && (startH + (startY - (e.clientY || startY))) < min - 48) {
+        setOpen(false);
+        return;
+      }
+      applySheetHeight(lastH || startH, true);
+      window.dispatchEvent(new Event("resize"));
+    };
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (!window.matchMedia("(max-width: 900px)").matches) return;
+      dragging = true;
+      startY = e.clientY;
+      startH = panel.getBoundingClientRect().height;
+      lastH = startH;
+      document.body.classList.add("evidence-resizing-v");
+      try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+      e.preventDefault();
+    });
+    handle.addEventListener("pointermove", onMove);
+    handle.addEventListener("pointerup", onUp);
+    handle.addEventListener("pointercancel", onUp);
+    try {
+      const saved = parseInt(localStorage.getItem("evidenceSheetH"), 10);
+      if (saved && window.matchMedia("(max-width: 900px)").matches) applySheetHeight(saved, false);
+    } catch (_) {}
+  }
+
   function initResize(panel) {
     const handle = document.createElement("div");
     handle.className = "evidence-resize";
@@ -2311,6 +2371,7 @@
     panel.setAttribute("aria-hidden", "true");
     panel.innerHTML = `
       <div class="evidence-header">
+        <button type="button" id="evidenceSheetHandle" class="evidence-sheet-handle" aria-label="Drag to resize the card"></button>
         <div class="evidence-header-top">
           <span id="evidenceBadge" class="evidence-badge">Source</span>
           <button type="button" id="evidenceClose" class="evidence-close" aria-label="Close">×</button>
@@ -2367,6 +2428,7 @@
       document.body.appendChild(scrim);
     }
     initResize(panel);
+    initSheetResize(panel);
 
     $("evidenceClose").addEventListener("click", () => setOpen(false));
     $("evidencePrev").addEventListener("click", () => stepPage(-1));

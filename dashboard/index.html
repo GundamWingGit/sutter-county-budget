@@ -298,6 +298,7 @@
     cursor: ew-resize; z-index: 2;
   }
   .evidence-resize:hover, body.evidence-resizing .evidence-resize { background: rgba(165,129,75,.35); }
+  .evidence-sheet-handle { display: none; }
   .evidence-header {
     padding: 14px 16px 10px; border-bottom: 1px solid var(--line); flex: 0 0 auto;
     max-height: 46vh; overflow: auto;
@@ -624,10 +625,10 @@
     #evidencePanel {
       top: auto; left: 8px; right: 8px; bottom: 0;
       width: auto;
-      height: min(86dvh, 740px);
-      min-width: 0; min-height: 0;
+      height: var(--evidence-sheet-h, min(86dvh, 740px));
+      min-width: 0; min-height: 36dvh;
       max-width: none;
-      max-height: min(86dvh, 740px);
+      max-height: 96dvh;
       border-left: 0; border-top: 1px solid var(--line);
       border-radius: 16px 16px 0 0;
       padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -637,7 +638,20 @@
     body.evidence-open #evidencePanel {
       transform: none;
     }
+    body.evidence-resizing-v #evidencePanel { transition: none; }
     .evidence-resize { display: none; }
+    .evidence-sheet-handle {
+      display: block;
+      width: 100%; height: 36px; padding: 0;
+      border: 0; background: transparent;
+      cursor: ns-resize; touch-action: none;
+    }
+    .evidence-sheet-handle::after {
+      content: "";
+      display: block; width: 40px; height: 5px; border-radius: 99px;
+      background: #c9d2de; margin: 10px auto 0;
+    }
+    .evidence-header::before { display: none !important; }
     .evidence-close {
       font-size: 30px; padding: 4px 10px; min-width: 44px; min-height: 44px;
     }
@@ -645,12 +659,8 @@
       max-height: none; overflow: visible;
       padding: 6px 14px 8px;
     }
-    .evidence-header::before {
-      content: "";
-      display: block; width: 36px; height: 4px; border-radius: 99px;
-      background: #c9d2de; margin: 2px auto 8px;
-    }
-    .evidence-header-top { margin-top: -28px; }
+    .evidence-header-top { margin-top: -28px; pointer-events: none; }
+    .evidence-close { pointer-events: auto; }
     #evidenceTitle { font-size: 15px; margin: 0 44px 2px 0; line-height: 1.25; }
     .evidence-clicked { font-size: 22px; margin: 0 0 8px; }
     .evidence-explain { padding: 8px 10px; margin: 0 0 6px; }
@@ -1103,7 +1113,7 @@
 
 <script src="data/budget-data.js"></script>
 <script src="data/citations.js"></script>
-<script src="js/evidence-panel.js?v=35"></script>
+<script src="js/evidence-panel.js?v=36"></script>
 <script>
 (function () {
   const D = window.BUDGET_DATA;
