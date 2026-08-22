@@ -532,17 +532,220 @@
     el.classList.toggle("err", !!isErr);
   }
 
-  function plainExplainer(cite) {
-    const v = fmtFull(cite.value);
+  function actualsLag(cite) {
+    if ((cite.kind || "actual") !== "actual" || !cite.fy || !cite.book) return "";
+    const fy = String(cite.fy).replace("FY", "FY ");
+    return ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`;
+  }
+
+  function citeFamily(cite) {
+    const id = String(cite.id || "");
+    const parts = id.split(".");
+    const head = parts[0] || "";
+    if (head === "kpi") return "kpi." + (parts[1] || "");
+    if (head === "trend") return "trend." + (parts[1] || "");
+    if (head === "inflation") return "inflation.real";
+    if (head === "adopted") return "adopted." + (parts[1] || "");
+    if (head === "pay") return "pay." + (parts[1] || "");
+    if (head === "function") return "function";
+    if (head === "revmix") return "revmix";
+    if (head === "expmix") return "expmix";
+    if (head === "revcat") return "revcat";
+    if (head === "expcat") return "expcat";
+    if (head === "contract") return "contract";
+    if (head === "dept" || head === "unit") {
+      const tail = parts[2];
+      if (tail === "growth") return "dept.growth";
+      if (tail === "net24") return "dept.net24";
+      if (tail === "fy16" || tail === "fy20" || tail === "fy24") return "dept.year";
+      return "dept.unit";
+    }
+
     const metric = cite.metric || "";
     const label = cite.label || "";
-    const kids = cite.children || [];
+    const formula = cite.formula || "";
+    const line = String(cite.line || "");
+    if (metric === "inflation" || /CPI|inflation/i.test(formula)) return "inflation.real";
+    if (/cumulative/i.test(label)) return "kpi.cumulativeSurplus";
+    if (/planned fund-balance draw|adopted planned|recommended planned/i.test(label)) {
+      return /recommended/i.test(label) ? "kpi.recommendedDraw2627" : "kpi.adoptedDraw2526";
+    }
+    if (cite.kind === "adopted" && /plan|surplus|draw/i.test(label)) return "adopted.plan";
+    if (cite.kind === "adopted" && metric === "spend") return "adopted.spend";
+    if (metric === "surplus") return "trend.surplus";
+    if (metric === "net" || /net county cost/i.test(line + label)) return "dept.net24";
+    if (metric === "function" || /function/i.test(formula)) return "function";
+    if (metric === "category") {
+      return /revenue/i.test(label + formula) ? "revcat" : "expcat";
+    }
+    if (metric === "contract" || /professional|contract/i.test(line + label)) return "contract";
+    if (metric === "pay") {
+      if (/FTE|authorized/i.test(formula) && !/range|salary/i.test(formula)) return "pay.staff";
+      if (/top of range|salary/i.test(formula)) return "pay.high";
+      return "pay.high";
+    }
+    if (cite.unit && /net county cost/i.test(line)) return "dept.net24";
+    if (cite.unit && isRevenueLine(line)) return "dept.revenue";
+    if (cite.unit && isSpendLine(line)) return "dept.unit";
+    if (cite.unit && line) return "printed.line";
+    if (metric === "revenue") return "trend.revenue";
+    if (metric === "spend") return "trend.spend";
+    return "";
+  }
 
-    if (cite.type === "printed" && metric !== "revenue" && metric !== "spend") {
-      const fy = cite.fy ? String(cite.fy).replace("FY", "FY ") : "";
-      const lag = (fy && cite.book)
-        ? ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`
-        : "";
+  function plainExplainer(cite) {
+    const family = citeFamily(cite);
+    const lag = actualsLag(cite);
+    const eq = cite.formula || null;
+    const fn = cite.function || (String(cite.label || "").split("—")[0] || "").trim();
+    const cat = cite.category || (String(cite.label || "").split("—")[0] || "").trim();
+    const unit = cite.unit || (String(cite.label || "").split("—")[0] || "").trim();
+    const line = cite.line || "this line";
+
+    const meanings = {
+      "trend.revenue": {
+        title: "Actual revenue",
+        body: "Money governmental funds recorded as received in that closed fiscal year. Not the adopted plan." + lag,
+      },
+      "trend.spend": {
+        title: "Actual spending",
+        body: "Money governmental funds recorded as spent in that closed fiscal year. Not the adopted appropriation." + lag,
+      },
+      "trend.surplus": {
+        title: "Actual surplus (or draw)",
+        body: "That year’s actual revenue minus actual spending. Positive means the books took in more than they spent.",
+        equation: eq,
+      },
+      "kpi.lastActualSurplus": {
+        title: "Latest closed-year leftover",
+        body: "FY 2024-25 actual revenue minus actual spending. Same math as that year’s surplus bar.",
+        equation: eq,
+      },
+      "kpi.lastActualRevenue": {
+        title: "Latest closed-year revenue",
+        body: "Governmental-fund money recorded as received in FY 2024-25. Not the adopted plan." + lag,
+      },
+      "kpi.lastActualSpend": {
+        title: "Latest closed-year spending",
+        body: "Governmental-fund money recorded as spent in FY 2024-25. Not the adopted appropriation." + lag,
+      },
+      "kpi.cumulativeSurplus": {
+        title: "Nine-year net",
+        body: "Sum of each closed year’s surplus from FY 2016-17 through FY 2024-25. Not cash on hand.",
+        equation: eq,
+      },
+      "kpi.adoptedDraw2526": {
+        title: "Adopted planned draw",
+        body: "FY 2025-26 Board-adopted revenue minus adopted spending. A plan to use fund balance, not a closed result.",
+        equation: eq,
+      },
+      "kpi.recommendedDraw2627": {
+        title: "Recommended planned draw",
+        body: "FY 2026-27 recommended revenue minus recommended spending. A staff proposal, not yet a closed result.",
+        equation: eq,
+      },
+      "inflation.real": {
+        title: "Inflation-adjusted spending",
+        body: "That year’s actual spending restated in FY 2024-25 dollars using CPI-U. The book only prints the nominal (unadjusted) amount.",
+        equation: eq,
+      },
+      "adopted.spend": {
+        title: "Adopted spending",
+        body: "Appropriations the Board authorized for that year — the spending plan / ceiling, not what later closed.",
+      },
+      "adopted.plan": {
+        title: "Adopted planned surplus (or draw)",
+        body: "Adopted revenue minus adopted spending for that year. What the Board planned; compare to the actual surplus bar.",
+        equation: eq,
+      },
+      "function": {
+        title: "Spending by function",
+        body: "Actual spending of every unit the county classifies under " +
+          (fn || "that function") +
+          " in that year." + lag,
+      },
+      "revmix": {
+        title: "Revenue by source type",
+        body: "Actual governmental-fund revenue in the " +
+          (cat || "that") +
+          " source bucket for that year." + lag,
+      },
+      "expmix": {
+        title: "Spending by object type",
+        body: "Actual spending in the " +
+          (cat || "that") +
+          " object bucket for that year." + lag,
+      },
+      "revcat": {
+        title: "Revenue category total",
+        body: "Actual governmental-fund revenue in " +
+          (cat || "this category") +
+          " for the latest year shown." + lag,
+      },
+      "expcat": {
+        title: "Spending category total",
+        body: "Actual spending in " +
+          (cat || "this category") +
+          " for the latest year shown." + lag,
+      },
+      "dept.unit": {
+        title: "Unit actual spending",
+        body: (unit ? unit + "’s" : "That budget unit’s") +
+          " printed Total Expenditures for the year shown. Not county-wide spending." + lag,
+      },
+      "dept.year": {
+        title: "Unit actual spending",
+        body: (unit ? unit + "’s" : "That budget unit’s") +
+          " printed Total Expenditures in that closed year." + lag,
+      },
+      "dept.growth": {
+        title: "Unit spending change",
+        body: "FY 2024-25 actual spending minus FY 2016-17 actual spending for this unit, in dollars — not a percent.",
+        equation: eq,
+      },
+      "dept.net24": {
+        title: "Net county cost",
+        body: "This unit’s printed Net County Cost: spending minus the unit’s own revenue — the piece the county must cover." + lag,
+      },
+      "dept.revenue": {
+        title: "Unit actual revenue",
+        body: (unit ? unit + "’s" : "That budget unit’s") +
+          " printed Total Revenues for the year shown." + lag,
+      },
+      "pay.high": {
+        title: "Top of salary range",
+        body: "Highest authorized annual rate for this classification in the FY 2025-26 salary resolution. Not what any one person was paid.",
+      },
+      "pay.cost": {
+        title: "Estimated class payroll",
+        body: "Authorized FTE times a point on this class’s salary range (the chart uses mid-range). An estimate, not a printed payroll total.",
+      },
+      "pay.staff": {
+        title: "Authorized seats",
+        body: "Budgeted FTE for this classification in the position allocation schedule — not filled headcount.",
+      },
+      "contract": {
+        title: "Contract / professional-services line",
+        body: "One object in that unit’s budget, not the unit’s total spending.",
+      },
+      "printed.line": {
+        title: "Printed budget line",
+        body: "The boxed figure is " +
+          (unit ? unit + " — " : "") +
+          line +
+          ", as printed in the source book.",
+      },
+    };
+
+    if (meanings[family]) {
+      return {
+        title: meanings[family].title,
+        body: meanings[family].body,
+        equation: meanings[family].equation || null,
+      };
+    }
+
+    if (cite.type === "printed") {
       return {
         title: "Printed in the source book",
         body: "The boxed figure is the same amount you clicked." + lag,
@@ -550,97 +753,10 @@
       };
     }
 
-    if (metric === "inflation") {
-      return {
-        title: "CPI-adjusted, not a printed total",
-        body: "The budget book prints nominal dollars. Click the source row to box that printed amount.",
-        equation: cite.formula || null,
-      };
-    }
-
-    if ((metric === "surplus" || /surplus/i.test(label)) && !/cumulative/i.test(label)) {
-      return {
-        title: "Revenue minus spending",
-        body: "Click a slice to open that unit’s printed page.",
-        equation: null,
-      };
-    }
-
-    if (metric === "revenue" || metric === "spend") {
-      const what = metric === "revenue" ? "revenue" : "spending";
-      if (cite.type === "printed") {
-        const fy = cite.fy ? String(cite.fy).replace("FY", "FY ") : "";
-        const lag = (fy && cite.book)
-          ? ` ${fy} actuals are printed in the ${cite.book} book — closed years appear two books later.`
-          : "";
-        return {
-          title: "How this total is built",
-          body: "Unit lines below add to the amount you clicked. This year also prints as one governmental-fund " +
-            what + " figure — click that row to box it." + lag,
-          equation: null,
-        };
-      }
-      return {
-        title: "How this total is built",
-        body: "This book does not print a single governmental-fund " + what +
-          " total. The unit lines below add to the amount you clicked. Click a row to box that printed line.",
-        equation: null,
-      };
-    }
-
-    if (metric === "function" || /function/i.test(cite.formula || "")) {
-      const fn = cite.function || (label.split("—")[0] || "").trim();
-      return {
-        title: "Sum of units in " + (fn || "this function"),
-        body: "Click a slice to open that unit’s printed page.",
-        equation: null,
-      };
-    }
-
-    if (metric === "category") {
-      return {
-        title: "Sum of " + (cite.category || "category") + " lines",
-        body: "Click a slice to open that printed line.",
-        equation: null,
-      };
-    }
-
-    if (metric === "pay") {
-      return {
-        title: "Position allocation schedule",
-        body: "This figure comes from the FY 2025-26 Position Allocation Schedule (Section J), not Schedule 9 unit totals.",
-        equation: null,
-      };
-    }
-
-    if (metric === "contract") {
-      return {
-        title: "Contract line in a budget unit",
-        body: "This is a professional-services / contract object in that unit’s budget, not the unit’s total spending.",
-        equation: null,
-      };
-    }
-
-    if (/cumulative/i.test(label)) {
-      return {
-        title: "Sum of annual surpluses",
-        body: "Each bar is one closed year. Click a year to open its sources.",
-        equation: null,
-      };
-    }
-
-    if (/draw|planned/i.test(label)) {
-      return {
-        title: "Adopted revenue minus adopted spending",
-        body: "A planned figure, not a closed-year result. Click a slice to open a source page.",
-        equation: null,
-      };
-    }
-
     return {
       title: "Derived from source rows",
       body: cite.formula || "Combined from more than one printed figure.",
-      equation: cite.formula || null,
+      equation: eq,
     };
   }
 
