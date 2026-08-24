@@ -661,6 +661,11 @@
           }
         });
       }
+
+      ui._selectSlice = (i) => {
+        const btn = mosaic.querySelector('.ec-slice[data-i="' + i + '"]');
+        if (btn) activate(btn);
+      };
     });
   }
 
@@ -672,6 +677,7 @@
       });
     });
     bindMosaicScrub(host, packs, cite);
+    bindComposeFilter(host, packs, cite);
   }
 
   function renderComposition(cite) {
@@ -747,8 +753,9 @@
             }) +
           `</div>` +
         `</div>` +
-        `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
+        filterBarHtml() +
         `<div class="ec-hint">${revSlices.length + expSlices.length} unit lines. Press and hold the bar, slide to a piece, then tap the card to open that page.</div>` +
+        `<div class="ec-filter-empty" hidden></div>` +
         `<div class="ec-rows">` +
           `<div class="ec-section">Revenue</div>` +
           rowsHtml(revSlices, Math.abs(revN) || 1, "rev") +
@@ -756,7 +763,6 @@
           rowsHtml(expSlices.map(s => ({ ...s, label: s.label })), Math.abs(expN) || 1, "exp") +
         `</div>`;
       bindComposeClicks(host, { rev: revSlices, exp: expSlices }, cite);
-      bindComposeFilter(host);
       return;
     }
 
@@ -777,28 +783,501 @@
       `<div class="ec-total">${fmtFull(clicked)}</div>` +
       printedChip +
       mosaicUiHtml(slices, inflation ? stack : (Math.abs(clicked) || stack), "main", { aria: "Composition mosaic" }) +
-      `<input class="ec-filter" type="search" placeholder="Filter units…" />` +
+      filterBarHtml() +
       `<div class="ec-hint">${inflation
         ? "Drag the bar or tap a row to box the printed nominal amount, " + fmtFull(stack) + "."
         : "Press and hold the bar, slide to a unit, then tap the card to box it in the book."}</div>` +
+      `<div class="ec-filter-empty" hidden></div>` +
       `<div class="ec-rows">${rowsHtml(slices, stack, "main")}</div>`;
     bindComposeClicks(host, { main: slices }, cite);
-    bindComposeFilter(host);
     const printedBtn = host.querySelector("[data-printed]");
     if (printedBtn && printedTotal) {
       printedBtn.addEventListener("click", () => showPiece(cite, printedTotal, ++openGen));
     }
   }
 
-  function bindComposeFilter(host) {
+  function filterBarHtml() {
+    return `<div class="ec-filter-bar">` +
+      `<input class="ec-filter" type="search" placeholder="Find police, fire, roads…" autocomplete="off" enterkeyhint="search" />` +
+      `<div class="ec-filter-meta" hidden></div>` +
+    `</div>`;
+  }
+
+  function normSearch(s) {
+    return String(s || "")
+      .toLowerCase()
+      .replace(/['’]/g, "")
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function expandBudgetShorthand(text) {
+    return String(text || "")
+      .replace(/\bdevelp\b/g, "development")
+      .replace(/\bcnty\b/g, "county")
+      .replace(/\bsrvc\b/g, "service")
+      .replace(/\bsrvs\b/g, "services")
+      .replace(/\bhlth\b/g, "health")
+      .replace(/\benforcemt\b/g, "enforcement")
+      .replace(/\benforcemnt\b/g, "enforcement")
+      .replace(/\batty\b/g, "attorney")
+      .replace(/\bdefen\b/g, "defender")
+      .replace(/\badmin(?:istration)?\b/g, "administration")
+      .replace(/\bdept\b/g, "department")
+      .replace(/\bgenr\b/g, "general")
+      .replace(/\bfac(?:ilitiy|ilities|ility)?\b/g, "facilities")
+      .replace(/\bprj\b/g, "project")
+      .replace(/\brealgn(?:ment)?\b/g, "realignment")
+      .replace(/\bsubstnc\b/g, "substance")
+      .replace(/\bprvnt\b/g, "prevention")
+      .replace(/\bimprv\b/g, "improvement");
+  }
+
+  function searchableHay(name) {
+    const n = expandBudgetShorthand(normSearch(name));
+    const extras = [];
+    if (/\bisf\b/.test(n)) extras.push("internal service fund");
+    if (/\bda\b/.test(n) || /\bdistrict attorney\b/.test(n)) extras.push("district attorney prosecutor da");
+    if (/\bihss\b/.test(n)) extras.push("in home supportive services ihss");
+    if (/\bmhsa\b/.test(n)) extras.push("mental health services act behavioral");
+    if (/\boem\b/.test(n)) extras.push("emergency management oem");
+    if (/\bems\b/.test(n)) extras.push("emergency medical ambulance paramedic");
+    if (/\bcsa\b/.test(n)) extras.push("county service area fire");
+    if (/\bslesf\b/.test(n)) extras.push("law enforcement sheriff");
+    if (/\btanf\b/.test(n)) extras.push("welfare cash assistance family");
+    if (/\berp\b/.test(n)) extras.push("software payroll system");
+    return (n + " " + extras.join(" ")).trim();
+  }
+
+  const SEARCH_ABBREV = {
+    da: ["district attorney", "prosecutor"],
+    it: ["information technology"],
+    hr: ["human resources", "personnel"],
+    pd: ["public defender", "sheriff"],
+    bos: ["board of supervisors"],
+    cao: ["county administrator"],
+    ceo: ["county administrator"],
+    aco: ["auditor controller"],
+    ttc: ["treasurer tax collector"],
+    ihss: ["in home supportive"],
+    mhsa: ["mental health", "behavioral health"],
+    oem: ["emergency management"],
+    ems: ["emergency medical"],
+    isf: ["internal service"],
+    csa: ["county service area"],
+    wc: ["workers compensation"],
+  };
+
+  const SEARCH_TOPICS = [
+    {
+      ask: ["police", "polic", "cop", "cops", "patrol", "deputy", "deputies", "leo"],
+      core: ["sheriff", "law enforcement"],
+      near: ["jail", "inmate", "public safety", "probation", "bailiff", "coroner", "dispatch", "communications", "detention", "slesf", "elesa", "boat patrol"],
+    },
+    {
+      ask: ["cops", "policeman", "policemen", "policing"],
+      core: ["sheriff"],
+      near: ["law enforcement", "public safety", "jail"],
+    },
+    {
+      ask: ["jail", "prison", "inmate", "inmates", "detention", "lockup", "incarcerat"],
+      core: ["jail", "inmate"],
+      near: ["sheriff", "probation", "corrections"],
+    },
+    {
+      ask: ["fire", "firefighter", "firefighters", "firefighting"],
+      core: ["fire"],
+      near: ["emergency", "csa"],
+    },
+    {
+      ask: ["road", "roads", "street", "streets", "highway", "highways", "pothole", "potholes", "pavement"],
+      core: ["road"],
+      near: ["transportation", "public ways"],
+    },
+    {
+      ask: ["welfare", "calworks", "snap", "foodstamps", "benefits", "tanf", "cash aid"],
+      core: ["welfare", "social services", "tanf"],
+      near: ["human services", "public assistance", "general relief"],
+    },
+    {
+      ask: ["mental", "psych", "psychiatric", "behavioral", "bh"],
+      core: ["behavioral health", "mental health"],
+      near: ["mhsa", "alcohol", "opioid"],
+    },
+    {
+      ask: ["kids", "children", "child", "cps", "foster", "youth"],
+      core: ["child", "foster", "juvenile"],
+      near: ["welfare", "probation", "youthful"],
+    },
+    {
+      ask: ["911", "dispatch", "radio"],
+      core: ["communications", "sheriff communications"],
+      near: ["sheriff", "emergency"],
+    },
+    {
+      ask: ["tax", "taxes", "property tax"],
+      core: ["treasurer", "tax collector", "assessor"],
+      near: ["auditor", "property tax"],
+    },
+    {
+      ask: ["lawyer", "lawyers", "attorney", "attorneys", "legal", "prosecutor", "prosecutors"],
+      core: ["district attorney", "county counsel", "public defender"],
+      near: ["trial court", "victim"],
+    },
+    {
+      ask: ["dog", "dogs", "animal", "animals", "pets", "pet"],
+      core: ["animal control"],
+      near: ["spay", "neuter"],
+    },
+    {
+      ask: ["library", "libraries", "books"],
+      core: ["library"],
+      near: [],
+    },
+    {
+      ask: ["park", "parks", "recreation", "playground"],
+      core: ["parks", "recreation"],
+      near: [],
+    },
+    {
+      ask: ["water", "flood", "levee", "canal", "wastewater", "sewer"],
+      core: ["water", "flood", "levee"],
+      near: ["canal"],
+    },
+    {
+      ask: ["airport", "aviation", "plane", "planes"],
+      core: ["airport"],
+      near: [],
+    },
+    {
+      ask: ["museum", "museums"],
+      core: ["museum"],
+      near: [],
+    },
+    {
+      ask: ["hiring", "personnel", "employees", "staffing"],
+      core: ["human resources", "personnel"],
+      near: [],
+    },
+    {
+      ask: ["insurance", "workmans", "workman", "workers comp", "compensation"],
+      core: ["workers comp", "liability insurance"],
+      near: ["insurance", "bonds"],
+    },
+    {
+      ask: ["permit", "permits", "zoning", "planning", "building"],
+      core: ["planning", "building inspection"],
+      near: ["building maintenance", "plan check"],
+    },
+    {
+      ask: ["supervisor", "supervisors", "board"],
+      core: ["board of supervisors"],
+      near: ["clerk of the board"],
+    },
+    {
+      ask: ["administrator", "admin"],
+      core: ["county administrator"],
+      near: [],
+    },
+    {
+      ask: ["veteran", "veterans", "vets", "va"],
+      core: ["veterans"],
+      near: [],
+    },
+    {
+      ask: ["homeless", "housing", "shelter", "unhoused"],
+      core: ["homeless", "housing"],
+      near: ["casa de esperanza"],
+    },
+    {
+      ask: ["court", "courts", "judge", "judges"],
+      core: ["trial court", "superior court"],
+      near: ["bailiff", "public defender", "district attorney"],
+    },
+    {
+      ask: ["probation", "parole"],
+      core: ["probation"],
+      near: ["community correction", "juvenile"],
+    },
+    {
+      ask: ["ambulance", "paramedic", "paramedics"],
+      core: ["emergency medical"],
+      near: ["emergency services"],
+    },
+    {
+      ask: ["coroner", "morgue", "medical examiner"],
+      core: ["coroner"],
+      near: ["sheriff"],
+    },
+    {
+      ask: ["boat", "marine", "boats"],
+      core: ["boat patrol"],
+      near: ["sheriff"],
+    },
+    {
+      ask: ["computers", "software", "tech", "technology"],
+      core: ["information technology"],
+      near: ["workday"],
+    },
+    {
+      ask: ["covid", "coronavirus", "arpa", "cares", "pandemic"],
+      core: ["covid", "cares", "american recovery", "coronavirus"],
+      near: [],
+    },
+  ];
+
+  function editDistance(a, b) {
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    const row = new Array(b.length + 1);
+    for (let j = 0; j <= b.length; j++) row[j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      let prev = i - 1;
+      row[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const tmp = row[j];
+        row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+        prev = tmp;
+      }
+    }
+    return row[b.length];
+  }
+
+  function tokenClose(a, b) {
+    if (!a || !b) return 0;
+    if (a === b) return 1;
+    if (a.length <= 2) return 0;
+    if (b.startsWith(a) && a.length >= 3 && a.length / b.length >= 0.55) return 0.86;
+    if (a.startsWith(b) && b.length >= 4 && a.length - b.length <= 2) return 0.7;
+    if (a.length >= 5 && b.length >= 5) {
+      const d = editDistance(a, b);
+      if (d <= 1) return 0.82;
+      if (d === 2 && Math.max(a.length, b.length) >= 7) return 0.62;
+    }
+    return 0;
+  }
+
+  function queryStems(q) {
+    const out = [q];
+    if (q.length > 3 && /s$/.test(q) && !/ss$/.test(q)) out.push(q.slice(0, -1));
+    return out;
+  }
+
+  function boundedContains(hay, phrase) {
+    const p = normSearch(phrase);
+    if (!p) return false;
+    const padded = " " + hay + " ";
+    if (p.length <= 3) return padded.indexOf(" " + p + " ") >= 0;
+    if (padded.indexOf(" " + p) >= 0) return true;
+    const pts = p.split(" ");
+    if (pts.length < 2) return false;
+    return pts.every((t) => padded.indexOf(" " + t) >= 0);
+  }
+
+  function phraseIn(hay, phrase) {
+    return boundedContains(hay, phrase);
+  }
+
+  function sizeSearchBonus(value) {
+    const a = Math.abs(Number(value) || 0);
+    return a > 0 ? Math.min(380, Math.log10(a + 1) * 48) : 0;
+  }
+
+  function satelliteMul(hay) {
+    return /\b(fee|fees|trust|grant|schedule|impact|isf)\b/.test(hay) ? 0.7 : 1;
+  }
+
+  function primaryBoost(hay, stems) {
+    const skip = /^(county|department|services|administration|general|fund|office|the|and)$/;
+    const nTok = hay.split(" ").filter((t) => t && !skip.test(t));
+    if (nTok.length === 1 && stems.some((s) => nTok[0] === s || (s.length >= 4 && nTok[0].startsWith(s)))) {
+      return 1800;
+    }
+    return 0;
+  }
+
+  function scoreUnitSearch(query, name, value) {
+    const qRaw = String(query || "").trim();
+    if (!qRaw) return { score: 0, why: "" };
+    const qn = expandBudgetShorthand(normSearch(qRaw));
+    const hay = searchableHay(name);
+    if (!qn || !hay) return { score: 0, why: "" };
+
+    const stems = queryStems(qn);
+    const shortQuery = qn.length <= 2;
+    const bump = primaryBoost(hay, stems);
+    const sat = satelliteMul(hay);
+    if (!shortQuery) {
+      if (stems.some((s) => hay === s)) {
+        return { score: (12000 + bump) * sat + sizeSearchBonus(value), why: "exact name" };
+      }
+      if (stems.some((s) => hay.indexOf(s) === 0 && (hay.length === s.length || hay[s.length] === " "))) {
+        return { score: (8000 + bump) * sat + sizeSearchBonus(value), why: "name" };
+      }
+      if (stems.some((s) => boundedContains(hay, s))) {
+        return { score: (7600 + bump) * sat + sizeSearchBonus(value), why: "name" };
+      }
+    }
+
+    const qTokens = qn.split(" ").filter(Boolean);
+    const nTokens = hay.split(" ").filter(Boolean);
+    let score = 0;
+    let hits = 0;
+    let why = "";
+
+    qTokens.forEach((qt) => {
+      let best = 0;
+      let label = "";
+
+      nTokens.forEach((nt) => {
+        const c = tokenClose(qt, nt);
+        if (c > best) {
+          best = c;
+          label = nt;
+        }
+      });
+
+      const abbrev = SEARCH_ABBREV[qt] || [];
+      abbrev.forEach((ex) => {
+        if (phraseIn(hay, ex) && 0.96 > best) {
+          best = 0.96;
+          label = ex;
+        }
+      });
+
+      SEARCH_TOPICS.forEach((topic) => {
+        const asked = topic.ask.some((a) => {
+          const an = normSearch(a);
+          if (an === qt || an === qn || stems.indexOf(an) >= 0) return true;
+          return tokenClose(qt, an.split(" ")[0]) >= 0.82;
+        });
+        if (!asked) return;
+        topic.core.forEach((core) => {
+          if (phraseIn(hay, core) && 0.92 > best) {
+            best = 0.92;
+            label = core;
+          }
+        });
+        topic.near.forEach((near) => {
+          if (phraseIn(hay, near) && 0.58 > best) {
+            best = 0.58;
+            label = near;
+          }
+        });
+        if (asked && topic.core.some((core) => hay.indexOf(normSearch(core)) === 0) && best < 1.15) {
+          best = Math.max(best, 1.12);
+          label = topic.core[0];
+        }
+      });
+
+      if (qt.length <= 2 && best < 0.9) best = 0;
+
+      if (best >= 0.55) {
+        hits += 1;
+        score += best * 1000;
+        if (!why) why = label;
+      }
+    });
+
+    if (!hits) return { score: 0, why: "" };
+    if (qTokens.length > 1) score *= hits / qTokens.length;
+    const abbrev = SEARCH_ABBREV[qn];
+    if (abbrev && abbrev.some((ex) => hay === normSearch(ex) || hay.indexOf(normSearch(ex) + " ") === 0)) {
+      score += 2200;
+    }
+    score += bump;
+    score *= sat;
+    score += sizeSearchBonus(value);
+    return { score, why };
+  }
+
+  function bindComposeFilter(host, packs, cite) {
     const input = host.querySelector(".ec-filter");
     if (!input) return;
-    input.addEventListener("input", () => {
-      const q = input.value.trim().toLowerCase();
-      host.querySelectorAll(".ec-row").forEach((row) => {
-        const name = ((row.querySelector(".ec-row-name") || {}).textContent || "").toLowerCase();
-        row.hidden = !!(q && !name.includes(q));
+    const meta = host.querySelector(".ec-filter-meta");
+    const empty = host.querySelector(".ec-filter-empty");
+    const packBase = { rev: 0, exp: 20000, main: 0 };
+    let topHit = null;
+
+    const apply = () => {
+      const q = input.value.trim();
+      const rows = Array.prototype.slice.call(host.querySelectorAll(".ec-row[data-pack][data-i]"));
+      topHit = null;
+      if (!q) {
+        rows.forEach((row) => {
+          row.hidden = false;
+          row.style.order = "";
+        });
+        host.querySelectorAll(".ec-section").forEach((sec) => {
+          sec.hidden = false;
+          sec.style.order = "";
+        });
+        if (meta) {
+          meta.hidden = true;
+          meta.textContent = "";
+        }
+        if (empty) {
+          empty.hidden = true;
+          empty.textContent = "";
+        }
+        return;
+      }
+
+      const ranked = rows.map((row) => {
+        const pack = row.getAttribute("data-pack");
+        const i = Number(row.getAttribute("data-i"));
+        const slice = (packs[pack] || [])[i] || {};
+        const name = slice.label || ((row.querySelector(".ec-row-name") || {}).textContent || "");
+        const hit = scoreUnitSearch(q, name, slice.signed != null ? slice.signed : slice.value);
+        return { row, pack, i, slice, hit };
+      }).sort((a, b) => b.hit.score - a.hit.score);
+
+      ranked.forEach((item, idx) => {
+        const ok = item.hit.score >= 400;
+        item.row.hidden = !ok;
+        item.row.style.order = String((packBase[item.pack] || 0) + idx);
+        if (ok && !topHit) topHit = item;
       });
+
+      host.querySelectorAll(".ec-section").forEach((sec) => {
+        const pack = /spend/i.test(sec.textContent || "") ? "exp" : "rev";
+        sec.hidden = !ranked.some((item) => item.pack === pack && item.hit.score >= 400);
+        sec.style.order = String(packBase[pack] || 0);
+      });
+
+      const shown = ranked.filter((item) => item.hit.score >= 400);
+      if (empty) {
+        empty.hidden = !!shown.length;
+        empty.textContent = shown.length ? "" : "No departments match “" + q + "”. Try sheriff, fire, roads, or welfare.";
+      }
+      if (meta) {
+        if (!shown.length) {
+          meta.hidden = true;
+          meta.textContent = "";
+        } else {
+          const lead = topHit && topHit.slice && topHit.slice.label ? topHit.slice.label : "";
+          const why = topHit && topHit.hit.why ? " · matched " + topHit.hit.why : "";
+          meta.hidden = false;
+          meta.textContent = (shown.length === 1 ? "1 match" : shown.length + " matches") +
+            (lead ? " · " + lead + " first" : "") + why;
+        }
+      }
+
+      if (topHit) {
+        const ui = host.querySelector('.ec-mosaic-ui[data-pack="' + topHit.pack + '"]');
+        if (ui && typeof ui._selectSlice === "function") ui._selectSlice(topHit.i);
+        try { topHit.row.scrollIntoView({ block: "nearest" }); } catch (_) {}
+      }
+    };
+
+    input.addEventListener("input", apply);
+    input.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" || !topHit) return;
+      e.preventDefault();
+      openSlice(cite, topHit.slice);
     });
   }
 
@@ -1339,12 +1818,15 @@
     const labelEl = $("evidenceChildrenLabel");
     if (!list) return;
 
-    const q = (filter || "").trim().toLowerCase();
-    const sources = allSources.filter(s => {
-      if (!q) return true;
-      const hay = ((s.label || "") + " " + (s.unit || "") + " " + (s.line || "") + " " + (s.group || "")).toLowerCase();
-      return hay.includes(q);
-    });
+    const q = (filter || "").trim();
+    const sources = (!q ? allSources : allSources
+      .map((s) => {
+        const text = [s.unit, s.label, s.line, s.group].filter(Boolean).join(" ");
+        return { s, hit: scoreUnitSearch(q, text, s.value) };
+      })
+      .filter((x) => x.hit.score >= 400)
+      .sort((a, b) => b.hit.score - a.hit.score)
+      .map((x) => x.s));
 
     if (qBox) qBox.hidden = allSources.length < 8;
 
@@ -2579,7 +3061,7 @@
       <div id="evidenceSourceWrap" class="evidence-children-wrap">
         <div class="evidence-children-label" id="evidenceChildrenLabel"></div>
         <p class="evidence-children-sum" id="evidenceSourceSum"></p>
-        <input id="evidenceSourceQ" type="search" placeholder="Search units…" hidden />
+        <input id="evidenceSourceQ" type="search" placeholder="Find police, fire, roads…" hidden />
         <div id="evidenceChildren"></div>
       </div>
     `;

@@ -409,9 +409,19 @@
     color: var(--navy); margin: 4px 0 14px;
   }
   body.ev-mode-page .evidence-status:not(.err) { display: none; }
+  .ec-filter-bar { margin: 10px 0 8px; }
   .ec-filter {
     width: 100%; font: 13px var(--sans); border: 1px solid var(--line);
-    background: #fff; padding: 7px 8px; margin: 10px 0 8px;
+    background: #fff; padding: 7px 8px; margin: 0;
+  }
+  .ec-filter-meta {
+    font-size: 12px; color: var(--ink-3); margin-top: 6px; line-height: 1.35;
+  }
+  .ec-filter-empty {
+    font-size: 13px; color: var(--ink-2); padding: 8px 0 4px; line-height: 1.4;
+  }
+  .ec-row[hidden], .ec-section[hidden], .ec-filter-meta[hidden], .ec-filter-empty[hidden] {
+    display: none !important;
   }
   .ec-section {
     font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
